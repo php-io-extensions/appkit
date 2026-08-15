@@ -1,0 +1,46 @@
+
+extern zend_class_entry *appkit_ns_nstextparagraph_nstextparagraph_ce;
+
+ZEPHIR_INIT_CLASS(AppKit_NS_NSTextParagraph_NSTextParagraph);
+
+PHP_METHOD(AppKit_NS_NSTextParagraph_NSTextParagraph, create);
+PHP_METHOD(AppKit_NS_NSTextParagraph_NSTextParagraph, wrap);
+PHP_METHOD(AppKit_NS_NSTextParagraph_NSTextParagraph, destroy);
+PHP_METHOD(AppKit_NS_NSTextParagraph_NSTextParagraph, getAttributedString);
+PHP_METHOD(AppKit_NS_NSTextParagraph_NSTextParagraph, paragraphContentRangePtr);
+PHP_METHOD(AppKit_NS_NSTextParagraph_NSTextParagraph, paragraphSeparatorRangePtr);
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nstextparagraph_nstextparagraph_create, 0, 0, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, value, IS_STRING, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nstextparagraph_nstextparagraph_wrap, 0, 1, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, nsTextParagraphPtr, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nstextparagraph_nstextparagraph_destroy, 0, 1, IS_VOID, 0)
+
+	ZEND_ARG_TYPE_INFO(0, paragraph, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nstextparagraph_nstextparagraph_getattributedstring, 0, 1, IS_STRING, 0)
+	ZEND_ARG_TYPE_INFO(0, paragraph, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nstextparagraph_nstextparagraph_paragraphcontentrangeptr, 0, 1, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, paragraph, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nstextparagraph_nstextparagraph_paragraphseparatorrangeptr, 0, 1, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, paragraph, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEPHIR_INIT_FUNCS(appkit_ns_nstextparagraph_nstextparagraph_method_entry) {
+	PHP_ME(AppKit_NS_NSTextParagraph_NSTextParagraph, create, arginfo_appkit_ns_nstextparagraph_nstextparagraph_create, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSTextParagraph_NSTextParagraph, wrap, arginfo_appkit_ns_nstextparagraph_nstextparagraph_wrap, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSTextParagraph_NSTextParagraph, destroy, arginfo_appkit_ns_nstextparagraph_nstextparagraph_destroy, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSTextParagraph_NSTextParagraph, getAttributedString, arginfo_appkit_ns_nstextparagraph_nstextparagraph_getattributedstring, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSTextParagraph_NSTextParagraph, paragraphContentRangePtr, arginfo_appkit_ns_nstextparagraph_nstextparagraph_paragraphcontentrangeptr, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSTextParagraph_NSTextParagraph, paragraphSeparatorRangePtr, arginfo_appkit_ns_nstextparagraph_nstextparagraph_paragraphseparatorrangeptr, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_FE_END
+};

@@ -1,0 +1,58 @@
+
+extern zend_class_entry *appkit_ns_nscollectionviewlayout_nscollectionviewlayout_ce;
+
+ZEPHIR_INIT_CLASS(AppKit_NS_NSCollectionViewLayout_NSCollectionViewLayout);
+
+PHP_METHOD(AppKit_NS_NSCollectionViewLayout_NSCollectionViewLayout, create);
+PHP_METHOD(AppKit_NS_NSCollectionViewLayout_NSCollectionViewLayout, wrap);
+PHP_METHOD(AppKit_NS_NSCollectionViewLayout_NSCollectionViewLayout, destroy);
+PHP_METHOD(AppKit_NS_NSCollectionViewLayout_NSCollectionViewLayout, nsCollectionViewLayout);
+PHP_METHOD(AppKit_NS_NSCollectionViewLayout_NSCollectionViewLayout, invalidate);
+PHP_METHOD(AppKit_NS_NSCollectionViewLayout_NSCollectionViewLayout, collectionView);
+PHP_METHOD(AppKit_NS_NSCollectionViewLayout_NSCollectionViewLayout, contentWidth);
+PHP_METHOD(AppKit_NS_NSCollectionViewLayout_NSCollectionViewLayout, contentHeight);
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nscollectionviewlayout_nscollectionviewlayout_create, 0, 0, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nscollectionviewlayout_nscollectionviewlayout_wrap, 0, 1, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, nsCollectionViewLayoutPtr, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nscollectionviewlayout_nscollectionviewlayout_destroy, 0, 1, IS_VOID, 0)
+
+	ZEND_ARG_TYPE_INFO(0, layout, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nscollectionviewlayout_nscollectionviewlayout_nscollectionviewlayout, 0, 1, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, layout, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nscollectionviewlayout_nscollectionviewlayout_invalidate, 0, 1, IS_VOID, 0)
+
+	ZEND_ARG_TYPE_INFO(0, layout, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nscollectionviewlayout_nscollectionviewlayout_collectionview, 0, 1, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, layout, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nscollectionviewlayout_nscollectionviewlayout_contentwidth, 0, 1, IS_DOUBLE, 0)
+	ZEND_ARG_TYPE_INFO(0, layout, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nscollectionviewlayout_nscollectionviewlayout_contentheight, 0, 1, IS_DOUBLE, 0)
+	ZEND_ARG_TYPE_INFO(0, layout, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEPHIR_INIT_FUNCS(appkit_ns_nscollectionviewlayout_nscollectionviewlayout_method_entry) {
+	PHP_ME(AppKit_NS_NSCollectionViewLayout_NSCollectionViewLayout, create, arginfo_appkit_ns_nscollectionviewlayout_nscollectionviewlayout_create, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSCollectionViewLayout_NSCollectionViewLayout, wrap, arginfo_appkit_ns_nscollectionviewlayout_nscollectionviewlayout_wrap, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSCollectionViewLayout_NSCollectionViewLayout, destroy, arginfo_appkit_ns_nscollectionviewlayout_nscollectionviewlayout_destroy, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSCollectionViewLayout_NSCollectionViewLayout, nsCollectionViewLayout, arginfo_appkit_ns_nscollectionviewlayout_nscollectionviewlayout_nscollectionviewlayout, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSCollectionViewLayout_NSCollectionViewLayout, invalidate, arginfo_appkit_ns_nscollectionviewlayout_nscollectionviewlayout_invalidate, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSCollectionViewLayout_NSCollectionViewLayout, collectionView, arginfo_appkit_ns_nscollectionviewlayout_nscollectionviewlayout_collectionview, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSCollectionViewLayout_NSCollectionViewLayout, contentWidth, arginfo_appkit_ns_nscollectionviewlayout_nscollectionviewlayout_contentwidth, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSCollectionViewLayout_NSCollectionViewLayout, contentHeight, arginfo_appkit_ns_nscollectionviewlayout_nscollectionviewlayout_contentheight, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_FE_END
+};

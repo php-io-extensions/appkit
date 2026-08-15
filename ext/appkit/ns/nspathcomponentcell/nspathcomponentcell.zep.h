@@ -1,0 +1,90 @@
+
+extern zend_class_entry *appkit_ns_nspathcomponentcell_nspathcomponentcell_ce;
+
+ZEPHIR_INIT_CLASS(AppKit_NS_NSPathComponentCell_NSPathComponentCell);
+
+PHP_METHOD(AppKit_NS_NSPathComponentCell_NSPathComponentCell, createText);
+PHP_METHOD(AppKit_NS_NSPathComponentCell_NSPathComponentCell, wrap);
+PHP_METHOD(AppKit_NS_NSPathComponentCell_NSPathComponentCell, destroy);
+PHP_METHOD(AppKit_NS_NSPathComponentCell_NSPathComponentCell, nsPathComponentCell);
+PHP_METHOD(AppKit_NS_NSPathComponentCell_NSPathComponentCell, setTitle);
+PHP_METHOD(AppKit_NS_NSPathComponentCell_NSPathComponentCell, getTitle);
+PHP_METHOD(AppKit_NS_NSPathComponentCell_NSPathComponentCell, setStringValue);
+PHP_METHOD(AppKit_NS_NSPathComponentCell_NSPathComponentCell, getStringValue);
+PHP_METHOD(AppKit_NS_NSPathComponentCell_NSPathComponentCell, setImage);
+PHP_METHOD(AppKit_NS_NSPathComponentCell_NSPathComponentCell, getImage);
+PHP_METHOD(AppKit_NS_NSPathComponentCell_NSPathComponentCell, setUrlPath);
+PHP_METHOD(AppKit_NS_NSPathComponentCell_NSPathComponentCell, getUrlPath);
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nspathcomponentcell_nspathcomponentcell_createtext, 0, 0, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, value, IS_STRING, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nspathcomponentcell_nspathcomponentcell_wrap, 0, 1, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, nsPathComponentCellPtr, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nspathcomponentcell_nspathcomponentcell_destroy, 0, 1, IS_VOID, 0)
+
+	ZEND_ARG_TYPE_INFO(0, cell, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nspathcomponentcell_nspathcomponentcell_nspathcomponentcell, 0, 1, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, cell, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nspathcomponentcell_nspathcomponentcell_settitle, 0, 2, IS_VOID, 0)
+
+	ZEND_ARG_TYPE_INFO(0, cell, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, title, IS_STRING, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nspathcomponentcell_nspathcomponentcell_gettitle, 0, 1, IS_STRING, 0)
+	ZEND_ARG_TYPE_INFO(0, cell, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nspathcomponentcell_nspathcomponentcell_setstringvalue, 0, 2, IS_VOID, 0)
+
+	ZEND_ARG_TYPE_INFO(0, cell, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, value, IS_STRING, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nspathcomponentcell_nspathcomponentcell_getstringvalue, 0, 1, IS_STRING, 0)
+	ZEND_ARG_TYPE_INFO(0, cell, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nspathcomponentcell_nspathcomponentcell_setimage, 0, 2, IS_VOID, 0)
+
+	ZEND_ARG_TYPE_INFO(0, cell, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, image, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nspathcomponentcell_nspathcomponentcell_getimage, 0, 1, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, cell, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nspathcomponentcell_nspathcomponentcell_seturlpath, 0, 2, IS_VOID, 0)
+
+	ZEND_ARG_TYPE_INFO(0, cell, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, path, IS_STRING, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nspathcomponentcell_nspathcomponentcell_geturlpath, 0, 1, IS_STRING, 0)
+	ZEND_ARG_TYPE_INFO(0, cell, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEPHIR_INIT_FUNCS(appkit_ns_nspathcomponentcell_nspathcomponentcell_method_entry) {
+	PHP_ME(AppKit_NS_NSPathComponentCell_NSPathComponentCell, createText, arginfo_appkit_ns_nspathcomponentcell_nspathcomponentcell_createtext, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSPathComponentCell_NSPathComponentCell, wrap, arginfo_appkit_ns_nspathcomponentcell_nspathcomponentcell_wrap, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSPathComponentCell_NSPathComponentCell, destroy, arginfo_appkit_ns_nspathcomponentcell_nspathcomponentcell_destroy, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSPathComponentCell_NSPathComponentCell, nsPathComponentCell, arginfo_appkit_ns_nspathcomponentcell_nspathcomponentcell_nspathcomponentcell, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSPathComponentCell_NSPathComponentCell, setTitle, arginfo_appkit_ns_nspathcomponentcell_nspathcomponentcell_settitle, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSPathComponentCell_NSPathComponentCell, getTitle, arginfo_appkit_ns_nspathcomponentcell_nspathcomponentcell_gettitle, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSPathComponentCell_NSPathComponentCell, setStringValue, arginfo_appkit_ns_nspathcomponentcell_nspathcomponentcell_setstringvalue, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSPathComponentCell_NSPathComponentCell, getStringValue, arginfo_appkit_ns_nspathcomponentcell_nspathcomponentcell_getstringvalue, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSPathComponentCell_NSPathComponentCell, setImage, arginfo_appkit_ns_nspathcomponentcell_nspathcomponentcell_setimage, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSPathComponentCell_NSPathComponentCell, getImage, arginfo_appkit_ns_nspathcomponentcell_nspathcomponentcell_getimage, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSPathComponentCell_NSPathComponentCell, setUrlPath, arginfo_appkit_ns_nspathcomponentcell_nspathcomponentcell_seturlpath, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSPathComponentCell_NSPathComponentCell, getUrlPath, arginfo_appkit_ns_nspathcomponentcell_nspathcomponentcell_geturlpath, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_FE_END
+};

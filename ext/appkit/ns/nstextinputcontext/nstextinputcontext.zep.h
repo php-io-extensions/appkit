@@ -1,0 +1,94 @@
+
+extern zend_class_entry *appkit_ns_nstextinputcontext_nstextinputcontext_ce;
+
+ZEPHIR_INIT_CLASS(AppKit_NS_NSTextInputContext_NSTextInputContext);
+
+PHP_METHOD(AppKit_NS_NSTextInputContext_NSTextInputContext, current);
+PHP_METHOD(AppKit_NS_NSTextInputContext_NSTextInputContext, create);
+PHP_METHOD(AppKit_NS_NSTextInputContext_NSTextInputContext, wrap);
+PHP_METHOD(AppKit_NS_NSTextInputContext_NSTextInputContext, destroy);
+PHP_METHOD(AppKit_NS_NSTextInputContext_NSTextInputContext, nsTextInputContext);
+PHP_METHOD(AppKit_NS_NSTextInputContext_NSTextInputContext, client);
+PHP_METHOD(AppKit_NS_NSTextInputContext_NSTextInputContext, setAcceptsGlyphInfo);
+PHP_METHOD(AppKit_NS_NSTextInputContext_NSTextInputContext, acceptsGlyphInfo);
+PHP_METHOD(AppKit_NS_NSTextInputContext_NSTextInputContext, activate);
+PHP_METHOD(AppKit_NS_NSTextInputContext_NSTextInputContext, deactivate);
+PHP_METHOD(AppKit_NS_NSTextInputContext_NSTextInputContext, handleEvent);
+PHP_METHOD(AppKit_NS_NSTextInputContext_NSTextInputContext, discardMarkedText);
+PHP_METHOD(AppKit_NS_NSTextInputContext_NSTextInputContext, invalidateCharacterCoordinates);
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nstextinputcontext_nstextinputcontext_current, 0, 0, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nstextinputcontext_nstextinputcontext_create, 0, 1, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, clientPtr, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nstextinputcontext_nstextinputcontext_wrap, 0, 1, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, nsTextInputContextPtr, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nstextinputcontext_nstextinputcontext_destroy, 0, 1, IS_VOID, 0)
+
+	ZEND_ARG_TYPE_INFO(0, context, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nstextinputcontext_nstextinputcontext_nstextinputcontext, 0, 1, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, context, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nstextinputcontext_nstextinputcontext_client, 0, 1, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, context, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nstextinputcontext_nstextinputcontext_setacceptsglyphinfo, 0, 2, IS_VOID, 0)
+
+	ZEND_ARG_TYPE_INFO(0, context, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, flag, _IS_BOOL, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nstextinputcontext_nstextinputcontext_acceptsglyphinfo, 0, 1, _IS_BOOL, 0)
+	ZEND_ARG_TYPE_INFO(0, context, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nstextinputcontext_nstextinputcontext_activate, 0, 1, IS_VOID, 0)
+
+	ZEND_ARG_TYPE_INFO(0, context, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nstextinputcontext_nstextinputcontext_deactivate, 0, 1, IS_VOID, 0)
+
+	ZEND_ARG_TYPE_INFO(0, context, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nstextinputcontext_nstextinputcontext_handleevent, 0, 2, _IS_BOOL, 0)
+	ZEND_ARG_TYPE_INFO(0, context, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, nseventPtr, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nstextinputcontext_nstextinputcontext_discardmarkedtext, 0, 1, IS_VOID, 0)
+
+	ZEND_ARG_TYPE_INFO(0, context, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nstextinputcontext_nstextinputcontext_invalidatecharactercoordinates, 0, 1, IS_VOID, 0)
+
+	ZEND_ARG_TYPE_INFO(0, context, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEPHIR_INIT_FUNCS(appkit_ns_nstextinputcontext_nstextinputcontext_method_entry) {
+	PHP_ME(AppKit_NS_NSTextInputContext_NSTextInputContext, current, arginfo_appkit_ns_nstextinputcontext_nstextinputcontext_current, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSTextInputContext_NSTextInputContext, create, arginfo_appkit_ns_nstextinputcontext_nstextinputcontext_create, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSTextInputContext_NSTextInputContext, wrap, arginfo_appkit_ns_nstextinputcontext_nstextinputcontext_wrap, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSTextInputContext_NSTextInputContext, destroy, arginfo_appkit_ns_nstextinputcontext_nstextinputcontext_destroy, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSTextInputContext_NSTextInputContext, nsTextInputContext, arginfo_appkit_ns_nstextinputcontext_nstextinputcontext_nstextinputcontext, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSTextInputContext_NSTextInputContext, client, arginfo_appkit_ns_nstextinputcontext_nstextinputcontext_client, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSTextInputContext_NSTextInputContext, setAcceptsGlyphInfo, arginfo_appkit_ns_nstextinputcontext_nstextinputcontext_setacceptsglyphinfo, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSTextInputContext_NSTextInputContext, acceptsGlyphInfo, arginfo_appkit_ns_nstextinputcontext_nstextinputcontext_acceptsglyphinfo, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSTextInputContext_NSTextInputContext, activate, arginfo_appkit_ns_nstextinputcontext_nstextinputcontext_activate, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSTextInputContext_NSTextInputContext, deactivate, arginfo_appkit_ns_nstextinputcontext_nstextinputcontext_deactivate, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSTextInputContext_NSTextInputContext, handleEvent, arginfo_appkit_ns_nstextinputcontext_nstextinputcontext_handleevent, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSTextInputContext_NSTextInputContext, discardMarkedText, arginfo_appkit_ns_nstextinputcontext_nstextinputcontext_discardmarkedtext, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSTextInputContext_NSTextInputContext, invalidateCharacterCoordinates, arginfo_appkit_ns_nstextinputcontext_nstextinputcontext_invalidatecharactercoordinates, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_FE_END
+};

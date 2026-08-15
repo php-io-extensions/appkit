@@ -1,0 +1,197 @@
+
+extern zend_class_entry *appkit_ns_nscollectionviewflowlayout_nscollectionviewflowlayout_ce;
+
+ZEPHIR_INIT_CLASS(AppKit_NS_NSCollectionViewFlowLayout_NSCollectionViewFlowLayout);
+
+PHP_METHOD(AppKit_NS_NSCollectionViewFlowLayout_NSCollectionViewFlowLayout, create);
+PHP_METHOD(AppKit_NS_NSCollectionViewFlowLayout_NSCollectionViewFlowLayout, wrap);
+PHP_METHOD(AppKit_NS_NSCollectionViewFlowLayout_NSCollectionViewFlowLayout, destroy);
+PHP_METHOD(AppKit_NS_NSCollectionViewFlowLayout_NSCollectionViewFlowLayout, nsCollectionViewFlowLayout);
+PHP_METHOD(AppKit_NS_NSCollectionViewFlowLayout_NSCollectionViewFlowLayout, setItemSize);
+PHP_METHOD(AppKit_NS_NSCollectionViewFlowLayout_NSCollectionViewFlowLayout, getItemSize);
+PHP_METHOD(AppKit_NS_NSCollectionViewFlowLayout_NSCollectionViewFlowLayout, setEstimatedItemSize);
+PHP_METHOD(AppKit_NS_NSCollectionViewFlowLayout_NSCollectionViewFlowLayout, getEstimatedItemSize);
+PHP_METHOD(AppKit_NS_NSCollectionViewFlowLayout_NSCollectionViewFlowLayout, setMinimumLineSpacing);
+PHP_METHOD(AppKit_NS_NSCollectionViewFlowLayout_NSCollectionViewFlowLayout, getMinimumLineSpacing);
+PHP_METHOD(AppKit_NS_NSCollectionViewFlowLayout_NSCollectionViewFlowLayout, setMinimumInteritemSpacing);
+PHP_METHOD(AppKit_NS_NSCollectionViewFlowLayout_NSCollectionViewFlowLayout, getMinimumInteritemSpacing);
+PHP_METHOD(AppKit_NS_NSCollectionViewFlowLayout_NSCollectionViewFlowLayout, setScrollDirection);
+PHP_METHOD(AppKit_NS_NSCollectionViewFlowLayout_NSCollectionViewFlowLayout, getScrollDirection);
+PHP_METHOD(AppKit_NS_NSCollectionViewFlowLayout_NSCollectionViewFlowLayout, setHeaderReferenceSize);
+PHP_METHOD(AppKit_NS_NSCollectionViewFlowLayout_NSCollectionViewFlowLayout, getHeaderReferenceSize);
+PHP_METHOD(AppKit_NS_NSCollectionViewFlowLayout_NSCollectionViewFlowLayout, setFooterReferenceSize);
+PHP_METHOD(AppKit_NS_NSCollectionViewFlowLayout_NSCollectionViewFlowLayout, getFooterReferenceSize);
+PHP_METHOD(AppKit_NS_NSCollectionViewFlowLayout_NSCollectionViewFlowLayout, setSectionInset);
+PHP_METHOD(AppKit_NS_NSCollectionViewFlowLayout_NSCollectionViewFlowLayout, setSectionHeadersPin);
+PHP_METHOD(AppKit_NS_NSCollectionViewFlowLayout_NSCollectionViewFlowLayout, sectionHeadersPin);
+PHP_METHOD(AppKit_NS_NSCollectionViewFlowLayout_NSCollectionViewFlowLayout, setSectionFootersPin);
+PHP_METHOD(AppKit_NS_NSCollectionViewFlowLayout_NSCollectionViewFlowLayout, sectionFootersPin);
+PHP_METHOD(AppKit_NS_NSCollectionViewFlowLayout_NSCollectionViewFlowLayout, sectionIsCollapsed);
+PHP_METHOD(AppKit_NS_NSCollectionViewFlowLayout_NSCollectionViewFlowLayout, collapseSection);
+PHP_METHOD(AppKit_NS_NSCollectionViewFlowLayout_NSCollectionViewFlowLayout, expandSection);
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nscollectionviewflowlayout_nscollectionviewflowlayout_create, 0, 0, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nscollectionviewflowlayout_nscollectionviewflowlayout_wrap, 0, 1, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, nsCollectionViewFlowLayoutPtr, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nscollectionviewflowlayout_nscollectionviewflowlayout_destroy, 0, 1, IS_VOID, 0)
+
+	ZEND_ARG_TYPE_INFO(0, layout, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nscollectionviewflowlayout_nscollectionviewflowlayout_nscollectionviewflowlayout, 0, 1, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, layout, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nscollectionviewflowlayout_nscollectionviewflowlayout_setitemsize, 0, 3, IS_VOID, 0)
+
+	ZEND_ARG_TYPE_INFO(0, layout, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, width, IS_DOUBLE, 0)
+	ZEND_ARG_TYPE_INFO(0, height, IS_DOUBLE, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nscollectionviewflowlayout_nscollectionviewflowlayout_getitemsize, 0, 1, IS_ARRAY, 0)
+	ZEND_ARG_TYPE_INFO(0, layout, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nscollectionviewflowlayout_nscollectionviewflowlayout_setestimateditemsize, 0, 3, IS_VOID, 0)
+
+	ZEND_ARG_TYPE_INFO(0, layout, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, width, IS_DOUBLE, 0)
+	ZEND_ARG_TYPE_INFO(0, height, IS_DOUBLE, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nscollectionviewflowlayout_nscollectionviewflowlayout_getestimateditemsize, 0, 1, IS_ARRAY, 0)
+	ZEND_ARG_TYPE_INFO(0, layout, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nscollectionviewflowlayout_nscollectionviewflowlayout_setminimumlinespacing, 0, 2, IS_VOID, 0)
+
+	ZEND_ARG_TYPE_INFO(0, layout, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, spacing, IS_DOUBLE, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nscollectionviewflowlayout_nscollectionviewflowlayout_getminimumlinespacing, 0, 1, IS_DOUBLE, 0)
+	ZEND_ARG_TYPE_INFO(0, layout, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nscollectionviewflowlayout_nscollectionviewflowlayout_setminimuminteritemspacing, 0, 2, IS_VOID, 0)
+
+	ZEND_ARG_TYPE_INFO(0, layout, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, spacing, IS_DOUBLE, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nscollectionviewflowlayout_nscollectionviewflowlayout_getminimuminteritemspacing, 0, 1, IS_DOUBLE, 0)
+	ZEND_ARG_TYPE_INFO(0, layout, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nscollectionviewflowlayout_nscollectionviewflowlayout_setscrolldirection, 0, 2, IS_VOID, 0)
+
+	ZEND_ARG_TYPE_INFO(0, layout, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, direction, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nscollectionviewflowlayout_nscollectionviewflowlayout_getscrolldirection, 0, 1, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, layout, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nscollectionviewflowlayout_nscollectionviewflowlayout_setheaderreferencesize, 0, 3, IS_VOID, 0)
+
+	ZEND_ARG_TYPE_INFO(0, layout, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, width, IS_DOUBLE, 0)
+	ZEND_ARG_TYPE_INFO(0, height, IS_DOUBLE, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nscollectionviewflowlayout_nscollectionviewflowlayout_getheaderreferencesize, 0, 1, IS_ARRAY, 0)
+	ZEND_ARG_TYPE_INFO(0, layout, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nscollectionviewflowlayout_nscollectionviewflowlayout_setfooterreferencesize, 0, 3, IS_VOID, 0)
+
+	ZEND_ARG_TYPE_INFO(0, layout, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, width, IS_DOUBLE, 0)
+	ZEND_ARG_TYPE_INFO(0, height, IS_DOUBLE, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nscollectionviewflowlayout_nscollectionviewflowlayout_getfooterreferencesize, 0, 1, IS_ARRAY, 0)
+	ZEND_ARG_TYPE_INFO(0, layout, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nscollectionviewflowlayout_nscollectionviewflowlayout_setsectioninset, 0, 5, IS_VOID, 0)
+
+	ZEND_ARG_TYPE_INFO(0, layout, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, top, IS_DOUBLE, 0)
+	ZEND_ARG_TYPE_INFO(0, left, IS_DOUBLE, 0)
+	ZEND_ARG_TYPE_INFO(0, bottom, IS_DOUBLE, 0)
+	ZEND_ARG_TYPE_INFO(0, right, IS_DOUBLE, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nscollectionviewflowlayout_nscollectionviewflowlayout_setsectionheaderspin, 0, 2, IS_VOID, 0)
+
+	ZEND_ARG_TYPE_INFO(0, layout, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, flag, _IS_BOOL, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nscollectionviewflowlayout_nscollectionviewflowlayout_sectionheaderspin, 0, 1, _IS_BOOL, 0)
+	ZEND_ARG_TYPE_INFO(0, layout, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nscollectionviewflowlayout_nscollectionviewflowlayout_setsectionfooterspin, 0, 2, IS_VOID, 0)
+
+	ZEND_ARG_TYPE_INFO(0, layout, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, flag, _IS_BOOL, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nscollectionviewflowlayout_nscollectionviewflowlayout_sectionfooterspin, 0, 1, _IS_BOOL, 0)
+	ZEND_ARG_TYPE_INFO(0, layout, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nscollectionviewflowlayout_nscollectionviewflowlayout_sectioniscollapsed, 0, 2, _IS_BOOL, 0)
+	ZEND_ARG_TYPE_INFO(0, layout, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, section, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nscollectionviewflowlayout_nscollectionviewflowlayout_collapsesection, 0, 2, IS_VOID, 0)
+
+	ZEND_ARG_TYPE_INFO(0, layout, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, section, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nscollectionviewflowlayout_nscollectionviewflowlayout_expandsection, 0, 2, IS_VOID, 0)
+
+	ZEND_ARG_TYPE_INFO(0, layout, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, section, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEPHIR_INIT_FUNCS(appkit_ns_nscollectionviewflowlayout_nscollectionviewflowlayout_method_entry) {
+	PHP_ME(AppKit_NS_NSCollectionViewFlowLayout_NSCollectionViewFlowLayout, create, arginfo_appkit_ns_nscollectionviewflowlayout_nscollectionviewflowlayout_create, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSCollectionViewFlowLayout_NSCollectionViewFlowLayout, wrap, arginfo_appkit_ns_nscollectionviewflowlayout_nscollectionviewflowlayout_wrap, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSCollectionViewFlowLayout_NSCollectionViewFlowLayout, destroy, arginfo_appkit_ns_nscollectionviewflowlayout_nscollectionviewflowlayout_destroy, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSCollectionViewFlowLayout_NSCollectionViewFlowLayout, nsCollectionViewFlowLayout, arginfo_appkit_ns_nscollectionviewflowlayout_nscollectionviewflowlayout_nscollectionviewflowlayout, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSCollectionViewFlowLayout_NSCollectionViewFlowLayout, setItemSize, arginfo_appkit_ns_nscollectionviewflowlayout_nscollectionviewflowlayout_setitemsize, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSCollectionViewFlowLayout_NSCollectionViewFlowLayout, getItemSize, arginfo_appkit_ns_nscollectionviewflowlayout_nscollectionviewflowlayout_getitemsize, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSCollectionViewFlowLayout_NSCollectionViewFlowLayout, setEstimatedItemSize, arginfo_appkit_ns_nscollectionviewflowlayout_nscollectionviewflowlayout_setestimateditemsize, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSCollectionViewFlowLayout_NSCollectionViewFlowLayout, getEstimatedItemSize, arginfo_appkit_ns_nscollectionviewflowlayout_nscollectionviewflowlayout_getestimateditemsize, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSCollectionViewFlowLayout_NSCollectionViewFlowLayout, setMinimumLineSpacing, arginfo_appkit_ns_nscollectionviewflowlayout_nscollectionviewflowlayout_setminimumlinespacing, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSCollectionViewFlowLayout_NSCollectionViewFlowLayout, getMinimumLineSpacing, arginfo_appkit_ns_nscollectionviewflowlayout_nscollectionviewflowlayout_getminimumlinespacing, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSCollectionViewFlowLayout_NSCollectionViewFlowLayout, setMinimumInteritemSpacing, arginfo_appkit_ns_nscollectionviewflowlayout_nscollectionviewflowlayout_setminimuminteritemspacing, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSCollectionViewFlowLayout_NSCollectionViewFlowLayout, getMinimumInteritemSpacing, arginfo_appkit_ns_nscollectionviewflowlayout_nscollectionviewflowlayout_getminimuminteritemspacing, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSCollectionViewFlowLayout_NSCollectionViewFlowLayout, setScrollDirection, arginfo_appkit_ns_nscollectionviewflowlayout_nscollectionviewflowlayout_setscrolldirection, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSCollectionViewFlowLayout_NSCollectionViewFlowLayout, getScrollDirection, arginfo_appkit_ns_nscollectionviewflowlayout_nscollectionviewflowlayout_getscrolldirection, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSCollectionViewFlowLayout_NSCollectionViewFlowLayout, setHeaderReferenceSize, arginfo_appkit_ns_nscollectionviewflowlayout_nscollectionviewflowlayout_setheaderreferencesize, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSCollectionViewFlowLayout_NSCollectionViewFlowLayout, getHeaderReferenceSize, arginfo_appkit_ns_nscollectionviewflowlayout_nscollectionviewflowlayout_getheaderreferencesize, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSCollectionViewFlowLayout_NSCollectionViewFlowLayout, setFooterReferenceSize, arginfo_appkit_ns_nscollectionviewflowlayout_nscollectionviewflowlayout_setfooterreferencesize, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSCollectionViewFlowLayout_NSCollectionViewFlowLayout, getFooterReferenceSize, arginfo_appkit_ns_nscollectionviewflowlayout_nscollectionviewflowlayout_getfooterreferencesize, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSCollectionViewFlowLayout_NSCollectionViewFlowLayout, setSectionInset, arginfo_appkit_ns_nscollectionviewflowlayout_nscollectionviewflowlayout_setsectioninset, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSCollectionViewFlowLayout_NSCollectionViewFlowLayout, setSectionHeadersPin, arginfo_appkit_ns_nscollectionviewflowlayout_nscollectionviewflowlayout_setsectionheaderspin, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSCollectionViewFlowLayout_NSCollectionViewFlowLayout, sectionHeadersPin, arginfo_appkit_ns_nscollectionviewflowlayout_nscollectionviewflowlayout_sectionheaderspin, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSCollectionViewFlowLayout_NSCollectionViewFlowLayout, setSectionFootersPin, arginfo_appkit_ns_nscollectionviewflowlayout_nscollectionviewflowlayout_setsectionfooterspin, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSCollectionViewFlowLayout_NSCollectionViewFlowLayout, sectionFootersPin, arginfo_appkit_ns_nscollectionviewflowlayout_nscollectionviewflowlayout_sectionfooterspin, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSCollectionViewFlowLayout_NSCollectionViewFlowLayout, sectionIsCollapsed, arginfo_appkit_ns_nscollectionviewflowlayout_nscollectionviewflowlayout_sectioniscollapsed, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSCollectionViewFlowLayout_NSCollectionViewFlowLayout, collapseSection, arginfo_appkit_ns_nscollectionviewflowlayout_nscollectionviewflowlayout_collapsesection, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSCollectionViewFlowLayout_NSCollectionViewFlowLayout, expandSection, arginfo_appkit_ns_nscollectionviewflowlayout_nscollectionviewflowlayout_expandsection, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_FE_END
+};

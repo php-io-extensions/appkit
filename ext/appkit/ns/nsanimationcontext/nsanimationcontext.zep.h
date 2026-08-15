@@ -1,0 +1,52 @@
+
+extern zend_class_entry *appkit_ns_nsanimationcontext_nsanimationcontext_ce;
+
+ZEPHIR_INIT_CLASS(AppKit_NS_NSAnimationContext_NSAnimationContext);
+
+PHP_METHOD(AppKit_NS_NSAnimationContext_NSAnimationContext, beginGrouping);
+PHP_METHOD(AppKit_NS_NSAnimationContext_NSAnimationContext, endGrouping);
+PHP_METHOD(AppKit_NS_NSAnimationContext_NSAnimationContext, current);
+PHP_METHOD(AppKit_NS_NSAnimationContext_NSAnimationContext, setDuration);
+PHP_METHOD(AppKit_NS_NSAnimationContext_NSAnimationContext, getDuration);
+PHP_METHOD(AppKit_NS_NSAnimationContext_NSAnimationContext, setAllowsImplicitAnimation);
+PHP_METHOD(AppKit_NS_NSAnimationContext_NSAnimationContext, getAllowsImplicitAnimation);
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsanimationcontext_nsanimationcontext_begingrouping, 0, 0, IS_VOID, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsanimationcontext_nsanimationcontext_endgrouping, 0, 0, IS_VOID, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsanimationcontext_nsanimationcontext_current, 0, 0, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsanimationcontext_nsanimationcontext_setduration, 0, 2, IS_VOID, 0)
+
+	ZEND_ARG_TYPE_INFO(0, context, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, duration, IS_DOUBLE, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsanimationcontext_nsanimationcontext_getduration, 0, 1, IS_DOUBLE, 0)
+	ZEND_ARG_TYPE_INFO(0, context, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsanimationcontext_nsanimationcontext_setallowsimplicitanimation, 0, 2, IS_VOID, 0)
+
+	ZEND_ARG_TYPE_INFO(0, context, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, enabled, _IS_BOOL, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsanimationcontext_nsanimationcontext_getallowsimplicitanimation, 0, 1, _IS_BOOL, 0)
+	ZEND_ARG_TYPE_INFO(0, context, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEPHIR_INIT_FUNCS(appkit_ns_nsanimationcontext_nsanimationcontext_method_entry) {
+	PHP_ME(AppKit_NS_NSAnimationContext_NSAnimationContext, beginGrouping, arginfo_appkit_ns_nsanimationcontext_nsanimationcontext_begingrouping, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSAnimationContext_NSAnimationContext, endGrouping, arginfo_appkit_ns_nsanimationcontext_nsanimationcontext_endgrouping, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSAnimationContext_NSAnimationContext, current, arginfo_appkit_ns_nsanimationcontext_nsanimationcontext_current, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSAnimationContext_NSAnimationContext, setDuration, arginfo_appkit_ns_nsanimationcontext_nsanimationcontext_setduration, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSAnimationContext_NSAnimationContext, getDuration, arginfo_appkit_ns_nsanimationcontext_nsanimationcontext_getduration, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSAnimationContext_NSAnimationContext, setAllowsImplicitAnimation, arginfo_appkit_ns_nsanimationcontext_nsanimationcontext_setallowsimplicitanimation, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSAnimationContext_NSAnimationContext, getAllowsImplicitAnimation, arginfo_appkit_ns_nsanimationcontext_nsanimationcontext_getallowsimplicitanimation, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_FE_END
+};

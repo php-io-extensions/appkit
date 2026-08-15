@@ -1,0 +1,121 @@
+
+extern zend_class_entry *appkit_ns_nspangesturerecognizer_nspangesturerecognizer_ce;
+
+ZEPHIR_INIT_CLASS(AppKit_NS_NSPanGestureRecognizer_NSPanGestureRecognizer);
+
+PHP_METHOD(AppKit_NS_NSPanGestureRecognizer_NSPanGestureRecognizer, create);
+PHP_METHOD(AppKit_NS_NSPanGestureRecognizer_NSPanGestureRecognizer, destroy);
+PHP_METHOD(AppKit_NS_NSPanGestureRecognizer_NSPanGestureRecognizer, setEnabled);
+PHP_METHOD(AppKit_NS_NSPanGestureRecognizer_NSPanGestureRecognizer, isEnabled);
+PHP_METHOD(AppKit_NS_NSPanGestureRecognizer_NSPanGestureRecognizer, state);
+PHP_METHOD(AppKit_NS_NSPanGestureRecognizer_NSPanGestureRecognizer, addToView);
+PHP_METHOD(AppKit_NS_NSPanGestureRecognizer_NSPanGestureRecognizer, removeFromView);
+PHP_METHOD(AppKit_NS_NSPanGestureRecognizer_NSPanGestureRecognizer, locationInView);
+PHP_METHOD(AppKit_NS_NSPanGestureRecognizer_NSPanGestureRecognizer, setButtonMask);
+PHP_METHOD(AppKit_NS_NSPanGestureRecognizer_NSPanGestureRecognizer, buttonMask);
+PHP_METHOD(AppKit_NS_NSPanGestureRecognizer_NSPanGestureRecognizer, translationInView);
+PHP_METHOD(AppKit_NS_NSPanGestureRecognizer_NSPanGestureRecognizer, setTranslationInView);
+PHP_METHOD(AppKit_NS_NSPanGestureRecognizer_NSPanGestureRecognizer, velocityInView);
+PHP_METHOD(AppKit_NS_NSPanGestureRecognizer_NSPanGestureRecognizer, setNumberOfTouchesRequired);
+PHP_METHOD(AppKit_NS_NSPanGestureRecognizer_NSPanGestureRecognizer, numberOfTouchesRequired);
+PHP_METHOD(AppKit_NS_NSPanGestureRecognizer_NSPanGestureRecognizer, nsPanGestureRecognizer);
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nspangesturerecognizer_nspangesturerecognizer_create, 0, 0, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nspangesturerecognizer_nspangesturerecognizer_destroy, 0, 1, IS_VOID, 0)
+
+	ZEND_ARG_TYPE_INFO(0, recognizer, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nspangesturerecognizer_nspangesturerecognizer_setenabled, 0, 2, IS_VOID, 0)
+
+	ZEND_ARG_TYPE_INFO(0, recognizer, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, enabled, _IS_BOOL, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nspangesturerecognizer_nspangesturerecognizer_isenabled, 0, 1, _IS_BOOL, 0)
+	ZEND_ARG_TYPE_INFO(0, recognizer, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nspangesturerecognizer_nspangesturerecognizer_state, 0, 1, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, recognizer, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nspangesturerecognizer_nspangesturerecognizer_addtoview, 0, 2, _IS_BOOL, 0)
+	ZEND_ARG_TYPE_INFO(0, recognizer, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, view, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nspangesturerecognizer_nspangesturerecognizer_removefromview, 0, 2, IS_VOID, 0)
+
+	ZEND_ARG_TYPE_INFO(0, recognizer, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, view, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nspangesturerecognizer_nspangesturerecognizer_locationinview, 0, 1, IS_ARRAY, 0)
+	ZEND_ARG_TYPE_INFO(0, recognizer, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, view, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nspangesturerecognizer_nspangesturerecognizer_setbuttonmask, 0, 2, IS_VOID, 0)
+
+	ZEND_ARG_TYPE_INFO(0, recognizer, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, mask, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nspangesturerecognizer_nspangesturerecognizer_buttonmask, 0, 1, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, recognizer, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nspangesturerecognizer_nspangesturerecognizer_translationinview, 0, 1, IS_ARRAY, 0)
+	ZEND_ARG_TYPE_INFO(0, recognizer, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, view, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nspangesturerecognizer_nspangesturerecognizer_settranslationinview, 0, 3, IS_VOID, 0)
+
+	ZEND_ARG_TYPE_INFO(0, recognizer, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, x, IS_DOUBLE, 0)
+	ZEND_ARG_TYPE_INFO(0, y, IS_DOUBLE, 0)
+	ZEND_ARG_TYPE_INFO(0, view, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nspangesturerecognizer_nspangesturerecognizer_velocityinview, 0, 1, IS_ARRAY, 0)
+	ZEND_ARG_TYPE_INFO(0, recognizer, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, view, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nspangesturerecognizer_nspangesturerecognizer_setnumberoftouchesrequired, 0, 2, IS_VOID, 0)
+
+	ZEND_ARG_TYPE_INFO(0, recognizer, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, count, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nspangesturerecognizer_nspangesturerecognizer_numberoftouchesrequired, 0, 1, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, recognizer, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nspangesturerecognizer_nspangesturerecognizer_nspangesturerecognizer, 0, 1, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, recognizer, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEPHIR_INIT_FUNCS(appkit_ns_nspangesturerecognizer_nspangesturerecognizer_method_entry) {
+	PHP_ME(AppKit_NS_NSPanGestureRecognizer_NSPanGestureRecognizer, create, arginfo_appkit_ns_nspangesturerecognizer_nspangesturerecognizer_create, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSPanGestureRecognizer_NSPanGestureRecognizer, destroy, arginfo_appkit_ns_nspangesturerecognizer_nspangesturerecognizer_destroy, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSPanGestureRecognizer_NSPanGestureRecognizer, setEnabled, arginfo_appkit_ns_nspangesturerecognizer_nspangesturerecognizer_setenabled, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSPanGestureRecognizer_NSPanGestureRecognizer, isEnabled, arginfo_appkit_ns_nspangesturerecognizer_nspangesturerecognizer_isenabled, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSPanGestureRecognizer_NSPanGestureRecognizer, state, arginfo_appkit_ns_nspangesturerecognizer_nspangesturerecognizer_state, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSPanGestureRecognizer_NSPanGestureRecognizer, addToView, arginfo_appkit_ns_nspangesturerecognizer_nspangesturerecognizer_addtoview, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSPanGestureRecognizer_NSPanGestureRecognizer, removeFromView, arginfo_appkit_ns_nspangesturerecognizer_nspangesturerecognizer_removefromview, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSPanGestureRecognizer_NSPanGestureRecognizer, locationInView, arginfo_appkit_ns_nspangesturerecognizer_nspangesturerecognizer_locationinview, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSPanGestureRecognizer_NSPanGestureRecognizer, setButtonMask, arginfo_appkit_ns_nspangesturerecognizer_nspangesturerecognizer_setbuttonmask, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSPanGestureRecognizer_NSPanGestureRecognizer, buttonMask, arginfo_appkit_ns_nspangesturerecognizer_nspangesturerecognizer_buttonmask, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSPanGestureRecognizer_NSPanGestureRecognizer, translationInView, arginfo_appkit_ns_nspangesturerecognizer_nspangesturerecognizer_translationinview, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSPanGestureRecognizer_NSPanGestureRecognizer, setTranslationInView, arginfo_appkit_ns_nspangesturerecognizer_nspangesturerecognizer_settranslationinview, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSPanGestureRecognizer_NSPanGestureRecognizer, velocityInView, arginfo_appkit_ns_nspangesturerecognizer_nspangesturerecognizer_velocityinview, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSPanGestureRecognizer_NSPanGestureRecognizer, setNumberOfTouchesRequired, arginfo_appkit_ns_nspangesturerecognizer_nspangesturerecognizer_setnumberoftouchesrequired, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSPanGestureRecognizer_NSPanGestureRecognizer, numberOfTouchesRequired, arginfo_appkit_ns_nspangesturerecognizer_nspangesturerecognizer_numberoftouchesrequired, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSPanGestureRecognizer_NSPanGestureRecognizer, nsPanGestureRecognizer, arginfo_appkit_ns_nspangesturerecognizer_nspangesturerecognizer_nspangesturerecognizer, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_FE_END
+};

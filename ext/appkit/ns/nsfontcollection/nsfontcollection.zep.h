@@ -1,0 +1,180 @@
+
+extern zend_class_entry *appkit_ns_nsfontcollection_nsfontcollection_ce;
+
+ZEPHIR_INIT_CLASS(AppKit_NS_NSFontCollection_NSFontCollection);
+
+PHP_METHOD(AppKit_NS_NSFontCollection_NSFontCollection, wrap);
+PHP_METHOD(AppKit_NS_NSFontCollection_NSFontCollection, destroy);
+PHP_METHOD(AppKit_NS_NSFontCollection_NSFontCollection, withDescriptor);
+PHP_METHOD(AppKit_NS_NSFontCollection_NSFontCollection, withAllAvailable);
+PHP_METHOD(AppKit_NS_NSFontCollection_NSFontCollection, withName);
+PHP_METHOD(AppKit_NS_NSFontCollection_NSFontCollection, withNameVisibility);
+PHP_METHOD(AppKit_NS_NSFontCollection_NSFontCollection, show);
+PHP_METHOD(AppKit_NS_NSFontCollection_NSFontCollection, hide);
+PHP_METHOD(AppKit_NS_NSFontCollection_NSFontCollection, rename);
+PHP_METHOD(AppKit_NS_NSFontCollection_NSFontCollection, allNamesCount);
+PHP_METHOD(AppKit_NS_NSFontCollection_NSFontCollection, allNameAt);
+PHP_METHOD(AppKit_NS_NSFontCollection_NSFontCollection, queryDescriptorsCount);
+PHP_METHOD(AppKit_NS_NSFontCollection_NSFontCollection, queryDescriptorAt);
+PHP_METHOD(AppKit_NS_NSFontCollection_NSFontCollection, exclusionDescriptorsCount);
+PHP_METHOD(AppKit_NS_NSFontCollection_NSFontCollection, exclusionDescriptorAt);
+PHP_METHOD(AppKit_NS_NSFontCollection_NSFontCollection, matchingDescriptorsCount);
+PHP_METHOD(AppKit_NS_NSFontCollection_NSFontCollection, matchingDescriptorAt);
+PHP_METHOD(AppKit_NS_NSFontCollection_NSFontCollection, matchingDescriptorsForFamilyCount);
+PHP_METHOD(AppKit_NS_NSFontCollection_NSFontCollection, matchingDescriptorForFamilyAt);
+PHP_METHOD(AppKit_NS_NSFontCollection_NSFontCollection, mutableWithDescriptor);
+PHP_METHOD(AppKit_NS_NSFontCollection_NSFontCollection, mutableWithAllAvailable);
+PHP_METHOD(AppKit_NS_NSFontCollection_NSFontCollection, mutableWithName);
+PHP_METHOD(AppKit_NS_NSFontCollection_NSFontCollection, mutableWithNameVisibility);
+PHP_METHOD(AppKit_NS_NSFontCollection_NSFontCollection, addQueryForDescriptor);
+PHP_METHOD(AppKit_NS_NSFontCollection_NSFontCollection, removeQueryForDescriptor);
+PHP_METHOD(AppKit_NS_NSFontCollection_NSFontCollection, nsFontCollection);
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsfontcollection_nsfontcollection_wrap, 0, 1, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, nsFontCollectionPtr, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsfontcollection_nsfontcollection_destroy, 0, 1, IS_VOID, 0)
+
+	ZEND_ARG_TYPE_INFO(0, collection, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsfontcollection_nsfontcollection_withdescriptor, 0, 1, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, descriptor, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsfontcollection_nsfontcollection_withallavailable, 0, 0, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsfontcollection_nsfontcollection_withname, 0, 1, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, name, IS_STRING, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsfontcollection_nsfontcollection_withnamevisibility, 0, 2, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, name, IS_STRING, 0)
+	ZEND_ARG_TYPE_INFO(0, visibility, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsfontcollection_nsfontcollection_show, 0, 3, _IS_BOOL, 0)
+	ZEND_ARG_TYPE_INFO(0, collection, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, name, IS_STRING, 0)
+	ZEND_ARG_TYPE_INFO(0, visibility, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsfontcollection_nsfontcollection_hide, 0, 2, _IS_BOOL, 0)
+	ZEND_ARG_TYPE_INFO(0, name, IS_STRING, 0)
+	ZEND_ARG_TYPE_INFO(0, visibility, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsfontcollection_nsfontcollection_rename, 0, 3, _IS_BOOL, 0)
+	ZEND_ARG_TYPE_INFO(0, oldName, IS_STRING, 0)
+	ZEND_ARG_TYPE_INFO(0, visibility, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, newName, IS_STRING, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsfontcollection_nsfontcollection_allnamescount, 0, 0, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsfontcollection_nsfontcollection_allnameat, 0, 1, IS_STRING, 0)
+	ZEND_ARG_TYPE_INFO(0, index, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsfontcollection_nsfontcollection_querydescriptorscount, 0, 1, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, collection, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsfontcollection_nsfontcollection_querydescriptorat, 0, 2, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, collection, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, index, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsfontcollection_nsfontcollection_exclusiondescriptorscount, 0, 1, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, collection, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsfontcollection_nsfontcollection_exclusiondescriptorat, 0, 2, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, collection, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, index, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsfontcollection_nsfontcollection_matchingdescriptorscount, 0, 1, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, collection, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsfontcollection_nsfontcollection_matchingdescriptorat, 0, 2, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, collection, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, index, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsfontcollection_nsfontcollection_matchingdescriptorsforfamilycount, 0, 2, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, collection, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, family, IS_STRING, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsfontcollection_nsfontcollection_matchingdescriptorforfamilyat, 0, 3, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, collection, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, family, IS_STRING, 0)
+	ZEND_ARG_TYPE_INFO(0, index, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsfontcollection_nsfontcollection_mutablewithdescriptor, 0, 1, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, descriptor, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsfontcollection_nsfontcollection_mutablewithallavailable, 0, 0, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsfontcollection_nsfontcollection_mutablewithname, 0, 1, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, name, IS_STRING, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsfontcollection_nsfontcollection_mutablewithnamevisibility, 0, 2, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, name, IS_STRING, 0)
+	ZEND_ARG_TYPE_INFO(0, visibility, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsfontcollection_nsfontcollection_addqueryfordescriptor, 0, 2, IS_VOID, 0)
+
+	ZEND_ARG_TYPE_INFO(0, collection, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, descriptor, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsfontcollection_nsfontcollection_removequeryfordescriptor, 0, 2, IS_VOID, 0)
+
+	ZEND_ARG_TYPE_INFO(0, collection, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, descriptor, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsfontcollection_nsfontcollection_nsfontcollection, 0, 1, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, collection, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEPHIR_INIT_FUNCS(appkit_ns_nsfontcollection_nsfontcollection_method_entry) {
+	PHP_ME(AppKit_NS_NSFontCollection_NSFontCollection, wrap, arginfo_appkit_ns_nsfontcollection_nsfontcollection_wrap, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSFontCollection_NSFontCollection, destroy, arginfo_appkit_ns_nsfontcollection_nsfontcollection_destroy, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSFontCollection_NSFontCollection, withDescriptor, arginfo_appkit_ns_nsfontcollection_nsfontcollection_withdescriptor, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSFontCollection_NSFontCollection, withAllAvailable, arginfo_appkit_ns_nsfontcollection_nsfontcollection_withallavailable, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSFontCollection_NSFontCollection, withName, arginfo_appkit_ns_nsfontcollection_nsfontcollection_withname, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSFontCollection_NSFontCollection, withNameVisibility, arginfo_appkit_ns_nsfontcollection_nsfontcollection_withnamevisibility, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSFontCollection_NSFontCollection, show, arginfo_appkit_ns_nsfontcollection_nsfontcollection_show, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSFontCollection_NSFontCollection, hide, arginfo_appkit_ns_nsfontcollection_nsfontcollection_hide, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSFontCollection_NSFontCollection, rename, arginfo_appkit_ns_nsfontcollection_nsfontcollection_rename, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSFontCollection_NSFontCollection, allNamesCount, arginfo_appkit_ns_nsfontcollection_nsfontcollection_allnamescount, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSFontCollection_NSFontCollection, allNameAt, arginfo_appkit_ns_nsfontcollection_nsfontcollection_allnameat, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSFontCollection_NSFontCollection, queryDescriptorsCount, arginfo_appkit_ns_nsfontcollection_nsfontcollection_querydescriptorscount, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSFontCollection_NSFontCollection, queryDescriptorAt, arginfo_appkit_ns_nsfontcollection_nsfontcollection_querydescriptorat, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSFontCollection_NSFontCollection, exclusionDescriptorsCount, arginfo_appkit_ns_nsfontcollection_nsfontcollection_exclusiondescriptorscount, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSFontCollection_NSFontCollection, exclusionDescriptorAt, arginfo_appkit_ns_nsfontcollection_nsfontcollection_exclusiondescriptorat, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSFontCollection_NSFontCollection, matchingDescriptorsCount, arginfo_appkit_ns_nsfontcollection_nsfontcollection_matchingdescriptorscount, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSFontCollection_NSFontCollection, matchingDescriptorAt, arginfo_appkit_ns_nsfontcollection_nsfontcollection_matchingdescriptorat, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSFontCollection_NSFontCollection, matchingDescriptorsForFamilyCount, arginfo_appkit_ns_nsfontcollection_nsfontcollection_matchingdescriptorsforfamilycount, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSFontCollection_NSFontCollection, matchingDescriptorForFamilyAt, arginfo_appkit_ns_nsfontcollection_nsfontcollection_matchingdescriptorforfamilyat, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSFontCollection_NSFontCollection, mutableWithDescriptor, arginfo_appkit_ns_nsfontcollection_nsfontcollection_mutablewithdescriptor, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSFontCollection_NSFontCollection, mutableWithAllAvailable, arginfo_appkit_ns_nsfontcollection_nsfontcollection_mutablewithallavailable, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSFontCollection_NSFontCollection, mutableWithName, arginfo_appkit_ns_nsfontcollection_nsfontcollection_mutablewithname, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSFontCollection_NSFontCollection, mutableWithNameVisibility, arginfo_appkit_ns_nsfontcollection_nsfontcollection_mutablewithnamevisibility, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSFontCollection_NSFontCollection, addQueryForDescriptor, arginfo_appkit_ns_nsfontcollection_nsfontcollection_addqueryfordescriptor, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSFontCollection_NSFontCollection, removeQueryForDescriptor, arginfo_appkit_ns_nsfontcollection_nsfontcollection_removequeryfordescriptor, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSFontCollection_NSFontCollection, nsFontCollection, arginfo_appkit_ns_nsfontcollection_nsfontcollection_nsfontcollection, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_FE_END
+};

@@ -1,0 +1,89 @@
+
+extern zend_class_entry *appkit_ns_nssplitviewcontroller_nssplitviewcontroller_ce;
+
+ZEPHIR_INIT_CLASS(AppKit_NS_NSSplitViewController_NSSplitViewController);
+
+PHP_METHOD(AppKit_NS_NSSplitViewController_NSSplitViewController, create);
+PHP_METHOD(AppKit_NS_NSSplitViewController_NSSplitViewController, wrap);
+PHP_METHOD(AppKit_NS_NSSplitViewController_NSSplitViewController, destroy);
+PHP_METHOD(AppKit_NS_NSSplitViewController_NSSplitViewController, nsSplitViewController);
+PHP_METHOD(AppKit_NS_NSSplitViewController_NSSplitViewController, addSplitViewItem);
+PHP_METHOD(AppKit_NS_NSSplitViewController_NSSplitViewController, removeSplitViewItem);
+PHP_METHOD(AppKit_NS_NSSplitViewController_NSSplitViewController, splitViewItemCount);
+PHP_METHOD(AppKit_NS_NSSplitViewController_NSSplitViewController, splitViewItemAt);
+PHP_METHOD(AppKit_NS_NSSplitViewController_NSSplitViewController, setMinimumThicknessForInlineSidebars);
+PHP_METHOD(AppKit_NS_NSSplitViewController_NSSplitViewController, getMinimumThicknessForInlineSidebars);
+PHP_METHOD(AppKit_NS_NSSplitViewController_NSSplitViewController, splitView);
+PHP_METHOD(AppKit_NS_NSSplitViewController_NSSplitViewController, toggleSidebar);
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nssplitviewcontroller_nssplitviewcontroller_create, 0, 0, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nssplitviewcontroller_nssplitviewcontroller_wrap, 0, 1, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, nsSplitViewControllerPtr, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nssplitviewcontroller_nssplitviewcontroller_destroy, 0, 1, IS_VOID, 0)
+
+	ZEND_ARG_TYPE_INFO(0, controller, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nssplitviewcontroller_nssplitviewcontroller_nssplitviewcontroller, 0, 1, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, controller, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nssplitviewcontroller_nssplitviewcontroller_addsplitviewitem, 0, 2, IS_VOID, 0)
+
+	ZEND_ARG_TYPE_INFO(0, controller, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, item, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nssplitviewcontroller_nssplitviewcontroller_removesplitviewitem, 0, 2, IS_VOID, 0)
+
+	ZEND_ARG_TYPE_INFO(0, controller, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, item, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nssplitviewcontroller_nssplitviewcontroller_splitviewitemcount, 0, 1, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, controller, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nssplitviewcontroller_nssplitviewcontroller_splitviewitemat, 0, 2, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, controller, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, index, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nssplitviewcontroller_nssplitviewcontroller_setminimumthicknessforinlinesidebars, 0, 2, IS_VOID, 0)
+
+	ZEND_ARG_TYPE_INFO(0, controller, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, value, IS_DOUBLE, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nssplitviewcontroller_nssplitviewcontroller_getminimumthicknessforinlinesidebars, 0, 1, IS_DOUBLE, 0)
+	ZEND_ARG_TYPE_INFO(0, controller, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nssplitviewcontroller_nssplitviewcontroller_splitview, 0, 1, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, controller, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nssplitviewcontroller_nssplitviewcontroller_togglesidebar, 0, 1, IS_VOID, 0)
+
+	ZEND_ARG_TYPE_INFO(0, controller, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEPHIR_INIT_FUNCS(appkit_ns_nssplitviewcontroller_nssplitviewcontroller_method_entry) {
+	PHP_ME(AppKit_NS_NSSplitViewController_NSSplitViewController, create, arginfo_appkit_ns_nssplitviewcontroller_nssplitviewcontroller_create, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSSplitViewController_NSSplitViewController, wrap, arginfo_appkit_ns_nssplitviewcontroller_nssplitviewcontroller_wrap, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSSplitViewController_NSSplitViewController, destroy, arginfo_appkit_ns_nssplitviewcontroller_nssplitviewcontroller_destroy, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSSplitViewController_NSSplitViewController, nsSplitViewController, arginfo_appkit_ns_nssplitviewcontroller_nssplitviewcontroller_nssplitviewcontroller, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSSplitViewController_NSSplitViewController, addSplitViewItem, arginfo_appkit_ns_nssplitviewcontroller_nssplitviewcontroller_addsplitviewitem, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSSplitViewController_NSSplitViewController, removeSplitViewItem, arginfo_appkit_ns_nssplitviewcontroller_nssplitviewcontroller_removesplitviewitem, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSSplitViewController_NSSplitViewController, splitViewItemCount, arginfo_appkit_ns_nssplitviewcontroller_nssplitviewcontroller_splitviewitemcount, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSSplitViewController_NSSplitViewController, splitViewItemAt, arginfo_appkit_ns_nssplitviewcontroller_nssplitviewcontroller_splitviewitemat, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSSplitViewController_NSSplitViewController, setMinimumThicknessForInlineSidebars, arginfo_appkit_ns_nssplitviewcontroller_nssplitviewcontroller_setminimumthicknessforinlinesidebars, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSSplitViewController_NSSplitViewController, getMinimumThicknessForInlineSidebars, arginfo_appkit_ns_nssplitviewcontroller_nssplitviewcontroller_getminimumthicknessforinlinesidebars, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSSplitViewController_NSSplitViewController, splitView, arginfo_appkit_ns_nssplitviewcontroller_nssplitviewcontroller_splitview, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSSplitViewController_NSSplitViewController, toggleSidebar, arginfo_appkit_ns_nssplitviewcontroller_nssplitviewcontroller_togglesidebar, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_FE_END
+};

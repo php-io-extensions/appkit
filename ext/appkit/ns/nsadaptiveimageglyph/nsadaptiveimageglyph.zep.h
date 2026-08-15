@@ -1,0 +1,46 @@
+
+extern zend_class_entry *appkit_ns_nsadaptiveimageglyph_nsadaptiveimageglyph_ce;
+
+ZEPHIR_INIT_CLASS(AppKit_NS_NSAdaptiveImageGlyph_NSAdaptiveImageGlyph);
+
+PHP_METHOD(AppKit_NS_NSAdaptiveImageGlyph_NSAdaptiveImageGlyph, createWithImageContent);
+PHP_METHOD(AppKit_NS_NSAdaptiveImageGlyph_NSAdaptiveImageGlyph, wrap);
+PHP_METHOD(AppKit_NS_NSAdaptiveImageGlyph_NSAdaptiveImageGlyph, destroy);
+PHP_METHOD(AppKit_NS_NSAdaptiveImageGlyph_NSAdaptiveImageGlyph, contentIdentifier);
+PHP_METHOD(AppKit_NS_NSAdaptiveImageGlyph_NSAdaptiveImageGlyph, contentDescription);
+PHP_METHOD(AppKit_NS_NSAdaptiveImageGlyph_NSAdaptiveImageGlyph, contentTypeIdentifier);
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsadaptiveimageglyph_nsadaptiveimageglyph_createwithimagecontent, 0, 1, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, data, IS_STRING, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsadaptiveimageglyph_nsadaptiveimageglyph_wrap, 0, 1, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, nsAdaptiveImageGlyphPtr, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsadaptiveimageglyph_nsadaptiveimageglyph_destroy, 0, 1, IS_VOID, 0)
+
+	ZEND_ARG_TYPE_INFO(0, glyph, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsadaptiveimageglyph_nsadaptiveimageglyph_contentidentifier, 0, 1, IS_STRING, 0)
+	ZEND_ARG_TYPE_INFO(0, glyph, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsadaptiveimageglyph_nsadaptiveimageglyph_contentdescription, 0, 1, IS_STRING, 0)
+	ZEND_ARG_TYPE_INFO(0, glyph, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsadaptiveimageglyph_nsadaptiveimageglyph_contenttypeidentifier, 0, 1, IS_STRING, 0)
+	ZEND_ARG_TYPE_INFO(0, glyph, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEPHIR_INIT_FUNCS(appkit_ns_nsadaptiveimageglyph_nsadaptiveimageglyph_method_entry) {
+	PHP_ME(AppKit_NS_NSAdaptiveImageGlyph_NSAdaptiveImageGlyph, createWithImageContent, arginfo_appkit_ns_nsadaptiveimageglyph_nsadaptiveimageglyph_createwithimagecontent, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSAdaptiveImageGlyph_NSAdaptiveImageGlyph, wrap, arginfo_appkit_ns_nsadaptiveimageglyph_nsadaptiveimageglyph_wrap, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSAdaptiveImageGlyph_NSAdaptiveImageGlyph, destroy, arginfo_appkit_ns_nsadaptiveimageglyph_nsadaptiveimageglyph_destroy, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSAdaptiveImageGlyph_NSAdaptiveImageGlyph, contentIdentifier, arginfo_appkit_ns_nsadaptiveimageglyph_nsadaptiveimageglyph_contentidentifier, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSAdaptiveImageGlyph_NSAdaptiveImageGlyph, contentDescription, arginfo_appkit_ns_nsadaptiveimageglyph_nsadaptiveimageglyph_contentdescription, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSAdaptiveImageGlyph_NSAdaptiveImageGlyph, contentTypeIdentifier, arginfo_appkit_ns_nsadaptiveimageglyph_nsadaptiveimageglyph_contenttypeidentifier, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_FE_END
+};

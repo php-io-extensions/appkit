@@ -1,0 +1,53 @@
+
+extern zend_class_entry *appkit_ns_nstextattachmentcell_nstextattachmentcell_ce;
+
+ZEPHIR_INIT_CLASS(AppKit_NS_NSTextAttachmentCell_NSTextAttachmentCell);
+
+PHP_METHOD(AppKit_NS_NSTextAttachmentCell_NSTextAttachmentCell, create);
+PHP_METHOD(AppKit_NS_NSTextAttachmentCell_NSTextAttachmentCell, wrap);
+PHP_METHOD(AppKit_NS_NSTextAttachmentCell_NSTextAttachmentCell, destroy);
+PHP_METHOD(AppKit_NS_NSTextAttachmentCell_NSTextAttachmentCell, setAttachment);
+PHP_METHOD(AppKit_NS_NSTextAttachmentCell_NSTextAttachmentCell, getAttachment);
+PHP_METHOD(AppKit_NS_NSTextAttachmentCell_NSTextAttachmentCell, cellSize);
+PHP_METHOD(AppKit_NS_NSTextAttachmentCell_NSTextAttachmentCell, cellBaselineOffset);
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nstextattachmentcell_nstextattachmentcell_create, 0, 0, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nstextattachmentcell_nstextattachmentcell_wrap, 0, 1, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, nsTextAttachmentCellPtr, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nstextattachmentcell_nstextattachmentcell_destroy, 0, 1, IS_VOID, 0)
+
+	ZEND_ARG_TYPE_INFO(0, cell, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nstextattachmentcell_nstextattachmentcell_setattachment, 0, 2, IS_VOID, 0)
+
+	ZEND_ARG_TYPE_INFO(0, cell, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, attachment, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nstextattachmentcell_nstextattachmentcell_getattachment, 0, 1, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, cell, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nstextattachmentcell_nstextattachmentcell_cellsize, 0, 1, IS_ARRAY, 0)
+	ZEND_ARG_TYPE_INFO(0, cell, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nstextattachmentcell_nstextattachmentcell_cellbaselineoffset, 0, 1, IS_ARRAY, 0)
+	ZEND_ARG_TYPE_INFO(0, cell, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEPHIR_INIT_FUNCS(appkit_ns_nstextattachmentcell_nstextattachmentcell_method_entry) {
+	PHP_ME(AppKit_NS_NSTextAttachmentCell_NSTextAttachmentCell, create, arginfo_appkit_ns_nstextattachmentcell_nstextattachmentcell_create, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSTextAttachmentCell_NSTextAttachmentCell, wrap, arginfo_appkit_ns_nstextattachmentcell_nstextattachmentcell_wrap, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSTextAttachmentCell_NSTextAttachmentCell, destroy, arginfo_appkit_ns_nstextattachmentcell_nstextattachmentcell_destroy, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSTextAttachmentCell_NSTextAttachmentCell, setAttachment, arginfo_appkit_ns_nstextattachmentcell_nstextattachmentcell_setattachment, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSTextAttachmentCell_NSTextAttachmentCell, getAttachment, arginfo_appkit_ns_nstextattachmentcell_nstextattachmentcell_getattachment, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSTextAttachmentCell_NSTextAttachmentCell, cellSize, arginfo_appkit_ns_nstextattachmentcell_nstextattachmentcell_cellsize, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSTextAttachmentCell_NSTextAttachmentCell, cellBaselineOffset, arginfo_appkit_ns_nstextattachmentcell_nstextattachmentcell_cellbaselineoffset, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_FE_END
+};

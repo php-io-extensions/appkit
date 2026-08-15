@@ -1,0 +1,27 @@
+
+extern zend_class_entry *appkit_ns_nsglyphgenerator_nsglyphgenerator_ce;
+
+ZEPHIR_INIT_CLASS(AppKit_NS_NSGlyphGenerator_NSGlyphGenerator);
+
+PHP_METHOD(AppKit_NS_NSGlyphGenerator_NSGlyphGenerator, sharedGlyphGenerator);
+PHP_METHOD(AppKit_NS_NSGlyphGenerator_NSGlyphGenerator, wrap);
+PHP_METHOD(AppKit_NS_NSGlyphGenerator_NSGlyphGenerator, destroy);
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsglyphgenerator_nsglyphgenerator_sharedglyphgenerator, 0, 0, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsglyphgenerator_nsglyphgenerator_wrap, 0, 1, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, nsGlyphGeneratorPtr, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsglyphgenerator_nsglyphgenerator_destroy, 0, 1, IS_VOID, 0)
+
+	ZEND_ARG_TYPE_INFO(0, generator, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEPHIR_INIT_FUNCS(appkit_ns_nsglyphgenerator_nsglyphgenerator_method_entry) {
+	PHP_ME(AppKit_NS_NSGlyphGenerator_NSGlyphGenerator, sharedGlyphGenerator, arginfo_appkit_ns_nsglyphgenerator_nsglyphgenerator_sharedglyphgenerator, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSGlyphGenerator_NSGlyphGenerator, wrap, arginfo_appkit_ns_nsglyphgenerator_nsglyphgenerator_wrap, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSGlyphGenerator_NSGlyphGenerator, destroy, arginfo_appkit_ns_nsglyphgenerator_nsglyphgenerator_destroy, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_FE_END
+};

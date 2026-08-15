@@ -1,0 +1,44 @@
+
+extern zend_class_entry *appkit_ns_nsapplication_nsapplication_ce;
+
+ZEPHIR_INIT_CLASS(AppKit_NS_NSApplication_NSApplication);
+
+PHP_METHOD(AppKit_NS_NSApplication_NSApplication, init);
+PHP_METHOD(AppKit_NS_NSApplication_NSApplication, shared);
+PHP_METHOD(AppKit_NS_NSApplication_NSApplication, poll);
+PHP_METHOD(AppKit_NS_NSApplication_NSApplication, run);
+PHP_METHOD(AppKit_NS_NSApplication_NSApplication, terminate);
+PHP_METHOD(AppKit_NS_NSApplication_NSApplication, shouldQuit);
+PHP_METHOD(AppKit_NS_NSApplication_NSApplication, resetQuit);
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsapplication_nsapplication_init, 0, 0, _IS_BOOL, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsapplication_nsapplication_shared, 0, 0, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsapplication_nsapplication_poll, 0, 0, _IS_BOOL, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsapplication_nsapplication_run, 0, 0, IS_VOID, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsapplication_nsapplication_terminate, 0, 0, IS_VOID, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsapplication_nsapplication_shouldquit, 0, 0, _IS_BOOL, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsapplication_nsapplication_resetquit, 0, 0, IS_VOID, 0)
+ZEND_END_ARG_INFO()
+
+ZEPHIR_INIT_FUNCS(appkit_ns_nsapplication_nsapplication_method_entry) {
+	PHP_ME(AppKit_NS_NSApplication_NSApplication, init, arginfo_appkit_ns_nsapplication_nsapplication_init, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSApplication_NSApplication, shared, arginfo_appkit_ns_nsapplication_nsapplication_shared, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSApplication_NSApplication, poll, arginfo_appkit_ns_nsapplication_nsapplication_poll, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSApplication_NSApplication, run, arginfo_appkit_ns_nsapplication_nsapplication_run, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSApplication_NSApplication, terminate, arginfo_appkit_ns_nsapplication_nsapplication_terminate, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSApplication_NSApplication, shouldQuit, arginfo_appkit_ns_nsapplication_nsapplication_shouldquit, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSApplication_NSApplication, resetQuit, arginfo_appkit_ns_nsapplication_nsapplication_resetquit, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_FE_END
+};

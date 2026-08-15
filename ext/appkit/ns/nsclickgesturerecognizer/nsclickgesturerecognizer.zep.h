@@ -1,0 +1,111 @@
+
+extern zend_class_entry *appkit_ns_nsclickgesturerecognizer_nsclickgesturerecognizer_ce;
+
+ZEPHIR_INIT_CLASS(AppKit_NS_NSClickGestureRecognizer_NSClickGestureRecognizer);
+
+PHP_METHOD(AppKit_NS_NSClickGestureRecognizer_NSClickGestureRecognizer, create);
+PHP_METHOD(AppKit_NS_NSClickGestureRecognizer_NSClickGestureRecognizer, destroy);
+PHP_METHOD(AppKit_NS_NSClickGestureRecognizer_NSClickGestureRecognizer, setEnabled);
+PHP_METHOD(AppKit_NS_NSClickGestureRecognizer_NSClickGestureRecognizer, isEnabled);
+PHP_METHOD(AppKit_NS_NSClickGestureRecognizer_NSClickGestureRecognizer, state);
+PHP_METHOD(AppKit_NS_NSClickGestureRecognizer_NSClickGestureRecognizer, addToView);
+PHP_METHOD(AppKit_NS_NSClickGestureRecognizer_NSClickGestureRecognizer, removeFromView);
+PHP_METHOD(AppKit_NS_NSClickGestureRecognizer_NSClickGestureRecognizer, locationInView);
+PHP_METHOD(AppKit_NS_NSClickGestureRecognizer_NSClickGestureRecognizer, setButtonMask);
+PHP_METHOD(AppKit_NS_NSClickGestureRecognizer_NSClickGestureRecognizer, buttonMask);
+PHP_METHOD(AppKit_NS_NSClickGestureRecognizer_NSClickGestureRecognizer, setNumberOfClicksRequired);
+PHP_METHOD(AppKit_NS_NSClickGestureRecognizer_NSClickGestureRecognizer, numberOfClicksRequired);
+PHP_METHOD(AppKit_NS_NSClickGestureRecognizer_NSClickGestureRecognizer, setNumberOfTouchesRequired);
+PHP_METHOD(AppKit_NS_NSClickGestureRecognizer_NSClickGestureRecognizer, numberOfTouchesRequired);
+PHP_METHOD(AppKit_NS_NSClickGestureRecognizer_NSClickGestureRecognizer, nsClickGestureRecognizer);
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsclickgesturerecognizer_nsclickgesturerecognizer_create, 0, 0, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsclickgesturerecognizer_nsclickgesturerecognizer_destroy, 0, 1, IS_VOID, 0)
+
+	ZEND_ARG_TYPE_INFO(0, recognizer, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsclickgesturerecognizer_nsclickgesturerecognizer_setenabled, 0, 2, IS_VOID, 0)
+
+	ZEND_ARG_TYPE_INFO(0, recognizer, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, enabled, _IS_BOOL, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsclickgesturerecognizer_nsclickgesturerecognizer_isenabled, 0, 1, _IS_BOOL, 0)
+	ZEND_ARG_TYPE_INFO(0, recognizer, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsclickgesturerecognizer_nsclickgesturerecognizer_state, 0, 1, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, recognizer, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsclickgesturerecognizer_nsclickgesturerecognizer_addtoview, 0, 2, _IS_BOOL, 0)
+	ZEND_ARG_TYPE_INFO(0, recognizer, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, view, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsclickgesturerecognizer_nsclickgesturerecognizer_removefromview, 0, 2, IS_VOID, 0)
+
+	ZEND_ARG_TYPE_INFO(0, recognizer, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, view, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsclickgesturerecognizer_nsclickgesturerecognizer_locationinview, 0, 1, IS_ARRAY, 0)
+	ZEND_ARG_TYPE_INFO(0, recognizer, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, view, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsclickgesturerecognizer_nsclickgesturerecognizer_setbuttonmask, 0, 2, IS_VOID, 0)
+
+	ZEND_ARG_TYPE_INFO(0, recognizer, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, mask, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsclickgesturerecognizer_nsclickgesturerecognizer_buttonmask, 0, 1, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, recognizer, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsclickgesturerecognizer_nsclickgesturerecognizer_setnumberofclicksrequired, 0, 2, IS_VOID, 0)
+
+	ZEND_ARG_TYPE_INFO(0, recognizer, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, count, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsclickgesturerecognizer_nsclickgesturerecognizer_numberofclicksrequired, 0, 1, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, recognizer, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsclickgesturerecognizer_nsclickgesturerecognizer_setnumberoftouchesrequired, 0, 2, IS_VOID, 0)
+
+	ZEND_ARG_TYPE_INFO(0, recognizer, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, count, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsclickgesturerecognizer_nsclickgesturerecognizer_numberoftouchesrequired, 0, 1, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, recognizer, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsclickgesturerecognizer_nsclickgesturerecognizer_nsclickgesturerecognizer, 0, 1, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, recognizer, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEPHIR_INIT_FUNCS(appkit_ns_nsclickgesturerecognizer_nsclickgesturerecognizer_method_entry) {
+	PHP_ME(AppKit_NS_NSClickGestureRecognizer_NSClickGestureRecognizer, create, arginfo_appkit_ns_nsclickgesturerecognizer_nsclickgesturerecognizer_create, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSClickGestureRecognizer_NSClickGestureRecognizer, destroy, arginfo_appkit_ns_nsclickgesturerecognizer_nsclickgesturerecognizer_destroy, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSClickGestureRecognizer_NSClickGestureRecognizer, setEnabled, arginfo_appkit_ns_nsclickgesturerecognizer_nsclickgesturerecognizer_setenabled, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSClickGestureRecognizer_NSClickGestureRecognizer, isEnabled, arginfo_appkit_ns_nsclickgesturerecognizer_nsclickgesturerecognizer_isenabled, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSClickGestureRecognizer_NSClickGestureRecognizer, state, arginfo_appkit_ns_nsclickgesturerecognizer_nsclickgesturerecognizer_state, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSClickGestureRecognizer_NSClickGestureRecognizer, addToView, arginfo_appkit_ns_nsclickgesturerecognizer_nsclickgesturerecognizer_addtoview, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSClickGestureRecognizer_NSClickGestureRecognizer, removeFromView, arginfo_appkit_ns_nsclickgesturerecognizer_nsclickgesturerecognizer_removefromview, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSClickGestureRecognizer_NSClickGestureRecognizer, locationInView, arginfo_appkit_ns_nsclickgesturerecognizer_nsclickgesturerecognizer_locationinview, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSClickGestureRecognizer_NSClickGestureRecognizer, setButtonMask, arginfo_appkit_ns_nsclickgesturerecognizer_nsclickgesturerecognizer_setbuttonmask, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSClickGestureRecognizer_NSClickGestureRecognizer, buttonMask, arginfo_appkit_ns_nsclickgesturerecognizer_nsclickgesturerecognizer_buttonmask, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSClickGestureRecognizer_NSClickGestureRecognizer, setNumberOfClicksRequired, arginfo_appkit_ns_nsclickgesturerecognizer_nsclickgesturerecognizer_setnumberofclicksrequired, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSClickGestureRecognizer_NSClickGestureRecognizer, numberOfClicksRequired, arginfo_appkit_ns_nsclickgesturerecognizer_nsclickgesturerecognizer_numberofclicksrequired, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSClickGestureRecognizer_NSClickGestureRecognizer, setNumberOfTouchesRequired, arginfo_appkit_ns_nsclickgesturerecognizer_nsclickgesturerecognizer_setnumberoftouchesrequired, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSClickGestureRecognizer_NSClickGestureRecognizer, numberOfTouchesRequired, arginfo_appkit_ns_nsclickgesturerecognizer_nsclickgesturerecognizer_numberoftouchesrequired, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSClickGestureRecognizer_NSClickGestureRecognizer, nsClickGestureRecognizer, arginfo_appkit_ns_nsclickgesturerecognizer_nsclickgesturerecognizer_nsclickgesturerecognizer, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_FE_END
+};

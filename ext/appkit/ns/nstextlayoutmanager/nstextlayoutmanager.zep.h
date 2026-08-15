@@ -1,0 +1,136 @@
+
+extern zend_class_entry *appkit_ns_nstextlayoutmanager_nstextlayoutmanager_ce;
+
+ZEPHIR_INIT_CLASS(AppKit_NS_NSTextLayoutManager_NSTextLayoutManager);
+
+PHP_METHOD(AppKit_NS_NSTextLayoutManager_NSTextLayoutManager, create);
+PHP_METHOD(AppKit_NS_NSTextLayoutManager_NSTextLayoutManager, wrap);
+PHP_METHOD(AppKit_NS_NSTextLayoutManager_NSTextLayoutManager, destroy);
+PHP_METHOD(AppKit_NS_NSTextLayoutManager_NSTextLayoutManager, usesFontLeading);
+PHP_METHOD(AppKit_NS_NSTextLayoutManager_NSTextLayoutManager, setUsesFontLeading);
+PHP_METHOD(AppKit_NS_NSTextLayoutManager_NSTextLayoutManager, limitsLayoutForSuspiciousContents);
+PHP_METHOD(AppKit_NS_NSTextLayoutManager_NSTextLayoutManager, setLimitsLayoutForSuspiciousContents);
+PHP_METHOD(AppKit_NS_NSTextLayoutManager_NSTextLayoutManager, usesHyphenation);
+PHP_METHOD(AppKit_NS_NSTextLayoutManager_NSTextLayoutManager, setUsesHyphenation);
+PHP_METHOD(AppKit_NS_NSTextLayoutManager_NSTextLayoutManager, replaceTextContentManager);
+PHP_METHOD(AppKit_NS_NSTextLayoutManager_NSTextLayoutManager, setTextContainer);
+PHP_METHOD(AppKit_NS_NSTextLayoutManager_NSTextLayoutManager, getTextContainer);
+PHP_METHOD(AppKit_NS_NSTextLayoutManager_NSTextLayoutManager, usageBoundsForTextContainer);
+PHP_METHOD(AppKit_NS_NSTextLayoutManager_NSTextLayoutManager, textViewportLayoutController);
+PHP_METHOD(AppKit_NS_NSTextLayoutManager_NSTextLayoutManager, ensureLayoutForBounds);
+PHP_METHOD(AppKit_NS_NSTextLayoutManager_NSTextLayoutManager, invalidateLayoutForRange);
+PHP_METHOD(AppKit_NS_NSTextLayoutManager_NSTextLayoutManager, textLayoutFragmentForPosition);
+PHP_METHOD(AppKit_NS_NSTextLayoutManager_NSTextLayoutManager, textSelectionsCount);
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nstextlayoutmanager_nstextlayoutmanager_create, 0, 0, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nstextlayoutmanager_nstextlayoutmanager_wrap, 0, 1, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, nsTextLayoutManagerPtr, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nstextlayoutmanager_nstextlayoutmanager_destroy, 0, 1, IS_VOID, 0)
+
+	ZEND_ARG_TYPE_INFO(0, manager, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nstextlayoutmanager_nstextlayoutmanager_usesfontleading, 0, 1, _IS_BOOL, 0)
+	ZEND_ARG_TYPE_INFO(0, manager, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nstextlayoutmanager_nstextlayoutmanager_setusesfontleading, 0, 2, IS_VOID, 0)
+
+	ZEND_ARG_TYPE_INFO(0, manager, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, flag, _IS_BOOL, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nstextlayoutmanager_nstextlayoutmanager_limitslayoutforsuspiciouscontents, 0, 1, _IS_BOOL, 0)
+	ZEND_ARG_TYPE_INFO(0, manager, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nstextlayoutmanager_nstextlayoutmanager_setlimitslayoutforsuspiciouscontents, 0, 2, IS_VOID, 0)
+
+	ZEND_ARG_TYPE_INFO(0, manager, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, flag, _IS_BOOL, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nstextlayoutmanager_nstextlayoutmanager_useshyphenation, 0, 1, _IS_BOOL, 0)
+	ZEND_ARG_TYPE_INFO(0, manager, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nstextlayoutmanager_nstextlayoutmanager_setuseshyphenation, 0, 2, IS_VOID, 0)
+
+	ZEND_ARG_TYPE_INFO(0, manager, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, flag, _IS_BOOL, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nstextlayoutmanager_nstextlayoutmanager_replacetextcontentmanager, 0, 2, IS_VOID, 0)
+
+	ZEND_ARG_TYPE_INFO(0, manager, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, contentManager, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nstextlayoutmanager_nstextlayoutmanager_settextcontainer, 0, 2, IS_VOID, 0)
+
+	ZEND_ARG_TYPE_INFO(0, manager, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, container, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nstextlayoutmanager_nstextlayoutmanager_gettextcontainer, 0, 1, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, manager, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nstextlayoutmanager_nstextlayoutmanager_usageboundsfortextcontainer, 0, 1, IS_ARRAY, 0)
+	ZEND_ARG_TYPE_INFO(0, manager, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nstextlayoutmanager_nstextlayoutmanager_textviewportlayoutcontroller, 0, 1, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, manager, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nstextlayoutmanager_nstextlayoutmanager_ensurelayoutforbounds, 0, 5, IS_VOID, 0)
+
+	ZEND_ARG_TYPE_INFO(0, manager, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, x, IS_DOUBLE, 0)
+	ZEND_ARG_TYPE_INFO(0, y, IS_DOUBLE, 0)
+	ZEND_ARG_TYPE_INFO(0, w, IS_DOUBLE, 0)
+	ZEND_ARG_TYPE_INFO(0, h, IS_DOUBLE, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nstextlayoutmanager_nstextlayoutmanager_invalidatelayoutforrange, 0, 2, IS_VOID, 0)
+
+	ZEND_ARG_TYPE_INFO(0, manager, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, nsTextRangePtr, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nstextlayoutmanager_nstextlayoutmanager_textlayoutfragmentforposition, 0, 3, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, manager, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, x, IS_DOUBLE, 0)
+	ZEND_ARG_TYPE_INFO(0, y, IS_DOUBLE, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nstextlayoutmanager_nstextlayoutmanager_textselectionscount, 0, 1, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, manager, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEPHIR_INIT_FUNCS(appkit_ns_nstextlayoutmanager_nstextlayoutmanager_method_entry) {
+	PHP_ME(AppKit_NS_NSTextLayoutManager_NSTextLayoutManager, create, arginfo_appkit_ns_nstextlayoutmanager_nstextlayoutmanager_create, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSTextLayoutManager_NSTextLayoutManager, wrap, arginfo_appkit_ns_nstextlayoutmanager_nstextlayoutmanager_wrap, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSTextLayoutManager_NSTextLayoutManager, destroy, arginfo_appkit_ns_nstextlayoutmanager_nstextlayoutmanager_destroy, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSTextLayoutManager_NSTextLayoutManager, usesFontLeading, arginfo_appkit_ns_nstextlayoutmanager_nstextlayoutmanager_usesfontleading, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSTextLayoutManager_NSTextLayoutManager, setUsesFontLeading, arginfo_appkit_ns_nstextlayoutmanager_nstextlayoutmanager_setusesfontleading, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSTextLayoutManager_NSTextLayoutManager, limitsLayoutForSuspiciousContents, arginfo_appkit_ns_nstextlayoutmanager_nstextlayoutmanager_limitslayoutforsuspiciouscontents, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSTextLayoutManager_NSTextLayoutManager, setLimitsLayoutForSuspiciousContents, arginfo_appkit_ns_nstextlayoutmanager_nstextlayoutmanager_setlimitslayoutforsuspiciouscontents, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSTextLayoutManager_NSTextLayoutManager, usesHyphenation, arginfo_appkit_ns_nstextlayoutmanager_nstextlayoutmanager_useshyphenation, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSTextLayoutManager_NSTextLayoutManager, setUsesHyphenation, arginfo_appkit_ns_nstextlayoutmanager_nstextlayoutmanager_setuseshyphenation, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSTextLayoutManager_NSTextLayoutManager, replaceTextContentManager, arginfo_appkit_ns_nstextlayoutmanager_nstextlayoutmanager_replacetextcontentmanager, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSTextLayoutManager_NSTextLayoutManager, setTextContainer, arginfo_appkit_ns_nstextlayoutmanager_nstextlayoutmanager_settextcontainer, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSTextLayoutManager_NSTextLayoutManager, getTextContainer, arginfo_appkit_ns_nstextlayoutmanager_nstextlayoutmanager_gettextcontainer, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSTextLayoutManager_NSTextLayoutManager, usageBoundsForTextContainer, arginfo_appkit_ns_nstextlayoutmanager_nstextlayoutmanager_usageboundsfortextcontainer, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSTextLayoutManager_NSTextLayoutManager, textViewportLayoutController, arginfo_appkit_ns_nstextlayoutmanager_nstextlayoutmanager_textviewportlayoutcontroller, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSTextLayoutManager_NSTextLayoutManager, ensureLayoutForBounds, arginfo_appkit_ns_nstextlayoutmanager_nstextlayoutmanager_ensurelayoutforbounds, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSTextLayoutManager_NSTextLayoutManager, invalidateLayoutForRange, arginfo_appkit_ns_nstextlayoutmanager_nstextlayoutmanager_invalidatelayoutforrange, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSTextLayoutManager_NSTextLayoutManager, textLayoutFragmentForPosition, arginfo_appkit_ns_nstextlayoutmanager_nstextlayoutmanager_textlayoutfragmentforposition, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSTextLayoutManager_NSTextLayoutManager, textSelectionsCount, arginfo_appkit_ns_nstextlayoutmanager_nstextlayoutmanager_textselectionscount, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_FE_END
+};

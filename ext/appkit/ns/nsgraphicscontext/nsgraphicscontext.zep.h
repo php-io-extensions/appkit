@@ -1,0 +1,151 @@
+
+extern zend_class_entry *appkit_ns_nsgraphicscontext_nsgraphicscontext_ce;
+
+ZEPHIR_INIT_CLASS(AppKit_NS_NSGraphicsContext_NSGraphicsContext);
+
+PHP_METHOD(AppKit_NS_NSGraphicsContext_NSGraphicsContext, current);
+PHP_METHOD(AppKit_NS_NSGraphicsContext_NSGraphicsContext, setCurrent);
+PHP_METHOD(AppKit_NS_NSGraphicsContext_NSGraphicsContext, drawingToScreen);
+PHP_METHOD(AppKit_NS_NSGraphicsContext_NSGraphicsContext, instanceDrawingToScreen);
+PHP_METHOD(AppKit_NS_NSGraphicsContext_NSGraphicsContext, saveState);
+PHP_METHOD(AppKit_NS_NSGraphicsContext_NSGraphicsContext, restoreState);
+PHP_METHOD(AppKit_NS_NSGraphicsContext_NSGraphicsContext, withBitmapRep);
+PHP_METHOD(AppKit_NS_NSGraphicsContext_NSGraphicsContext, wrap);
+PHP_METHOD(AppKit_NS_NSGraphicsContext_NSGraphicsContext, destroy);
+PHP_METHOD(AppKit_NS_NSGraphicsContext_NSGraphicsContext, nsGraphicsContext);
+PHP_METHOD(AppKit_NS_NSGraphicsContext_NSGraphicsContext, saveGraphicsState);
+PHP_METHOD(AppKit_NS_NSGraphicsContext_NSGraphicsContext, restoreGraphicsState);
+PHP_METHOD(AppKit_NS_NSGraphicsContext_NSGraphicsContext, flush);
+PHP_METHOD(AppKit_NS_NSGraphicsContext_NSGraphicsContext, setShouldAntialias);
+PHP_METHOD(AppKit_NS_NSGraphicsContext_NSGraphicsContext, getShouldAntialias);
+PHP_METHOD(AppKit_NS_NSGraphicsContext_NSGraphicsContext, setImageInterpolation);
+PHP_METHOD(AppKit_NS_NSGraphicsContext_NSGraphicsContext, getImageInterpolation);
+PHP_METHOD(AppKit_NS_NSGraphicsContext_NSGraphicsContext, setPatternPhase);
+PHP_METHOD(AppKit_NS_NSGraphicsContext_NSGraphicsContext, getPatternPhase);
+PHP_METHOD(AppKit_NS_NSGraphicsContext_NSGraphicsContext, setCompositingOperation);
+PHP_METHOD(AppKit_NS_NSGraphicsContext_NSGraphicsContext, getCompositingOperation);
+PHP_METHOD(AppKit_NS_NSGraphicsContext_NSGraphicsContext, isFlipped);
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsgraphicscontext_nsgraphicscontext_current, 0, 0, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsgraphicscontext_nsgraphicscontext_setcurrent, 0, 1, IS_VOID, 0)
+
+	ZEND_ARG_TYPE_INFO(0, context, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsgraphicscontext_nsgraphicscontext_drawingtoscreen, 0, 0, _IS_BOOL, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsgraphicscontext_nsgraphicscontext_instancedrawingtoscreen, 0, 1, _IS_BOOL, 0)
+	ZEND_ARG_TYPE_INFO(0, context, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsgraphicscontext_nsgraphicscontext_savestate, 0, 0, IS_VOID, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsgraphicscontext_nsgraphicscontext_restorestate, 0, 0, IS_VOID, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsgraphicscontext_nsgraphicscontext_withbitmaprep, 0, 1, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, bitmapRep, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsgraphicscontext_nsgraphicscontext_wrap, 0, 1, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, nsGraphicsContextPtr, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsgraphicscontext_nsgraphicscontext_destroy, 0, 1, IS_VOID, 0)
+
+	ZEND_ARG_TYPE_INFO(0, context, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsgraphicscontext_nsgraphicscontext_nsgraphicscontext, 0, 1, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, context, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsgraphicscontext_nsgraphicscontext_savegraphicsstate, 0, 1, IS_VOID, 0)
+
+	ZEND_ARG_TYPE_INFO(0, context, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsgraphicscontext_nsgraphicscontext_restoregraphicsstate, 0, 1, IS_VOID, 0)
+
+	ZEND_ARG_TYPE_INFO(0, context, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsgraphicscontext_nsgraphicscontext_flush, 0, 1, IS_VOID, 0)
+
+	ZEND_ARG_TYPE_INFO(0, context, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsgraphicscontext_nsgraphicscontext_setshouldantialias, 0, 2, IS_VOID, 0)
+
+	ZEND_ARG_TYPE_INFO(0, context, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, enabled, _IS_BOOL, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsgraphicscontext_nsgraphicscontext_getshouldantialias, 0, 1, _IS_BOOL, 0)
+	ZEND_ARG_TYPE_INFO(0, context, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsgraphicscontext_nsgraphicscontext_setimageinterpolation, 0, 2, IS_VOID, 0)
+
+	ZEND_ARG_TYPE_INFO(0, context, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, interpolation, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsgraphicscontext_nsgraphicscontext_getimageinterpolation, 0, 1, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, context, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsgraphicscontext_nsgraphicscontext_setpatternphase, 0, 3, IS_VOID, 0)
+
+	ZEND_ARG_TYPE_INFO(0, context, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, x, IS_DOUBLE, 0)
+	ZEND_ARG_TYPE_INFO(0, y, IS_DOUBLE, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsgraphicscontext_nsgraphicscontext_getpatternphase, 0, 1, IS_ARRAY, 0)
+	ZEND_ARG_TYPE_INFO(0, context, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsgraphicscontext_nsgraphicscontext_setcompositingoperation, 0, 2, IS_VOID, 0)
+
+	ZEND_ARG_TYPE_INFO(0, context, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, operation, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsgraphicscontext_nsgraphicscontext_getcompositingoperation, 0, 1, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, context, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsgraphicscontext_nsgraphicscontext_isflipped, 0, 1, _IS_BOOL, 0)
+	ZEND_ARG_TYPE_INFO(0, context, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEPHIR_INIT_FUNCS(appkit_ns_nsgraphicscontext_nsgraphicscontext_method_entry) {
+	PHP_ME(AppKit_NS_NSGraphicsContext_NSGraphicsContext, current, arginfo_appkit_ns_nsgraphicscontext_nsgraphicscontext_current, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSGraphicsContext_NSGraphicsContext, setCurrent, arginfo_appkit_ns_nsgraphicscontext_nsgraphicscontext_setcurrent, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSGraphicsContext_NSGraphicsContext, drawingToScreen, arginfo_appkit_ns_nsgraphicscontext_nsgraphicscontext_drawingtoscreen, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSGraphicsContext_NSGraphicsContext, instanceDrawingToScreen, arginfo_appkit_ns_nsgraphicscontext_nsgraphicscontext_instancedrawingtoscreen, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSGraphicsContext_NSGraphicsContext, saveState, arginfo_appkit_ns_nsgraphicscontext_nsgraphicscontext_savestate, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSGraphicsContext_NSGraphicsContext, restoreState, arginfo_appkit_ns_nsgraphicscontext_nsgraphicscontext_restorestate, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSGraphicsContext_NSGraphicsContext, withBitmapRep, arginfo_appkit_ns_nsgraphicscontext_nsgraphicscontext_withbitmaprep, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSGraphicsContext_NSGraphicsContext, wrap, arginfo_appkit_ns_nsgraphicscontext_nsgraphicscontext_wrap, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSGraphicsContext_NSGraphicsContext, destroy, arginfo_appkit_ns_nsgraphicscontext_nsgraphicscontext_destroy, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSGraphicsContext_NSGraphicsContext, nsGraphicsContext, arginfo_appkit_ns_nsgraphicscontext_nsgraphicscontext_nsgraphicscontext, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSGraphicsContext_NSGraphicsContext, saveGraphicsState, arginfo_appkit_ns_nsgraphicscontext_nsgraphicscontext_savegraphicsstate, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSGraphicsContext_NSGraphicsContext, restoreGraphicsState, arginfo_appkit_ns_nsgraphicscontext_nsgraphicscontext_restoregraphicsstate, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSGraphicsContext_NSGraphicsContext, flush, arginfo_appkit_ns_nsgraphicscontext_nsgraphicscontext_flush, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSGraphicsContext_NSGraphicsContext, setShouldAntialias, arginfo_appkit_ns_nsgraphicscontext_nsgraphicscontext_setshouldantialias, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSGraphicsContext_NSGraphicsContext, getShouldAntialias, arginfo_appkit_ns_nsgraphicscontext_nsgraphicscontext_getshouldantialias, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSGraphicsContext_NSGraphicsContext, setImageInterpolation, arginfo_appkit_ns_nsgraphicscontext_nsgraphicscontext_setimageinterpolation, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSGraphicsContext_NSGraphicsContext, getImageInterpolation, arginfo_appkit_ns_nsgraphicscontext_nsgraphicscontext_getimageinterpolation, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSGraphicsContext_NSGraphicsContext, setPatternPhase, arginfo_appkit_ns_nsgraphicscontext_nsgraphicscontext_setpatternphase, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSGraphicsContext_NSGraphicsContext, getPatternPhase, arginfo_appkit_ns_nsgraphicscontext_nsgraphicscontext_getpatternphase, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSGraphicsContext_NSGraphicsContext, setCompositingOperation, arginfo_appkit_ns_nsgraphicscontext_nsgraphicscontext_setcompositingoperation, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSGraphicsContext_NSGraphicsContext, getCompositingOperation, arginfo_appkit_ns_nsgraphicscontext_nsgraphicscontext_getcompositingoperation, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSGraphicsContext_NSGraphicsContext, isFlipped, arginfo_appkit_ns_nsgraphicscontext_nsgraphicscontext_isflipped, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_FE_END
+};

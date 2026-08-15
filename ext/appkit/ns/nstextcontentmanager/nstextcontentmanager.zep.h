@@ -1,0 +1,89 @@
+
+extern zend_class_entry *appkit_ns_nstextcontentmanager_nstextcontentmanager_ce;
+
+ZEPHIR_INIT_CLASS(AppKit_NS_NSTextContentManager_NSTextContentManager);
+
+PHP_METHOD(AppKit_NS_NSTextContentManager_NSTextContentManager, create);
+PHP_METHOD(AppKit_NS_NSTextContentManager_NSTextContentManager, wrap);
+PHP_METHOD(AppKit_NS_NSTextContentManager_NSTextContentManager, destroy);
+PHP_METHOD(AppKit_NS_NSTextContentManager_NSTextContentManager, addTextLayoutManager);
+PHP_METHOD(AppKit_NS_NSTextContentManager_NSTextContentManager, removeTextLayoutManager);
+PHP_METHOD(AppKit_NS_NSTextContentManager_NSTextContentManager, textLayoutManagersCount);
+PHP_METHOD(AppKit_NS_NSTextContentManager_NSTextContentManager, hasEditingTransaction);
+PHP_METHOD(AppKit_NS_NSTextContentManager_NSTextContentManager, automaticallySynchronizesTextLayoutManagers);
+PHP_METHOD(AppKit_NS_NSTextContentManager_NSTextContentManager, setAutomaticallySynchronizesTextLayoutManagers);
+PHP_METHOD(AppKit_NS_NSTextContentManager_NSTextContentManager, automaticallySynchronizesToBackingStore);
+PHP_METHOD(AppKit_NS_NSTextContentManager_NSTextContentManager, setAutomaticallySynchronizesToBackingStore);
+PHP_METHOD(AppKit_NS_NSTextContentManager_NSTextContentManager, documentRangePtr);
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nstextcontentmanager_nstextcontentmanager_create, 0, 0, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nstextcontentmanager_nstextcontentmanager_wrap, 0, 1, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, nsTextContentManagerPtr, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nstextcontentmanager_nstextcontentmanager_destroy, 0, 1, IS_VOID, 0)
+
+	ZEND_ARG_TYPE_INFO(0, manager, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nstextcontentmanager_nstextcontentmanager_addtextlayoutmanager, 0, 2, IS_VOID, 0)
+
+	ZEND_ARG_TYPE_INFO(0, manager, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, layoutManager, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nstextcontentmanager_nstextcontentmanager_removetextlayoutmanager, 0, 2, IS_VOID, 0)
+
+	ZEND_ARG_TYPE_INFO(0, manager, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, layoutManager, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nstextcontentmanager_nstextcontentmanager_textlayoutmanagerscount, 0, 1, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, manager, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nstextcontentmanager_nstextcontentmanager_haseditingtransaction, 0, 1, _IS_BOOL, 0)
+	ZEND_ARG_TYPE_INFO(0, manager, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nstextcontentmanager_nstextcontentmanager_automaticallysynchronizestextlayoutmanagers, 0, 1, _IS_BOOL, 0)
+	ZEND_ARG_TYPE_INFO(0, manager, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nstextcontentmanager_nstextcontentmanager_setautomaticallysynchronizestextlayoutmanagers, 0, 2, IS_VOID, 0)
+
+	ZEND_ARG_TYPE_INFO(0, manager, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, flag, _IS_BOOL, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nstextcontentmanager_nstextcontentmanager_automaticallysynchronizestobackingstore, 0, 1, _IS_BOOL, 0)
+	ZEND_ARG_TYPE_INFO(0, manager, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nstextcontentmanager_nstextcontentmanager_setautomaticallysynchronizestobackingstore, 0, 2, IS_VOID, 0)
+
+	ZEND_ARG_TYPE_INFO(0, manager, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, flag, _IS_BOOL, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nstextcontentmanager_nstextcontentmanager_documentrangeptr, 0, 1, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, manager, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEPHIR_INIT_FUNCS(appkit_ns_nstextcontentmanager_nstextcontentmanager_method_entry) {
+	PHP_ME(AppKit_NS_NSTextContentManager_NSTextContentManager, create, arginfo_appkit_ns_nstextcontentmanager_nstextcontentmanager_create, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSTextContentManager_NSTextContentManager, wrap, arginfo_appkit_ns_nstextcontentmanager_nstextcontentmanager_wrap, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSTextContentManager_NSTextContentManager, destroy, arginfo_appkit_ns_nstextcontentmanager_nstextcontentmanager_destroy, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSTextContentManager_NSTextContentManager, addTextLayoutManager, arginfo_appkit_ns_nstextcontentmanager_nstextcontentmanager_addtextlayoutmanager, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSTextContentManager_NSTextContentManager, removeTextLayoutManager, arginfo_appkit_ns_nstextcontentmanager_nstextcontentmanager_removetextlayoutmanager, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSTextContentManager_NSTextContentManager, textLayoutManagersCount, arginfo_appkit_ns_nstextcontentmanager_nstextcontentmanager_textlayoutmanagerscount, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSTextContentManager_NSTextContentManager, hasEditingTransaction, arginfo_appkit_ns_nstextcontentmanager_nstextcontentmanager_haseditingtransaction, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSTextContentManager_NSTextContentManager, automaticallySynchronizesTextLayoutManagers, arginfo_appkit_ns_nstextcontentmanager_nstextcontentmanager_automaticallysynchronizestextlayoutmanagers, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSTextContentManager_NSTextContentManager, setAutomaticallySynchronizesTextLayoutManagers, arginfo_appkit_ns_nstextcontentmanager_nstextcontentmanager_setautomaticallysynchronizestextlayoutmanagers, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSTextContentManager_NSTextContentManager, automaticallySynchronizesToBackingStore, arginfo_appkit_ns_nstextcontentmanager_nstextcontentmanager_automaticallysynchronizestobackingstore, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSTextContentManager_NSTextContentManager, setAutomaticallySynchronizesToBackingStore, arginfo_appkit_ns_nstextcontentmanager_nstextcontentmanager_setautomaticallysynchronizestobackingstore, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSTextContentManager_NSTextContentManager, documentRangePtr, arginfo_appkit_ns_nstextcontentmanager_nstextcontentmanager_documentrangeptr, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_FE_END
+};
