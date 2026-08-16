@@ -165,3 +165,13 @@ int ns_control_get_control_size(uintptr_t control)
         return obj ? (int)obj.controlSize : 0;
     }
 }
+
+void ns_control_set_alignment(uintptr_t control, int alignment)
+{
+    @autoreleasepool {
+        NSControl *obj = ns_control_from_view(control);
+        if (obj) {
+            obj.alignment = (NSTextAlignment)alignment;
+        }
+    }
+}

@@ -278,3 +278,21 @@ PHP_METHOD(AppKit_NS_NSControl_NSControl, getControlSize)
 	RETURN_LONG(value);
 }
 
+/**
+ * NSTextAlignment ABI ints. Current macOS (`TARGET_ABI_USES_IOS_VALUES`): 0 left, 1 center, 2 right, 3 justified, 4 natural.
+ */
+PHP_METHOD(AppKit_NS_NSControl_NSControl, setAlignment)
+{
+	zval *control_param = NULL, *alignment_param = NULL;
+	zend_long control, alignment;
+
+	ZEND_PARSE_PARAMETERS_START(2, 2)
+		Z_PARAM_LONG(control)
+		Z_PARAM_LONG(alignment)
+	ZEND_PARSE_PARAMETERS_END();
+	zephir_fetch_params_without_memory_grow(2, 0, &control_param, &alignment_param);
+	
+            ns_control_set_alignment((uintptr_t) control, (int) alignment);
+        
+}
+

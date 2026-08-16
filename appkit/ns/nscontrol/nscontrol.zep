@@ -139,4 +139,14 @@ class NSControl
         }%
         return value;
     }
+
+    /**
+     * NSTextAlignment ABI ints. Current macOS (`TARGET_ABI_USES_IOS_VALUES`): 0 left, 1 center, 2 right, 3 justified, 4 natural.
+     */
+    public static function setAlignment(int control, int alignment) -> void
+    {
+        %{
+            ns_control_set_alignment((uintptr_t) control, (int) alignment);
+        }%
+    }
 }

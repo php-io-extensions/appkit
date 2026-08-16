@@ -1,5 +1,13 @@
 # Directory Update Log
 
+## 2026-08-16 (NSTextAlignment ABI)
+
+* Current Command Line Tools SDK defines `TARGET_ABI_USES_IOS_VALUES`: `NSTextAlignmentCenter=1`, `NSTextAlignmentRight=2`. The historic macOS swap (center=2, right=1) is not this ABI. `setAlignment` still passes the integer through to `NSControl.alignment`.
+
+## 2026-08-16 (NSControl alignment)
+
+* `NSControl::setAlignment` → `ns_control_set_alignment` → `NSControl.alignment`. Rebuild the extension after generate; source is `.zep` / `src/ns-control.*`.
+
 ## 2026-08-16 (PIE ext/ cleanup + tree alignment)
 
 * **Problem**: official `php-io-extensions/appkit` `ext/` mixed phpize leftovers (`Makefile`, `configure`, `modules/`, `.libs/`, `*.lo`) with committed sources. Generated C was stale (164 `.zep.c` vs 255 on the generate tree).

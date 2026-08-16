@@ -5,7 +5,7 @@ description: NSControl shared API for control view-box handles
 resource: /appkit/ns/nscontrol/nscontrol.zep
 tags: [appkit, api, nscontrol]
 status: draft
-generated: { by: cursor-agent/grok-4.6, at: "2026-08-15T02:15:00Z" }
+generated: { by: cursor-agent/grok-4.6, at: "2026-08-16T19:25:00Z" }
 sources:
   - id: zep
     resource: /appkit/ns/nscontrol/nscontrol.zep
@@ -30,6 +30,7 @@ sources:
 | `setContinuous` / `isContinuous` | `continuous` |
 | `setState` / `getState` | `state` on `NSButton` subclasses (checkbox/radio/switch) |
 | `setControlSize` / `getControlSize` | `controlSize` |
+| `setAlignment` | `alignment` (`NSTextAlignment` ABI ints; current macOS `TARGET_ABI_USES_IOS_VALUES`: 0 left, 1 center, 2 right) |
 
 `control` argument is a view-box handle from any `NSControl` subclass (`NSButton`, `NSTextField`, `NSSlider`, …).
 

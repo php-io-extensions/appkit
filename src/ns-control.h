@@ -44,6 +44,9 @@ void ns_control_set_control_size(uintptr_t control, int size);
 
 int ns_control_get_control_size(uintptr_t control);
 
+/** NSTextAlignment ABI ints. Current macOS (`TARGET_ABI_USES_IOS_VALUES`): 0 left, 1 center, 2 right, 3 justified, 4 natural. */
+void ns_control_set_alignment(uintptr_t control, int alignment);
+
 #ifdef __cplusplus
 }
 #endif
