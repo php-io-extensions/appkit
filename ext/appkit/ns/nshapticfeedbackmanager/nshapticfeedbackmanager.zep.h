@@ -1,0 +1,38 @@
+
+extern zend_class_entry *appkit_ns_nshapticfeedbackmanager_nshapticfeedbackmanager_ce;
+
+ZEPHIR_INIT_CLASS(AppKit_NS_NSHapticFeedbackManager_NSHapticFeedbackManager);
+
+PHP_METHOD(AppKit_NS_NSHapticFeedbackManager_NSHapticFeedbackManager, defaultPerformer);
+PHP_METHOD(AppKit_NS_NSHapticFeedbackManager_NSHapticFeedbackManager, destroyPerformer);
+PHP_METHOD(AppKit_NS_NSHapticFeedbackManager_NSHapticFeedbackManager, performFeedback);
+PHP_METHOD(AppKit_NS_NSHapticFeedbackManager_NSHapticFeedbackManager, performDefaultFeedback);
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nshapticfeedbackmanager_nshapticfeedbackmanager_defaultperformer, 0, 0, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nshapticfeedbackmanager_nshapticfeedbackmanager_destroyperformer, 0, 1, IS_VOID, 0)
+
+	ZEND_ARG_TYPE_INFO(0, performer, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nshapticfeedbackmanager_nshapticfeedbackmanager_performfeedback, 0, 2, IS_VOID, 0)
+
+	ZEND_ARG_TYPE_INFO(0, performer, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, pattern, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, performanceTime, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nshapticfeedbackmanager_nshapticfeedbackmanager_performdefaultfeedback, 0, 1, IS_VOID, 0)
+
+	ZEND_ARG_TYPE_INFO(0, pattern, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, performanceTime, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEPHIR_INIT_FUNCS(appkit_ns_nshapticfeedbackmanager_nshapticfeedbackmanager_method_entry) {
+	PHP_ME(AppKit_NS_NSHapticFeedbackManager_NSHapticFeedbackManager, defaultPerformer, arginfo_appkit_ns_nshapticfeedbackmanager_nshapticfeedbackmanager_defaultperformer, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSHapticFeedbackManager_NSHapticFeedbackManager, destroyPerformer, arginfo_appkit_ns_nshapticfeedbackmanager_nshapticfeedbackmanager_destroyperformer, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSHapticFeedbackManager_NSHapticFeedbackManager, performFeedback, arginfo_appkit_ns_nshapticfeedbackmanager_nshapticfeedbackmanager_performfeedback, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSHapticFeedbackManager_NSHapticFeedbackManager, performDefaultFeedback, arginfo_appkit_ns_nshapticfeedbackmanager_nshapticfeedbackmanager_performdefaultfeedback, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_FE_END
+};

@@ -284,3 +284,48 @@ PHP_METHOD(AppKit_NS_NSWindow_NSWindow, nsWindow)
 	RETURN_LONG(handle);
 }
 
+PHP_METHOD(AppKit_NS_NSWindow_NSWindow, tab)
+{
+	zval *window_param = NULL;
+	zend_long window, handle = 0;
+
+	ZEND_PARSE_PARAMETERS_START(1, 1)
+		Z_PARAM_LONG(window)
+	ZEND_PARSE_PARAMETERS_END();
+	zephir_fetch_params_without_memory_grow(1, 0, &window_param);
+	
+            handle = (zend_long) ns_window_tab((uintptr_t) window);
+        
+	RETURN_LONG(handle);
+}
+
+PHP_METHOD(AppKit_NS_NSWindow_NSWindow, tabGroup)
+{
+	zval *window_param = NULL;
+	zend_long window, handle = 0;
+
+	ZEND_PARSE_PARAMETERS_START(1, 1)
+		Z_PARAM_LONG(window)
+	ZEND_PARSE_PARAMETERS_END();
+	zephir_fetch_params_without_memory_grow(1, 0, &window_param);
+	
+            handle = (zend_long) ns_window_tab_group((uintptr_t) window);
+        
+	RETURN_LONG(handle);
+}
+
+PHP_METHOD(AppKit_NS_NSWindow_NSWindow, addTitlebarAccessoryViewController)
+{
+	zval *window_param = NULL, *controller_param = NULL;
+	zend_long window, controller;
+
+	ZEND_PARSE_PARAMETERS_START(2, 2)
+		Z_PARAM_LONG(window)
+		Z_PARAM_LONG(controller)
+	ZEND_PARSE_PARAMETERS_END();
+	zephir_fetch_params_without_memory_grow(2, 0, &window_param, &controller_param);
+	
+            ns_window_add_titlebar_accessory((uintptr_t) window, (uintptr_t) controller);
+        
+}
+

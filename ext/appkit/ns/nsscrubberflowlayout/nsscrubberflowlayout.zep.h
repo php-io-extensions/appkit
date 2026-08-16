@@ -1,0 +1,70 @@
+
+extern zend_class_entry *appkit_ns_nsscrubberflowlayout_nsscrubberflowlayout_ce;
+
+ZEPHIR_INIT_CLASS(AppKit_NS_NSScrubberFlowLayout_NSScrubberFlowLayout);
+
+PHP_METHOD(AppKit_NS_NSScrubberFlowLayout_NSScrubberFlowLayout, create);
+PHP_METHOD(AppKit_NS_NSScrubberFlowLayout_NSScrubberFlowLayout, wrap);
+PHP_METHOD(AppKit_NS_NSScrubberFlowLayout_NSScrubberFlowLayout, destroy);
+PHP_METHOD(AppKit_NS_NSScrubberFlowLayout_NSScrubberFlowLayout, nsScrubberFlowLayout);
+PHP_METHOD(AppKit_NS_NSScrubberFlowLayout_NSScrubberFlowLayout, setItemSpacing);
+PHP_METHOD(AppKit_NS_NSScrubberFlowLayout_NSScrubberFlowLayout, getItemSpacing);
+PHP_METHOD(AppKit_NS_NSScrubberFlowLayout_NSScrubberFlowLayout, setItemSize);
+PHP_METHOD(AppKit_NS_NSScrubberFlowLayout_NSScrubberFlowLayout, getItemSize);
+PHP_METHOD(AppKit_NS_NSScrubberFlowLayout_NSScrubberFlowLayout, invalidateItemsAtIndexes);
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsscrubberflowlayout_nsscrubberflowlayout_create, 0, 0, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsscrubberflowlayout_nsscrubberflowlayout_wrap, 0, 1, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, nsScrubberFlowLayoutPtr, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsscrubberflowlayout_nsscrubberflowlayout_destroy, 0, 1, IS_VOID, 0)
+
+	ZEND_ARG_TYPE_INFO(0, layout, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsscrubberflowlayout_nsscrubberflowlayout_nsscrubberflowlayout, 0, 1, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, layout, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsscrubberflowlayout_nsscrubberflowlayout_setitemspacing, 0, 2, IS_VOID, 0)
+
+	ZEND_ARG_TYPE_INFO(0, layout, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, spacing, IS_DOUBLE, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsscrubberflowlayout_nsscrubberflowlayout_getitemspacing, 0, 1, IS_DOUBLE, 0)
+	ZEND_ARG_TYPE_INFO(0, layout, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsscrubberflowlayout_nsscrubberflowlayout_setitemsize, 0, 3, IS_VOID, 0)
+
+	ZEND_ARG_TYPE_INFO(0, layout, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, width, IS_DOUBLE, 0)
+	ZEND_ARG_TYPE_INFO(0, height, IS_DOUBLE, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsscrubberflowlayout_nsscrubberflowlayout_getitemsize, 0, 1, IS_ARRAY, 0)
+	ZEND_ARG_TYPE_INFO(0, layout, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsscrubberflowlayout_nsscrubberflowlayout_invalidateitemsatindexes, 0, 2, IS_VOID, 0)
+
+	ZEND_ARG_TYPE_INFO(0, layout, IS_LONG, 0)
+	ZEND_ARG_ARRAY_INFO(0, indexes, 0)
+ZEND_END_ARG_INFO()
+
+ZEPHIR_INIT_FUNCS(appkit_ns_nsscrubberflowlayout_nsscrubberflowlayout_method_entry) {
+	PHP_ME(AppKit_NS_NSScrubberFlowLayout_NSScrubberFlowLayout, create, arginfo_appkit_ns_nsscrubberflowlayout_nsscrubberflowlayout_create, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSScrubberFlowLayout_NSScrubberFlowLayout, wrap, arginfo_appkit_ns_nsscrubberflowlayout_nsscrubberflowlayout_wrap, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSScrubberFlowLayout_NSScrubberFlowLayout, destroy, arginfo_appkit_ns_nsscrubberflowlayout_nsscrubberflowlayout_destroy, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSScrubberFlowLayout_NSScrubberFlowLayout, nsScrubberFlowLayout, arginfo_appkit_ns_nsscrubberflowlayout_nsscrubberflowlayout_nsscrubberflowlayout, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSScrubberFlowLayout_NSScrubberFlowLayout, setItemSpacing, arginfo_appkit_ns_nsscrubberflowlayout_nsscrubberflowlayout_setitemspacing, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSScrubberFlowLayout_NSScrubberFlowLayout, getItemSpacing, arginfo_appkit_ns_nsscrubberflowlayout_nsscrubberflowlayout_getitemspacing, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSScrubberFlowLayout_NSScrubberFlowLayout, setItemSize, arginfo_appkit_ns_nsscrubberflowlayout_nsscrubberflowlayout_setitemsize, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSScrubberFlowLayout_NSScrubberFlowLayout, getItemSize, arginfo_appkit_ns_nsscrubberflowlayout_nsscrubberflowlayout_getitemsize, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSScrubberFlowLayout_NSScrubberFlowLayout, invalidateItemsAtIndexes, arginfo_appkit_ns_nsscrubberflowlayout_nsscrubberflowlayout_invalidateitemsatindexes, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_FE_END
+};

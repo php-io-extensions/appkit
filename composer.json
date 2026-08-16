@@ -19,7 +19,9 @@
         "build-path": "ext",
         "support-zts": true,
         "support-nts": true,
-        "os-families": ["darwin"],
+        "os-families": [
+            "darwin"
+        ],
         "configure-options": [
             {
                 "name": "enable-appkit",

@@ -16,6 +16,8 @@ PHP_METHOD(AppKit_NS_NSWorkspace_NSWorkspace, hideOtherApplications);
 PHP_METHOD(AppKit_NS_NSWorkspace_NSWorkspace, urlForApplicationWithBundleIdentifier);
 PHP_METHOD(AppKit_NS_NSWorkspace_NSWorkspace, urlForApplicationToOpenURL);
 PHP_METHOD(AppKit_NS_NSWorkspace_NSWorkspace, frontmostApplicationName);
+PHP_METHOD(AppKit_NS_NSWorkspace_NSWorkspace, runningApplicationsCount);
+PHP_METHOD(AppKit_NS_NSWorkspace_NSWorkspace, runningApplicationAt);
 
 ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsworkspace_nsworkspace_shared, 0, 0, IS_LONG, 0)
 ZEND_END_ARG_INFO()
@@ -78,6 +80,15 @@ ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsworkspace_nsworkspac
 	ZEND_ARG_TYPE_INFO(0, workspace, IS_LONG, 0)
 ZEND_END_ARG_INFO()
 
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsworkspace_nsworkspace_runningapplicationscount, 0, 1, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, workspace, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsworkspace_nsworkspace_runningapplicationat, 0, 2, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, workspace, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, index, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
 ZEPHIR_INIT_FUNCS(appkit_ns_nsworkspace_nsworkspace_method_entry) {
 	PHP_ME(AppKit_NS_NSWorkspace_NSWorkspace, shared, arginfo_appkit_ns_nsworkspace_nsworkspace_shared, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
 	PHP_ME(AppKit_NS_NSWorkspace_NSWorkspace, wrap, arginfo_appkit_ns_nsworkspace_nsworkspace_wrap, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
@@ -92,5 +103,7 @@ ZEPHIR_INIT_FUNCS(appkit_ns_nsworkspace_nsworkspace_method_entry) {
 	PHP_ME(AppKit_NS_NSWorkspace_NSWorkspace, urlForApplicationWithBundleIdentifier, arginfo_appkit_ns_nsworkspace_nsworkspace_urlforapplicationwithbundleidentifier, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
 	PHP_ME(AppKit_NS_NSWorkspace_NSWorkspace, urlForApplicationToOpenURL, arginfo_appkit_ns_nsworkspace_nsworkspace_urlforapplicationtoopenurl, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
 	PHP_ME(AppKit_NS_NSWorkspace_NSWorkspace, frontmostApplicationName, arginfo_appkit_ns_nsworkspace_nsworkspace_frontmostapplicationname, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSWorkspace_NSWorkspace, runningApplicationsCount, arginfo_appkit_ns_nsworkspace_nsworkspace_runningapplicationscount, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSWorkspace_NSWorkspace, runningApplicationAt, arginfo_appkit_ns_nsworkspace_nsworkspace_runningapplicationat, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
 	PHP_FE_END
 };

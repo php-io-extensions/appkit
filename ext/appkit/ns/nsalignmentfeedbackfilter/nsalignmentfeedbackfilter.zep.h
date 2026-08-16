@@ -1,0 +1,103 @@
+
+extern zend_class_entry *appkit_ns_nsalignmentfeedbackfilter_nsalignmentfeedbackfilter_ce;
+
+ZEPHIR_INIT_CLASS(AppKit_NS_NSAlignmentFeedbackFilter_NSAlignmentFeedbackFilter);
+
+PHP_METHOD(AppKit_NS_NSAlignmentFeedbackFilter_NSAlignmentFeedbackFilter, create);
+PHP_METHOD(AppKit_NS_NSAlignmentFeedbackFilter_NSAlignmentFeedbackFilter, wrap);
+PHP_METHOD(AppKit_NS_NSAlignmentFeedbackFilter_NSAlignmentFeedbackFilter, destroy);
+PHP_METHOD(AppKit_NS_NSAlignmentFeedbackFilter_NSAlignmentFeedbackFilter, nsAlignmentFeedbackFilter);
+PHP_METHOD(AppKit_NS_NSAlignmentFeedbackFilter_NSAlignmentFeedbackFilter, inputEventMask);
+PHP_METHOD(AppKit_NS_NSAlignmentFeedbackFilter_NSAlignmentFeedbackFilter, updateWithEvent);
+PHP_METHOD(AppKit_NS_NSAlignmentFeedbackFilter_NSAlignmentFeedbackFilter, updateWithPanRecognizer);
+PHP_METHOD(AppKit_NS_NSAlignmentFeedbackFilter_NSAlignmentFeedbackFilter, tokenForMovement);
+PHP_METHOD(AppKit_NS_NSAlignmentFeedbackFilter_NSAlignmentFeedbackFilter, tokenForHorizontalMovement);
+PHP_METHOD(AppKit_NS_NSAlignmentFeedbackFilter_NSAlignmentFeedbackFilter, tokenForVerticalMovement);
+PHP_METHOD(AppKit_NS_NSAlignmentFeedbackFilter_NSAlignmentFeedbackFilter, performFeedback);
+PHP_METHOD(AppKit_NS_NSAlignmentFeedbackFilter_NSAlignmentFeedbackFilter, destroyToken);
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsalignmentfeedbackfilter_nsalignmentfeedbackfilter_create, 0, 0, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsalignmentfeedbackfilter_nsalignmentfeedbackfilter_wrap, 0, 1, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, nsAlignmentFeedbackFilterPtr, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsalignmentfeedbackfilter_nsalignmentfeedbackfilter_destroy, 0, 1, IS_VOID, 0)
+
+	ZEND_ARG_TYPE_INFO(0, filter, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsalignmentfeedbackfilter_nsalignmentfeedbackfilter_nsalignmentfeedbackfilter, 0, 1, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, filter, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsalignmentfeedbackfilter_nsalignmentfeedbackfilter_inputeventmask, 0, 0, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsalignmentfeedbackfilter_nsalignmentfeedbackfilter_updatewithevent, 0, 2, IS_VOID, 0)
+
+	ZEND_ARG_TYPE_INFO(0, filter, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, nsEventPtr, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsalignmentfeedbackfilter_nsalignmentfeedbackfilter_updatewithpanrecognizer, 0, 2, IS_VOID, 0)
+
+	ZEND_ARG_TYPE_INFO(0, filter, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, recognizer, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsalignmentfeedbackfilter_nsalignmentfeedbackfilter_tokenformovement, 0, 8, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, filter, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, view, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, prevX, IS_DOUBLE, 0)
+	ZEND_ARG_TYPE_INFO(0, prevY, IS_DOUBLE, 0)
+	ZEND_ARG_TYPE_INFO(0, alignedX, IS_DOUBLE, 0)
+	ZEND_ARG_TYPE_INFO(0, alignedY, IS_DOUBLE, 0)
+	ZEND_ARG_TYPE_INFO(0, defaultX, IS_DOUBLE, 0)
+	ZEND_ARG_TYPE_INFO(0, defaultY, IS_DOUBLE, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsalignmentfeedbackfilter_nsalignmentfeedbackfilter_tokenforhorizontalmovement, 0, 5, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, filter, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, view, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, previousX, IS_DOUBLE, 0)
+	ZEND_ARG_TYPE_INFO(0, alignedX, IS_DOUBLE, 0)
+	ZEND_ARG_TYPE_INFO(0, defaultX, IS_DOUBLE, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsalignmentfeedbackfilter_nsalignmentfeedbackfilter_tokenforverticalmovement, 0, 5, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, filter, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, view, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, previousY, IS_DOUBLE, 0)
+	ZEND_ARG_TYPE_INFO(0, alignedY, IS_DOUBLE, 0)
+	ZEND_ARG_TYPE_INFO(0, defaultY, IS_DOUBLE, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsalignmentfeedbackfilter_nsalignmentfeedbackfilter_performfeedback, 0, 3, IS_VOID, 0)
+
+	ZEND_ARG_TYPE_INFO(0, filter, IS_LONG, 0)
+	ZEND_ARG_ARRAY_INFO(0, tokens, 0)
+	ZEND_ARG_TYPE_INFO(0, performanceTime, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsalignmentfeedbackfilter_nsalignmentfeedbackfilter_destroytoken, 0, 1, IS_VOID, 0)
+
+	ZEND_ARG_TYPE_INFO(0, token, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEPHIR_INIT_FUNCS(appkit_ns_nsalignmentfeedbackfilter_nsalignmentfeedbackfilter_method_entry) {
+	PHP_ME(AppKit_NS_NSAlignmentFeedbackFilter_NSAlignmentFeedbackFilter, create, arginfo_appkit_ns_nsalignmentfeedbackfilter_nsalignmentfeedbackfilter_create, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSAlignmentFeedbackFilter_NSAlignmentFeedbackFilter, wrap, arginfo_appkit_ns_nsalignmentfeedbackfilter_nsalignmentfeedbackfilter_wrap, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSAlignmentFeedbackFilter_NSAlignmentFeedbackFilter, destroy, arginfo_appkit_ns_nsalignmentfeedbackfilter_nsalignmentfeedbackfilter_destroy, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSAlignmentFeedbackFilter_NSAlignmentFeedbackFilter, nsAlignmentFeedbackFilter, arginfo_appkit_ns_nsalignmentfeedbackfilter_nsalignmentfeedbackfilter_nsalignmentfeedbackfilter, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSAlignmentFeedbackFilter_NSAlignmentFeedbackFilter, inputEventMask, arginfo_appkit_ns_nsalignmentfeedbackfilter_nsalignmentfeedbackfilter_inputeventmask, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSAlignmentFeedbackFilter_NSAlignmentFeedbackFilter, updateWithEvent, arginfo_appkit_ns_nsalignmentfeedbackfilter_nsalignmentfeedbackfilter_updatewithevent, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSAlignmentFeedbackFilter_NSAlignmentFeedbackFilter, updateWithPanRecognizer, arginfo_appkit_ns_nsalignmentfeedbackfilter_nsalignmentfeedbackfilter_updatewithpanrecognizer, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSAlignmentFeedbackFilter_NSAlignmentFeedbackFilter, tokenForMovement, arginfo_appkit_ns_nsalignmentfeedbackfilter_nsalignmentfeedbackfilter_tokenformovement, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSAlignmentFeedbackFilter_NSAlignmentFeedbackFilter, tokenForHorizontalMovement, arginfo_appkit_ns_nsalignmentfeedbackfilter_nsalignmentfeedbackfilter_tokenforhorizontalmovement, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSAlignmentFeedbackFilter_NSAlignmentFeedbackFilter, tokenForVerticalMovement, arginfo_appkit_ns_nsalignmentfeedbackfilter_nsalignmentfeedbackfilter_tokenforverticalmovement, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSAlignmentFeedbackFilter_NSAlignmentFeedbackFilter, performFeedback, arginfo_appkit_ns_nsalignmentfeedbackfilter_nsalignmentfeedbackfilter_performfeedback, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSAlignmentFeedbackFilter_NSAlignmentFeedbackFilter, destroyToken, arginfo_appkit_ns_nsalignmentfeedbackfilter_nsalignmentfeedbackfilter_destroytoken, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_FE_END
+};

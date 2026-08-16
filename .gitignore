@@ -14,6 +14,8 @@ zephir-*.phar
 # ── Composer / PHP tooling ────────────────────────────────────────────────────
 vendor/
 composer.lock
+__pycache__/
+*.pyc
 
 # ── ext/ build artifacts ──────────────────────────────────────────────────────
 ext/Makefile
@@ -37,7 +39,6 @@ ext/configure~
 ext/configure.ac
 ext/configure.in
 ext/install-sh
-ext/clean
 ext/libtool
 ext/ltmain.sh
 ext/missing
@@ -45,6 +46,7 @@ ext/mkinstalldirs
 ext/modules/
 ext/run-tests.php
 ext/.libs/
+**/.libs/
 ext/appkit.la
 ext/appkit.lo
 ext/appkit.o

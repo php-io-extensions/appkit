@@ -1,0 +1,424 @@
+
+extern zend_class_entry *appkit_ns_nsdictionarycontroller_nsdictionarycontroller_ce;
+
+ZEPHIR_INIT_CLASS(AppKit_NS_NSDictionaryController_NSDictionaryController);
+
+PHP_METHOD(AppKit_NS_NSDictionaryController_NSDictionaryController, create);
+PHP_METHOD(AppKit_NS_NSDictionaryController_NSDictionaryController, wrap);
+PHP_METHOD(AppKit_NS_NSDictionaryController_NSDictionaryController, destroy);
+PHP_METHOD(AppKit_NS_NSDictionaryController_NSDictionaryController, nsDictionaryController);
+PHP_METHOD(AppKit_NS_NSDictionaryController_NSDictionaryController, discardEditing);
+PHP_METHOD(AppKit_NS_NSDictionaryController_NSDictionaryController, commitEditing);
+PHP_METHOD(AppKit_NS_NSDictionaryController_NSDictionaryController, isEditing);
+PHP_METHOD(AppKit_NS_NSDictionaryController_NSDictionaryController, rearrangeObjects);
+PHP_METHOD(AppKit_NS_NSDictionaryController_NSDictionaryController, setAutomaticallyRearrangesObjects);
+PHP_METHOD(AppKit_NS_NSDictionaryController_NSDictionaryController, automaticallyRearrangesObjects);
+PHP_METHOD(AppKit_NS_NSDictionaryController_NSDictionaryController, automaticRearrangementKeyPathsCount);
+PHP_METHOD(AppKit_NS_NSDictionaryController_NSDictionaryController, automaticRearrangementKeyPathAt);
+PHP_METHOD(AppKit_NS_NSDictionaryController_NSDictionaryController, didChangeArrangementCriteria);
+PHP_METHOD(AppKit_NS_NSDictionaryController_NSDictionaryController, setClearsFilterPredicateOnInsertion);
+PHP_METHOD(AppKit_NS_NSDictionaryController_NSDictionaryController, clearsFilterPredicateOnInsertion);
+PHP_METHOD(AppKit_NS_NSDictionaryController_NSDictionaryController, arrangedObjectsCount);
+PHP_METHOD(AppKit_NS_NSDictionaryController_NSDictionaryController, arrangedObjectAt);
+PHP_METHOD(AppKit_NS_NSDictionaryController_NSDictionaryController, setAvoidsEmptySelection);
+PHP_METHOD(AppKit_NS_NSDictionaryController_NSDictionaryController, avoidsEmptySelection);
+PHP_METHOD(AppKit_NS_NSDictionaryController_NSDictionaryController, setPreservesSelection);
+PHP_METHOD(AppKit_NS_NSDictionaryController_NSDictionaryController, preservesSelection);
+PHP_METHOD(AppKit_NS_NSDictionaryController_NSDictionaryController, setSelectsInsertedObjects);
+PHP_METHOD(AppKit_NS_NSDictionaryController_NSDictionaryController, selectsInsertedObjects);
+PHP_METHOD(AppKit_NS_NSDictionaryController_NSDictionaryController, setAlwaysUsesMultipleValuesMarker);
+PHP_METHOD(AppKit_NS_NSDictionaryController_NSDictionaryController, alwaysUsesMultipleValuesMarker);
+PHP_METHOD(AppKit_NS_NSDictionaryController_NSDictionaryController, setSelectionIndex);
+PHP_METHOD(AppKit_NS_NSDictionaryController_NSDictionaryController, selectionIndex);
+PHP_METHOD(AppKit_NS_NSDictionaryController_NSDictionaryController, setSelectionIndexes);
+PHP_METHOD(AppKit_NS_NSDictionaryController_NSDictionaryController, selectionIndexesCount);
+PHP_METHOD(AppKit_NS_NSDictionaryController_NSDictionaryController, selectionIndexAtOrdinal);
+PHP_METHOD(AppKit_NS_NSDictionaryController_NSDictionaryController, canInsert);
+PHP_METHOD(AppKit_NS_NSDictionaryController_NSDictionaryController, canSelectNext);
+PHP_METHOD(AppKit_NS_NSDictionaryController_NSDictionaryController, canSelectPrevious);
+PHP_METHOD(AppKit_NS_NSDictionaryController_NSDictionaryController, insertObjectAtArrangedObjectIndex);
+PHP_METHOD(AppKit_NS_NSDictionaryController_NSDictionaryController, removeObjectAtArrangedObjectIndex);
+PHP_METHOD(AppKit_NS_NSDictionaryController_NSDictionaryController, addObject);
+PHP_METHOD(AppKit_NS_NSDictionaryController_NSDictionaryController, removeObject);
+PHP_METHOD(AppKit_NS_NSDictionaryController_NSDictionaryController, setContent);
+PHP_METHOD(AppKit_NS_NSDictionaryController_NSDictionaryController, content);
+PHP_METHOD(AppKit_NS_NSDictionaryController_NSDictionaryController, setEditable);
+PHP_METHOD(AppKit_NS_NSDictionaryController_NSDictionaryController, isEditable);
+PHP_METHOD(AppKit_NS_NSDictionaryController_NSDictionaryController, canAdd);
+PHP_METHOD(AppKit_NS_NSDictionaryController_NSDictionaryController, canRemove);
+PHP_METHOD(AppKit_NS_NSDictionaryController_NSDictionaryController, prepareContent);
+PHP_METHOD(AppKit_NS_NSDictionaryController_NSDictionaryController, newObject);
+PHP_METHOD(AppKit_NS_NSDictionaryController_NSDictionaryController, selectedObjectsCount);
+PHP_METHOD(AppKit_NS_NSDictionaryController_NSDictionaryController, selectedObjectAt);
+PHP_METHOD(AppKit_NS_NSDictionaryController_NSDictionaryController, setInitialKey);
+PHP_METHOD(AppKit_NS_NSDictionaryController_NSDictionaryController, initialKey);
+PHP_METHOD(AppKit_NS_NSDictionaryController_NSDictionaryController, setInitialValue);
+PHP_METHOD(AppKit_NS_NSDictionaryController_NSDictionaryController, initialValue);
+PHP_METHOD(AppKit_NS_NSDictionaryController_NSDictionaryController, setIncludedKeys);
+PHP_METHOD(AppKit_NS_NSDictionaryController_NSDictionaryController, includedKeysCount);
+PHP_METHOD(AppKit_NS_NSDictionaryController_NSDictionaryController, includedKeyAt);
+PHP_METHOD(AppKit_NS_NSDictionaryController_NSDictionaryController, setExcludedKeys);
+PHP_METHOD(AppKit_NS_NSDictionaryController_NSDictionaryController, excludedKeysCount);
+PHP_METHOD(AppKit_NS_NSDictionaryController_NSDictionaryController, excludedKeyAt);
+PHP_METHOD(AppKit_NS_NSDictionaryController_NSDictionaryController, setLocalizedKeyDictionary);
+PHP_METHOD(AppKit_NS_NSDictionaryController_NSDictionaryController, localizedKeyDictionary);
+PHP_METHOD(AppKit_NS_NSDictionaryController_NSDictionaryController, setLocalizedKeyTable);
+PHP_METHOD(AppKit_NS_NSDictionaryController_NSDictionaryController, localizedKeyTable);
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsdictionarycontroller_nsdictionarycontroller_create, 0, 0, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsdictionarycontroller_nsdictionarycontroller_wrap, 0, 1, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, nsDictionaryControllerPtr, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsdictionarycontroller_nsdictionarycontroller_destroy, 0, 1, IS_VOID, 0)
+
+	ZEND_ARG_TYPE_INFO(0, controller, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsdictionarycontroller_nsdictionarycontroller_nsdictionarycontroller, 0, 1, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, controller, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsdictionarycontroller_nsdictionarycontroller_discardediting, 0, 1, IS_VOID, 0)
+
+	ZEND_ARG_TYPE_INFO(0, controller, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsdictionarycontroller_nsdictionarycontroller_commitediting, 0, 1, _IS_BOOL, 0)
+	ZEND_ARG_TYPE_INFO(0, controller, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsdictionarycontroller_nsdictionarycontroller_isediting, 0, 1, _IS_BOOL, 0)
+	ZEND_ARG_TYPE_INFO(0, controller, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsdictionarycontroller_nsdictionarycontroller_rearrangeobjects, 0, 1, IS_VOID, 0)
+
+	ZEND_ARG_TYPE_INFO(0, controller, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsdictionarycontroller_nsdictionarycontroller_setautomaticallyrearrangesobjects, 0, 2, IS_VOID, 0)
+
+	ZEND_ARG_TYPE_INFO(0, controller, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, value, _IS_BOOL, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsdictionarycontroller_nsdictionarycontroller_automaticallyrearrangesobjects, 0, 1, _IS_BOOL, 0)
+	ZEND_ARG_TYPE_INFO(0, controller, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsdictionarycontroller_nsdictionarycontroller_automaticrearrangementkeypathscount, 0, 1, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, controller, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsdictionarycontroller_nsdictionarycontroller_automaticrearrangementkeypathat, 0, 2, IS_STRING, 0)
+	ZEND_ARG_TYPE_INFO(0, controller, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, index, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsdictionarycontroller_nsdictionarycontroller_didchangearrangementcriteria, 0, 1, IS_VOID, 0)
+
+	ZEND_ARG_TYPE_INFO(0, controller, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsdictionarycontroller_nsdictionarycontroller_setclearsfilterpredicateoninsertion, 0, 2, IS_VOID, 0)
+
+	ZEND_ARG_TYPE_INFO(0, controller, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, value, _IS_BOOL, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsdictionarycontroller_nsdictionarycontroller_clearsfilterpredicateoninsertion, 0, 1, _IS_BOOL, 0)
+	ZEND_ARG_TYPE_INFO(0, controller, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsdictionarycontroller_nsdictionarycontroller_arrangedobjectscount, 0, 1, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, controller, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsdictionarycontroller_nsdictionarycontroller_arrangedobjectat, 0, 2, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, controller, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, index, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsdictionarycontroller_nsdictionarycontroller_setavoidsemptyselection, 0, 2, IS_VOID, 0)
+
+	ZEND_ARG_TYPE_INFO(0, controller, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, value, _IS_BOOL, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsdictionarycontroller_nsdictionarycontroller_avoidsemptyselection, 0, 1, _IS_BOOL, 0)
+	ZEND_ARG_TYPE_INFO(0, controller, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsdictionarycontroller_nsdictionarycontroller_setpreservesselection, 0, 2, IS_VOID, 0)
+
+	ZEND_ARG_TYPE_INFO(0, controller, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, value, _IS_BOOL, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsdictionarycontroller_nsdictionarycontroller_preservesselection, 0, 1, _IS_BOOL, 0)
+	ZEND_ARG_TYPE_INFO(0, controller, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsdictionarycontroller_nsdictionarycontroller_setselectsinsertedobjects, 0, 2, IS_VOID, 0)
+
+	ZEND_ARG_TYPE_INFO(0, controller, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, value, _IS_BOOL, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsdictionarycontroller_nsdictionarycontroller_selectsinsertedobjects, 0, 1, _IS_BOOL, 0)
+	ZEND_ARG_TYPE_INFO(0, controller, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsdictionarycontroller_nsdictionarycontroller_setalwaysusesmultiplevaluesmarker, 0, 2, IS_VOID, 0)
+
+	ZEND_ARG_TYPE_INFO(0, controller, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, value, _IS_BOOL, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsdictionarycontroller_nsdictionarycontroller_alwaysusesmultiplevaluesmarker, 0, 1, _IS_BOOL, 0)
+	ZEND_ARG_TYPE_INFO(0, controller, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsdictionarycontroller_nsdictionarycontroller_setselectionindex, 0, 2, _IS_BOOL, 0)
+	ZEND_ARG_TYPE_INFO(0, controller, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, index, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsdictionarycontroller_nsdictionarycontroller_selectionindex, 0, 1, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, controller, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsdictionarycontroller_nsdictionarycontroller_setselectionindexes, 0, 2, _IS_BOOL, 0)
+	ZEND_ARG_TYPE_INFO(0, controller, IS_LONG, 0)
+	ZEND_ARG_ARRAY_INFO(0, indexes, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsdictionarycontroller_nsdictionarycontroller_selectionindexescount, 0, 1, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, controller, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsdictionarycontroller_nsdictionarycontroller_selectionindexatordinal, 0, 2, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, controller, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, ordinal, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsdictionarycontroller_nsdictionarycontroller_caninsert, 0, 1, _IS_BOOL, 0)
+	ZEND_ARG_TYPE_INFO(0, controller, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsdictionarycontroller_nsdictionarycontroller_canselectnext, 0, 1, _IS_BOOL, 0)
+	ZEND_ARG_TYPE_INFO(0, controller, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsdictionarycontroller_nsdictionarycontroller_canselectprevious, 0, 1, _IS_BOOL, 0)
+	ZEND_ARG_TYPE_INFO(0, controller, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsdictionarycontroller_nsdictionarycontroller_insertobjectatarrangedobjectindex, 0, 3, IS_VOID, 0)
+
+	ZEND_ARG_TYPE_INFO(0, controller, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, objectPtr, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, index, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsdictionarycontroller_nsdictionarycontroller_removeobjectatarrangedobjectindex, 0, 2, IS_VOID, 0)
+
+	ZEND_ARG_TYPE_INFO(0, controller, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, index, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsdictionarycontroller_nsdictionarycontroller_addobject, 0, 2, IS_VOID, 0)
+
+	ZEND_ARG_TYPE_INFO(0, controller, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, objectPtr, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsdictionarycontroller_nsdictionarycontroller_removeobject, 0, 2, IS_VOID, 0)
+
+	ZEND_ARG_TYPE_INFO(0, controller, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, objectPtr, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsdictionarycontroller_nsdictionarycontroller_setcontent, 0, 2, IS_VOID, 0)
+
+	ZEND_ARG_TYPE_INFO(0, controller, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, contentPtr, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsdictionarycontroller_nsdictionarycontroller_content, 0, 1, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, controller, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsdictionarycontroller_nsdictionarycontroller_seteditable, 0, 2, IS_VOID, 0)
+
+	ZEND_ARG_TYPE_INFO(0, controller, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, value, _IS_BOOL, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsdictionarycontroller_nsdictionarycontroller_iseditable, 0, 1, _IS_BOOL, 0)
+	ZEND_ARG_TYPE_INFO(0, controller, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsdictionarycontroller_nsdictionarycontroller_canadd, 0, 1, _IS_BOOL, 0)
+	ZEND_ARG_TYPE_INFO(0, controller, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsdictionarycontroller_nsdictionarycontroller_canremove, 0, 1, _IS_BOOL, 0)
+	ZEND_ARG_TYPE_INFO(0, controller, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsdictionarycontroller_nsdictionarycontroller_preparecontent, 0, 1, IS_VOID, 0)
+
+	ZEND_ARG_TYPE_INFO(0, controller, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsdictionarycontroller_nsdictionarycontroller_newobject, 0, 1, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, controller, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsdictionarycontroller_nsdictionarycontroller_selectedobjectscount, 0, 1, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, controller, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsdictionarycontroller_nsdictionarycontroller_selectedobjectat, 0, 2, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, controller, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, index, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsdictionarycontroller_nsdictionarycontroller_setinitialkey, 0, 2, IS_VOID, 0)
+
+	ZEND_ARG_TYPE_INFO(0, controller, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, key, IS_STRING, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsdictionarycontroller_nsdictionarycontroller_initialkey, 0, 1, IS_STRING, 0)
+	ZEND_ARG_TYPE_INFO(0, controller, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsdictionarycontroller_nsdictionarycontroller_setinitialvalue, 0, 2, IS_VOID, 0)
+
+	ZEND_ARG_TYPE_INFO(0, controller, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, valuePtr, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsdictionarycontroller_nsdictionarycontroller_initialvalue, 0, 1, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, controller, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsdictionarycontroller_nsdictionarycontroller_setincludedkeys, 0, 2, IS_VOID, 0)
+
+	ZEND_ARG_TYPE_INFO(0, controller, IS_LONG, 0)
+	ZEND_ARG_ARRAY_INFO(0, keys, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsdictionarycontroller_nsdictionarycontroller_includedkeyscount, 0, 1, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, controller, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsdictionarycontroller_nsdictionarycontroller_includedkeyat, 0, 2, IS_STRING, 0)
+	ZEND_ARG_TYPE_INFO(0, controller, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, index, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsdictionarycontroller_nsdictionarycontroller_setexcludedkeys, 0, 2, IS_VOID, 0)
+
+	ZEND_ARG_TYPE_INFO(0, controller, IS_LONG, 0)
+	ZEND_ARG_ARRAY_INFO(0, keys, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsdictionarycontroller_nsdictionarycontroller_excludedkeyscount, 0, 1, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, controller, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsdictionarycontroller_nsdictionarycontroller_excludedkeyat, 0, 2, IS_STRING, 0)
+	ZEND_ARG_TYPE_INFO(0, controller, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, index, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsdictionarycontroller_nsdictionarycontroller_setlocalizedkeydictionary, 0, 2, IS_VOID, 0)
+
+	ZEND_ARG_TYPE_INFO(0, controller, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, dictionaryHandle, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsdictionarycontroller_nsdictionarycontroller_localizedkeydictionary, 0, 1, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, controller, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsdictionarycontroller_nsdictionarycontroller_setlocalizedkeytable, 0, 2, IS_VOID, 0)
+
+	ZEND_ARG_TYPE_INFO(0, controller, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, table, IS_STRING, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsdictionarycontroller_nsdictionarycontroller_localizedkeytable, 0, 1, IS_STRING, 0)
+	ZEND_ARG_TYPE_INFO(0, controller, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEPHIR_INIT_FUNCS(appkit_ns_nsdictionarycontroller_nsdictionarycontroller_method_entry) {
+	PHP_ME(AppKit_NS_NSDictionaryController_NSDictionaryController, create, arginfo_appkit_ns_nsdictionarycontroller_nsdictionarycontroller_create, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSDictionaryController_NSDictionaryController, wrap, arginfo_appkit_ns_nsdictionarycontroller_nsdictionarycontroller_wrap, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSDictionaryController_NSDictionaryController, destroy, arginfo_appkit_ns_nsdictionarycontroller_nsdictionarycontroller_destroy, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSDictionaryController_NSDictionaryController, nsDictionaryController, arginfo_appkit_ns_nsdictionarycontroller_nsdictionarycontroller_nsdictionarycontroller, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSDictionaryController_NSDictionaryController, discardEditing, arginfo_appkit_ns_nsdictionarycontroller_nsdictionarycontroller_discardediting, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSDictionaryController_NSDictionaryController, commitEditing, arginfo_appkit_ns_nsdictionarycontroller_nsdictionarycontroller_commitediting, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSDictionaryController_NSDictionaryController, isEditing, arginfo_appkit_ns_nsdictionarycontroller_nsdictionarycontroller_isediting, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSDictionaryController_NSDictionaryController, rearrangeObjects, arginfo_appkit_ns_nsdictionarycontroller_nsdictionarycontroller_rearrangeobjects, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSDictionaryController_NSDictionaryController, setAutomaticallyRearrangesObjects, arginfo_appkit_ns_nsdictionarycontroller_nsdictionarycontroller_setautomaticallyrearrangesobjects, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSDictionaryController_NSDictionaryController, automaticallyRearrangesObjects, arginfo_appkit_ns_nsdictionarycontroller_nsdictionarycontroller_automaticallyrearrangesobjects, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSDictionaryController_NSDictionaryController, automaticRearrangementKeyPathsCount, arginfo_appkit_ns_nsdictionarycontroller_nsdictionarycontroller_automaticrearrangementkeypathscount, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSDictionaryController_NSDictionaryController, automaticRearrangementKeyPathAt, arginfo_appkit_ns_nsdictionarycontroller_nsdictionarycontroller_automaticrearrangementkeypathat, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSDictionaryController_NSDictionaryController, didChangeArrangementCriteria, arginfo_appkit_ns_nsdictionarycontroller_nsdictionarycontroller_didchangearrangementcriteria, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSDictionaryController_NSDictionaryController, setClearsFilterPredicateOnInsertion, arginfo_appkit_ns_nsdictionarycontroller_nsdictionarycontroller_setclearsfilterpredicateoninsertion, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSDictionaryController_NSDictionaryController, clearsFilterPredicateOnInsertion, arginfo_appkit_ns_nsdictionarycontroller_nsdictionarycontroller_clearsfilterpredicateoninsertion, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSDictionaryController_NSDictionaryController, arrangedObjectsCount, arginfo_appkit_ns_nsdictionarycontroller_nsdictionarycontroller_arrangedobjectscount, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSDictionaryController_NSDictionaryController, arrangedObjectAt, arginfo_appkit_ns_nsdictionarycontroller_nsdictionarycontroller_arrangedobjectat, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSDictionaryController_NSDictionaryController, setAvoidsEmptySelection, arginfo_appkit_ns_nsdictionarycontroller_nsdictionarycontroller_setavoidsemptyselection, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSDictionaryController_NSDictionaryController, avoidsEmptySelection, arginfo_appkit_ns_nsdictionarycontroller_nsdictionarycontroller_avoidsemptyselection, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSDictionaryController_NSDictionaryController, setPreservesSelection, arginfo_appkit_ns_nsdictionarycontroller_nsdictionarycontroller_setpreservesselection, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSDictionaryController_NSDictionaryController, preservesSelection, arginfo_appkit_ns_nsdictionarycontroller_nsdictionarycontroller_preservesselection, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSDictionaryController_NSDictionaryController, setSelectsInsertedObjects, arginfo_appkit_ns_nsdictionarycontroller_nsdictionarycontroller_setselectsinsertedobjects, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSDictionaryController_NSDictionaryController, selectsInsertedObjects, arginfo_appkit_ns_nsdictionarycontroller_nsdictionarycontroller_selectsinsertedobjects, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSDictionaryController_NSDictionaryController, setAlwaysUsesMultipleValuesMarker, arginfo_appkit_ns_nsdictionarycontroller_nsdictionarycontroller_setalwaysusesmultiplevaluesmarker, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSDictionaryController_NSDictionaryController, alwaysUsesMultipleValuesMarker, arginfo_appkit_ns_nsdictionarycontroller_nsdictionarycontroller_alwaysusesmultiplevaluesmarker, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSDictionaryController_NSDictionaryController, setSelectionIndex, arginfo_appkit_ns_nsdictionarycontroller_nsdictionarycontroller_setselectionindex, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSDictionaryController_NSDictionaryController, selectionIndex, arginfo_appkit_ns_nsdictionarycontroller_nsdictionarycontroller_selectionindex, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSDictionaryController_NSDictionaryController, setSelectionIndexes, arginfo_appkit_ns_nsdictionarycontroller_nsdictionarycontroller_setselectionindexes, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSDictionaryController_NSDictionaryController, selectionIndexesCount, arginfo_appkit_ns_nsdictionarycontroller_nsdictionarycontroller_selectionindexescount, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSDictionaryController_NSDictionaryController, selectionIndexAtOrdinal, arginfo_appkit_ns_nsdictionarycontroller_nsdictionarycontroller_selectionindexatordinal, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSDictionaryController_NSDictionaryController, canInsert, arginfo_appkit_ns_nsdictionarycontroller_nsdictionarycontroller_caninsert, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSDictionaryController_NSDictionaryController, canSelectNext, arginfo_appkit_ns_nsdictionarycontroller_nsdictionarycontroller_canselectnext, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSDictionaryController_NSDictionaryController, canSelectPrevious, arginfo_appkit_ns_nsdictionarycontroller_nsdictionarycontroller_canselectprevious, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSDictionaryController_NSDictionaryController, insertObjectAtArrangedObjectIndex, arginfo_appkit_ns_nsdictionarycontroller_nsdictionarycontroller_insertobjectatarrangedobjectindex, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSDictionaryController_NSDictionaryController, removeObjectAtArrangedObjectIndex, arginfo_appkit_ns_nsdictionarycontroller_nsdictionarycontroller_removeobjectatarrangedobjectindex, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSDictionaryController_NSDictionaryController, addObject, arginfo_appkit_ns_nsdictionarycontroller_nsdictionarycontroller_addobject, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSDictionaryController_NSDictionaryController, removeObject, arginfo_appkit_ns_nsdictionarycontroller_nsdictionarycontroller_removeobject, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSDictionaryController_NSDictionaryController, setContent, arginfo_appkit_ns_nsdictionarycontroller_nsdictionarycontroller_setcontent, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSDictionaryController_NSDictionaryController, content, arginfo_appkit_ns_nsdictionarycontroller_nsdictionarycontroller_content, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSDictionaryController_NSDictionaryController, setEditable, arginfo_appkit_ns_nsdictionarycontroller_nsdictionarycontroller_seteditable, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSDictionaryController_NSDictionaryController, isEditable, arginfo_appkit_ns_nsdictionarycontroller_nsdictionarycontroller_iseditable, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSDictionaryController_NSDictionaryController, canAdd, arginfo_appkit_ns_nsdictionarycontroller_nsdictionarycontroller_canadd, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSDictionaryController_NSDictionaryController, canRemove, arginfo_appkit_ns_nsdictionarycontroller_nsdictionarycontroller_canremove, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSDictionaryController_NSDictionaryController, prepareContent, arginfo_appkit_ns_nsdictionarycontroller_nsdictionarycontroller_preparecontent, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSDictionaryController_NSDictionaryController, newObject, arginfo_appkit_ns_nsdictionarycontroller_nsdictionarycontroller_newobject, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSDictionaryController_NSDictionaryController, selectedObjectsCount, arginfo_appkit_ns_nsdictionarycontroller_nsdictionarycontroller_selectedobjectscount, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSDictionaryController_NSDictionaryController, selectedObjectAt, arginfo_appkit_ns_nsdictionarycontroller_nsdictionarycontroller_selectedobjectat, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSDictionaryController_NSDictionaryController, setInitialKey, arginfo_appkit_ns_nsdictionarycontroller_nsdictionarycontroller_setinitialkey, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSDictionaryController_NSDictionaryController, initialKey, arginfo_appkit_ns_nsdictionarycontroller_nsdictionarycontroller_initialkey, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSDictionaryController_NSDictionaryController, setInitialValue, arginfo_appkit_ns_nsdictionarycontroller_nsdictionarycontroller_setinitialvalue, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSDictionaryController_NSDictionaryController, initialValue, arginfo_appkit_ns_nsdictionarycontroller_nsdictionarycontroller_initialvalue, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSDictionaryController_NSDictionaryController, setIncludedKeys, arginfo_appkit_ns_nsdictionarycontroller_nsdictionarycontroller_setincludedkeys, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSDictionaryController_NSDictionaryController, includedKeysCount, arginfo_appkit_ns_nsdictionarycontroller_nsdictionarycontroller_includedkeyscount, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSDictionaryController_NSDictionaryController, includedKeyAt, arginfo_appkit_ns_nsdictionarycontroller_nsdictionarycontroller_includedkeyat, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSDictionaryController_NSDictionaryController, setExcludedKeys, arginfo_appkit_ns_nsdictionarycontroller_nsdictionarycontroller_setexcludedkeys, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSDictionaryController_NSDictionaryController, excludedKeysCount, arginfo_appkit_ns_nsdictionarycontroller_nsdictionarycontroller_excludedkeyscount, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSDictionaryController_NSDictionaryController, excludedKeyAt, arginfo_appkit_ns_nsdictionarycontroller_nsdictionarycontroller_excludedkeyat, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSDictionaryController_NSDictionaryController, setLocalizedKeyDictionary, arginfo_appkit_ns_nsdictionarycontroller_nsdictionarycontroller_setlocalizedkeydictionary, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSDictionaryController_NSDictionaryController, localizedKeyDictionary, arginfo_appkit_ns_nsdictionarycontroller_nsdictionarycontroller_localizedkeydictionary, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSDictionaryController_NSDictionaryController, setLocalizedKeyTable, arginfo_appkit_ns_nsdictionarycontroller_nsdictionarycontroller_setlocalizedkeytable, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSDictionaryController_NSDictionaryController, localizedKeyTable, arginfo_appkit_ns_nsdictionarycontroller_nsdictionarycontroller_localizedkeytable, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_FE_END
+};

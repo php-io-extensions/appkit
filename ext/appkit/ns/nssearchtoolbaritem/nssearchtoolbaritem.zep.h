@@ -1,0 +1,90 @@
+
+extern zend_class_entry *appkit_ns_nssearchtoolbaritem_nssearchtoolbaritem_ce;
+
+ZEPHIR_INIT_CLASS(AppKit_NS_NSSearchToolbarItem_NSSearchToolbarItem);
+
+PHP_METHOD(AppKit_NS_NSSearchToolbarItem_NSSearchToolbarItem, create);
+PHP_METHOD(AppKit_NS_NSSearchToolbarItem_NSSearchToolbarItem, wrap);
+PHP_METHOD(AppKit_NS_NSSearchToolbarItem_NSSearchToolbarItem, destroy);
+PHP_METHOD(AppKit_NS_NSSearchToolbarItem_NSSearchToolbarItem, nsSearchToolbarItem);
+PHP_METHOD(AppKit_NS_NSSearchToolbarItem_NSSearchToolbarItem, setSearchField);
+PHP_METHOD(AppKit_NS_NSSearchToolbarItem_NSSearchToolbarItem, getSearchField);
+PHP_METHOD(AppKit_NS_NSSearchToolbarItem_NSSearchToolbarItem, setResignsFirstResponderWithCancel);
+PHP_METHOD(AppKit_NS_NSSearchToolbarItem_NSSearchToolbarItem, resignsFirstResponderWithCancel);
+PHP_METHOD(AppKit_NS_NSSearchToolbarItem_NSSearchToolbarItem, setPreferredWidthForSearchField);
+PHP_METHOD(AppKit_NS_NSSearchToolbarItem_NSSearchToolbarItem, preferredWidthForSearchField);
+PHP_METHOD(AppKit_NS_NSSearchToolbarItem_NSSearchToolbarItem, beginSearchInteraction);
+PHP_METHOD(AppKit_NS_NSSearchToolbarItem_NSSearchToolbarItem, endSearchInteraction);
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nssearchtoolbaritem_nssearchtoolbaritem_create, 0, 1, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, identifier, IS_STRING, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nssearchtoolbaritem_nssearchtoolbaritem_wrap, 0, 1, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, nsSearchToolbarItemPtr, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nssearchtoolbaritem_nssearchtoolbaritem_destroy, 0, 1, IS_VOID, 0)
+
+	ZEND_ARG_TYPE_INFO(0, item, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nssearchtoolbaritem_nssearchtoolbaritem_nssearchtoolbaritem, 0, 1, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, item, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nssearchtoolbaritem_nssearchtoolbaritem_setsearchfield, 0, 2, IS_VOID, 0)
+
+	ZEND_ARG_TYPE_INFO(0, item, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, searchField, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nssearchtoolbaritem_nssearchtoolbaritem_getsearchfield, 0, 1, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, item, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nssearchtoolbaritem_nssearchtoolbaritem_setresignsfirstresponderwithcancel, 0, 2, IS_VOID, 0)
+
+	ZEND_ARG_TYPE_INFO(0, item, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, flag, _IS_BOOL, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nssearchtoolbaritem_nssearchtoolbaritem_resignsfirstresponderwithcancel, 0, 1, _IS_BOOL, 0)
+	ZEND_ARG_TYPE_INFO(0, item, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nssearchtoolbaritem_nssearchtoolbaritem_setpreferredwidthforsearchfield, 0, 2, IS_VOID, 0)
+
+	ZEND_ARG_TYPE_INFO(0, item, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, width, IS_DOUBLE, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nssearchtoolbaritem_nssearchtoolbaritem_preferredwidthforsearchfield, 0, 1, IS_DOUBLE, 0)
+	ZEND_ARG_TYPE_INFO(0, item, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nssearchtoolbaritem_nssearchtoolbaritem_beginsearchinteraction, 0, 1, IS_VOID, 0)
+
+	ZEND_ARG_TYPE_INFO(0, item, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nssearchtoolbaritem_nssearchtoolbaritem_endsearchinteraction, 0, 1, IS_VOID, 0)
+
+	ZEND_ARG_TYPE_INFO(0, item, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEPHIR_INIT_FUNCS(appkit_ns_nssearchtoolbaritem_nssearchtoolbaritem_method_entry) {
+	PHP_ME(AppKit_NS_NSSearchToolbarItem_NSSearchToolbarItem, create, arginfo_appkit_ns_nssearchtoolbaritem_nssearchtoolbaritem_create, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSSearchToolbarItem_NSSearchToolbarItem, wrap, arginfo_appkit_ns_nssearchtoolbaritem_nssearchtoolbaritem_wrap, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSSearchToolbarItem_NSSearchToolbarItem, destroy, arginfo_appkit_ns_nssearchtoolbaritem_nssearchtoolbaritem_destroy, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSSearchToolbarItem_NSSearchToolbarItem, nsSearchToolbarItem, arginfo_appkit_ns_nssearchtoolbaritem_nssearchtoolbaritem_nssearchtoolbaritem, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSSearchToolbarItem_NSSearchToolbarItem, setSearchField, arginfo_appkit_ns_nssearchtoolbaritem_nssearchtoolbaritem_setsearchfield, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSSearchToolbarItem_NSSearchToolbarItem, getSearchField, arginfo_appkit_ns_nssearchtoolbaritem_nssearchtoolbaritem_getsearchfield, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSSearchToolbarItem_NSSearchToolbarItem, setResignsFirstResponderWithCancel, arginfo_appkit_ns_nssearchtoolbaritem_nssearchtoolbaritem_setresignsfirstresponderwithcancel, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSSearchToolbarItem_NSSearchToolbarItem, resignsFirstResponderWithCancel, arginfo_appkit_ns_nssearchtoolbaritem_nssearchtoolbaritem_resignsfirstresponderwithcancel, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSSearchToolbarItem_NSSearchToolbarItem, setPreferredWidthForSearchField, arginfo_appkit_ns_nssearchtoolbaritem_nssearchtoolbaritem_setpreferredwidthforsearchfield, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSSearchToolbarItem_NSSearchToolbarItem, preferredWidthForSearchField, arginfo_appkit_ns_nssearchtoolbaritem_nssearchtoolbaritem_preferredwidthforsearchfield, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSSearchToolbarItem_NSSearchToolbarItem, beginSearchInteraction, arginfo_appkit_ns_nssearchtoolbaritem_nssearchtoolbaritem_beginsearchinteraction, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSSearchToolbarItem_NSSearchToolbarItem, endSearchInteraction, arginfo_appkit_ns_nssearchtoolbaritem_nssearchtoolbaritem_endsearchinteraction, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_FE_END
+};

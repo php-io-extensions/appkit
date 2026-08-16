@@ -1,0 +1,79 @@
+
+extern zend_class_entry *appkit_ns_nsdraggingimagecomponent_nsdraggingimagecomponent_ce;
+
+ZEPHIR_INIT_CLASS(AppKit_NS_NSDraggingImageComponent_NSDraggingImageComponent);
+
+PHP_METHOD(AppKit_NS_NSDraggingImageComponent_NSDraggingImageComponent, withKey);
+PHP_METHOD(AppKit_NS_NSDraggingImageComponent_NSDraggingImageComponent, wrap);
+PHP_METHOD(AppKit_NS_NSDraggingImageComponent_NSDraggingImageComponent, destroy);
+PHP_METHOD(AppKit_NS_NSDraggingImageComponent_NSDraggingImageComponent, nsDraggingImageComponent);
+PHP_METHOD(AppKit_NS_NSDraggingImageComponent_NSDraggingImageComponent, getKey);
+PHP_METHOD(AppKit_NS_NSDraggingImageComponent_NSDraggingImageComponent, setKey);
+PHP_METHOD(AppKit_NS_NSDraggingImageComponent_NSDraggingImageComponent, setContents);
+PHP_METHOD(AppKit_NS_NSDraggingImageComponent_NSDraggingImageComponent, getContents);
+PHP_METHOD(AppKit_NS_NSDraggingImageComponent_NSDraggingImageComponent, frameRect);
+PHP_METHOD(AppKit_NS_NSDraggingImageComponent_NSDraggingImageComponent, setFrameRect);
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsdraggingimagecomponent_nsdraggingimagecomponent_withkey, 0, 1, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, key, IS_STRING, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsdraggingimagecomponent_nsdraggingimagecomponent_wrap, 0, 1, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, nsDraggingImageComponentPtr, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsdraggingimagecomponent_nsdraggingimagecomponent_destroy, 0, 1, IS_VOID, 0)
+
+	ZEND_ARG_TYPE_INFO(0, component, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsdraggingimagecomponent_nsdraggingimagecomponent_nsdraggingimagecomponent, 0, 1, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, component, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsdraggingimagecomponent_nsdraggingimagecomponent_getkey, 0, 1, IS_STRING, 0)
+	ZEND_ARG_TYPE_INFO(0, component, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsdraggingimagecomponent_nsdraggingimagecomponent_setkey, 0, 2, IS_VOID, 0)
+
+	ZEND_ARG_TYPE_INFO(0, component, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, key, IS_STRING, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsdraggingimagecomponent_nsdraggingimagecomponent_setcontents, 0, 2, IS_VOID, 0)
+
+	ZEND_ARG_TYPE_INFO(0, component, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, contentsPtr, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsdraggingimagecomponent_nsdraggingimagecomponent_getcontents, 0, 1, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, component, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsdraggingimagecomponent_nsdraggingimagecomponent_framerect, 0, 1, IS_ARRAY, 0)
+	ZEND_ARG_TYPE_INFO(0, component, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsdraggingimagecomponent_nsdraggingimagecomponent_setframerect, 0, 5, IS_VOID, 0)
+
+	ZEND_ARG_TYPE_INFO(0, component, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, x, IS_DOUBLE, 0)
+	ZEND_ARG_TYPE_INFO(0, y, IS_DOUBLE, 0)
+	ZEND_ARG_TYPE_INFO(0, width, IS_DOUBLE, 0)
+	ZEND_ARG_TYPE_INFO(0, height, IS_DOUBLE, 0)
+ZEND_END_ARG_INFO()
+
+ZEPHIR_INIT_FUNCS(appkit_ns_nsdraggingimagecomponent_nsdraggingimagecomponent_method_entry) {
+	PHP_ME(AppKit_NS_NSDraggingImageComponent_NSDraggingImageComponent, withKey, arginfo_appkit_ns_nsdraggingimagecomponent_nsdraggingimagecomponent_withkey, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSDraggingImageComponent_NSDraggingImageComponent, wrap, arginfo_appkit_ns_nsdraggingimagecomponent_nsdraggingimagecomponent_wrap, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSDraggingImageComponent_NSDraggingImageComponent, destroy, arginfo_appkit_ns_nsdraggingimagecomponent_nsdraggingimagecomponent_destroy, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSDraggingImageComponent_NSDraggingImageComponent, nsDraggingImageComponent, arginfo_appkit_ns_nsdraggingimagecomponent_nsdraggingimagecomponent_nsdraggingimagecomponent, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSDraggingImageComponent_NSDraggingImageComponent, getKey, arginfo_appkit_ns_nsdraggingimagecomponent_nsdraggingimagecomponent_getkey, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSDraggingImageComponent_NSDraggingImageComponent, setKey, arginfo_appkit_ns_nsdraggingimagecomponent_nsdraggingimagecomponent_setkey, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSDraggingImageComponent_NSDraggingImageComponent, setContents, arginfo_appkit_ns_nsdraggingimagecomponent_nsdraggingimagecomponent_setcontents, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSDraggingImageComponent_NSDraggingImageComponent, getContents, arginfo_appkit_ns_nsdraggingimagecomponent_nsdraggingimagecomponent_getcontents, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSDraggingImageComponent_NSDraggingImageComponent, frameRect, arginfo_appkit_ns_nsdraggingimagecomponent_nsdraggingimagecomponent_framerect, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSDraggingImageComponent_NSDraggingImageComponent, setFrameRect, arginfo_appkit_ns_nsdraggingimagecomponent_nsdraggingimagecomponent_setframerect, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_FE_END
+};

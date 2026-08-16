@@ -1,6 +1,7 @@
 #import <AppKit/AppKit.h>
 #import "ns-app.h"
 #import "ns-event.h"
+#import "ns-protocol.h"
 
 static BOOL ns_app_ready = NO;
 static BOOL ns_app_quit = NO;
@@ -12,6 +13,7 @@ static BOOL ns_app_quit = NO;
 - (BOOL)applicationShouldTerminateAfterLastWindowClosed:(NSApplication *)sender
 {
     (void)sender;
+    ns_protocol_enqueue("NSApplicationDelegate", "applicationShouldTerminateAfterLastWindowClosed:", (uintptr_t)(__bridge void *)sender, 0, NULL);
     return NO;
 }
 
@@ -19,7 +21,23 @@ static BOOL ns_app_quit = NO;
 {
     (void)sender;
     ns_app_quit = YES;
+    ns_protocol_enqueue("NSApplicationDelegate", "applicationShouldTerminate:", (uintptr_t)(__bridge void *)sender, 0, NULL);
     return NSTerminateCancel;
+}
+
+- (void)applicationDidFinishLaunching:(NSNotification *)notification
+{
+    ns_protocol_enqueue("NSApplicationDelegate", "applicationDidFinishLaunching:", (uintptr_t)(__bridge void *)notification.object, 0, NULL);
+}
+
+- (void)applicationDidBecomeActive:(NSNotification *)notification
+{
+    ns_protocol_enqueue("NSApplicationDelegate", "applicationDidBecomeActive:", (uintptr_t)(__bridge void *)notification.object, 0, NULL);
+}
+
+- (void)applicationDidResignActive:(NSNotification *)notification
+{
+    ns_protocol_enqueue("NSApplicationDelegate", "applicationDidResignActive:", (uintptr_t)(__bridge void *)notification.object, 0, NULL);
 }
 @end
 
@@ -112,4 +130,14 @@ int ns_app_should_quit(void)
 void ns_app_reset_quit(void)
 {
     ns_app_quit = NO;
+}
+
+void *ns_app_nsapp(void)
+{
+    return (__bridge void *)NSApp;
+}
+
+double ns_app_kit_version_number(void)
+{
+    return (double)NSAppKitVersionNumber;
 }

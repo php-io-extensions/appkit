@@ -28,6 +28,12 @@ int ns_app_should_quit(void);
 /** Reset the quit flag (after a previous run). */
 void ns_app_reset_quit(void);
 
+/** NSApp global pointer (same as shared after init). */
+void *ns_app_nsapp(void);
+
+/** NSAppKitVersionNumber. */
+double ns_app_kit_version_number(void);
+
 #ifdef __cplusplus
 }
 #endif

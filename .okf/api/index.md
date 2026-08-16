@@ -160,7 +160,12 @@
 | `AppKit\\NS\\NSGridCell\\NSGridCell` | grid cell | [nsgridcell.md](nsgridcell.md) |
 | `AppKit\\NS\\NSStatusBar\\NSStatusBar` | system menu-bar status bar | [nsstatusbar.md](nsstatusbar.md) |
 | `AppKit\\NS\\NSWorkspace\\NSWorkspace` | shared desktop workspace | [nsworkspace.md](nsworkspace.md) |
+| `AppKit\\NS\\NSObjectController\\NSObjectController` | Single-object bindings controller | [nsobjectcontroller.md](nsobjectcontroller.md) |
 | `AppKit\\NS\\NSController\\NSController` | Cocoa bindings editor base | [nscontroller.md](nscontroller.md) |
+| `AppKit\\NS\\NSDictionaryController\\NSDictionaryController` | dictionary content controller | [nsdictionarycontroller.md](nsdictionarycontroller.md) |
+| `AppKit\\NS\\NSUserDefaultsController\\NSUserDefaultsController` | user defaults bindings controller | [nsuserdefaultscontroller.md](nsuserdefaultscontroller.md) |
+| `AppKit\\NS\\NSArrayController\\NSArrayController` | array Cocoa bindings controller | [nsarraycontroller.md](nsarraycontroller.md) |
+| `AppKit\\NS\\NSTreeController\\NSTreeController` | hierarchical Cocoa bindings controller | [nstreecontroller.md](nstreecontroller.md) |
 | `AppKit\\NS\\NSClipView\\NSClipView` | clip view / scroll content | [nsclipview.md](nsclipview.md) |
 | `AppKit\\NS\\NSScroller\\NSScroller` | scroll bar control | [nsscroller.md](nsscroller.md) |
 | `AppKit\\NS\\NSRulerView\\NSRulerView` | horizontal/vertical ruler | [nsrulerview.md](nsrulerview.md) |
@@ -173,6 +178,73 @@
 | `AppKit\\NS\\NSVisualEffectView\\NSVisualEffectView` | vibrancy / material view | [nsvisualeffectview.md](nsvisualeffectview.md) |
 | `AppKit\\NS\\NSMenuItem\\NSMenuItem` | menu item (full bind) | [nsmenuitem.md](nsmenuitem.md) |
 | `AppKit\\NS\\NSMenuToolbarItem\\NSMenuToolbarItem` | toolbar menu item | [nsmenutoolbaritem.md](nsmenutoolbaritem.md) |
+| `AppKit\\NS\\NSToolbarItem\\NSToolbarItem` | base toolbar item | [nstoolbaritem.md](nstoolbaritem.md) |
+| `AppKit\\NS\\NSToolbarItemGroup\\NSToolbarItemGroup` | grouped toolbar items | [nstoolbaritemgroup.md](nstoolbaritemgroup.md) |
+| `AppKit\\NS\\NSSearchToolbarItem\\NSSearchToolbarItem` | toolbar search field | [nssearchtoolbaritem.md](nssearchtoolbaritem.md) |
+| `AppKit\\NS\\NSTrackingSeparatorToolbarItem\\NSTrackingSeparatorToolbarItem` | tracking separator item | [nstrackingseparatortoolbaritem.md](nstrackingseparatortoolbaritem.md) |
+| `AppKit\\NS\\NSSharingServicePickerToolbarItem\\NSSharingServicePickerToolbarItem` | share picker item | [nssharingservicepickertoolbaritem.md](nssharingservicepickertoolbaritem.md) |
 | `AppKit\\NS\\NSScrubber\\NSScrubber` | scrubber control | [nsscrubber.md](nsscrubber.md) |
+| `AppKit\\NS\\NSScrubberArrangedView\\NSScrubberArrangedView` | scrubber arranged view base | [nsscrubberarrangedview.md](nsscrubberarrangedview.md) |
+| `AppKit\\NS\\NSScrubberSelectionView\\NSScrubberSelectionView` | scrubber selection decoration base | [nsscrubberselectionview.md](nsscrubberselectionview.md) |
+| `AppKit\\NS\\NSScrubberItemView\\NSScrubberItemView` | scrubber item view base | [nsscrubberitemview.md](nsscrubberitemview.md) |
+| `AppKit\\NS\\NSScrubberLayout\\NSScrubberLayout` | scrubber layout base | [nsscrubberlayout.md](nsscrubberlayout.md) |
+| `AppKit\\NS\\NSScrubberFlowLayout\\NSScrubberFlowLayout` | scrubber flow layout | [nsscrubberflowlayout.md](nsscrubberflowlayout.md) |
+| `AppKit\\NS\\NSScrubberProportionalLayout\\NSScrubberProportionalLayout` | scrubber proportional layout | [nsscrubberproportionallayout.md](nsscrubberproportionallayout.md) |
+| `AppKit\\NS\\NSPageLayout\\NSPageLayout` | page setup panel | [nspagelayout.md](nspagelayout.md) |
+| `AppKit\\NS\\NSPrinter\\NSPrinter` | available printers | [nsprinter.md](nsprinter.md) |
+| `AppKit\\NS\\NSPrintInfo\\NSPrintInfo` | print job attributes | [nsprintinfo.md](nsprintinfo.md) |
+| `AppKit\\NS\\NSPrintPanel\\NSPrintPanel` | print options panel | [nsprintpanel.md](nsprintpanel.md) |
+| `AppKit\\NS\\NSPrintOperation\\NSPrintOperation` | print / PDF / EPS operations | [nsprintoperation.md](nsprintoperation.md) |
+| `AppKit\\NS\\NSRunningApplication\\NSRunningApplication` | running app process metadata | [nsrunningapplication.md](nsrunningapplication.md) |
+| `AppKit\\NS\\NSDocument\\NSDocument` | document-based app model | [nsdocument.md](nsdocument.md) |
+| `AppKit\\NS\\NSDocumentController\\NSDocumentController` | shared document controller | [nsdocumentcontroller.md](nsdocumentcontroller.md) |
+| `AppKit\\NS\\NSPersistentDocument\\NSPersistentDocument` | Core Data document subclass | [nspersistentdocument.md](nspersistentdocument.md) |
+| `AppKit\\NS\\NSHelpManager\\NSHelpManager` | Help Viewer + context help | [nshelpmanager.md](nshelpmanager.md) |
+| `AppKit\\NS\\NSNib\\NSNib` | Interface Builder nib loader | [nsnib.md](nsnib.md) |
+| `AppKit\\NS\\NSStoryboard\\NSStoryboard` | storyboard scene loader | [nsstoryboard.md](nsstoryboard.md) |
+| `AppKit\\NS\\NSStoryboardSegue\\NSStoryboardSegue` | storyboard segue | [nsstoryboardsegue.md](nsstoryboardsegue.md) |
+| `AppKit\\NS\\NSPasteboard\\NSPasteboard` | system pasteboard | [nspasteboard.md](nspasteboard.md) |
+| `AppKit\\NS\\NSPasteboardItem\\NSPasteboardItem` | pasteboard item | [nspasteboarditem.md](nspasteboarditem.md) |
+| `AppKit\\NS\\NSDraggingItem\\NSDraggingItem` | drag item | [nsdraggingitem.md](nsdraggingitem.md) |
+| `AppKit\\NS\\NSDraggingSession\\NSDraggingSession` | drag session | [nsdraggingsession.md](nsdraggingsession.md) |
+| `AppKit\\NS\\NSDraggingImageComponent\\NSDraggingImageComponent` | drag image layer | [nsdraggingimagecomponent.md](nsdraggingimagecomponent.md) |
+| `AppKit\\NS\\NSFilePromiseProvider\\NSFilePromiseProvider` | file promise source | [nsfilepromiseprovider.md](nsfilepromiseprovider.md) |
+| `AppKit\\NS\\NSFilePromiseReceiver\\NSFilePromiseReceiver` | file promise destination | [nsfilepromisereceiver.md](nsfilepromisereceiver.md) |
+| `AppKit\\NS\\NSSharingService\\NSSharingService` | share service | [nssharingservice.md](nssharingservice.md) |
+| `AppKit\\NS\\NSSharingServicePicker\\NSSharingServicePicker` | share picker UI | [nssharingservicepicker.md](nssharingservicepicker.md) |
+| `AppKit\\NS\\NSDockTile\\NSDockTile` | dock tile customization | [nsdocktile.md](nsdocktile.md) |
+| `AppKit\\NS\\NSAlignmentFeedbackFilter\\NSAlignmentFeedbackFilter` | alignment haptic feedback | [nsalignmentfeedbackfilter.md](nsalignmentfeedbackfilter.md) |
+| `AppKit\\NS\\NSPressureConfiguration\\NSPressureConfiguration` | Force Touch pressure behavior | [nspressureconfiguration.md](nspressureconfiguration.md) |
+| `AppKit\\NS\\NSLayoutConstraint\\NSLayoutConstraint` | Auto Layout constraint | [nslayoutconstraint.md](nslayoutconstraint.md) |
+| `AppKit\\NS\\NSLayoutAnchor\\NSLayoutAnchor` | layout anchor base | [nslayoutanchor.md](nslayoutanchor.md) |
+| `AppKit\\NS\\NSLayoutXAxisAnchor\\NSLayoutXAxisAnchor` | horizontal anchor | [nslayoutanchor.md](nslayoutanchor.md) |
+| `AppKit\\NS\\NSLayoutYAxisAnchor\\NSLayoutYAxisAnchor` | vertical anchor | [nslayoutanchor.md](nslayoutanchor.md) |
+| `AppKit\\NS\\NSLayoutDimension\\NSLayoutDimension` | width/height anchor | [nslayoutanchor.md](nslayoutanchor.md) |
+| `AppKit\\NS\\NSLayoutGuide\\NSLayoutGuide` | non-view layout rectangle | [nslayoutguide.md](nslayoutguide.md) |
+| `AppKit\\NS\\NSSound\\NSSound` | sound playback | [nssound.md](nssound.md) |
+| `AppKit\\NS\\NSSpeechSynthesizer\\NSSpeechSynthesizer` | text-to-speech (deprecated) | [nsspeechsynthesizer.md](nsspeechsynthesizer.md) |
+| `AppKit\\NS\\NSSpeechRecognizer\\NSSpeechRecognizer` | spoken commands | [nsspeechrecognizer.md](nsspeechrecognizer.md) |
+| `AppKit\\NS\\NSHapticFeedbackManager\\NSHapticFeedbackManager` | trackpad haptics | [nshapticfeedbackmanager.md](nshapticfeedbackmanager.md) |
+| `AppKit\\NS\\NSAccessibilityElement\\NSAccessibilityElement` | custom a11y element | [nsaccessibilityelement.md](nsaccessibilityelement.md) |
+| `AppKit\\NS\\NSAccessibilityCustomRotor\\NSAccessibilityCustomRotor` | VoiceOver custom rotor | [nsaccessibilitycustomrotor.md](nsaccessibilitycustomrotor.md) |
+| `AppKit\\NS\\NSAccessibilityCustomRotorItem\\NSAccessibilityCustomRotorItem` | Apple `NSAccessibilityCustomRotorItemResult` | [nsaccessibilitycustomrotor.md](nsaccessibilitycustomrotor.md) |
+| `AppKit\\NS\\NSWindowTab\\NSWindowTab` | window tab chrome | [nswindowtab.md](nswindowtab.md) |
+| `AppKit\\NS\\NSWindowTabGroup\\NSWindowTabGroup` | tabbed window group | [nswindowtabgroup.md](nswindowtabgroup.md) |
+| `AppKit\\NS\\NSTitlebarAccessoryViewController\\NSTitlebarAccessoryViewController` | titlebar accessory | [nstitlebaraccessoryviewcontroller.md](nstitlebaraccessoryviewcontroller.md) |
+| `AppKit\\NS\\NSGraphics\\NSGraphics` | NSBeep / NSRectFill / NSGraphics.h C functions | [nsgraphics.md](nsgraphics.md) |
+| `AppKit\\NS\\NSProtocol\\NSProtocol` | protocol poll/callback inventory | [nsprotocol.md](nsprotocol.md) |
+| *(userland)* `Microscrap\\Bindings\\AppKit\\Enums\\*` | backed PHP enums — **microscrap/appkit**, not this `.so` | [appkit-enums.md](appkit-enums.md) |
 
 Zephir path convention: `appkit/ns/nswindow/nswindow.zep` → `AppKit\\NS\\NSWindow\\NSWindow`.
+| `AppKit\\NS\\NSTouchBarItem\\NSTouchBarItem` | base item | [nstouchbaritem.md](nstouchbaritem.md) |
+| `AppKit\\NS\\NSTouchBar\\NSTouchBar` | customization bar | [nstouchbar.md](nstouchbar.md) |
+| `AppKit\\NS\\NSCustomTouchBarItem\\NSCustomTouchBarItem` | custom view item | [nscustomtouchbaritem.md](nscustomtouchbaritem.md) |
+| `AppKit\\NS\\NSCandidateListTouchBarItem\\NSCandidateListTouchBarItem` | text candidates | [nscandidatelisttouchbaritem.md](nscandidatelisttouchbaritem.md) |
+| `AppKit\\NS\\NSColorPickerTouchBarItem\\NSColorPickerTouchBarItem` | color picker | [nscolorpickertouchbaritem.md](nscolorpickertouchbaritem.md) |
+| `AppKit\\NS\\NSGroupTouchBarItem\\NSGroupTouchBarItem` | nested bar group | [nsgrouptouchbaritem.md](nsgrouptouchbaritem.md) |
+| `AppKit\\NS\\NSPickerTouchBarItem\\NSPickerTouchBarItem` | segmented picker | [nspickertouchbaritem.md](nspickertouchbaritem.md) |
+| `AppKit\\NS\\NSSharingServicePickerTouchBarItem\\NSSharingServicePickerTouchBarItem` | share picker | [nssharingservicepickertouchbaritem.md](nssharingservicepickertouchbaritem.md) |
+| `AppKit\\NS\\NSSliderTouchBarItem\\NSSliderTouchBarItem` | slider | [nsslidertouchbaritem.md](nsslidertouchbaritem.md) |
+| `AppKit\\NS\\NSStepperTouchBarItem\\NSStepperTouchBarItem` | stepper | [nssteppertouchbaritem.md](nssteppertouchbaritem.md) |
+| `AppKit\\NS\\NSPopoverTouchBarItem\\NSPopoverTouchBarItem` | popover host | [nspopovertouchbaritem.md](nspopovertouchbaritem.md) |
+| `AppKit\\NS\\NSButtonTouchBarItem\\NSButtonTouchBarItem` | button | [nsbuttontouchbaritem.md](nsbuttontouchbaritem.md) |

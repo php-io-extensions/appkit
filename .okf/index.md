@@ -42,10 +42,23 @@ macOS-only PHP extension: Zephir static classes → thin C ABI (`ns_*`) → Obje
 * [Prefer make -j1](traps/parallel-make.md) - Conservative ObjC fragment builds
 * [Copied .so SIGKILL](traps/codesign-invalid-page.md) - resign after `cp` or Herd PHP dies
 * [ZEPHIR_REGISTER_CLASS double appkit_ prefix](traps/zephir-register-double-prefix.md) - shortname must stay `ns_*` (metal pattern, not gtk)
+* [Zephir generate under Herd PHP](traps/zephir-generate-herd-php.md) - use `php -n` + zephir_parser; C blocks close with `}%`
+* [Missing zep.c segfaults PHP](traps/missing-zep-c-segfault.md) - every ZEPHIR_INIT class must be in PHP_NEW_EXTENSION
 
 # Playbooks
 
 * [Regenerate committed ext/](playbooks/regenerate-ext.md) - Maintainer steps before tagging
+
+## 2026-08-15 (sound / speech / haptic binds)
+
+* **Added**: `NSSound`, `NSSpeechSynthesizer`, `NSSpeechRecognizer`, `NSHapticFeedbackManager` with `ns-sound`, `ns-speechsynthesizer`, `ns-speechrecognizer`, `ns-hapticfeedbackmanager` C ABI + Zephir + OKF api pages.
+* **Note**: `NSSpeechSynthesizer` marked deprecated in OKF (macOS 14). Haptic enums documented as int cases for backed PHP Enums in user code.
+
+## 2026-08-15 (a11y / tabs / NSGraphics / enums / protocols)
+
+* **Added**: `NSAccessibilityElement`, `NSAccessibilityCustomRotor` (+ item result), `NSWindowTab`, `NSWindowTabGroup`, `NSTitlebarAccessoryViewController`, `NSGraphics` C functions, `NSApplication::nsApp`.
+* **Enums**: live in `microscrap/appkit` (`Microscrap\Bindings\AppKit\Enums`), not this php-ext.
+* **Protocols**: poll surfaces via `NSProtocol` and named delegate classes; remaining `@protocol`s listed as bound as part of `NSProtocol`.
 
 # Indexes
 

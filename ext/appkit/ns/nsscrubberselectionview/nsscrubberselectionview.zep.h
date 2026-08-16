@@ -1,0 +1,73 @@
+
+extern zend_class_entry *appkit_ns_nsscrubberselectionview_nsscrubberselectionview_ce;
+
+ZEPHIR_INIT_CLASS(AppKit_NS_NSScrubberSelectionView_NSScrubberSelectionView);
+
+PHP_METHOD(AppKit_NS_NSScrubberSelectionView_NSScrubberSelectionView, create);
+PHP_METHOD(AppKit_NS_NSScrubberSelectionView_NSScrubberSelectionView, wrap);
+PHP_METHOD(AppKit_NS_NSScrubberSelectionView_NSScrubberSelectionView, destroy);
+PHP_METHOD(AppKit_NS_NSScrubberSelectionView_NSScrubberSelectionView, nsScrubberSelectionView);
+PHP_METHOD(AppKit_NS_NSScrubberSelectionView_NSScrubberSelectionView, setSelected);
+PHP_METHOD(AppKit_NS_NSScrubberSelectionView_NSScrubberSelectionView, isSelected);
+PHP_METHOD(AppKit_NS_NSScrubberSelectionView_NSScrubberSelectionView, setHighlighted);
+PHP_METHOD(AppKit_NS_NSScrubberSelectionView_NSScrubberSelectionView, isHighlighted);
+PHP_METHOD(AppKit_NS_NSScrubberSelectionView_NSScrubberSelectionView, applyLayoutAttributes);
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsscrubberselectionview_nsscrubberselectionview_create, 0, 4, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, x, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, y, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, width, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, height, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsscrubberselectionview_nsscrubberselectionview_wrap, 0, 1, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, nsScrubberSelectionViewPtr, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsscrubberselectionview_nsscrubberselectionview_destroy, 0, 1, IS_VOID, 0)
+
+	ZEND_ARG_TYPE_INFO(0, view, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsscrubberselectionview_nsscrubberselectionview_nsscrubberselectionview, 0, 1, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, view, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsscrubberselectionview_nsscrubberselectionview_setselected, 0, 2, IS_VOID, 0)
+
+	ZEND_ARG_TYPE_INFO(0, view, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, flag, _IS_BOOL, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsscrubberselectionview_nsscrubberselectionview_isselected, 0, 1, _IS_BOOL, 0)
+	ZEND_ARG_TYPE_INFO(0, view, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsscrubberselectionview_nsscrubberselectionview_sethighlighted, 0, 2, IS_VOID, 0)
+
+	ZEND_ARG_TYPE_INFO(0, view, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, flag, _IS_BOOL, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsscrubberselectionview_nsscrubberselectionview_ishighlighted, 0, 1, _IS_BOOL, 0)
+	ZEND_ARG_TYPE_INFO(0, view, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsscrubberselectionview_nsscrubberselectionview_applylayoutattributes, 0, 2, IS_VOID, 0)
+
+	ZEND_ARG_TYPE_INFO(0, view, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, layoutAttributesPtr, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEPHIR_INIT_FUNCS(appkit_ns_nsscrubberselectionview_nsscrubberselectionview_method_entry) {
+	PHP_ME(AppKit_NS_NSScrubberSelectionView_NSScrubberSelectionView, create, arginfo_appkit_ns_nsscrubberselectionview_nsscrubberselectionview_create, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSScrubberSelectionView_NSScrubberSelectionView, wrap, arginfo_appkit_ns_nsscrubberselectionview_nsscrubberselectionview_wrap, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSScrubberSelectionView_NSScrubberSelectionView, destroy, arginfo_appkit_ns_nsscrubberselectionview_nsscrubberselectionview_destroy, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSScrubberSelectionView_NSScrubberSelectionView, nsScrubberSelectionView, arginfo_appkit_ns_nsscrubberselectionview_nsscrubberselectionview_nsscrubberselectionview, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSScrubberSelectionView_NSScrubberSelectionView, setSelected, arginfo_appkit_ns_nsscrubberselectionview_nsscrubberselectionview_setselected, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSScrubberSelectionView_NSScrubberSelectionView, isSelected, arginfo_appkit_ns_nsscrubberselectionview_nsscrubberselectionview_isselected, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSScrubberSelectionView_NSScrubberSelectionView, setHighlighted, arginfo_appkit_ns_nsscrubberselectionview_nsscrubberselectionview_sethighlighted, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSScrubberSelectionView_NSScrubberSelectionView, isHighlighted, arginfo_appkit_ns_nsscrubberselectionview_nsscrubberselectionview_ishighlighted, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSScrubberSelectionView_NSScrubberSelectionView, applyLayoutAttributes, arginfo_appkit_ns_nsscrubberselectionview_nsscrubberselectionview_applylayoutattributes, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_FE_END
+};

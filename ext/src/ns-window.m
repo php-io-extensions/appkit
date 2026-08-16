@@ -2,6 +2,10 @@
 #import "ns-window.h"
 #import "ns-view.h"
 #import "ns-app.h"
+#import "ns-protocol.h"
+#import "ns-windowtab.h"
+#import "ns-windowtabgroup.h"
+#import "ns-titlebaraccessoryviewcontroller.h"
 
 @interface NSPhpWindowDelegate : NSObject <NSWindowDelegate>
 @property (nonatomic, assign) void *boxPtr;
@@ -17,12 +21,27 @@ typedef struct {
 @implementation NSPhpWindowDelegate
 - (BOOL)windowShouldClose:(NSWindow *)sender
 {
-    (void)sender;
     ns_window_box *box = (ns_window_box *)self.boxPtr;
     if (box) {
         box->closed = 1;
     }
+    ns_protocol_enqueue("NSWindowDelegate", "windowShouldClose:", (uintptr_t)(__bridge void *)sender, 0, NULL);
     return YES;
+}
+
+- (void)windowDidResize:(NSNotification *)notification
+{
+    ns_protocol_enqueue("NSWindowDelegate", "windowDidResize:", (uintptr_t)(__bridge void *)notification.object, 0, NULL);
+}
+
+- (void)windowDidBecomeKey:(NSNotification *)notification
+{
+    ns_protocol_enqueue("NSWindowDelegate", "windowDidBecomeKey:", (uintptr_t)(__bridge void *)notification.object, 0, NULL);
+}
+
+- (void)windowWillClose:(NSNotification *)notification
+{
+    ns_protocol_enqueue("NSWindowDelegate", "windowWillClose:", (uintptr_t)(__bridge void *)notification.object, 0, NULL);
 }
 @end
 
@@ -258,4 +277,41 @@ void *ns_window_nswindow(uintptr_t window)
 {
     ns_window_box *box = ns_window_box_from(window);
     return (box && box->window) ? box->window : NULL;
+}
+
+uintptr_t ns_window_tab(uintptr_t window)
+{
+    ns_window_box *box = ns_window_box_from(window);
+    if (!box || !box->window) {
+        return 0;
+    }
+    @autoreleasepool {
+        NSWindow *win = (__bridge NSWindow *)box->window;
+        return ns_windowtab_wrap((__bridge void *)win.tab);
+    }
+}
+
+uintptr_t ns_window_tab_group(uintptr_t window)
+{
+    ns_window_box *box = ns_window_box_from(window);
+    if (!box || !box->window) {
+        return 0;
+    }
+    @autoreleasepool {
+        NSWindow *win = (__bridge NSWindow *)box->window;
+        return win.tabGroup ? ns_windowtabgroup_wrap((__bridge void *)win.tabGroup) : 0;
+    }
+}
+
+void ns_window_add_titlebar_accessory(uintptr_t window, uintptr_t controller)
+{
+    ns_window_box *box = ns_window_box_from(window);
+    void *ptr = ns_titlebaraccessoryviewcontroller_nstitlebaraccessoryviewcontroller(controller);
+    if (!box || !box->window || !ptr) {
+        return;
+    }
+    @autoreleasepool {
+        NSWindow *win = (__bridge NSWindow *)box->window;
+        [win addTitlebarAccessoryViewController:(__bridge NSTitlebarAccessoryViewController *)ptr];
+    }
 }

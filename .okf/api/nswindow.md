@@ -37,5 +37,8 @@ sources:
 | `getWidth` / `getHeight` | contentView bounds |
 | `screenToContent` | screen → content-view local coords |
 | `nsWindow` | borrowed `NSWindow*` |
+| `tab` | wrap `window.tab` as `NSWindowTab` handle |
+| `tabGroup` | wrap `window.tabGroup` as `NSWindowTabGroup` handle |
+| `addTitlebarAccessoryViewController` | `addTitlebarAccessoryViewController:` |
 
 Moved from `Metal\\MTL\\Window` / `mtl_window_*`.

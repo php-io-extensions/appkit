@@ -20,7 +20,26 @@ else
 fi
 
 echo "Using zephir: $ZEPHIR"
-"$ZEPHIR" generate
+
+# Herd PHP loads appkit/metal/uart from ini; that segfaults `zephir generate`.
+# Drive Zephir with a clean CLI + zephir_parser only.
+PHP_BIN="${PHP_BIN:-php}"
+PARSER_SO=""
+for candidate in \
+    /opt/homebrew/lib/php/pecl/20240924/zephir_parser.so \
+    "$HOME/Library/Application Support/Herd/config/php/84/zephir_parser.so"
+do
+    if [ -f "$candidate" ]; then
+        PARSER_SO="$candidate"
+        break
+    fi
+done
+if [ -n "$PARSER_SO" ]; then
+    echo "Using php -n -d extension=$PARSER_SO"
+    php -n -d "extension=${PARSER_SO}" "$ZEPHIR" generate
+else
+    "$ZEPHIR" generate
+fi
 
 # Sync Objective-C bridge into ext/ (PIE builds from ext/ only).
 mkdir -p ext/src

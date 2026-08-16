@@ -25,6 +25,8 @@ PHP_METHOD(AppKit_NS_NSScrubber_NSScrubber, setShowsAdditionalContentIndicators)
 PHP_METHOD(AppKit_NS_NSScrubber_NSScrubber, showsAdditionalContentIndicators);
 PHP_METHOD(AppKit_NS_NSScrubber_NSScrubber, reloadData);
 PHP_METHOD(AppKit_NS_NSScrubber_NSScrubber, pollSelection);
+PHP_METHOD(AppKit_NS_NSScrubber_NSScrubber, setLayout);
+PHP_METHOD(AppKit_NS_NSScrubber_NSScrubber, getLayout);
 
 ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsscrubber_nsscrubber_create, 0, 4, IS_LONG, 0)
 	ZEND_ARG_TYPE_INFO(0, x, IS_LONG, 0)
@@ -134,6 +136,16 @@ ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsscrubber_nsscrubber_
 	ZEND_ARG_TYPE_INFO(0, scrubber, IS_LONG, 0)
 ZEND_END_ARG_INFO()
 
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsscrubber_nsscrubber_setlayout, 0, 2, IS_VOID, 0)
+
+	ZEND_ARG_TYPE_INFO(0, scrubber, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, layout, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsscrubber_nsscrubber_getlayout, 0, 1, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, scrubber, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
 ZEPHIR_INIT_FUNCS(appkit_ns_nsscrubber_nsscrubber_method_entry) {
 	PHP_ME(AppKit_NS_NSScrubber_NSScrubber, create, arginfo_appkit_ns_nsscrubber_nsscrubber_create, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
 	PHP_ME(AppKit_NS_NSScrubber_NSScrubber, wrap, arginfo_appkit_ns_nsscrubber_nsscrubber_wrap, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
@@ -157,5 +169,7 @@ ZEPHIR_INIT_FUNCS(appkit_ns_nsscrubber_nsscrubber_method_entry) {
 	PHP_ME(AppKit_NS_NSScrubber_NSScrubber, showsAdditionalContentIndicators, arginfo_appkit_ns_nsscrubber_nsscrubber_showsadditionalcontentindicators, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
 	PHP_ME(AppKit_NS_NSScrubber_NSScrubber, reloadData, arginfo_appkit_ns_nsscrubber_nsscrubber_reloaddata, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
 	PHP_ME(AppKit_NS_NSScrubber_NSScrubber, pollSelection, arginfo_appkit_ns_nsscrubber_nsscrubber_pollselection, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSScrubber_NSScrubber, setLayout, arginfo_appkit_ns_nsscrubber_nsscrubber_setlayout, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSScrubber_NSScrubber, getLayout, arginfo_appkit_ns_nsscrubber_nsscrubber_getlayout, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
 	PHP_FE_END
 };

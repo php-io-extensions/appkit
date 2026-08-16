@@ -73,4 +73,25 @@ class NSApplication
             ns_app_reset_quit();
         }%
     }
+
+    /**
+     * @return int NSApp global (sharedApplication), or 0
+     */
+    public static function nsApp() -> int
+    {
+        int handle;
+        %{
+            handle = (zend_long)(uintptr_t) ns_app_nsapp();
+        }%
+        return handle;
+    }
+
+    public static function appKitVersionNumber() -> double
+    {
+        double value;
+        %{
+            value = ns_app_kit_version_number();
+        }%
+        return value;
+    }
 }

@@ -20,6 +20,8 @@ void ns_workspace_hide_other_applications(uintptr_t workspace);
 int ns_workspace_url_for_application_with_bundle_id(uintptr_t workspace, const char *bundle_id, char *out, int out_len);
 int ns_workspace_url_for_application_to_open_url(uintptr_t workspace, const char *url, char *out, int out_len);
 int ns_workspace_frontmost_application_name(uintptr_t workspace, char *out, int out_len);
+int ns_workspace_running_applications_count(uintptr_t workspace);
+uintptr_t ns_workspace_running_application_at(uintptr_t workspace, int index);
 
 #ifdef __cplusplus
 }

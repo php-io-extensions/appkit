@@ -29,6 +29,8 @@ void ns_scrubber_set_shows_additional_content_indicators(uintptr_t scrubber, int
 int ns_scrubber_shows_additional_content_indicators(uintptr_t scrubber);
 void ns_scrubber_reload_data(uintptr_t scrubber);
 int ns_scrubber_poll_selection(uintptr_t scrubber);
+void ns_scrubber_set_layout(uintptr_t scrubber, uintptr_t layout);
+uintptr_t ns_scrubber_get_layout(uintptr_t scrubber);
 
 #ifdef __cplusplus
 }

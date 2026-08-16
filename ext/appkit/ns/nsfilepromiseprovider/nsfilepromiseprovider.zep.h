@@ -1,0 +1,84 @@
+
+extern zend_class_entry *appkit_ns_nsfilepromiseprovider_nsfilepromiseprovider_ce;
+
+ZEPHIR_INIT_CLASS(AppKit_NS_NSFilePromiseProvider_NSFilePromiseProvider);
+
+PHP_METHOD(AppKit_NS_NSFilePromiseProvider_NSFilePromiseProvider, create);
+PHP_METHOD(AppKit_NS_NSFilePromiseProvider_NSFilePromiseProvider, wrap);
+PHP_METHOD(AppKit_NS_NSFilePromiseProvider_NSFilePromiseProvider, destroy);
+PHP_METHOD(AppKit_NS_NSFilePromiseProvider_NSFilePromiseProvider, nsFilePromiseProvider);
+PHP_METHOD(AppKit_NS_NSFilePromiseProvider_NSFilePromiseProvider, setFileType);
+PHP_METHOD(AppKit_NS_NSFilePromiseProvider_NSFilePromiseProvider, getFileType);
+PHP_METHOD(AppKit_NS_NSFilePromiseProvider_NSFilePromiseProvider, setUserInfoTag);
+PHP_METHOD(AppKit_NS_NSFilePromiseProvider_NSFilePromiseProvider, getUserInfoTag);
+PHP_METHOD(AppKit_NS_NSFilePromiseProvider_NSFilePromiseProvider, setFileName);
+PHP_METHOD(AppKit_NS_NSFilePromiseProvider_NSFilePromiseProvider, pollWriteRequest);
+PHP_METHOD(AppKit_NS_NSFilePromiseProvider_NSFilePromiseProvider, completeWrite);
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsfilepromiseprovider_nsfilepromiseprovider_create, 0, 1, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, fileType, IS_STRING, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsfilepromiseprovider_nsfilepromiseprovider_wrap, 0, 1, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, nsFilePromiseProviderPtr, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsfilepromiseprovider_nsfilepromiseprovider_destroy, 0, 1, IS_VOID, 0)
+
+	ZEND_ARG_TYPE_INFO(0, provider, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsfilepromiseprovider_nsfilepromiseprovider_nsfilepromiseprovider, 0, 1, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, provider, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsfilepromiseprovider_nsfilepromiseprovider_setfiletype, 0, 2, IS_VOID, 0)
+
+	ZEND_ARG_TYPE_INFO(0, provider, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, fileType, IS_STRING, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsfilepromiseprovider_nsfilepromiseprovider_getfiletype, 0, 1, IS_STRING, 0)
+	ZEND_ARG_TYPE_INFO(0, provider, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsfilepromiseprovider_nsfilepromiseprovider_setuserinfotag, 0, 2, IS_VOID, 0)
+
+	ZEND_ARG_TYPE_INFO(0, provider, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, tag, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsfilepromiseprovider_nsfilepromiseprovider_getuserinfotag, 0, 1, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, provider, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsfilepromiseprovider_nsfilepromiseprovider_setfilename, 0, 2, IS_VOID, 0)
+
+	ZEND_ARG_TYPE_INFO(0, provider, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, fileName, IS_STRING, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsfilepromiseprovider_nsfilepromiseprovider_pollwriterequest, 0, 1, IS_ARRAY, 0)
+	ZEND_ARG_TYPE_INFO(0, provider, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsfilepromiseprovider_nsfilepromiseprovider_completewrite, 0, 2, IS_VOID, 0)
+
+	ZEND_ARG_TYPE_INFO(0, provider, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, success, _IS_BOOL, 0)
+ZEND_END_ARG_INFO()
+
+ZEPHIR_INIT_FUNCS(appkit_ns_nsfilepromiseprovider_nsfilepromiseprovider_method_entry) {
+	PHP_ME(AppKit_NS_NSFilePromiseProvider_NSFilePromiseProvider, create, arginfo_appkit_ns_nsfilepromiseprovider_nsfilepromiseprovider_create, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSFilePromiseProvider_NSFilePromiseProvider, wrap, arginfo_appkit_ns_nsfilepromiseprovider_nsfilepromiseprovider_wrap, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSFilePromiseProvider_NSFilePromiseProvider, destroy, arginfo_appkit_ns_nsfilepromiseprovider_nsfilepromiseprovider_destroy, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSFilePromiseProvider_NSFilePromiseProvider, nsFilePromiseProvider, arginfo_appkit_ns_nsfilepromiseprovider_nsfilepromiseprovider_nsfilepromiseprovider, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSFilePromiseProvider_NSFilePromiseProvider, setFileType, arginfo_appkit_ns_nsfilepromiseprovider_nsfilepromiseprovider_setfiletype, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSFilePromiseProvider_NSFilePromiseProvider, getFileType, arginfo_appkit_ns_nsfilepromiseprovider_nsfilepromiseprovider_getfiletype, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSFilePromiseProvider_NSFilePromiseProvider, setUserInfoTag, arginfo_appkit_ns_nsfilepromiseprovider_nsfilepromiseprovider_setuserinfotag, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSFilePromiseProvider_NSFilePromiseProvider, getUserInfoTag, arginfo_appkit_ns_nsfilepromiseprovider_nsfilepromiseprovider_getuserinfotag, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSFilePromiseProvider_NSFilePromiseProvider, setFileName, arginfo_appkit_ns_nsfilepromiseprovider_nsfilepromiseprovider_setfilename, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSFilePromiseProvider_NSFilePromiseProvider, pollWriteRequest, arginfo_appkit_ns_nsfilepromiseprovider_nsfilepromiseprovider_pollwriterequest, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSFilePromiseProvider_NSFilePromiseProvider, completeWrite, arginfo_appkit_ns_nsfilepromiseprovider_nsfilepromiseprovider_completewrite, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_FE_END
+};

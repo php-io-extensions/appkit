@@ -27,6 +27,8 @@ sources:
 | `poll` | `nextEventMatchingMask` drain + `sendEvent` / `updateWindows` |
 | `run` | `[NSApp run]` |
 | `terminate` | quit flag + `[NSApp stop:]` |
+| `nsApp` | `NSApp` global pointer |
+| `appKitVersionNumber` | `NSAppKitVersionNumber` |
 | `shouldQuit` / `resetQuit` | extension quit flag |
 
 Moved from `Metal\\MTL\\App` / `mtl_app_*`. Does not call Metal or GameController. Keyboard/mouse hooks land with the NSEvent/input move.

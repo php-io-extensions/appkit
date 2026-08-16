@@ -1,0 +1,174 @@
+
+extern zend_class_entry *appkit_ns_nsobjectcontroller_nsobjectcontroller_ce;
+
+ZEPHIR_INIT_CLASS(AppKit_NS_NSObjectController_NSObjectController);
+
+PHP_METHOD(AppKit_NS_NSObjectController_NSObjectController, create);
+PHP_METHOD(AppKit_NS_NSObjectController_NSObjectController, createWithContent);
+PHP_METHOD(AppKit_NS_NSObjectController_NSObjectController, wrap);
+PHP_METHOD(AppKit_NS_NSObjectController_NSObjectController, destroy);
+PHP_METHOD(AppKit_NS_NSObjectController_NSObjectController, nsObjectController);
+PHP_METHOD(AppKit_NS_NSObjectController_NSObjectController, discardEditing);
+PHP_METHOD(AppKit_NS_NSObjectController_NSObjectController, commitEditing);
+PHP_METHOD(AppKit_NS_NSObjectController_NSObjectController, isEditing);
+PHP_METHOD(AppKit_NS_NSObjectController_NSObjectController, setContent);
+PHP_METHOD(AppKit_NS_NSObjectController_NSObjectController, content);
+PHP_METHOD(AppKit_NS_NSObjectController_NSObjectController, selection);
+PHP_METHOD(AppKit_NS_NSObjectController_NSObjectController, selectedObjectsCount);
+PHP_METHOD(AppKit_NS_NSObjectController_NSObjectController, selectedObjectAt);
+PHP_METHOD(AppKit_NS_NSObjectController_NSObjectController, setAutomaticallyPreparesContent);
+PHP_METHOD(AppKit_NS_NSObjectController_NSObjectController, automaticallyPreparesContent);
+PHP_METHOD(AppKit_NS_NSObjectController_NSObjectController, prepareContent);
+PHP_METHOD(AppKit_NS_NSObjectController_NSObjectController, setObjectClassName);
+PHP_METHOD(AppKit_NS_NSObjectController_NSObjectController, objectClassName);
+PHP_METHOD(AppKit_NS_NSObjectController_NSObjectController, newObject);
+PHP_METHOD(AppKit_NS_NSObjectController_NSObjectController, addObject);
+PHP_METHOD(AppKit_NS_NSObjectController_NSObjectController, removeObject);
+PHP_METHOD(AppKit_NS_NSObjectController_NSObjectController, setEditable);
+PHP_METHOD(AppKit_NS_NSObjectController_NSObjectController, isEditable);
+PHP_METHOD(AppKit_NS_NSObjectController_NSObjectController, canAdd);
+PHP_METHOD(AppKit_NS_NSObjectController_NSObjectController, canRemove);
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsobjectcontroller_nsobjectcontroller_create, 0, 0, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsobjectcontroller_nsobjectcontroller_createwithcontent, 0, 1, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, contentPtr, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsobjectcontroller_nsobjectcontroller_wrap, 0, 1, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, nsObjectControllerPtr, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsobjectcontroller_nsobjectcontroller_destroy, 0, 1, IS_VOID, 0)
+
+	ZEND_ARG_TYPE_INFO(0, controller, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsobjectcontroller_nsobjectcontroller_nsobjectcontroller, 0, 1, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, controller, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsobjectcontroller_nsobjectcontroller_discardediting, 0, 1, IS_VOID, 0)
+
+	ZEND_ARG_TYPE_INFO(0, controller, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsobjectcontroller_nsobjectcontroller_commitediting, 0, 1, _IS_BOOL, 0)
+	ZEND_ARG_TYPE_INFO(0, controller, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsobjectcontroller_nsobjectcontroller_isediting, 0, 1, _IS_BOOL, 0)
+	ZEND_ARG_TYPE_INFO(0, controller, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsobjectcontroller_nsobjectcontroller_setcontent, 0, 2, IS_VOID, 0)
+
+	ZEND_ARG_TYPE_INFO(0, controller, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, contentPtr, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsobjectcontroller_nsobjectcontroller_content, 0, 1, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, controller, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsobjectcontroller_nsobjectcontroller_selection, 0, 1, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, controller, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsobjectcontroller_nsobjectcontroller_selectedobjectscount, 0, 1, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, controller, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsobjectcontroller_nsobjectcontroller_selectedobjectat, 0, 2, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, controller, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, index, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsobjectcontroller_nsobjectcontroller_setautomaticallypreparescontent, 0, 2, IS_VOID, 0)
+
+	ZEND_ARG_TYPE_INFO(0, controller, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, value, _IS_BOOL, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsobjectcontroller_nsobjectcontroller_automaticallypreparescontent, 0, 1, _IS_BOOL, 0)
+	ZEND_ARG_TYPE_INFO(0, controller, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsobjectcontroller_nsobjectcontroller_preparecontent, 0, 1, IS_VOID, 0)
+
+	ZEND_ARG_TYPE_INFO(0, controller, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsobjectcontroller_nsobjectcontroller_setobjectclassname, 0, 2, IS_VOID, 0)
+
+	ZEND_ARG_TYPE_INFO(0, controller, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, className, IS_STRING, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsobjectcontroller_nsobjectcontroller_objectclassname, 0, 1, IS_STRING, 0)
+	ZEND_ARG_TYPE_INFO(0, controller, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsobjectcontroller_nsobjectcontroller_newobject, 0, 1, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, controller, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsobjectcontroller_nsobjectcontroller_addobject, 0, 2, IS_VOID, 0)
+
+	ZEND_ARG_TYPE_INFO(0, controller, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, objectPtr, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsobjectcontroller_nsobjectcontroller_removeobject, 0, 2, IS_VOID, 0)
+
+	ZEND_ARG_TYPE_INFO(0, controller, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, objectPtr, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsobjectcontroller_nsobjectcontroller_seteditable, 0, 2, IS_VOID, 0)
+
+	ZEND_ARG_TYPE_INFO(0, controller, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, value, _IS_BOOL, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsobjectcontroller_nsobjectcontroller_iseditable, 0, 1, _IS_BOOL, 0)
+	ZEND_ARG_TYPE_INFO(0, controller, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsobjectcontroller_nsobjectcontroller_canadd, 0, 1, _IS_BOOL, 0)
+	ZEND_ARG_TYPE_INFO(0, controller, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsobjectcontroller_nsobjectcontroller_canremove, 0, 1, _IS_BOOL, 0)
+	ZEND_ARG_TYPE_INFO(0, controller, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEPHIR_INIT_FUNCS(appkit_ns_nsobjectcontroller_nsobjectcontroller_method_entry) {
+	PHP_ME(AppKit_NS_NSObjectController_NSObjectController, create, arginfo_appkit_ns_nsobjectcontroller_nsobjectcontroller_create, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSObjectController_NSObjectController, createWithContent, arginfo_appkit_ns_nsobjectcontroller_nsobjectcontroller_createwithcontent, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSObjectController_NSObjectController, wrap, arginfo_appkit_ns_nsobjectcontroller_nsobjectcontroller_wrap, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSObjectController_NSObjectController, destroy, arginfo_appkit_ns_nsobjectcontroller_nsobjectcontroller_destroy, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSObjectController_NSObjectController, nsObjectController, arginfo_appkit_ns_nsobjectcontroller_nsobjectcontroller_nsobjectcontroller, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSObjectController_NSObjectController, discardEditing, arginfo_appkit_ns_nsobjectcontroller_nsobjectcontroller_discardediting, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSObjectController_NSObjectController, commitEditing, arginfo_appkit_ns_nsobjectcontroller_nsobjectcontroller_commitediting, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSObjectController_NSObjectController, isEditing, arginfo_appkit_ns_nsobjectcontroller_nsobjectcontroller_isediting, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSObjectController_NSObjectController, setContent, arginfo_appkit_ns_nsobjectcontroller_nsobjectcontroller_setcontent, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSObjectController_NSObjectController, content, arginfo_appkit_ns_nsobjectcontroller_nsobjectcontroller_content, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSObjectController_NSObjectController, selection, arginfo_appkit_ns_nsobjectcontroller_nsobjectcontroller_selection, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSObjectController_NSObjectController, selectedObjectsCount, arginfo_appkit_ns_nsobjectcontroller_nsobjectcontroller_selectedobjectscount, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSObjectController_NSObjectController, selectedObjectAt, arginfo_appkit_ns_nsobjectcontroller_nsobjectcontroller_selectedobjectat, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSObjectController_NSObjectController, setAutomaticallyPreparesContent, arginfo_appkit_ns_nsobjectcontroller_nsobjectcontroller_setautomaticallypreparescontent, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSObjectController_NSObjectController, automaticallyPreparesContent, arginfo_appkit_ns_nsobjectcontroller_nsobjectcontroller_automaticallypreparescontent, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSObjectController_NSObjectController, prepareContent, arginfo_appkit_ns_nsobjectcontroller_nsobjectcontroller_preparecontent, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSObjectController_NSObjectController, setObjectClassName, arginfo_appkit_ns_nsobjectcontroller_nsobjectcontroller_setobjectclassname, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSObjectController_NSObjectController, objectClassName, arginfo_appkit_ns_nsobjectcontroller_nsobjectcontroller_objectclassname, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSObjectController_NSObjectController, newObject, arginfo_appkit_ns_nsobjectcontroller_nsobjectcontroller_newobject, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSObjectController_NSObjectController, addObject, arginfo_appkit_ns_nsobjectcontroller_nsobjectcontroller_addobject, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSObjectController_NSObjectController, removeObject, arginfo_appkit_ns_nsobjectcontroller_nsobjectcontroller_removeobject, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSObjectController_NSObjectController, setEditable, arginfo_appkit_ns_nsobjectcontroller_nsobjectcontroller_seteditable, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSObjectController_NSObjectController, isEditable, arginfo_appkit_ns_nsobjectcontroller_nsobjectcontroller_iseditable, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSObjectController_NSObjectController, canAdd, arginfo_appkit_ns_nsobjectcontroller_nsobjectcontroller_canadd, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSObjectController_NSObjectController, canRemove, arginfo_appkit_ns_nsobjectcontroller_nsobjectcontroller_canremove, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_FE_END
+};

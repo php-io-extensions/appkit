@@ -1,0 +1,258 @@
+
+extern zend_class_entry *appkit_ns_nstreecontroller_nstreecontroller_ce;
+
+ZEPHIR_INIT_CLASS(AppKit_NS_NSTreeController_NSTreeController);
+
+PHP_METHOD(AppKit_NS_NSTreeController_NSTreeController, create);
+PHP_METHOD(AppKit_NS_NSTreeController_NSTreeController, wrap);
+PHP_METHOD(AppKit_NS_NSTreeController_NSTreeController, destroy);
+PHP_METHOD(AppKit_NS_NSTreeController_NSTreeController, nsTreeController);
+PHP_METHOD(AppKit_NS_NSTreeController_NSTreeController, discardEditing);
+PHP_METHOD(AppKit_NS_NSTreeController_NSTreeController, commitEditing);
+PHP_METHOD(AppKit_NS_NSTreeController_NSTreeController, isEditing);
+PHP_METHOD(AppKit_NS_NSTreeController_NSTreeController, rearrangeObjects);
+PHP_METHOD(AppKit_NS_NSTreeController_NSTreeController, arrangedObjectsRootNode);
+PHP_METHOD(AppKit_NS_NSTreeController_NSTreeController, setChildrenKeyPath);
+PHP_METHOD(AppKit_NS_NSTreeController_NSTreeController, childrenKeyPath);
+PHP_METHOD(AppKit_NS_NSTreeController_NSTreeController, setCountKeyPath);
+PHP_METHOD(AppKit_NS_NSTreeController_NSTreeController, countKeyPath);
+PHP_METHOD(AppKit_NS_NSTreeController_NSTreeController, setLeafKeyPath);
+PHP_METHOD(AppKit_NS_NSTreeController_NSTreeController, leafKeyPath);
+PHP_METHOD(AppKit_NS_NSTreeController_NSTreeController, setContent);
+PHP_METHOD(AppKit_NS_NSTreeController_NSTreeController, content);
+PHP_METHOD(AppKit_NS_NSTreeController_NSTreeController, canInsert);
+PHP_METHOD(AppKit_NS_NSTreeController_NSTreeController, canInsertChild);
+PHP_METHOD(AppKit_NS_NSTreeController_NSTreeController, canAddChild);
+PHP_METHOD(AppKit_NS_NSTreeController_NSTreeController, setAvoidsEmptySelection);
+PHP_METHOD(AppKit_NS_NSTreeController_NSTreeController, avoidsEmptySelection);
+PHP_METHOD(AppKit_NS_NSTreeController_NSTreeController, setPreservesSelection);
+PHP_METHOD(AppKit_NS_NSTreeController_NSTreeController, preservesSelection);
+PHP_METHOD(AppKit_NS_NSTreeController_NSTreeController, setSelectsInsertedObjects);
+PHP_METHOD(AppKit_NS_NSTreeController_NSTreeController, selectsInsertedObjects);
+PHP_METHOD(AppKit_NS_NSTreeController_NSTreeController, setAlwaysUsesMultipleValuesMarker);
+PHP_METHOD(AppKit_NS_NSTreeController_NSTreeController, alwaysUsesMultipleValuesMarker);
+PHP_METHOD(AppKit_NS_NSTreeController_NSTreeController, selectedObjectsCount);
+PHP_METHOD(AppKit_NS_NSTreeController_NSTreeController, selectedObjectAt);
+PHP_METHOD(AppKit_NS_NSTreeController_NSTreeController, selectedNodesCount);
+PHP_METHOD(AppKit_NS_NSTreeController_NSTreeController, selectedNodeAt);
+PHP_METHOD(AppKit_NS_NSTreeController_NSTreeController, setSelectionIndexPath);
+PHP_METHOD(AppKit_NS_NSTreeController_NSTreeController, selectionIndexPathLength);
+PHP_METHOD(AppKit_NS_NSTreeController_NSTreeController, selectionIndexPathComponentAt);
+PHP_METHOD(AppKit_NS_NSTreeController_NSTreeController, insertObjectAtArrangedObjectIndexPath);
+PHP_METHOD(AppKit_NS_NSTreeController_NSTreeController, removeObjectAtArrangedObjectIndexPath);
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nstreecontroller_nstreecontroller_create, 0, 0, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nstreecontroller_nstreecontroller_wrap, 0, 1, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, nsTreeControllerPtr, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nstreecontroller_nstreecontroller_destroy, 0, 1, IS_VOID, 0)
+
+	ZEND_ARG_TYPE_INFO(0, controller, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nstreecontroller_nstreecontroller_nstreecontroller, 0, 1, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, controller, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nstreecontroller_nstreecontroller_discardediting, 0, 1, IS_VOID, 0)
+
+	ZEND_ARG_TYPE_INFO(0, controller, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nstreecontroller_nstreecontroller_commitediting, 0, 1, _IS_BOOL, 0)
+	ZEND_ARG_TYPE_INFO(0, controller, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nstreecontroller_nstreecontroller_isediting, 0, 1, _IS_BOOL, 0)
+	ZEND_ARG_TYPE_INFO(0, controller, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nstreecontroller_nstreecontroller_rearrangeobjects, 0, 1, IS_VOID, 0)
+
+	ZEND_ARG_TYPE_INFO(0, controller, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nstreecontroller_nstreecontroller_arrangedobjectsrootnode, 0, 1, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, controller, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nstreecontroller_nstreecontroller_setchildrenkeypath, 0, 2, IS_VOID, 0)
+
+	ZEND_ARG_TYPE_INFO(0, controller, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, path, IS_STRING, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nstreecontroller_nstreecontroller_childrenkeypath, 0, 1, IS_STRING, 0)
+	ZEND_ARG_TYPE_INFO(0, controller, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nstreecontroller_nstreecontroller_setcountkeypath, 0, 2, IS_VOID, 0)
+
+	ZEND_ARG_TYPE_INFO(0, controller, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, path, IS_STRING, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nstreecontroller_nstreecontroller_countkeypath, 0, 1, IS_STRING, 0)
+	ZEND_ARG_TYPE_INFO(0, controller, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nstreecontroller_nstreecontroller_setleafkeypath, 0, 2, IS_VOID, 0)
+
+	ZEND_ARG_TYPE_INFO(0, controller, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, path, IS_STRING, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nstreecontroller_nstreecontroller_leafkeypath, 0, 1, IS_STRING, 0)
+	ZEND_ARG_TYPE_INFO(0, controller, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nstreecontroller_nstreecontroller_setcontent, 0, 2, IS_VOID, 0)
+
+	ZEND_ARG_TYPE_INFO(0, controller, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, contentPtr, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nstreecontroller_nstreecontroller_content, 0, 1, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, controller, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nstreecontroller_nstreecontroller_caninsert, 0, 1, _IS_BOOL, 0)
+	ZEND_ARG_TYPE_INFO(0, controller, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nstreecontroller_nstreecontroller_caninsertchild, 0, 1, _IS_BOOL, 0)
+	ZEND_ARG_TYPE_INFO(0, controller, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nstreecontroller_nstreecontroller_canaddchild, 0, 1, _IS_BOOL, 0)
+	ZEND_ARG_TYPE_INFO(0, controller, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nstreecontroller_nstreecontroller_setavoidsemptyselection, 0, 2, IS_VOID, 0)
+
+	ZEND_ARG_TYPE_INFO(0, controller, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, value, _IS_BOOL, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nstreecontroller_nstreecontroller_avoidsemptyselection, 0, 1, _IS_BOOL, 0)
+	ZEND_ARG_TYPE_INFO(0, controller, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nstreecontroller_nstreecontroller_setpreservesselection, 0, 2, IS_VOID, 0)
+
+	ZEND_ARG_TYPE_INFO(0, controller, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, value, _IS_BOOL, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nstreecontroller_nstreecontroller_preservesselection, 0, 1, _IS_BOOL, 0)
+	ZEND_ARG_TYPE_INFO(0, controller, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nstreecontroller_nstreecontroller_setselectsinsertedobjects, 0, 2, IS_VOID, 0)
+
+	ZEND_ARG_TYPE_INFO(0, controller, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, value, _IS_BOOL, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nstreecontroller_nstreecontroller_selectsinsertedobjects, 0, 1, _IS_BOOL, 0)
+	ZEND_ARG_TYPE_INFO(0, controller, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nstreecontroller_nstreecontroller_setalwaysusesmultiplevaluesmarker, 0, 2, IS_VOID, 0)
+
+	ZEND_ARG_TYPE_INFO(0, controller, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, value, _IS_BOOL, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nstreecontroller_nstreecontroller_alwaysusesmultiplevaluesmarker, 0, 1, _IS_BOOL, 0)
+	ZEND_ARG_TYPE_INFO(0, controller, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nstreecontroller_nstreecontroller_selectedobjectscount, 0, 1, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, controller, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nstreecontroller_nstreecontroller_selectedobjectat, 0, 2, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, controller, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, index, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nstreecontroller_nstreecontroller_selectednodescount, 0, 1, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, controller, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nstreecontroller_nstreecontroller_selectednodeat, 0, 2, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, controller, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, index, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nstreecontroller_nstreecontroller_setselectionindexpath, 0, 2, _IS_BOOL, 0)
+	ZEND_ARG_TYPE_INFO(0, controller, IS_LONG, 0)
+	ZEND_ARG_ARRAY_INFO(0, indexes, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nstreecontroller_nstreecontroller_selectionindexpathlength, 0, 1, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, controller, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nstreecontroller_nstreecontroller_selectionindexpathcomponentat, 0, 2, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, controller, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, index, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nstreecontroller_nstreecontroller_insertobjectatarrangedobjectindexpath, 0, 3, IS_VOID, 0)
+
+	ZEND_ARG_TYPE_INFO(0, controller, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, objectPtr, IS_LONG, 0)
+	ZEND_ARG_ARRAY_INFO(0, indexes, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nstreecontroller_nstreecontroller_removeobjectatarrangedobjectindexpath, 0, 2, IS_VOID, 0)
+
+	ZEND_ARG_TYPE_INFO(0, controller, IS_LONG, 0)
+	ZEND_ARG_ARRAY_INFO(0, indexes, 0)
+ZEND_END_ARG_INFO()
+
+ZEPHIR_INIT_FUNCS(appkit_ns_nstreecontroller_nstreecontroller_method_entry) {
+	PHP_ME(AppKit_NS_NSTreeController_NSTreeController, create, arginfo_appkit_ns_nstreecontroller_nstreecontroller_create, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSTreeController_NSTreeController, wrap, arginfo_appkit_ns_nstreecontroller_nstreecontroller_wrap, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSTreeController_NSTreeController, destroy, arginfo_appkit_ns_nstreecontroller_nstreecontroller_destroy, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSTreeController_NSTreeController, nsTreeController, arginfo_appkit_ns_nstreecontroller_nstreecontroller_nstreecontroller, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSTreeController_NSTreeController, discardEditing, arginfo_appkit_ns_nstreecontroller_nstreecontroller_discardediting, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSTreeController_NSTreeController, commitEditing, arginfo_appkit_ns_nstreecontroller_nstreecontroller_commitediting, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSTreeController_NSTreeController, isEditing, arginfo_appkit_ns_nstreecontroller_nstreecontroller_isediting, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSTreeController_NSTreeController, rearrangeObjects, arginfo_appkit_ns_nstreecontroller_nstreecontroller_rearrangeobjects, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSTreeController_NSTreeController, arrangedObjectsRootNode, arginfo_appkit_ns_nstreecontroller_nstreecontroller_arrangedobjectsrootnode, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSTreeController_NSTreeController, setChildrenKeyPath, arginfo_appkit_ns_nstreecontroller_nstreecontroller_setchildrenkeypath, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSTreeController_NSTreeController, childrenKeyPath, arginfo_appkit_ns_nstreecontroller_nstreecontroller_childrenkeypath, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSTreeController_NSTreeController, setCountKeyPath, arginfo_appkit_ns_nstreecontroller_nstreecontroller_setcountkeypath, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSTreeController_NSTreeController, countKeyPath, arginfo_appkit_ns_nstreecontroller_nstreecontroller_countkeypath, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSTreeController_NSTreeController, setLeafKeyPath, arginfo_appkit_ns_nstreecontroller_nstreecontroller_setleafkeypath, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSTreeController_NSTreeController, leafKeyPath, arginfo_appkit_ns_nstreecontroller_nstreecontroller_leafkeypath, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSTreeController_NSTreeController, setContent, arginfo_appkit_ns_nstreecontroller_nstreecontroller_setcontent, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSTreeController_NSTreeController, content, arginfo_appkit_ns_nstreecontroller_nstreecontroller_content, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSTreeController_NSTreeController, canInsert, arginfo_appkit_ns_nstreecontroller_nstreecontroller_caninsert, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSTreeController_NSTreeController, canInsertChild, arginfo_appkit_ns_nstreecontroller_nstreecontroller_caninsertchild, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSTreeController_NSTreeController, canAddChild, arginfo_appkit_ns_nstreecontroller_nstreecontroller_canaddchild, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSTreeController_NSTreeController, setAvoidsEmptySelection, arginfo_appkit_ns_nstreecontroller_nstreecontroller_setavoidsemptyselection, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSTreeController_NSTreeController, avoidsEmptySelection, arginfo_appkit_ns_nstreecontroller_nstreecontroller_avoidsemptyselection, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSTreeController_NSTreeController, setPreservesSelection, arginfo_appkit_ns_nstreecontroller_nstreecontroller_setpreservesselection, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSTreeController_NSTreeController, preservesSelection, arginfo_appkit_ns_nstreecontroller_nstreecontroller_preservesselection, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSTreeController_NSTreeController, setSelectsInsertedObjects, arginfo_appkit_ns_nstreecontroller_nstreecontroller_setselectsinsertedobjects, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSTreeController_NSTreeController, selectsInsertedObjects, arginfo_appkit_ns_nstreecontroller_nstreecontroller_selectsinsertedobjects, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSTreeController_NSTreeController, setAlwaysUsesMultipleValuesMarker, arginfo_appkit_ns_nstreecontroller_nstreecontroller_setalwaysusesmultiplevaluesmarker, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSTreeController_NSTreeController, alwaysUsesMultipleValuesMarker, arginfo_appkit_ns_nstreecontroller_nstreecontroller_alwaysusesmultiplevaluesmarker, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSTreeController_NSTreeController, selectedObjectsCount, arginfo_appkit_ns_nstreecontroller_nstreecontroller_selectedobjectscount, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSTreeController_NSTreeController, selectedObjectAt, arginfo_appkit_ns_nstreecontroller_nstreecontroller_selectedobjectat, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSTreeController_NSTreeController, selectedNodesCount, arginfo_appkit_ns_nstreecontroller_nstreecontroller_selectednodescount, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSTreeController_NSTreeController, selectedNodeAt, arginfo_appkit_ns_nstreecontroller_nstreecontroller_selectednodeat, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSTreeController_NSTreeController, setSelectionIndexPath, arginfo_appkit_ns_nstreecontroller_nstreecontroller_setselectionindexpath, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSTreeController_NSTreeController, selectionIndexPathLength, arginfo_appkit_ns_nstreecontroller_nstreecontroller_selectionindexpathlength, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSTreeController_NSTreeController, selectionIndexPathComponentAt, arginfo_appkit_ns_nstreecontroller_nstreecontroller_selectionindexpathcomponentat, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSTreeController_NSTreeController, insertObjectAtArrangedObjectIndexPath, arginfo_appkit_ns_nstreecontroller_nstreecontroller_insertobjectatarrangedobjectindexpath, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSTreeController_NSTreeController, removeObjectAtArrangedObjectIndexPath, arginfo_appkit_ns_nstreecontroller_nstreecontroller_removeobjectatarrangedobjectindexpath, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_FE_END
+};

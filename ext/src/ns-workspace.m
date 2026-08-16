@@ -1,6 +1,7 @@
 #import <AppKit/AppKit.h>
 #import "ns-workspace.h"
 #import "ns-image.h"
+#import "ns-runningapplication.h"
 
 static int ns_copy_nsstring(NSString *text, char *out, int out_len)
 {
@@ -175,5 +176,25 @@ int ns_workspace_frontmost_application_name(uintptr_t workspace, char *out, int 
             return 0;
         }
         return ns_copy_nsstring(obj.frontmostApplication.localizedName, out, out_len);
+    }
+}
+
+int ns_workspace_running_applications_count(uintptr_t workspace)
+{
+    @autoreleasepool {
+        NSWorkspace *obj = ns_workspace_from(workspace);
+        return obj ? (int)obj.runningApplications.count : 0;
+    }
+}
+
+uintptr_t ns_workspace_running_application_at(uintptr_t workspace, int index)
+{
+    @autoreleasepool {
+        NSWorkspace *obj = ns_workspace_from(workspace);
+        if (!obj || index < 0 || (NSUInteger)index >= obj.runningApplications.count) {
+            return 0;
+        }
+        NSRunningApplication *app = obj.runningApplications[(NSUInteger)index];
+        return app ? ns_runningapplication_wrap((__bridge void *)app) : 0;
     }
 }

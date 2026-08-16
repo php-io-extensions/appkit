@@ -5,7 +5,7 @@ description: Opaque uintptr_t handles and ns_* entry points
 resource: /config.json
 tags: [appkit, abi, c]
 status: draft
-generated: { by: cursor-agent/grok-4.5, at: "2026-08-15T00:30:00Z" }
+generated: { by: cursor-agent, at: "2026-08-15T15:30:00Z" }
 sources:
   - id: config
     resource: /config.json
@@ -108,6 +108,13 @@ sources:
 | StatusBar | `ns-statusbar.h` | `NSStatusBar` |
 | Workspace | `ns-workspace.h` | `NSWorkspace` |
 | Controller | `ns-controller.h` | `NSController` |
+| AccessibilityElement | `ns-accessibilityelement.h` | `NSAccessibilityElement` |
+| AccessibilityCustomRotor | `ns-accessibilitycustomrotor.h` | `NSAccessibilityCustomRotor` + item result |
+| WindowTab | `ns-windowtab.h` | `NSWindowTab` |
+| WindowTabGroup | `ns-windowtabgroup.h` | `NSWindowTabGroup` |
+| TitlebarAccessory | `ns-titlebaraccessoryviewcontroller.h` | `NSTitlebarAccessoryViewController` |
+| Graphics | `ns-graphics.h` | `NSBeep`, `NSRectFill`, NSGraphics.h C functions |
+| Protocol | `ns-protocol.h` | protocol poll queue + `@protocol` inventory |
 
 # Modules (planned)
 

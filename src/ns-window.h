@@ -52,6 +52,10 @@ int ns_window_screen_to_content(uintptr_t window, double screen_x, double screen
 /** Borrowed NSWindow* (0 if invalid). Do not free. */
 void *ns_window_nswindow(uintptr_t window);
 
+uintptr_t ns_window_tab(uintptr_t window);
+uintptr_t ns_window_tab_group(uintptr_t window);
+void ns_window_add_titlebar_accessory(uintptr_t window, uintptr_t controller);
+
 #ifdef __cplusplus
 }
 #endif

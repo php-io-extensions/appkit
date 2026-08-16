@@ -373,3 +373,33 @@ PHP_METHOD(AppKit_NS_NSScrubber_NSScrubber, pollSelection)
 	RETURN_BOOL(result);
 }
 
+PHP_METHOD(AppKit_NS_NSScrubber_NSScrubber, setLayout)
+{
+	zval *scrubber_param = NULL, *layout_param = NULL;
+	zend_long scrubber, layout;
+
+	ZEND_PARSE_PARAMETERS_START(2, 2)
+		Z_PARAM_LONG(scrubber)
+		Z_PARAM_LONG(layout)
+	ZEND_PARSE_PARAMETERS_END();
+	zephir_fetch_params_without_memory_grow(2, 0, &scrubber_param, &layout_param);
+	
+            ns_scrubber_set_layout((uintptr_t) scrubber, (uintptr_t) layout);
+        
+}
+
+PHP_METHOD(AppKit_NS_NSScrubber_NSScrubber, getLayout)
+{
+	zval *scrubber_param = NULL;
+	zend_long scrubber, handle = 0;
+
+	ZEND_PARSE_PARAMETERS_START(1, 1)
+		Z_PARAM_LONG(scrubber)
+	ZEND_PARSE_PARAMETERS_END();
+	zephir_fetch_params_without_memory_grow(1, 0, &scrubber_param);
+	
+            handle = (zend_long) ns_scrubber_get_layout((uintptr_t) scrubber);
+        
+	RETURN_LONG(handle);
+}
+

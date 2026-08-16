@@ -1,0 +1,88 @@
+
+extern zend_class_entry *appkit_ns_nsdraggingsession_nsdraggingsession_ce;
+
+ZEPHIR_INIT_CLASS(AppKit_NS_NSDraggingSession_NSDraggingSession);
+
+PHP_METHOD(AppKit_NS_NSDraggingSession_NSDraggingSession, wrap);
+PHP_METHOD(AppKit_NS_NSDraggingSession_NSDraggingSession, destroy);
+PHP_METHOD(AppKit_NS_NSDraggingSession_NSDraggingSession, nsDraggingSession);
+PHP_METHOD(AppKit_NS_NSDraggingSession_NSDraggingSession, getDraggingFormation);
+PHP_METHOD(AppKit_NS_NSDraggingSession_NSDraggingSession, setDraggingFormation);
+PHP_METHOD(AppKit_NS_NSDraggingSession_NSDraggingSession, animatesToStartingPositions);
+PHP_METHOD(AppKit_NS_NSDraggingSession_NSDraggingSession, setAnimatesToStartingPositions);
+PHP_METHOD(AppKit_NS_NSDraggingSession_NSDraggingSession, getDraggingLeaderIndex);
+PHP_METHOD(AppKit_NS_NSDraggingSession_NSDraggingSession, setDraggingLeaderIndex);
+PHP_METHOD(AppKit_NS_NSDraggingSession_NSDraggingSession, draggingPasteboard);
+PHP_METHOD(AppKit_NS_NSDraggingSession_NSDraggingSession, draggingSequenceNumber);
+PHP_METHOD(AppKit_NS_NSDraggingSession_NSDraggingSession, draggingLocation);
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsdraggingsession_nsdraggingsession_wrap, 0, 1, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, nsDraggingSessionPtr, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsdraggingsession_nsdraggingsession_destroy, 0, 1, IS_VOID, 0)
+
+	ZEND_ARG_TYPE_INFO(0, session, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsdraggingsession_nsdraggingsession_nsdraggingsession, 0, 1, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, session, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsdraggingsession_nsdraggingsession_getdraggingformation, 0, 1, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, session, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsdraggingsession_nsdraggingsession_setdraggingformation, 0, 2, IS_VOID, 0)
+
+	ZEND_ARG_TYPE_INFO(0, session, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, formation, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsdraggingsession_nsdraggingsession_animatestostartingpositions, 0, 1, _IS_BOOL, 0)
+	ZEND_ARG_TYPE_INFO(0, session, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsdraggingsession_nsdraggingsession_setanimatestostartingpositions, 0, 2, IS_VOID, 0)
+
+	ZEND_ARG_TYPE_INFO(0, session, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, value, _IS_BOOL, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsdraggingsession_nsdraggingsession_getdraggingleaderindex, 0, 1, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, session, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsdraggingsession_nsdraggingsession_setdraggingleaderindex, 0, 2, IS_VOID, 0)
+
+	ZEND_ARG_TYPE_INFO(0, session, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, index, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsdraggingsession_nsdraggingsession_draggingpasteboard, 0, 1, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, session, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsdraggingsession_nsdraggingsession_draggingsequencenumber, 0, 1, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, session, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsdraggingsession_nsdraggingsession_dragginglocation, 0, 1, IS_ARRAY, 0)
+	ZEND_ARG_TYPE_INFO(0, session, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEPHIR_INIT_FUNCS(appkit_ns_nsdraggingsession_nsdraggingsession_method_entry) {
+	PHP_ME(AppKit_NS_NSDraggingSession_NSDraggingSession, wrap, arginfo_appkit_ns_nsdraggingsession_nsdraggingsession_wrap, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSDraggingSession_NSDraggingSession, destroy, arginfo_appkit_ns_nsdraggingsession_nsdraggingsession_destroy, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSDraggingSession_NSDraggingSession, nsDraggingSession, arginfo_appkit_ns_nsdraggingsession_nsdraggingsession_nsdraggingsession, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSDraggingSession_NSDraggingSession, getDraggingFormation, arginfo_appkit_ns_nsdraggingsession_nsdraggingsession_getdraggingformation, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSDraggingSession_NSDraggingSession, setDraggingFormation, arginfo_appkit_ns_nsdraggingsession_nsdraggingsession_setdraggingformation, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSDraggingSession_NSDraggingSession, animatesToStartingPositions, arginfo_appkit_ns_nsdraggingsession_nsdraggingsession_animatestostartingpositions, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSDraggingSession_NSDraggingSession, setAnimatesToStartingPositions, arginfo_appkit_ns_nsdraggingsession_nsdraggingsession_setanimatestostartingpositions, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSDraggingSession_NSDraggingSession, getDraggingLeaderIndex, arginfo_appkit_ns_nsdraggingsession_nsdraggingsession_getdraggingleaderindex, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSDraggingSession_NSDraggingSession, setDraggingLeaderIndex, arginfo_appkit_ns_nsdraggingsession_nsdraggingsession_setdraggingleaderindex, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSDraggingSession_NSDraggingSession, draggingPasteboard, arginfo_appkit_ns_nsdraggingsession_nsdraggingsession_draggingpasteboard, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSDraggingSession_NSDraggingSession, draggingSequenceNumber, arginfo_appkit_ns_nsdraggingsession_nsdraggingsession_draggingsequencenumber, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSDraggingSession_NSDraggingSession, draggingLocation, arginfo_appkit_ns_nsdraggingsession_nsdraggingsession_dragginglocation, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_FE_END
+};

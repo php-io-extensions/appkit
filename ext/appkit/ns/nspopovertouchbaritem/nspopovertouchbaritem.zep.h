@@ -1,0 +1,56 @@
+
+extern zend_class_entry *appkit_ns_nspopovertouchbaritem_nspopovertouchbaritem_ce;
+
+ZEPHIR_INIT_CLASS(AppKit_NS_NSPopoverTouchBarItem_NSPopoverTouchBarItem);
+
+PHP_METHOD(AppKit_NS_NSPopoverTouchBarItem_NSPopoverTouchBarItem, create);
+PHP_METHOD(AppKit_NS_NSPopoverTouchBarItem_NSPopoverTouchBarItem, wrap);
+PHP_METHOD(AppKit_NS_NSPopoverTouchBarItem_NSPopoverTouchBarItem, destroy);
+PHP_METHOD(AppKit_NS_NSPopoverTouchBarItem_NSPopoverTouchBarItem, nsPopoverTouchBarItem);
+PHP_METHOD(AppKit_NS_NSPopoverTouchBarItem_NSPopoverTouchBarItem, setPopoverTouchBar);
+PHP_METHOD(AppKit_NS_NSPopoverTouchBarItem_NSPopoverTouchBarItem, showPopover);
+PHP_METHOD(AppKit_NS_NSPopoverTouchBarItem_NSPopoverTouchBarItem, dismissPopover);
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nspopovertouchbaritem_nspopovertouchbaritem_create, 0, 1, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, identifier, IS_STRING, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nspopovertouchbaritem_nspopovertouchbaritem_wrap, 0, 1, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, ptr, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nspopovertouchbaritem_nspopovertouchbaritem_destroy, 0, 1, IS_VOID, 0)
+
+	ZEND_ARG_TYPE_INFO(0, item, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nspopovertouchbaritem_nspopovertouchbaritem_nspopovertouchbaritem, 0, 1, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, item, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nspopovertouchbaritem_nspopovertouchbaritem_setpopovertouchbar, 0, 2, IS_VOID, 0)
+
+	ZEND_ARG_TYPE_INFO(0, item, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, bar, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nspopovertouchbaritem_nspopovertouchbaritem_showpopover, 0, 1, IS_VOID, 0)
+
+	ZEND_ARG_TYPE_INFO(0, item, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nspopovertouchbaritem_nspopovertouchbaritem_dismisspopover, 0, 1, IS_VOID, 0)
+
+	ZEND_ARG_TYPE_INFO(0, item, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEPHIR_INIT_FUNCS(appkit_ns_nspopovertouchbaritem_nspopovertouchbaritem_method_entry) {
+	PHP_ME(AppKit_NS_NSPopoverTouchBarItem_NSPopoverTouchBarItem, create, arginfo_appkit_ns_nspopovertouchbaritem_nspopovertouchbaritem_create, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSPopoverTouchBarItem_NSPopoverTouchBarItem, wrap, arginfo_appkit_ns_nspopovertouchbaritem_nspopovertouchbaritem_wrap, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSPopoverTouchBarItem_NSPopoverTouchBarItem, destroy, arginfo_appkit_ns_nspopovertouchbaritem_nspopovertouchbaritem_destroy, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSPopoverTouchBarItem_NSPopoverTouchBarItem, nsPopoverTouchBarItem, arginfo_appkit_ns_nspopovertouchbaritem_nspopovertouchbaritem_nspopovertouchbaritem, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSPopoverTouchBarItem_NSPopoverTouchBarItem, setPopoverTouchBar, arginfo_appkit_ns_nspopovertouchbaritem_nspopovertouchbaritem_setpopovertouchbar, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSPopoverTouchBarItem_NSPopoverTouchBarItem, showPopover, arginfo_appkit_ns_nspopovertouchbaritem_nspopovertouchbaritem_showpopover, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSPopoverTouchBarItem_NSPopoverTouchBarItem, dismissPopover, arginfo_appkit_ns_nspopovertouchbaritem_nspopovertouchbaritem_dismisspopover, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_FE_END
+};

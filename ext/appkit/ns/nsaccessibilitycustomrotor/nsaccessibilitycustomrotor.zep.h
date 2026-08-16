@@ -1,0 +1,82 @@
+
+extern zend_class_entry *appkit_ns_nsaccessibilitycustomrotor_nsaccessibilitycustomrotor_ce;
+
+ZEPHIR_INIT_CLASS(AppKit_NS_NSAccessibilityCustomRotor_NSAccessibilityCustomRotor);
+
+PHP_METHOD(AppKit_NS_NSAccessibilityCustomRotor_NSAccessibilityCustomRotor, create);
+PHP_METHOD(AppKit_NS_NSAccessibilityCustomRotor_NSAccessibilityCustomRotor, createWithType);
+PHP_METHOD(AppKit_NS_NSAccessibilityCustomRotor_NSAccessibilityCustomRotor, wrap);
+PHP_METHOD(AppKit_NS_NSAccessibilityCustomRotor_NSAccessibilityCustomRotor, destroy);
+PHP_METHOD(AppKit_NS_NSAccessibilityCustomRotor_NSAccessibilityCustomRotor, nsAccessibilityCustomRotor);
+PHP_METHOD(AppKit_NS_NSAccessibilityCustomRotor_NSAccessibilityCustomRotor, type);
+PHP_METHOD(AppKit_NS_NSAccessibilityCustomRotor_NSAccessibilityCustomRotor, setType);
+PHP_METHOD(AppKit_NS_NSAccessibilityCustomRotor_NSAccessibilityCustomRotor, label);
+PHP_METHOD(AppKit_NS_NSAccessibilityCustomRotor_NSAccessibilityCustomRotor, setLabel);
+PHP_METHOD(AppKit_NS_NSAccessibilityCustomRotor_NSAccessibilityCustomRotor, setNextItem);
+PHP_METHOD(AppKit_NS_NSAccessibilityCustomRotor_NSAccessibilityCustomRotor, pollSearch);
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsaccessibilitycustomrotor_nsaccessibilitycustomrotor_create, 0, 1, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, label, IS_STRING, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsaccessibilitycustomrotor_nsaccessibilitycustomrotor_createwithtype, 0, 1, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, rotorType, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsaccessibilitycustomrotor_nsaccessibilitycustomrotor_wrap, 0, 1, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, nsAccessibilityCustomRotorPtr, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsaccessibilitycustomrotor_nsaccessibilitycustomrotor_destroy, 0, 1, IS_VOID, 0)
+
+	ZEND_ARG_TYPE_INFO(0, rotor, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsaccessibilitycustomrotor_nsaccessibilitycustomrotor_nsaccessibilitycustomrotor, 0, 1, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, rotor, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsaccessibilitycustomrotor_nsaccessibilitycustomrotor_type, 0, 1, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, rotor, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsaccessibilitycustomrotor_nsaccessibilitycustomrotor_settype, 0, 2, IS_VOID, 0)
+
+	ZEND_ARG_TYPE_INFO(0, rotor, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, rotorType, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsaccessibilitycustomrotor_nsaccessibilitycustomrotor_label, 0, 1, IS_STRING, 0)
+	ZEND_ARG_TYPE_INFO(0, rotor, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsaccessibilitycustomrotor_nsaccessibilitycustomrotor_setlabel, 0, 2, IS_VOID, 0)
+
+	ZEND_ARG_TYPE_INFO(0, rotor, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, label, IS_STRING, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsaccessibilitycustomrotor_nsaccessibilitycustomrotor_setnextitem, 0, 2, IS_VOID, 0)
+
+	ZEND_ARG_TYPE_INFO(0, rotor, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, item, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsaccessibilitycustomrotor_nsaccessibilitycustomrotor_pollsearch, 0, 1, IS_ARRAY, 0)
+	ZEND_ARG_TYPE_INFO(0, rotor, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEPHIR_INIT_FUNCS(appkit_ns_nsaccessibilitycustomrotor_nsaccessibilitycustomrotor_method_entry) {
+	PHP_ME(AppKit_NS_NSAccessibilityCustomRotor_NSAccessibilityCustomRotor, create, arginfo_appkit_ns_nsaccessibilitycustomrotor_nsaccessibilitycustomrotor_create, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSAccessibilityCustomRotor_NSAccessibilityCustomRotor, createWithType, arginfo_appkit_ns_nsaccessibilitycustomrotor_nsaccessibilitycustomrotor_createwithtype, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSAccessibilityCustomRotor_NSAccessibilityCustomRotor, wrap, arginfo_appkit_ns_nsaccessibilitycustomrotor_nsaccessibilitycustomrotor_wrap, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSAccessibilityCustomRotor_NSAccessibilityCustomRotor, destroy, arginfo_appkit_ns_nsaccessibilitycustomrotor_nsaccessibilitycustomrotor_destroy, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSAccessibilityCustomRotor_NSAccessibilityCustomRotor, nsAccessibilityCustomRotor, arginfo_appkit_ns_nsaccessibilitycustomrotor_nsaccessibilitycustomrotor_nsaccessibilitycustomrotor, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSAccessibilityCustomRotor_NSAccessibilityCustomRotor, type, arginfo_appkit_ns_nsaccessibilitycustomrotor_nsaccessibilitycustomrotor_type, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSAccessibilityCustomRotor_NSAccessibilityCustomRotor, setType, arginfo_appkit_ns_nsaccessibilitycustomrotor_nsaccessibilitycustomrotor_settype, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSAccessibilityCustomRotor_NSAccessibilityCustomRotor, label, arginfo_appkit_ns_nsaccessibilitycustomrotor_nsaccessibilitycustomrotor_label, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSAccessibilityCustomRotor_NSAccessibilityCustomRotor, setLabel, arginfo_appkit_ns_nsaccessibilitycustomrotor_nsaccessibilitycustomrotor_setlabel, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSAccessibilityCustomRotor_NSAccessibilityCustomRotor, setNextItem, arginfo_appkit_ns_nsaccessibilitycustomrotor_nsaccessibilitycustomrotor_setnextitem, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSAccessibilityCustomRotor_NSAccessibilityCustomRotor, pollSearch, arginfo_appkit_ns_nsaccessibilitycustomrotor_nsaccessibilitycustomrotor_pollsearch, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_FE_END
+};

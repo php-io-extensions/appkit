@@ -96,3 +96,24 @@ PHP_METHOD(AppKit_NS_NSApplication_NSApplication, resetQuit)
         
 }
 
+/**
+ * @return int NSApp global (sharedApplication), or 0
+ */
+PHP_METHOD(AppKit_NS_NSApplication_NSApplication, nsApp)
+{
+	zend_long handle = 0;
+	
+            handle = (zend_long)(uintptr_t) ns_app_nsapp();
+        
+	RETURN_LONG(handle);
+}
+
+PHP_METHOD(AppKit_NS_NSApplication_NSApplication, appKitVersionNumber)
+{
+	double value = 0;
+	
+            value = ns_app_kit_version_number();
+        
+	RETURN_DOUBLE(value);
+}
+

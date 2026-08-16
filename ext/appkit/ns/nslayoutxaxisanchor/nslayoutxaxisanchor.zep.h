@@ -1,0 +1,40 @@
+
+extern zend_class_entry *appkit_ns_nslayoutxaxisanchor_nslayoutxaxisanchor_ce;
+
+ZEPHIR_INIT_CLASS(AppKit_NS_NSLayoutXAxisAnchor_NSLayoutXAxisAnchor);
+
+PHP_METHOD(AppKit_NS_NSLayoutXAxisAnchor_NSLayoutXAxisAnchor, anchorWithOffsetToAnchor);
+PHP_METHOD(AppKit_NS_NSLayoutXAxisAnchor_NSLayoutXAxisAnchor, constraintEqualToSystemSpacingAfterAnchor);
+PHP_METHOD(AppKit_NS_NSLayoutXAxisAnchor_NSLayoutXAxisAnchor, constraintGreaterThanOrEqualToSystemSpacingAfterAnchor);
+PHP_METHOD(AppKit_NS_NSLayoutXAxisAnchor_NSLayoutXAxisAnchor, constraintLessThanOrEqualToSystemSpacingAfterAnchor);
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nslayoutxaxisanchor_nslayoutxaxisanchor_anchorwithoffsettoanchor, 0, 2, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, anchor, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, other, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nslayoutxaxisanchor_nslayoutxaxisanchor_constraintequaltosystemspacingafteranchor, 0, 3, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, anchor, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, other, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, multiplier, IS_DOUBLE, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nslayoutxaxisanchor_nslayoutxaxisanchor_constraintgreaterthanorequaltosystemspacingafteranchor, 0, 3, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, anchor, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, other, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, multiplier, IS_DOUBLE, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nslayoutxaxisanchor_nslayoutxaxisanchor_constraintlessthanorequaltosystemspacingafteranchor, 0, 3, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, anchor, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, other, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, multiplier, IS_DOUBLE, 0)
+ZEND_END_ARG_INFO()
+
+ZEPHIR_INIT_FUNCS(appkit_ns_nslayoutxaxisanchor_nslayoutxaxisanchor_method_entry) {
+	PHP_ME(AppKit_NS_NSLayoutXAxisAnchor_NSLayoutXAxisAnchor, anchorWithOffsetToAnchor, arginfo_appkit_ns_nslayoutxaxisanchor_nslayoutxaxisanchor_anchorwithoffsettoanchor, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSLayoutXAxisAnchor_NSLayoutXAxisAnchor, constraintEqualToSystemSpacingAfterAnchor, arginfo_appkit_ns_nslayoutxaxisanchor_nslayoutxaxisanchor_constraintequaltosystemspacingafteranchor, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSLayoutXAxisAnchor_NSLayoutXAxisAnchor, constraintGreaterThanOrEqualToSystemSpacingAfterAnchor, arginfo_appkit_ns_nslayoutxaxisanchor_nslayoutxaxisanchor_constraintgreaterthanorequaltosystemspacingafteranchor, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSLayoutXAxisAnchor_NSLayoutXAxisAnchor, constraintLessThanOrEqualToSystemSpacingAfterAnchor, arginfo_appkit_ns_nslayoutxaxisanchor_nslayoutxaxisanchor_constraintlessthanorequaltosystemspacingafteranchor, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_FE_END
+};

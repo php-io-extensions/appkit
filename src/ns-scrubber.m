@@ -1,5 +1,6 @@
 #import <AppKit/AppKit.h>
 #import "ns-scrubber.h"
+#import "ns-scrubberlayout.h"
 #import "ns-view.h"
 
 @interface NSPhpScrubberItemView : NSScrubberItemView
@@ -274,5 +275,29 @@ int ns_scrubber_poll_selection(uintptr_t scrubber)
         }
         obj.pendingSelection = 0;
         return 1;
+    }
+}
+
+void ns_scrubber_set_layout(uintptr_t scrubber, uintptr_t layout)
+{
+    void *scr = ns_scrubber_nsscrubber(scrubber);
+    void *lay = ns_scrubberlayout_nsscrubberlayout(layout);
+    if (!scr || !lay) {
+        return;
+    }
+    @autoreleasepool {
+        NSPhpScrubber *obj = (__bridge NSPhpScrubber *)scr;
+        obj.scrubberLayout = (__bridge NSScrubberLayout *)lay;
+    }
+}
+
+uintptr_t ns_scrubber_get_layout(uintptr_t scrubber)
+{
+    @autoreleasepool {
+        NSPhpScrubber *obj = ns_scrubber_from(scrubber);
+        if (!obj || !obj.scrubberLayout) {
+            return 0;
+        }
+        return ns_scrubberlayout_wrap((__bridge void *)obj.scrubberLayout);
     }
 }

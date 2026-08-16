@@ -295,3 +295,34 @@ PHP_METHOD(AppKit_NS_NSWorkspace_NSWorkspace, frontmostApplicationName)
 	RETURN_STRING("");
 }
 
+PHP_METHOD(AppKit_NS_NSWorkspace_NSWorkspace, runningApplicationsCount)
+{
+	zval *workspace_param = NULL;
+	zend_long workspace, count = 0;
+
+	ZEND_PARSE_PARAMETERS_START(1, 1)
+		Z_PARAM_LONG(workspace)
+	ZEND_PARSE_PARAMETERS_END();
+	zephir_fetch_params_without_memory_grow(1, 0, &workspace_param);
+	
+            count = ns_workspace_running_applications_count((uintptr_t) workspace);
+        
+	RETURN_LONG(count);
+}
+
+PHP_METHOD(AppKit_NS_NSWorkspace_NSWorkspace, runningApplicationAt)
+{
+	zval *workspace_param = NULL, *index_param = NULL;
+	zend_long workspace, index, handle = 0;
+
+	ZEND_PARSE_PARAMETERS_START(2, 2)
+		Z_PARAM_LONG(workspace)
+		Z_PARAM_LONG(index)
+	ZEND_PARSE_PARAMETERS_END();
+	zephir_fetch_params_without_memory_grow(2, 0, &workspace_param, &index_param);
+	
+            handle = (zend_long) ns_workspace_running_application_at((uintptr_t) workspace, (int) index);
+        
+	RETURN_LONG(handle);
+}
+

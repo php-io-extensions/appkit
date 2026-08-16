@@ -185,4 +185,20 @@ class NSScrubber
         }%
         return result;
     }
+
+    public static function setLayout(int scrubber, int layout) -> void
+    {
+        %{
+            ns_scrubber_set_layout((uintptr_t) scrubber, (uintptr_t) layout);
+        }%
+    }
+
+    public static function getLayout(int scrubber) -> int
+    {
+        int handle;
+        %{
+            handle = (zend_long) ns_scrubber_get_layout((uintptr_t) scrubber);
+        }%
+        return handle;
+    }
 }

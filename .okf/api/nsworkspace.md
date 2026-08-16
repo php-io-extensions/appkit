@@ -30,6 +30,7 @@ sources:
 | `iconForFile` | iconForFile: as NSImage handle |
 | `hideOtherApplications` | hideOtherApplications |
 | `urlForApplicationWithBundleIdentifier / urlForApplicationToOpenURL` | application URL strings |
-| `frontmostApplicationName` | frontmostApplication.localizedName (NSRunningApplication bound as part of NSWorkspace) |
+| `frontmostApplicationName` | frontmostApplication.localizedName |
+| `runningApplicationsCount / runningApplicationAt` | runningApplications array as NSRunningApplication handles |
 
-`NSWorkspaceOpenConfiguration` and `NSRunningApplication` are bound as part of `NSWorkspace` (open/select/icon/frontmost name).
+See [nsrunningapplication.md](nsrunningapplication.md) for full NSRunningApplication bind.

@@ -21,5 +21,6 @@ generated: { by: cursor-agent, at: "2026-08-15T14:30:00Z" }
 | `setShowsArrowButtons / showsArrowButtons` | arrow buttons |
 | `setShowsAdditionalContentIndicators / shows*` | fade indicators |
 | `pollSelection` | delegate selection since last poll |
+| `setLayout / getLayout` | `scrubberLayout` (NSScrubberLayout handle) |
 
 Full `NSScrubberDataSource` delegate surface is simplified to string item list (collection-view pattern).

@@ -1,0 +1,160 @@
+
+extern zend_class_entry *appkit_ns_nsrunningapplication_nsrunningapplication_ce;
+
+ZEPHIR_INIT_CLASS(AppKit_NS_NSRunningApplication_NSRunningApplication);
+
+PHP_METHOD(AppKit_NS_NSRunningApplication_NSRunningApplication, current);
+PHP_METHOD(AppKit_NS_NSRunningApplication_NSRunningApplication, wrap);
+PHP_METHOD(AppKit_NS_NSRunningApplication_NSRunningApplication, destroy);
+PHP_METHOD(AppKit_NS_NSRunningApplication_NSRunningApplication, nsRunningApplication);
+PHP_METHOD(AppKit_NS_NSRunningApplication_NSRunningApplication, withProcessIdentifier);
+PHP_METHOD(AppKit_NS_NSRunningApplication_NSRunningApplication, withBundleIdentifierCount);
+PHP_METHOD(AppKit_NS_NSRunningApplication_NSRunningApplication, withBundleIdentifierAt);
+PHP_METHOD(AppKit_NS_NSRunningApplication_NSRunningApplication, terminateAutomaticallyTerminableApplications);
+PHP_METHOD(AppKit_NS_NSRunningApplication_NSRunningApplication, isTerminated);
+PHP_METHOD(AppKit_NS_NSRunningApplication_NSRunningApplication, isFinishedLaunching);
+PHP_METHOD(AppKit_NS_NSRunningApplication_NSRunningApplication, isHidden);
+PHP_METHOD(AppKit_NS_NSRunningApplication_NSRunningApplication, isActive);
+PHP_METHOD(AppKit_NS_NSRunningApplication_NSRunningApplication, ownsMenuBar);
+PHP_METHOD(AppKit_NS_NSRunningApplication_NSRunningApplication, activationPolicy);
+PHP_METHOD(AppKit_NS_NSRunningApplication_NSRunningApplication, processIdentifier);
+PHP_METHOD(AppKit_NS_NSRunningApplication_NSRunningApplication, localizedName);
+PHP_METHOD(AppKit_NS_NSRunningApplication_NSRunningApplication, bundleIdentifier);
+PHP_METHOD(AppKit_NS_NSRunningApplication_NSRunningApplication, bundleURL);
+PHP_METHOD(AppKit_NS_NSRunningApplication_NSRunningApplication, executableURL);
+PHP_METHOD(AppKit_NS_NSRunningApplication_NSRunningApplication, icon);
+PHP_METHOD(AppKit_NS_NSRunningApplication_NSRunningApplication, hide);
+PHP_METHOD(AppKit_NS_NSRunningApplication_NSRunningApplication, unhide);
+PHP_METHOD(AppKit_NS_NSRunningApplication_NSRunningApplication, activateWithOptions);
+PHP_METHOD(AppKit_NS_NSRunningApplication_NSRunningApplication, terminate);
+PHP_METHOD(AppKit_NS_NSRunningApplication_NSRunningApplication, forceTerminate);
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsrunningapplication_nsrunningapplication_current, 0, 0, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsrunningapplication_nsrunningapplication_wrap, 0, 1, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, nsRunningApplicationPtr, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsrunningapplication_nsrunningapplication_destroy, 0, 1, IS_VOID, 0)
+
+	ZEND_ARG_TYPE_INFO(0, application, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsrunningapplication_nsrunningapplication_nsrunningapplication, 0, 1, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, application, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsrunningapplication_nsrunningapplication_withprocessidentifier, 0, 1, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, pid, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsrunningapplication_nsrunningapplication_withbundleidentifiercount, 0, 1, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, bundleId, IS_STRING, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsrunningapplication_nsrunningapplication_withbundleidentifierat, 0, 2, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, bundleId, IS_STRING, 0)
+	ZEND_ARG_TYPE_INFO(0, index, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsrunningapplication_nsrunningapplication_terminateautomaticallyterminableapplications, 0, 0, IS_VOID, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsrunningapplication_nsrunningapplication_isterminated, 0, 1, _IS_BOOL, 0)
+	ZEND_ARG_TYPE_INFO(0, application, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsrunningapplication_nsrunningapplication_isfinishedlaunching, 0, 1, _IS_BOOL, 0)
+	ZEND_ARG_TYPE_INFO(0, application, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsrunningapplication_nsrunningapplication_ishidden, 0, 1, _IS_BOOL, 0)
+	ZEND_ARG_TYPE_INFO(0, application, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsrunningapplication_nsrunningapplication_isactive, 0, 1, _IS_BOOL, 0)
+	ZEND_ARG_TYPE_INFO(0, application, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsrunningapplication_nsrunningapplication_ownsmenubar, 0, 1, _IS_BOOL, 0)
+	ZEND_ARG_TYPE_INFO(0, application, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsrunningapplication_nsrunningapplication_activationpolicy, 0, 1, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, application, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsrunningapplication_nsrunningapplication_processidentifier, 0, 1, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, application, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsrunningapplication_nsrunningapplication_localizedname, 0, 1, IS_STRING, 0)
+	ZEND_ARG_TYPE_INFO(0, application, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsrunningapplication_nsrunningapplication_bundleidentifier, 0, 1, IS_STRING, 0)
+	ZEND_ARG_TYPE_INFO(0, application, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsrunningapplication_nsrunningapplication_bundleurl, 0, 1, IS_STRING, 0)
+	ZEND_ARG_TYPE_INFO(0, application, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsrunningapplication_nsrunningapplication_executableurl, 0, 1, IS_STRING, 0)
+	ZEND_ARG_TYPE_INFO(0, application, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsrunningapplication_nsrunningapplication_icon, 0, 1, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, application, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsrunningapplication_nsrunningapplication_hide, 0, 1, _IS_BOOL, 0)
+	ZEND_ARG_TYPE_INFO(0, application, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsrunningapplication_nsrunningapplication_unhide, 0, 1, _IS_BOOL, 0)
+	ZEND_ARG_TYPE_INFO(0, application, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsrunningapplication_nsrunningapplication_activatewithoptions, 0, 2, _IS_BOOL, 0)
+	ZEND_ARG_TYPE_INFO(0, application, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, options, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsrunningapplication_nsrunningapplication_terminate, 0, 1, _IS_BOOL, 0)
+	ZEND_ARG_TYPE_INFO(0, application, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsrunningapplication_nsrunningapplication_forceterminate, 0, 1, _IS_BOOL, 0)
+	ZEND_ARG_TYPE_INFO(0, application, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEPHIR_INIT_FUNCS(appkit_ns_nsrunningapplication_nsrunningapplication_method_entry) {
+	PHP_ME(AppKit_NS_NSRunningApplication_NSRunningApplication, current, arginfo_appkit_ns_nsrunningapplication_nsrunningapplication_current, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSRunningApplication_NSRunningApplication, wrap, arginfo_appkit_ns_nsrunningapplication_nsrunningapplication_wrap, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSRunningApplication_NSRunningApplication, destroy, arginfo_appkit_ns_nsrunningapplication_nsrunningapplication_destroy, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSRunningApplication_NSRunningApplication, nsRunningApplication, arginfo_appkit_ns_nsrunningapplication_nsrunningapplication_nsrunningapplication, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSRunningApplication_NSRunningApplication, withProcessIdentifier, arginfo_appkit_ns_nsrunningapplication_nsrunningapplication_withprocessidentifier, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSRunningApplication_NSRunningApplication, withBundleIdentifierCount, arginfo_appkit_ns_nsrunningapplication_nsrunningapplication_withbundleidentifiercount, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSRunningApplication_NSRunningApplication, withBundleIdentifierAt, arginfo_appkit_ns_nsrunningapplication_nsrunningapplication_withbundleidentifierat, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSRunningApplication_NSRunningApplication, terminateAutomaticallyTerminableApplications, arginfo_appkit_ns_nsrunningapplication_nsrunningapplication_terminateautomaticallyterminableapplications, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSRunningApplication_NSRunningApplication, isTerminated, arginfo_appkit_ns_nsrunningapplication_nsrunningapplication_isterminated, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSRunningApplication_NSRunningApplication, isFinishedLaunching, arginfo_appkit_ns_nsrunningapplication_nsrunningapplication_isfinishedlaunching, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSRunningApplication_NSRunningApplication, isHidden, arginfo_appkit_ns_nsrunningapplication_nsrunningapplication_ishidden, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSRunningApplication_NSRunningApplication, isActive, arginfo_appkit_ns_nsrunningapplication_nsrunningapplication_isactive, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSRunningApplication_NSRunningApplication, ownsMenuBar, arginfo_appkit_ns_nsrunningapplication_nsrunningapplication_ownsmenubar, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSRunningApplication_NSRunningApplication, activationPolicy, arginfo_appkit_ns_nsrunningapplication_nsrunningapplication_activationpolicy, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSRunningApplication_NSRunningApplication, processIdentifier, arginfo_appkit_ns_nsrunningapplication_nsrunningapplication_processidentifier, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSRunningApplication_NSRunningApplication, localizedName, arginfo_appkit_ns_nsrunningapplication_nsrunningapplication_localizedname, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSRunningApplication_NSRunningApplication, bundleIdentifier, arginfo_appkit_ns_nsrunningapplication_nsrunningapplication_bundleidentifier, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSRunningApplication_NSRunningApplication, bundleURL, arginfo_appkit_ns_nsrunningapplication_nsrunningapplication_bundleurl, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSRunningApplication_NSRunningApplication, executableURL, arginfo_appkit_ns_nsrunningapplication_nsrunningapplication_executableurl, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSRunningApplication_NSRunningApplication, icon, arginfo_appkit_ns_nsrunningapplication_nsrunningapplication_icon, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSRunningApplication_NSRunningApplication, hide, arginfo_appkit_ns_nsrunningapplication_nsrunningapplication_hide, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSRunningApplication_NSRunningApplication, unhide, arginfo_appkit_ns_nsrunningapplication_nsrunningapplication_unhide, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSRunningApplication_NSRunningApplication, activateWithOptions, arginfo_appkit_ns_nsrunningapplication_nsrunningapplication_activatewithoptions, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSRunningApplication_NSRunningApplication, terminate, arginfo_appkit_ns_nsrunningapplication_nsrunningapplication_terminate, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSRunningApplication_NSRunningApplication, forceTerminate, arginfo_appkit_ns_nsrunningapplication_nsrunningapplication_forceterminate, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_FE_END
+};

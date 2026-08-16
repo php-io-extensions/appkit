@@ -123,4 +123,20 @@ class NSWorkspace
         }%
         return "";
     }
+    public static function runningApplicationsCount(int workspace) -> int
+    {
+        int count;
+        %{
+            count = ns_workspace_running_applications_count((uintptr_t) workspace);
+        }%
+        return count;
+    }
+    public static function runningApplicationAt(int workspace, int index) -> int
+    {
+        int handle;
+        %{
+            handle = (zend_long) ns_workspace_running_application_at((uintptr_t) workspace, (int) index);
+        }%
+        return handle;
+    }
 }

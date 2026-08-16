@@ -1,0 +1,20 @@
+
+extern zend_class_entry *appkit_ns_nsoutlineviewdelegate_nsoutlineviewdelegate_ce;
+
+ZEPHIR_INIT_CLASS(AppKit_NS_NSOutlineViewDelegate_NSOutlineViewDelegate);
+
+PHP_METHOD(AppKit_NS_NSOutlineViewDelegate_NSOutlineViewDelegate, attach);
+PHP_METHOD(AppKit_NS_NSOutlineViewDelegate_NSOutlineViewDelegate, poll);
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsoutlineviewdelegate_nsoutlineviewdelegate_attach, 0, 1, _IS_BOOL, 0)
+	ZEND_ARG_TYPE_INFO(0, handle, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsoutlineviewdelegate_nsoutlineviewdelegate_poll, 0, 0, IS_ARRAY, 0)
+ZEND_END_ARG_INFO()
+
+ZEPHIR_INIT_FUNCS(appkit_ns_nsoutlineviewdelegate_nsoutlineviewdelegate_method_entry) {
+	PHP_ME(AppKit_NS_NSOutlineViewDelegate_NSOutlineViewDelegate, attach, arginfo_appkit_ns_nsoutlineviewdelegate_nsoutlineviewdelegate_attach, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSOutlineViewDelegate_NSOutlineViewDelegate, poll, arginfo_appkit_ns_nsoutlineviewdelegate_nsoutlineviewdelegate_poll, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_FE_END
+};

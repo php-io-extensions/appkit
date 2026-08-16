@@ -145,4 +145,29 @@ class NSWindow
         }%
         return handle;
     }
+
+    public static function tab(int window) -> int
+    {
+        int handle;
+        %{
+            handle = (zend_long) ns_window_tab((uintptr_t) window);
+        }%
+        return handle;
+    }
+
+    public static function tabGroup(int window) -> int
+    {
+        int handle;
+        %{
+            handle = (zend_long) ns_window_tab_group((uintptr_t) window);
+        }%
+        return handle;
+    }
+
+    public static function addTitlebarAccessoryViewController(int window, int controller) -> void
+    {
+        %{
+            ns_window_add_titlebar_accessory((uintptr_t) window, (uintptr_t) controller);
+        }%
+    }
 }
