@@ -5,7 +5,7 @@ description: NSAlert modal dialog
 resource: /appkit/ns/nsalert/nsalert.zep
 tags: [appkit, api, nsalert]
 status: draft
-generated: { by: cursor-agent, at: "2026-08-15T04:00:00Z" }
+generated: { by: cursor-agent, at: "2026-08-16T23:40:00Z" }
 sources:
   - id: zep
     resource: /appkit/ns/nsalert/nsalert.zep
@@ -22,10 +22,14 @@ sources:
 
 | Method | Maps to |
 |--------|---------|
-| `create` | `[[NSAlert alloc] init]` |
+| `create` | `[[NSPhpAlert alloc] init]` |
 | `destroy` | release alert handle |
 | `setMessage` / `setInfo` | message + informative text |
 | `addButton` | `addButtonWithTitle:` |
-| `runModal` | `[alert runModal]` → NSModalResponse |
+| `runModal` | `[alert runModal]` → NSModalResponse (outside poll loops only) |
+| `beginSheet` | `beginSheetModalForWindow:completionHandler:` via `ns_window_nswindow` |
+| `pollResponse` | one-shot pending NSModalResponse; `0` = none this frame |
 
 Moved from `Metal\\MTL\\Alert` / `mtl_alert_*`.
+
+Poll loops: [Never runModal inside poll](../traps/no-runmodal-in-poll.md).

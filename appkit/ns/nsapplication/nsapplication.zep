@@ -32,7 +32,7 @@ class NSApplication
     }
 
     /**
-     * Drain pending AppKit events once.
+     * Drain pending AppKit events; block for the next event only when the queue was empty.
      * @return bool false when quit was requested
      */
     public static function poll() -> bool

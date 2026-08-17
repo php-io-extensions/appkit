@@ -135,3 +135,39 @@ PHP_METHOD(AppKit_NS_NSAlert_NSAlert, runModal)
 	RETURN_LONG(value);
 }
 
+/**
+ * Sheet on window; poll response each frame (no nested run loop).
+ */
+PHP_METHOD(AppKit_NS_NSAlert_NSAlert, beginSheet)
+{
+	zval *alert_param = NULL, *window_param = NULL;
+	zend_long alert, window;
+
+	ZEND_PARSE_PARAMETERS_START(2, 2)
+		Z_PARAM_LONG(alert)
+		Z_PARAM_LONG(window)
+	ZEND_PARSE_PARAMETERS_END();
+	zephir_fetch_params_without_memory_grow(2, 0, &alert_param, &window_param);
+	
+            ns_alert_begin_sheet((uintptr_t) alert, (uintptr_t) window);
+        
+}
+
+/**
+ * One-shot NSModalResponse; 0 = none this frame.
+ */
+PHP_METHOD(AppKit_NS_NSAlert_NSAlert, pollResponse)
+{
+	zval *alert_param = NULL;
+	zend_long alert, value = 0;
+
+	ZEND_PARSE_PARAMETERS_START(1, 1)
+		Z_PARAM_LONG(alert)
+	ZEND_PARSE_PARAMETERS_END();
+	zephir_fetch_params_without_memory_grow(1, 0, &alert_param);
+	
+            value = (zend_long) ns_alert_poll_response((uintptr_t) alert);
+        
+	RETURN_LONG(value);
+}
+

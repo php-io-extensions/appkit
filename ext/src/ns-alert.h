@@ -19,6 +19,12 @@ void ns_alert_add_button(uintptr_t alert, const char *title);
 
 int ns_alert_run_modal(uintptr_t alert);
 
+/** Sheet on window; completion stores NSModalResponse for poll (no nested run loop). */
+void ns_alert_begin_sheet(uintptr_t alert, uintptr_t window);
+
+/** One-shot NSModalResponse; 0 = none this frame. */
+int ns_alert_poll_response(uintptr_t alert);
+
 #ifdef __cplusplus
 }
 #endif

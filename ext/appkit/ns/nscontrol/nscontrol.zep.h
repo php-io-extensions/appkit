@@ -19,6 +19,7 @@ PHP_METHOD(AppKit_NS_NSControl_NSControl, getState);
 PHP_METHOD(AppKit_NS_NSControl_NSControl, setControlSize);
 PHP_METHOD(AppKit_NS_NSControl_NSControl, getControlSize);
 PHP_METHOD(AppKit_NS_NSControl_NSControl, setAlignment);
+PHP_METHOD(AppKit_NS_NSControl_NSControl, setFont);
 
 ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nscontrol_nscontrol_setenabled, 0, 2, IS_VOID, 0)
 
@@ -101,6 +102,12 @@ ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nscontrol_nscontrol_se
 	ZEND_ARG_TYPE_INFO(0, alignment, IS_LONG, 0)
 ZEND_END_ARG_INFO()
 
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nscontrol_nscontrol_setfont, 0, 2, IS_VOID, 0)
+
+	ZEND_ARG_TYPE_INFO(0, control, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, font, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
 ZEPHIR_INIT_FUNCS(appkit_ns_nscontrol_nscontrol_method_entry) {
 	PHP_ME(AppKit_NS_NSControl_NSControl, setEnabled, arginfo_appkit_ns_nscontrol_nscontrol_setenabled, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
 	PHP_ME(AppKit_NS_NSControl_NSControl, isEnabled, arginfo_appkit_ns_nscontrol_nscontrol_isenabled, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
@@ -118,5 +125,6 @@ ZEPHIR_INIT_FUNCS(appkit_ns_nscontrol_nscontrol_method_entry) {
 	PHP_ME(AppKit_NS_NSControl_NSControl, setControlSize, arginfo_appkit_ns_nscontrol_nscontrol_setcontrolsize, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
 	PHP_ME(AppKit_NS_NSControl_NSControl, getControlSize, arginfo_appkit_ns_nscontrol_nscontrol_getcontrolsize, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
 	PHP_ME(AppKit_NS_NSControl_NSControl, setAlignment, arginfo_appkit_ns_nscontrol_nscontrol_setalignment, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSControl_NSControl, setFont, arginfo_appkit_ns_nscontrol_nscontrol_setfont, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
 	PHP_FE_END
 };

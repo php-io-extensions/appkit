@@ -27,6 +27,6 @@ sources:
 | `mousePosition` / `mouseX` / `mouseY` | `[NSEvent mouseLocation]` or window content coords |
 | `mouseScrollDelta` / `mouseScrollY` | scroll wheel accumulation during `NSApplication::poll` |
 
-Poll integration: `ns_app_poll` calls `ns_event_begin_frame` then `ns_event_handle_event` per dequeued event.
+Poll integration: `ns_app_poll` calls `ns_event_begin_frame`, drains pending events, blocks for the next event, and runs `ns_event_handle_event` per dequeued event.
 
 Moved from `Metal\\MTL\\Input` keyboard/mouse only. GameController gamepad API stays removed (not AppKit).

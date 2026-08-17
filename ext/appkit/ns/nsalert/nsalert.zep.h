@@ -9,6 +9,8 @@ PHP_METHOD(AppKit_NS_NSAlert_NSAlert, setMessage);
 PHP_METHOD(AppKit_NS_NSAlert_NSAlert, setInfo);
 PHP_METHOD(AppKit_NS_NSAlert_NSAlert, addButton);
 PHP_METHOD(AppKit_NS_NSAlert_NSAlert, runModal);
+PHP_METHOD(AppKit_NS_NSAlert_NSAlert, beginSheet);
+PHP_METHOD(AppKit_NS_NSAlert_NSAlert, pollResponse);
 
 ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsalert_nsalert_create, 0, 0, IS_LONG, 0)
 ZEND_END_ARG_INFO()
@@ -40,6 +42,16 @@ ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsalert_nsalert_runmod
 	ZEND_ARG_TYPE_INFO(0, alert, IS_LONG, 0)
 ZEND_END_ARG_INFO()
 
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsalert_nsalert_beginsheet, 0, 2, IS_VOID, 0)
+
+	ZEND_ARG_TYPE_INFO(0, alert, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, window, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsalert_nsalert_pollresponse, 0, 1, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, alert, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
 ZEPHIR_INIT_FUNCS(appkit_ns_nsalert_nsalert_method_entry) {
 	PHP_ME(AppKit_NS_NSAlert_NSAlert, create, arginfo_appkit_ns_nsalert_nsalert_create, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
 	PHP_ME(AppKit_NS_NSAlert_NSAlert, destroy, arginfo_appkit_ns_nsalert_nsalert_destroy, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
@@ -47,5 +59,7 @@ ZEPHIR_INIT_FUNCS(appkit_ns_nsalert_nsalert_method_entry) {
 	PHP_ME(AppKit_NS_NSAlert_NSAlert, setInfo, arginfo_appkit_ns_nsalert_nsalert_setinfo, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
 	PHP_ME(AppKit_NS_NSAlert_NSAlert, addButton, arginfo_appkit_ns_nsalert_nsalert_addbutton, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
 	PHP_ME(AppKit_NS_NSAlert_NSAlert, runModal, arginfo_appkit_ns_nsalert_nsalert_runmodal, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSAlert_NSAlert, beginSheet, arginfo_appkit_ns_nsalert_nsalert_beginsheet, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSAlert_NSAlert, pollResponse, arginfo_appkit_ns_nsalert_nsalert_pollresponse, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
 	PHP_FE_END
 };

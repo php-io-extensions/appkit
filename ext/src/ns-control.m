@@ -1,6 +1,7 @@
 #import <AppKit/AppKit.h>
 #import "ns-control.h"
 #import "ns-view.h"
+#import "ns-font.h"
 
 static int ns_copy_nsstring(NSString *text, char *out, int out_len)
 {
@@ -172,6 +173,17 @@ void ns_control_set_alignment(uintptr_t control, int alignment)
         NSControl *obj = ns_control_from_view(control);
         if (obj) {
             obj.alignment = (NSTextAlignment)alignment;
+        }
+    }
+}
+
+void ns_control_set_font(uintptr_t control, uintptr_t font)
+{
+    @autoreleasepool {
+        NSControl *obj = ns_control_from_view(control);
+        NSFont *nsFont = (__bridge NSFont *)ns_font_nsfont(font);
+        if (obj && nsFont) {
+            obj.font = nsFont;
         }
     }
 }

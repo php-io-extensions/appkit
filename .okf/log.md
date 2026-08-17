@@ -1,5 +1,17 @@
 # Directory Update Log
 
+## 2026-08-17 (ns_app_poll blocking)
+
+* `ns_app_poll` drains pending events with `untilDate: distantPast`, then one blocking `nextEventMatchingMask` with `distantFuture` (GTK pump parity: sketch loops nap until AppKit has input).
+
+## 2026-08-16 (NSControl setFont)
+
+* `NSControl::setFont` → `ns_control_set_font` → `NSControl.font`. `font` is an `NSFont` handle from `ns_font_*`. Rebuild the extension after generate; source is `.zep` / `src/ns-control.*`.
+
+## 2026-08-16 (NSAlert sheet + poll)
+
+* **Added**: `ns_alert_begin_sheet`, `ns_alert_poll_response` — `NSPhpAlert` stores pending `NSModalResponse`; sheet via `ns_window_nswindow`. Zephir `beginSheet` / `pollResponse`. Trap: poll loops use sheet, never `runModal`.
+
 ## 2026-08-16 (NSTextAlignment ABI)
 
 * Current Command Line Tools SDK defines `TARGET_ABI_USES_IOS_VALUES`: `NSTextAlignmentCenter=1`, `NSTextAlignmentRight=2`. The historic macOS swap (center=2, right=1) is not this ABI. `setAlignment` still passes the integer through to `NSControl.alignment`.

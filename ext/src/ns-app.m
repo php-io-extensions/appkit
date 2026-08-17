@@ -72,6 +72,15 @@ void *ns_app_shared(void)
     return (__bridge void *)NSApp;
 }
 
+static void ns_app_send_event(NSEvent *event)
+{
+    if (event == nil) {
+        return;
+    }
+    ns_event_handle_event((__bridge void *)event);
+    [NSApp sendEvent:event];
+}
+
 int ns_app_poll(void)
 {
     if (!ns_app_ready) {
@@ -82,14 +91,26 @@ int ns_app_poll(void)
 
     @autoreleasepool {
         NSEvent *event;
+        BOOL hadEvents = NO;
         while ((event = [NSApp nextEventMatchingMask:NSEventMaskAny
                                            untilDate:[NSDate distantPast]
                                               inMode:NSDefaultRunLoopMode
                                              dequeue:YES])) {
-            ns_event_handle_event((__bridge void *)event);
-            [NSApp sendEvent:event];
+            hadEvents = YES;
+            ns_app_send_event(event);
         }
         [NSApp updateWindows];
+
+        if (!hadEvents) {
+            event = [NSApp nextEventMatchingMask:NSEventMaskAny
+                                         untilDate:[NSDate distantFuture]
+                                            inMode:NSDefaultRunLoopMode
+                                           dequeue:YES];
+            if (event != nil) {
+                ns_app_send_event(event);
+                [NSApp updateWindows];
+            }
+        }
     }
 
     return ns_app_quit ? 0 : 1;

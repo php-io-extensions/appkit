@@ -55,4 +55,26 @@ class NSAlert
         }%
         return value;
     }
+
+    /**
+     * Sheet on window; poll response each frame (no nested run loop).
+     */
+    public static function beginSheet(int alert, int window) -> void
+    {
+        %{
+            ns_alert_begin_sheet((uintptr_t) alert, (uintptr_t) window);
+        }%
+    }
+
+    /**
+     * One-shot NSModalResponse; 0 = none this frame.
+     */
+    public static function pollResponse(int alert) -> int
+    {
+        int value;
+        %{
+            value = (zend_long) ns_alert_poll_response((uintptr_t) alert);
+        }%
+        return value;
+    }
 }

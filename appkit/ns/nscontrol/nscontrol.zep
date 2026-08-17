@@ -149,4 +149,14 @@ class NSControl
             ns_control_set_alignment((uintptr_t) control, (int) alignment);
         }%
     }
+
+    /**
+     * `font` is an NSFont handle from NSFont::* factories.
+     */
+    public static function setFont(int control, int font) -> void
+    {
+        %{
+            ns_control_set_font((uintptr_t) control, (uintptr_t) font);
+        }%
+    }
 }

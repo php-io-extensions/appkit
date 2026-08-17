@@ -296,3 +296,21 @@ PHP_METHOD(AppKit_NS_NSControl_NSControl, setAlignment)
         
 }
 
+/**
+ * `font` is an NSFont handle from NSFont::* factories.
+ */
+PHP_METHOD(AppKit_NS_NSControl_NSControl, setFont)
+{
+	zval *control_param = NULL, *font_param = NULL;
+	zend_long control, font;
+
+	ZEND_PARSE_PARAMETERS_START(2, 2)
+		Z_PARAM_LONG(control)
+		Z_PARAM_LONG(font)
+	ZEND_PARSE_PARAMETERS_END();
+	zephir_fetch_params_without_memory_grow(2, 0, &control_param, &font_param);
+	
+            ns_control_set_font((uintptr_t) control, (uintptr_t) font);
+        
+}
+

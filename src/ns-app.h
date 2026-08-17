@@ -13,7 +13,7 @@ int ns_app_init(void);
 /** Borrowed NSApplication* (sharedApplication), or NULL if not initialized. */
 void *ns_app_shared(void);
 
-/** Process pending AppKit events once. Returns 1 if the app should keep running. */
+/** Drain pending AppKit events; block for the next event only when the queue was empty. Returns 1 if the app should keep running. */
 int ns_app_poll(void);
 
 /** Blocking NSApp run loop (rarely used from PHP; prefer poll). */
