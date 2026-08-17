@@ -9,3 +9,4 @@
 * [Copied .so SIGKILL](codesign-invalid-page.md) - resign after `cp` or Herd PHP dies
 * [ZEPHIR_REGISTER_CLASS double appkit_ prefix](zephir-register-double-prefix.md) - do not gtk-style-prefix the shortname
 * [Never runModal inside poll](no-runmodal-in-poll.md) - use NSAlert sheet + pollResponse in loops
+* [Live resize nested tracking](live-resize-nested-tracking.md) - PHP poll after pump misses mid-drag; use setDidResize

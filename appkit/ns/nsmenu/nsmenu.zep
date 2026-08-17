@@ -11,6 +11,7 @@ class NSMenu
 {
     /**
      * Install App | File | Edit | Window | Help, including Quit (Cmd+Q).
+     * No About item — call enableAbout to opt in.
      */
     public static function installDefault(string appName) -> bool
     {
@@ -35,6 +36,20 @@ class NSMenu
                 Z_STRVAL(keyEquivalent),
                 Z_STRVAL(actionId)
             ) == 1;
+        }%
+        return result;
+    }
+
+    /**
+     * Opt-in About under the application menu (bar label is the process name).
+     * Click sets a pending action id for pollAction; does not quit or open a panel.
+     * Empty actionId means "about".
+     */
+    public static function enableAbout(bool enabled, string actionId = "about") -> bool
+    {
+        bool result;
+        %{
+            result = ns_menu_enable_about(enabled ? 1 : 0, Z_STRVAL(actionId)) == 1;
         }%
         return result;
     }

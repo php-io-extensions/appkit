@@ -3,6 +3,8 @@
 #import "ns-app.h"
 
 static NSString *ns_pending_action = nil;
+static NSString *ns_menu_last_app_name = nil;
+static NSMenuItem *ns_about_item = nil;
 
 @interface NSPhpMenuTarget : NSObject
 - (void)handleCustomAction:(id)sender;
@@ -56,15 +58,13 @@ int ns_menu_install_default(const char *app_name)
         NSString *name = app_name && app_name[0]
             ? [NSString stringWithUTF8String:app_name]
             : @"AppKit";
+        ns_menu_last_app_name = [name copy];
+        ns_about_item = nil;
 
         NSMenu *mainMenu = [NSMenu new];
 
-        // Application menu
+        // Application menu (no About — opt in via ns_menu_enable_about)
         NSMenu *appMenu = [NSMenu new];
-        NSMenuItem *about = [[NSMenuItem alloc] initWithTitle:[NSString stringWithFormat:@"About %@", name]
-                                                       action:nil
-                                                keyEquivalent:@""];
-        [appMenu addItem:about];
         [appMenu addItem:[NSMenuItem separatorItem]];
         NSMenuItem *quit = [[NSMenuItem alloc] initWithTitle:[NSString stringWithFormat:@"Quit %@", name]
                                                       action:@selector(handleQuit:)
@@ -157,6 +157,62 @@ int ns_menu_add_item(
         }
 
         [top.submenu addItem:item];
+        return 1;
+    }
+}
+
+int ns_menu_enable_about(int enabled, const char *action_id)
+{
+    if (!ns_app_init()) {
+        return 0;
+    }
+    if (!NSApp.mainMenu) {
+        ns_menu_install_default("AppKit");
+    }
+
+    @autoreleasepool {
+        if (!ns_menu_target) {
+            ns_menu_target = [NSPhpMenuTarget new];
+        }
+
+        NSMenu *mainMenu = NSApp.mainMenu;
+        if (!mainMenu || mainMenu.itemArray.count == 0) {
+            return 0;
+        }
+        NSMenuItem *appMenuItem = mainMenu.itemArray[0];
+        NSMenu *appMenu = appMenuItem.submenu;
+        if (!appMenu) {
+            return 0;
+        }
+
+        if (enabled == 0) {
+            if (ns_about_item) {
+                if ([appMenu.itemArray containsObject:ns_about_item]) {
+                    [appMenu removeItem:ns_about_item];
+                }
+                ns_about_item = nil;
+            }
+            return 1;
+        }
+
+        const char *id_utf8 = (action_id && action_id[0]) ? action_id : "about";
+        NSString *action = [NSString stringWithUTF8String:id_utf8];
+        NSString *name = ns_menu_last_app_name ?: @"AppKit";
+        NSString *title = [NSString stringWithFormat:@"About %@", name];
+
+        BOOL reuse = ns_about_item && [appMenu.itemArray containsObject:ns_about_item];
+        if (!reuse) {
+            ns_about_item = [[NSMenuItem alloc] initWithTitle:title
+                                                      action:@selector(handleCustomAction:)
+                                               keyEquivalent:@""];
+            [appMenu insertItem:ns_about_item atIndex:0];
+        } else {
+            ns_about_item.title = title;
+            ns_about_item.action = @selector(handleCustomAction:);
+        }
+
+        ns_about_item.target = ns_menu_target;
+        ns_about_item.representedObject = action;
         return 1;
     }
 }

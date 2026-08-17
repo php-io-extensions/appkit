@@ -9,8 +9,9 @@ extern "C" {
 
 /**
  * Install a standard macOS menu bar: App | File | Edit | Window | Help.
- * app_name is used for the application menu title (e.g. "AppKit").
- * Includes Quit (Cmd+Q). Idempotent — replaces the main menu.
+ * app_name is used for the application menu title (e.g. "AppKit") and
+ * remembered for a later About item. Includes Quit (Cmd+Q). No About —
+ * call ns_menu_enable_about to opt in. Idempotent — replaces the main menu.
  */
 int ns_menu_install_default(const char *app_name);
 
@@ -26,6 +27,15 @@ int ns_menu_add_item(
     const char *key_equivalent,
     const char *action_id
 );
+
+/**
+ * Opt-in About item at index 0 of the application submenu (mainMenu.itemArray[0]).
+ * enabled != 0: insert or reuse one item titled "About <app_name>", wired to
+ * handleCustomAction (poll-only; never terminates, never opens a panel).
+ * Empty/NULL action_id means "about". enabled == 0: remove the item if present.
+ * Returns 1 on success.
+ */
+int ns_menu_enable_about(int enabled, const char *action_id);
 
 /**
  * If a custom menu item was activated since the last poll, copy its action_id

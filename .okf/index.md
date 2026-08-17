@@ -43,6 +43,7 @@ macOS-only PHP extension: Zephir static classes → thin C ABI (`ns_*`) → Obje
 * [Copied .so SIGKILL](traps/codesign-invalid-page.md) - resign after `cp` or Herd PHP dies
 * [ZEPHIR_REGISTER_CLASS double appkit_ prefix](traps/zephir-register-double-prefix.md) - shortname must stay `ns_*` (metal pattern, not gtk)
 * [Never runModal inside poll](traps/no-runmodal-in-poll.md) - NSAlert sheet + pollResponse, not runModal in loops
+* [Live resize nested tracking](traps/live-resize-nested-tracking.md) - windowDidResize PHP callback; poll after pump is too late
 * [Zephir generate under Herd PHP](traps/zephir-generate-herd-php.md) - use `php -n` + zephir_parser; C blocks close with `}%`
 * [Missing zep.c segfaults PHP](traps/missing-zep-c-segfault.md) - every ZEPHIR_INIT class must be in PHP_NEW_EXTENSION
 

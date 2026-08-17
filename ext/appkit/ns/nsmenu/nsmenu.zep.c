@@ -32,6 +32,7 @@ ZEPHIR_INIT_CLASS(AppKit_NS_NSMenu_NSMenu)
 
 /**
  * Install App | File | Edit | Window | Help, including Quit (Cmd+Q).
+ * No About item — call enableAbout to opt in.
  */
 PHP_METHOD(AppKit_NS_NSMenu_NSMenu, installDefault)
 {
@@ -89,6 +90,39 @@ PHP_METHOD(AppKit_NS_NSMenu_NSMenu, addItem)
                 Z_STRVAL(keyEquivalent),
                 Z_STRVAL(actionId)
             ) == 1;
+        
+	RETURN_MM_BOOL(result);
+}
+
+/**
+ * Opt-in About under the application menu (bar label is the process name).
+ * Click sets a pending action id for pollAction; does not quit or open a panel.
+ * Empty actionId means "about".
+ */
+PHP_METHOD(AppKit_NS_NSMenu_NSMenu, enableAbout)
+{
+	zephir_method_globals *ZEPHIR_METHOD_GLOBALS_PTR = NULL;
+	zval actionId;
+	zval *enabled_param = NULL, *actionId_param = NULL;
+	zend_bool enabled, result = 0;
+
+	ZVAL_UNDEF(&actionId);
+	ZEND_PARSE_PARAMETERS_START(1, 2)
+		Z_PARAM_BOOL(enabled)
+		Z_PARAM_OPTIONAL
+		Z_PARAM_STR(actionId)
+	ZEND_PARSE_PARAMETERS_END();
+	ZEPHIR_METHOD_GLOBALS_PTR = pecalloc(1, sizeof(zephir_method_globals), 0);
+	zephir_memory_grow_stack(ZEPHIR_METHOD_GLOBALS_PTR, __func__);
+	zephir_fetch_params(1, 1, 1, &enabled_param, &actionId_param);
+	if (!actionId_param) {
+		ZEPHIR_INIT_VAR(&actionId);
+		ZVAL_STRING(&actionId, "about");
+	} else {
+		zephir_get_strval(&actionId, actionId_param);
+	}
+	
+            result = ns_menu_enable_about(enabled ? 1 : 0, Z_STRVAL(actionId)) == 1;
         
 	RETURN_MM_BOOL(result);
 }

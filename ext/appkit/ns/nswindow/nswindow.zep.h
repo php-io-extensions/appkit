@@ -20,6 +20,7 @@ PHP_METHOD(AppKit_NS_NSWindow_NSWindow, nsWindow);
 PHP_METHOD(AppKit_NS_NSWindow_NSWindow, tab);
 PHP_METHOD(AppKit_NS_NSWindow_NSWindow, tabGroup);
 PHP_METHOD(AppKit_NS_NSWindow_NSWindow, addTitlebarAccessoryViewController);
+PHP_METHOD(AppKit_NS_NSWindow_NSWindow, setDidResize);
 
 ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nswindow_nswindow_create, 0, 3, IS_LONG, 0)
 	ZEND_ARG_TYPE_INFO(0, title, IS_STRING, 0)
@@ -103,6 +104,12 @@ ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nswindow_nswindow_addt
 	ZEND_ARG_TYPE_INFO(0, controller, IS_LONG, 0)
 ZEND_END_ARG_INFO()
 
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nswindow_nswindow_setdidresize, 0, 2, IS_VOID, 0)
+
+	ZEND_ARG_TYPE_INFO(0, window, IS_LONG, 0)
+	ZEND_ARG_INFO(0, callback)
+ZEND_END_ARG_INFO()
+
 ZEPHIR_INIT_FUNCS(appkit_ns_nswindow_nswindow_method_entry) {
 	PHP_ME(AppKit_NS_NSWindow_NSWindow, create, arginfo_appkit_ns_nswindow_nswindow_create, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
 	PHP_ME(AppKit_NS_NSWindow_NSWindow, destroy, arginfo_appkit_ns_nswindow_nswindow_destroy, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
@@ -121,5 +128,6 @@ ZEPHIR_INIT_FUNCS(appkit_ns_nswindow_nswindow_method_entry) {
 	PHP_ME(AppKit_NS_NSWindow_NSWindow, tab, arginfo_appkit_ns_nswindow_nswindow_tab, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
 	PHP_ME(AppKit_NS_NSWindow_NSWindow, tabGroup, arginfo_appkit_ns_nswindow_nswindow_tabgroup, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
 	PHP_ME(AppKit_NS_NSWindow_NSWindow, addTitlebarAccessoryViewController, arginfo_appkit_ns_nswindow_nswindow_addtitlebaraccessoryviewcontroller, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSWindow_NSWindow, setDidResize, arginfo_appkit_ns_nswindow_nswindow_setdidresize, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
 	PHP_FE_END
 };

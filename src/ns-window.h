@@ -56,6 +56,14 @@ uintptr_t ns_window_tab(uintptr_t window);
 uintptr_t ns_window_tab_group(uintptr_t window);
 void ns_window_add_titlebar_accessory(uintptr_t window, uintptr_t controller);
 
+/**
+ * PHP callable invoked from NSWindowDelegate windowDidResize: (including live resize).
+ * callback is a zval*; pass NULL to clear. Implemented in nswindow.zep.c (php.h).
+ */
+void ns_window_php_set_did_resize(uintptr_t window, void *callback);
+void ns_window_php_clear_did_resize(uintptr_t window);
+void ns_window_php_invoke_did_resize(uintptr_t window);
+
 #ifdef __cplusplus
 }
 #endif

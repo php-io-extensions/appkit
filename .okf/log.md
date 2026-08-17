@@ -1,5 +1,16 @@
 # Directory Update Log
 
+## 2026-08-17 (hookable About menu)
+
+* `ns_menu_install_default` no longer creates a dead About item (`action:nil`). Separator + Quit remain. Last `app_name` is remembered for the About title.
+* **Added**: `ns_menu_enable_about(enabled, action_id)` / `NSMenu::enableAbout(bool, string actionId = "about")`. Inserts or removes one About item at application-submenu index 0. Click → `pollAction` token (default `"about"`); does not quit or open a panel.
+* **Trap**: bar label is the process name (`php`); do not `addItem('php', …)` for About — that creates a second top-level menu.
+* Proof: `examples/proof_appkit.php` calls `enableAbout(true)` and prints when `'about'` is polled.
+
+## 2026-08-17 (live resize / setDidResize)
+
+* `NSWindow::setDidResize(window, callable)` stores a PHP callable keyed by window handle. `windowDidResize:` invokes it (re-entrancy guarded) so layout can run during the nested live-resize tracking loop. `ns_window_destroy` clears the callable. Trap: [live-resize-nested-tracking.md](traps/live-resize-nested-tracking.md). Rebuild `appkit.so` (`make -j1`, adhoc codesign).
+
 ## 2026-08-17 (ns_app_poll blocking)
 
 * `ns_app_poll` drains pending events with `untilDate: distantPast`, then one blocking `nextEventMatchingMask` with `distantFuture` (GTK pump parity: sketch loops nap until AppKit has input).

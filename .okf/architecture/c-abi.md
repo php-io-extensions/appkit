@@ -5,7 +5,7 @@ description: Opaque uintptr_t handles and ns_* entry points
 resource: /config.json
 tags: [appkit, abi, c]
 status: draft
-generated: { by: cursor-agent, at: "2026-08-15T15:30:00Z" }
+generated: { by: cursor-agent/grok-4.6, at: "2026-08-17T04:30:00Z" }
 sources:
   - id: config
     resource: /config.json
@@ -28,7 +28,7 @@ sources:
 |--------|---------|------|
 | App | `ns-app.h` | `NSApplication` init / shared / poll / quit |
 | Responder | `ns-responder.h` | `NSResponder` wrap / first-responder chain |
-| Window | `ns-window.h` | `NSWindow` create / show / contentView |
+| Window | `ns-window.h` | `NSWindow` create / show / contentView / `setDidResize` PHP callback |
 | WindowController | `ns-windowcontroller.h` | `NSWindowController` window lifecycle |
 | View | `ns-view.h` | plain `NSView` tree (create, wrap, addSubview, frame) — no Metal present |
 | ViewController | `ns-viewcontroller.h` | `NSViewController` view lifecycle |

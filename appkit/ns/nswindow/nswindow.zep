@@ -3,6 +3,53 @@ namespace AppKit\NS\NSWindow;
 %{
 #include "ns-window.h"
 #include <stdint.h>
+
+static HashTable *ns_window_resize_cbs = NULL;
+static int ns_window_resize_invoke_depth = 0;
+
+void ns_window_php_set_did_resize(uintptr_t window, void *callback)
+{
+	zval *cb = (zval *)callback;
+
+	if (!ns_window_resize_cbs) {
+		ALLOC_HASHTABLE(ns_window_resize_cbs);
+		zend_hash_init(ns_window_resize_cbs, 8, NULL, ZVAL_PTR_DTOR, 0);
+	}
+	if (!cb || Z_TYPE_P(cb) == IS_NULL) {
+		zend_hash_index_del(ns_window_resize_cbs, (zend_ulong)window);
+		return;
+	}
+	zval copy;
+	ZVAL_COPY(&copy, cb);
+	zend_hash_index_update(ns_window_resize_cbs, (zend_ulong)window, &copy);
+}
+
+void ns_window_php_clear_did_resize(uintptr_t window)
+{
+	if (!ns_window_resize_cbs) {
+		return;
+	}
+	zend_hash_index_del(ns_window_resize_cbs, (zend_ulong)window);
+}
+
+void ns_window_php_invoke_did_resize(uintptr_t window)
+{
+	zval *cb;
+	zval retval;
+
+	if (!ns_window_resize_cbs || ns_window_resize_invoke_depth > 0) {
+		return;
+	}
+	cb = zend_hash_index_find(ns_window_resize_cbs, (zend_ulong)window);
+	if (!cb) {
+		return;
+	}
+	ns_window_resize_invoke_depth++;
+	ZVAL_UNDEF(&retval);
+	call_user_function(NULL, NULL, cb, &retval, 0, NULL);
+	zval_ptr_dtor(&retval);
+	ns_window_resize_invoke_depth--;
+}
 }%
 
 /**
@@ -168,6 +215,16 @@ class NSWindow
     {
         %{
             ns_window_add_titlebar_accessory((uintptr_t) window, (uintptr_t) controller);
+        }%
+    }
+
+    /**
+     * Invoked from windowDidResize: during live resize (nested NSEventTrackingRunLoopMode).
+     */
+    public static function setDidResize(int window, var callback) -> void
+    {
+        %{
+            ns_window_php_set_did_resize((uintptr_t) window, (void *) callback);
         }%
     }
 }

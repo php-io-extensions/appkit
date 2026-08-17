@@ -19,6 +19,53 @@
 #include "ns-window.h"
 #include <stdint.h>
 
+static HashTable *ns_window_resize_cbs = NULL;
+static int ns_window_resize_invoke_depth = 0;
+
+void ns_window_php_set_did_resize(uintptr_t window, void *callback)
+{
+	zval *cb = (zval *)callback;
+
+	if (!ns_window_resize_cbs) {
+		ALLOC_HASHTABLE(ns_window_resize_cbs);
+		zend_hash_init(ns_window_resize_cbs, 8, NULL, ZVAL_PTR_DTOR, 0);
+	}
+	if (!cb || Z_TYPE_P(cb) == IS_NULL) {
+		zend_hash_index_del(ns_window_resize_cbs, (zend_ulong)window);
+		return;
+	}
+	zval copy;
+	ZVAL_COPY(&copy, cb);
+	zend_hash_index_update(ns_window_resize_cbs, (zend_ulong)window, &copy);
+}
+
+void ns_window_php_clear_did_resize(uintptr_t window)
+{
+	if (!ns_window_resize_cbs) {
+		return;
+	}
+	zend_hash_index_del(ns_window_resize_cbs, (zend_ulong)window);
+}
+
+void ns_window_php_invoke_did_resize(uintptr_t window)
+{
+	zval *cb;
+	zval retval;
+
+	if (!ns_window_resize_cbs || ns_window_resize_invoke_depth > 0) {
+		return;
+	}
+	cb = zend_hash_index_find(ns_window_resize_cbs, (zend_ulong)window);
+	if (!cb) {
+		return;
+	}
+	ns_window_resize_invoke_depth++;
+	ZVAL_UNDEF(&retval);
+	call_user_function(NULL, NULL, cb, &retval, 0, NULL);
+	zval_ptr_dtor(&retval);
+	ns_window_resize_invoke_depth--;
+}
+
 
 
 /**
@@ -326,6 +373,25 @@ PHP_METHOD(AppKit_NS_NSWindow_NSWindow, addTitlebarAccessoryViewController)
 	zephir_fetch_params_without_memory_grow(2, 0, &window_param, &controller_param);
 	
             ns_window_add_titlebar_accessory((uintptr_t) window, (uintptr_t) controller);
+        
+}
+
+/**
+ * Invoked from windowDidResize: during live resize (nested NSEventTrackingRunLoopMode).
+ */
+PHP_METHOD(AppKit_NS_NSWindow_NSWindow, setDidResize)
+{
+	zval *window_param = NULL, *callback, callback_sub;
+	zend_long window;
+
+	ZVAL_UNDEF(&callback_sub);
+	ZEND_PARSE_PARAMETERS_START(2, 2)
+		Z_PARAM_LONG(window)
+		Z_PARAM_ZVAL(callback)
+	ZEND_PARSE_PARAMETERS_END();
+	zephir_fetch_params_without_memory_grow(2, 0, &window_param, &callback);
+	
+            ns_window_php_set_did_resize((uintptr_t) window, (void *) callback);
         
 }
 

@@ -5,7 +5,7 @@ description: NSWindow create / show / contentView — no Metal
 resource: /appkit/ns/nswindow/nswindow.zep
 tags: [appkit, api, nswindow]
 status: draft
-generated: { by: cursor-agent/grok-4.5, at: "2026-08-15T00:30:00Z" }
+generated: { by: cursor-agent/grok-4.6, at: "2026-08-17T04:30:00Z" }
 sources:
   - id: zep
     resource: /appkit/ns/nswindow/nswindow.zep
@@ -40,5 +40,6 @@ sources:
 | `tab` | wrap `window.tab` as `NSWindowTab` handle |
 | `tabGroup` | wrap `window.tabGroup` as `NSWindowTabGroup` handle |
 | `addTitlebarAccessoryViewController` | `addTitlebarAccessoryViewController:` |
+| `setDidResize` | PHP callable from `windowDidResize:` (live resize) |
 
 Moved from `Metal\\MTL\\Window` / `mtl_window_*`.

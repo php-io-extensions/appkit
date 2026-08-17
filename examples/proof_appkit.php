@@ -22,6 +22,7 @@ NSApplication::init();
 NSApplication::resetQuit();
 
 NSMenu::installDefault('AppKit Demo');
+NSMenu::enableAbout(true);
 NSMenu::addItem('Demo', 'Quit Demo', 'q', 'quit');
 
 $window = NSWindow::create('php-io-extensions/appkit', 640, 400);
@@ -48,6 +49,7 @@ NSWindow::show($window);
 
 echo "AppKit shared: " . NSApplication::shared() . PHP_EOL;
 echo "Close the window or use Demo → Quit Demo (Cmd+Q) to exit.\n";
+echo "php → About AppKit Demo polls action id 'about' (no panel from C).\n";
 
 $maxFrames = getenv('APPKIT_DEMO_MAX_FRAMES');
 $maxFrames = $maxFrames === false || $maxFrames === '' ? null : max(1, (int) $maxFrames);
@@ -57,6 +59,9 @@ while (!NSWindow::shouldClose($window) && !NSApplication::shouldQuit()) {
     NSApplication::poll();
 
     $action = NSMenu::pollAction();
+    if ($action === 'about') {
+        echo "about action polled\n";
+    }
     if ($action === 'quit') {
         break;
     }

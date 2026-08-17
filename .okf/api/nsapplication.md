@@ -5,7 +5,7 @@ description: NSApplication init / shared / poll / run / terminate / quit
 resource: /appkit/ns/nsapplication/nsapplication.zep
 tags: [appkit, api, nsapplication]
 status: draft
-generated: { by: cursor-agent/grok-4.5, at: "2026-08-15T00:30:00Z" }
+generated: { by: cursor-agent/grok-4.6, at: "2026-08-17T04:30:00Z" }
 sources:
   - id: zep
     resource: /appkit/ns/nsapplication/nsapplication.zep
@@ -24,7 +24,7 @@ sources:
 |--------|---------|
 | `init` | `[NSApplication sharedApplication]` + activation policy + finishLaunching |
 | `shared` | borrowed `NSApp` pointer as int |
-| `poll` | `nextEventMatchingMask` drain + `sendEvent` / `updateWindows` |
+| `poll` | `nextEventMatchingMask` drain + `sendEvent` / `updateWindows` (`NSDefaultRunLoopMode` only; live resize needs `NSWindow::setDidResize`) |
 | `run` | `[NSApp run]` |
 | `terminate` | quit flag + `[NSApp stop:]` |
 | `nsApp` | `NSApp` global pointer |

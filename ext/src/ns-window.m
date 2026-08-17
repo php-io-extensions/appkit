@@ -31,7 +31,11 @@ typedef struct {
 
 - (void)windowDidResize:(NSNotification *)notification
 {
+    ns_window_box *box = (ns_window_box *)self.boxPtr;
     ns_protocol_enqueue("NSWindowDelegate", "windowDidResize:", (uintptr_t)(__bridge void *)notification.object, 0, NULL);
+    if (box) {
+        ns_window_php_invoke_did_resize((uintptr_t)box);
+    }
 }
 
 - (void)windowDidBecomeKey:(NSNotification *)notification
@@ -122,6 +126,7 @@ void ns_window_destroy(uintptr_t window)
             [win close];
         }
         box->content_view = 0;
+        ns_window_php_clear_did_resize((uintptr_t)box);
         ns_win_release_obj(&box->delegate);
         ns_win_release_obj(&box->window);
     }
