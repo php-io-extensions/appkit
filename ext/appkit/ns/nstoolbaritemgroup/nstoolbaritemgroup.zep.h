@@ -1,0 +1,109 @@
+
+extern zend_class_entry *appkit_ns_nstoolbaritemgroup_nstoolbaritemgroup_ce;
+
+ZEPHIR_INIT_CLASS(AppKit_NS_NSToolbarItemGroup_NSToolbarItemGroup);
+
+PHP_METHOD(AppKit_NS_NSToolbarItemGroup_NSToolbarItemGroup, initWithItemIdentifier);
+PHP_METHOD(AppKit_NS_NSToolbarItemGroup_NSToolbarItemGroup, groupWithItemIdentifierTitlesSelectionModeLabelsTargetAction);
+PHP_METHOD(AppKit_NS_NSToolbarItemGroup_NSToolbarItemGroup, groupWithItemIdentifierImagesSelectionModeLabelsTargetAction);
+PHP_METHOD(AppKit_NS_NSToolbarItemGroup_NSToolbarItemGroup, subitems);
+PHP_METHOD(AppKit_NS_NSToolbarItemGroup_NSToolbarItemGroup, setSubitems);
+PHP_METHOD(AppKit_NS_NSToolbarItemGroup_NSToolbarItemGroup, controlRepresentation);
+PHP_METHOD(AppKit_NS_NSToolbarItemGroup_NSToolbarItemGroup, setControlRepresentation);
+PHP_METHOD(AppKit_NS_NSToolbarItemGroup_NSToolbarItemGroup, selectionMode);
+PHP_METHOD(AppKit_NS_NSToolbarItemGroup_NSToolbarItemGroup, setSelectionMode);
+PHP_METHOD(AppKit_NS_NSToolbarItemGroup_NSToolbarItemGroup, selectedIndex);
+PHP_METHOD(AppKit_NS_NSToolbarItemGroup_NSToolbarItemGroup, setSelectedIndex);
+PHP_METHOD(AppKit_NS_NSToolbarItemGroup_NSToolbarItemGroup, setSelectedAtIndex);
+PHP_METHOD(AppKit_NS_NSToolbarItemGroup_NSToolbarItemGroup, isSelectedAtIndex);
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nstoolbaritemgroup_nstoolbaritemgroup_initwithitemidentifier, 0, 1, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, itemIdentifier, IS_STRING, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nstoolbaritemgroup_nstoolbaritemgroup_groupwithitemidentifiertitlesselectionmodelabelstargetaction, 0, 6, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, itemIdentifier, IS_STRING, 0)
+	ZEND_ARG_ARRAY_INFO(0, titles, 0)
+	ZEND_ARG_TYPE_INFO(0, selectionMode, IS_LONG, 0)
+	ZEND_ARG_INFO(0, labels)
+	ZEND_ARG_TYPE_INFO(0, target, IS_LONG, 0)
+	ZEND_ARG_INFO(0, action)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nstoolbaritemgroup_nstoolbaritemgroup_groupwithitemidentifierimagesselectionmodelabelstargetaction, 0, 6, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, itemIdentifier, IS_STRING, 0)
+	ZEND_ARG_ARRAY_INFO(0, images, 0)
+	ZEND_ARG_TYPE_INFO(0, selectionMode, IS_LONG, 0)
+	ZEND_ARG_INFO(0, labels)
+	ZEND_ARG_TYPE_INFO(0, target, IS_LONG, 0)
+	ZEND_ARG_INFO(0, action)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nstoolbaritemgroup_nstoolbaritemgroup_subitems, 0, 1, IS_ARRAY, 0)
+	ZEND_ARG_TYPE_INFO(0, handle, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nstoolbaritemgroup_nstoolbaritemgroup_setsubitems, 0, 2, IS_VOID, 0)
+
+	ZEND_ARG_TYPE_INFO(0, handle, IS_LONG, 0)
+	ZEND_ARG_ARRAY_INFO(0, subitems, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nstoolbaritemgroup_nstoolbaritemgroup_controlrepresentation, 0, 1, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, handle, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nstoolbaritemgroup_nstoolbaritemgroup_setcontrolrepresentation, 0, 2, IS_VOID, 0)
+
+	ZEND_ARG_TYPE_INFO(0, handle, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, controlRepresentation, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nstoolbaritemgroup_nstoolbaritemgroup_selectionmode, 0, 1, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, handle, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nstoolbaritemgroup_nstoolbaritemgroup_setselectionmode, 0, 2, IS_VOID, 0)
+
+	ZEND_ARG_TYPE_INFO(0, handle, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, selectionMode, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nstoolbaritemgroup_nstoolbaritemgroup_selectedindex, 0, 1, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, handle, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nstoolbaritemgroup_nstoolbaritemgroup_setselectedindex, 0, 2, IS_VOID, 0)
+
+	ZEND_ARG_TYPE_INFO(0, handle, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, selectedIndex, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nstoolbaritemgroup_nstoolbaritemgroup_setselectedatindex, 0, 3, IS_VOID, 0)
+
+	ZEND_ARG_TYPE_INFO(0, handle, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, selected, _IS_BOOL, 0)
+	ZEND_ARG_TYPE_INFO(0, index, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nstoolbaritemgroup_nstoolbaritemgroup_isselectedatindex, 0, 2, _IS_BOOL, 0)
+	ZEND_ARG_TYPE_INFO(0, handle, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, index, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEPHIR_INIT_FUNCS(appkit_ns_nstoolbaritemgroup_nstoolbaritemgroup_method_entry) {
+	PHP_ME(AppKit_NS_NSToolbarItemGroup_NSToolbarItemGroup, initWithItemIdentifier, arginfo_appkit_ns_nstoolbaritemgroup_nstoolbaritemgroup_initwithitemidentifier, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSToolbarItemGroup_NSToolbarItemGroup, groupWithItemIdentifierTitlesSelectionModeLabelsTargetAction, arginfo_appkit_ns_nstoolbaritemgroup_nstoolbaritemgroup_groupwithitemidentifiertitlesselectionmodelabelstargetaction, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSToolbarItemGroup_NSToolbarItemGroup, groupWithItemIdentifierImagesSelectionModeLabelsTargetAction, arginfo_appkit_ns_nstoolbaritemgroup_nstoolbaritemgroup_groupwithitemidentifierimagesselectionmodelabelstargetaction, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSToolbarItemGroup_NSToolbarItemGroup, subitems, arginfo_appkit_ns_nstoolbaritemgroup_nstoolbaritemgroup_subitems, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSToolbarItemGroup_NSToolbarItemGroup, setSubitems, arginfo_appkit_ns_nstoolbaritemgroup_nstoolbaritemgroup_setsubitems, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSToolbarItemGroup_NSToolbarItemGroup, controlRepresentation, arginfo_appkit_ns_nstoolbaritemgroup_nstoolbaritemgroup_controlrepresentation, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSToolbarItemGroup_NSToolbarItemGroup, setControlRepresentation, arginfo_appkit_ns_nstoolbaritemgroup_nstoolbaritemgroup_setcontrolrepresentation, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSToolbarItemGroup_NSToolbarItemGroup, selectionMode, arginfo_appkit_ns_nstoolbaritemgroup_nstoolbaritemgroup_selectionmode, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSToolbarItemGroup_NSToolbarItemGroup, setSelectionMode, arginfo_appkit_ns_nstoolbaritemgroup_nstoolbaritemgroup_setselectionmode, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSToolbarItemGroup_NSToolbarItemGroup, selectedIndex, arginfo_appkit_ns_nstoolbaritemgroup_nstoolbaritemgroup_selectedindex, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSToolbarItemGroup_NSToolbarItemGroup, setSelectedIndex, arginfo_appkit_ns_nstoolbaritemgroup_nstoolbaritemgroup_setselectedindex, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSToolbarItemGroup_NSToolbarItemGroup, setSelectedAtIndex, arginfo_appkit_ns_nstoolbaritemgroup_nstoolbaritemgroup_setselectedatindex, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSToolbarItemGroup_NSToolbarItemGroup, isSelectedAtIndex, arginfo_appkit_ns_nstoolbaritemgroup_nstoolbaritemgroup_isselectedatindex, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_FE_END
+};

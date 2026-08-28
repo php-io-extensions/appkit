@@ -8,7 +8,7 @@ tags: [toolchain, zephir, build]
 status: draft
 generated:
   by: cursor-grok-4.6/cursor
-  at: 2026-08-27T18:40:00Z
+  at: 2026-08-28T02:25:00Z
 ---
 
 # Toolchain
@@ -51,8 +51,9 @@ php scripts/verify-reflection.php  # loaded .so exposes exactly the annotated me
   class's `@zep` + `@zep-construct` count. The other guards compare source
   artefacts to each other or to the SDK headers and pass even when the
   extension cannot build, so this one closes that gap.
-- Gate ledgers (`GATES.md`, unlazy format) prove each work slice; a leaf is
-  done when its gates are met with evidence, not when reported done.
+- `prepare-ext.sh` strips phpize leftovers (`Makefile`, `configure`,
+  `modules/`, `*.lo`, `*.dSYM`, …) after generating C so `ext/` stays the
+  ship-ready PIE/`phpize` input. Do not commit those artifacts.
 
 ## Gotchas
 

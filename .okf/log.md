@@ -2,6 +2,31 @@
 
 ## 2026-08-27
 
+- `scripts/tests/structure-check.php` was silently unusable and had to be
+  killed rather than run: it forked one `php -l` per optimizer (3614 spawns,
+  minutes on a network volume). Now lints in one `xargs -0 -P 8 -n 32` pass —
+  7.4s — and reports failures by mapping the file named in the lint output
+  back to its symbol. Once it could actually run it failed 45 classes: the
+  script predated `@zep-construct` and counted those methods as unexplained
+  extras. Its parser now matches `@zep(?:-construct)?`. Green at
+  `STRUCTURE_OK classes=89 symbols=3614` (symbol count agrees with parity).
+  Lesson: a guard slow enough that nobody waits for it is a guard nobody runs.
+- Version pinned at 0.8.0. The source edits alone left a **stale 0.9.0 `.so`
+  installed** — the install gate hardcoded the expected string, so it could
+  only ever confirm whatever literal was typed into it. `install-macos.sh` now
+  reads `EXPECTED_VERSION` from `config.json` (the file zephir generates
+  `ext/php_appkit.h` from), asserts `composer.json` agrees before building,
+  and matches the full `Version => X` line from `php --ri`.
+  `scripts/tests/install-script-check.php` enforces that the script derives
+  the version instead of hardcoding it, and cross-checks
+  config.json/composer.json/php_appkit.h. Rebuilt: reports 0.8.0.
+  Unlazy ledgers (`GATES.md`, `GATES-slice-zero.md`, `.unlazy/`)
+  and the tests that only existed to compare against those inventories
+  (`*-header-check.php`, `*-inventory-check.php`) are gone. phpize leftovers
+  under `ext/` (Makefile, configure, modules/, `*.lo`, `*.dSYM`, …) are
+  stripped; `.gitignore` now matches the sibling gtk/dep-appkit pattern so
+  they cannot sneak into a commit. Documented on
+  [toolchain.md](/toolchain.md).
 - Data-source round-trip verified live (the last unproven Wave B assumption).
   `smoke.php` gained `DATASOURCE_OK` (view-based `NSTableView`:
   `numberOfRowsInTableView:` answered from PHP as `NSInteger`,
@@ -47,7 +72,7 @@
   unnoticed.
 - Verification gates met: `PARITY_OK` (3614 calls / 79 sources), `AUDIT_OK`
   (88 classes, 0 failures), `REFLECTION_OK`, clean-tree `install-macos.sh`
-  reporting 0.9.0, and `examples/smoke.php` green on 20 markers — Wave B added
+  green, and `examples/smoke.php` green on 20 markers — Wave B added
   `TABLE_OK` / `ALERT_OK` / `TOOLBAR_OK` / `STATUS_ITEM_OK` and the five
   setter/getter round-trips as `ROUNDTRIP_OK`. No `NSPhp*` symbol outside
   `ns-bridge.m`.

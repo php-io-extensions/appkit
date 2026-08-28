@@ -13,6 +13,11 @@ set -Eeuo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 EXTENSION_NAME="appkit"
+# config.json is the single source of truth: zephir generates ext/php_appkit.h
+# from it. composer.json is the one copy nothing generates, so it is asserted
+# against config.json rather than trusted.
+EXPECTED_VERSION="$(sed -n 's/.*"version"[[:space:]]*:[[:space:]]*"\([^"]*\)".*/\1/p' "${SCRIPT_DIR}/config.json" | head -1)"
+COMPOSER_VERSION="$(sed -n 's/.*"version"[[:space:]]*:[[:space:]]*"\([^"]*\)".*/\1/p' "${SCRIPT_DIR}/composer.json" | head -1)"
 LOG_FILE="${SCRIPT_DIR}/build.log"
 BUILD_ROOT="${SCRIPT_DIR}"
 BUILD_TMP=""
@@ -38,6 +43,13 @@ fi
 die()  { echo ""; echo "❌ $*"; exit 1; }
 step() { echo "$*"; }
 ok()   { echo "   ✓ $*"; }
+
+if [ -z "${EXPECTED_VERSION}" ]; then
+    die "Could not read \"version\" from config.json"
+fi
+if [ "${COMPOSER_VERSION}" != "${EXPECTED_VERSION}" ]; then
+    die "Version mismatch: config.json is ${EXPECTED_VERSION}, composer.json is ${COMPOSER_VERSION}"
+fi
 
 require_cmd() {
     command -v "$1" >/dev/null 2>&1 || die "Required command not found: $1"
@@ -251,11 +263,11 @@ fi
 ok "php -m lists ${EXTENSION_NAME}"
 
 RI_OUT="$("$PHP_BIN_REAL" --ri appkit 2>&1)" || die "php --ri appkit failed"
-if ! printf '%s\n' "$RI_OUT" | grep -q "0\\.9\\.0"; then
+if ! printf '%s\n' "$RI_OUT" | grep -qE "Version[[:space:]]*=>[[:space:]]*${EXPECTED_VERSION//./\\.}([[:space:]]|$)"; then
     echo "$RI_OUT"
-    die "php --ri appkit did not report version 0.9.0"
+    die "php --ri appkit did not report version ${EXPECTED_VERSION} (from config.json); the installed .so is stale"
 fi
-ok "php --ri appkit reports 0.9.0"
+ok "php --ri appkit reports ${EXPECTED_VERSION}"
 echo ""
 
 step "=========================================="

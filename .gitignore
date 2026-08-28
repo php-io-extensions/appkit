@@ -1,11 +1,25 @@
 .DS_Store
+Thumbs.db
 .idea/
+*.iml
 .vscode/
+
 .zephir/
 .temp/
+zephir.phar
+zephir-*.phar
+
+vendor/
+composer.lock
+
 build.log
 compile-errors.log
+*.log
+
+# phpize / autoconf / libtool leftovers — never ship these. Ship-ready C
+# (.zep.c/.zep.h, kernel/, config.m4, Makefile.frag, staged src/) stays.
 ext/.libs/
+**/.libs/
 ext/autom4te.cache/
 ext/build/
 ext/modules/
@@ -23,6 +37,7 @@ ext/config.status
 ext/config.sub
 ext/configure
 ext/configure.ac
+ext/configure.in
 ext/configure~
 ext/install-sh
 ext/libtool
@@ -32,9 +47,26 @@ ext/mkinstalldirs
 ext/run-tests.php
 ext/aclocal.m4
 ext/acinclude.m4
+ext/appkit.la
+ext/appkit.lo
+ext/appkit.o
+ext/appkit.dep
+ext/appkit.so
+ext/**/*.so
+ext/**/*.la
+ext/**/*.dSYM/
 ext/**/*.lo
 ext/**/*.o
 ext/**/*.la
 ext/**/*.dep
 
+*.o
+*.lo
+*.la
+*.loT
+*.dep
+*.gch
+*.dSYM
+
 .unlazy/
+.unlazy-hook-state.json

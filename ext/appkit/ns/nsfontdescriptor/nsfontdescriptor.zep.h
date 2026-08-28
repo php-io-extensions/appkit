@@ -1,0 +1,148 @@
+
+extern zend_class_entry *appkit_ns_nsfontdescriptor_nsfontdescriptor_ce;
+
+ZEPHIR_INIT_CLASS(AppKit_NS_NSFontDescriptor_NSFontDescriptor);
+
+PHP_METHOD(AppKit_NS_NSFontDescriptor_NSFontDescriptor, postscriptName);
+PHP_METHOD(AppKit_NS_NSFontDescriptor_NSFontDescriptor, pointSize);
+PHP_METHOD(AppKit_NS_NSFontDescriptor_NSFontDescriptor, matrix);
+PHP_METHOD(AppKit_NS_NSFontDescriptor_NSFontDescriptor, symbolicTraits);
+PHP_METHOD(AppKit_NS_NSFontDescriptor_NSFontDescriptor, requiresFontAssetRequest);
+PHP_METHOD(AppKit_NS_NSFontDescriptor_NSFontDescriptor, objectForKey);
+PHP_METHOD(AppKit_NS_NSFontDescriptor_NSFontDescriptor, fontAttributes);
+PHP_METHOD(AppKit_NS_NSFontDescriptor_NSFontDescriptor, fontDescriptorWithFontAttributes);
+PHP_METHOD(AppKit_NS_NSFontDescriptor_NSFontDescriptor, fontDescriptorWithNameSize);
+PHP_METHOD(AppKit_NS_NSFontDescriptor_NSFontDescriptor, fontDescriptorWithNameMatrix);
+PHP_METHOD(AppKit_NS_NSFontDescriptor_NSFontDescriptor, initWithFontAttributes);
+PHP_METHOD(AppKit_NS_NSFontDescriptor_NSFontDescriptor, matchingFontDescriptorsWithMandatoryKeys);
+PHP_METHOD(AppKit_NS_NSFontDescriptor_NSFontDescriptor, matchingFontDescriptorWithMandatoryKeys);
+PHP_METHOD(AppKit_NS_NSFontDescriptor_NSFontDescriptor, fontDescriptorByAddingAttributes);
+PHP_METHOD(AppKit_NS_NSFontDescriptor_NSFontDescriptor, fontDescriptorWithSymbolicTraits);
+PHP_METHOD(AppKit_NS_NSFontDescriptor_NSFontDescriptor, fontDescriptorWithSize);
+PHP_METHOD(AppKit_NS_NSFontDescriptor_NSFontDescriptor, fontDescriptorWithMatrix);
+PHP_METHOD(AppKit_NS_NSFontDescriptor_NSFontDescriptor, fontDescriptorWithFace);
+PHP_METHOD(AppKit_NS_NSFontDescriptor_NSFontDescriptor, fontDescriptorWithFamily);
+PHP_METHOD(AppKit_NS_NSFontDescriptor_NSFontDescriptor, fontDescriptorWithDesign);
+PHP_METHOD(AppKit_NS_NSFontDescriptor_NSFontDescriptor, preferredFontDescriptorForTextStyleOptions);
+
+ZEND_BEGIN_ARG_INFO_EX(arginfo_appkit_ns_nsfontdescriptor_nsfontdescriptor_postscriptname, 0, 0, 1)
+	ZEND_ARG_TYPE_INFO(0, handle, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsfontdescriptor_nsfontdescriptor_pointsize, 0, 1, IS_DOUBLE, 0)
+	ZEND_ARG_TYPE_INFO(0, handle, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsfontdescriptor_nsfontdescriptor_matrix, 0, 1, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, handle, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsfontdescriptor_nsfontdescriptor_symbolictraits, 0, 1, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, handle, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsfontdescriptor_nsfontdescriptor_requiresfontassetrequest, 0, 1, _IS_BOOL, 0)
+	ZEND_ARG_TYPE_INFO(0, handle, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsfontdescriptor_nsfontdescriptor_objectforkey, 0, 2, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, handle, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, attribute, IS_STRING, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsfontdescriptor_nsfontdescriptor_fontattributes, 0, 1, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, handle, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsfontdescriptor_nsfontdescriptor_fontdescriptorwithfontattributes, 0, 1, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, attributes, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsfontdescriptor_nsfontdescriptor_fontdescriptorwithnamesize, 0, 2, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, fontName, IS_STRING, 0)
+	ZEND_ARG_TYPE_INFO(0, size, IS_DOUBLE, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsfontdescriptor_nsfontdescriptor_fontdescriptorwithnamematrix, 0, 2, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, fontName, IS_STRING, 0)
+	ZEND_ARG_TYPE_INFO(0, matrix, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsfontdescriptor_nsfontdescriptor_initwithfontattributes, 0, 1, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, attributes, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsfontdescriptor_nsfontdescriptor_matchingfontdescriptorswithmandatorykeys, 0, 2, IS_ARRAY, 0)
+	ZEND_ARG_TYPE_INFO(0, handle, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, mandatoryKeys, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsfontdescriptor_nsfontdescriptor_matchingfontdescriptorwithmandatorykeys, 0, 2, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, handle, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, mandatoryKeys, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsfontdescriptor_nsfontdescriptor_fontdescriptorbyaddingattributes, 0, 2, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, handle, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, attributes, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsfontdescriptor_nsfontdescriptor_fontdescriptorwithsymbolictraits, 0, 2, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, handle, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, symbolicTraits, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsfontdescriptor_nsfontdescriptor_fontdescriptorwithsize, 0, 2, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, handle, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, newPointSize, IS_DOUBLE, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsfontdescriptor_nsfontdescriptor_fontdescriptorwithmatrix, 0, 2, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, handle, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, matrix, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsfontdescriptor_nsfontdescriptor_fontdescriptorwithface, 0, 2, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, handle, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, newFace, IS_STRING, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsfontdescriptor_nsfontdescriptor_fontdescriptorwithfamily, 0, 2, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, handle, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, newFamily, IS_STRING, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsfontdescriptor_nsfontdescriptor_fontdescriptorwithdesign, 0, 2, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, handle, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, design, IS_STRING, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsfontdescriptor_nsfontdescriptor_preferredfontdescriptorfortextstyleoptions, 0, 2, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, style, IS_STRING, 0)
+	ZEND_ARG_TYPE_INFO(0, options, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEPHIR_INIT_FUNCS(appkit_ns_nsfontdescriptor_nsfontdescriptor_method_entry) {
+	PHP_ME(AppKit_NS_NSFontDescriptor_NSFontDescriptor, postscriptName, arginfo_appkit_ns_nsfontdescriptor_nsfontdescriptor_postscriptname, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSFontDescriptor_NSFontDescriptor, pointSize, arginfo_appkit_ns_nsfontdescriptor_nsfontdescriptor_pointsize, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSFontDescriptor_NSFontDescriptor, matrix, arginfo_appkit_ns_nsfontdescriptor_nsfontdescriptor_matrix, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSFontDescriptor_NSFontDescriptor, symbolicTraits, arginfo_appkit_ns_nsfontdescriptor_nsfontdescriptor_symbolictraits, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSFontDescriptor_NSFontDescriptor, requiresFontAssetRequest, arginfo_appkit_ns_nsfontdescriptor_nsfontdescriptor_requiresfontassetrequest, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSFontDescriptor_NSFontDescriptor, objectForKey, arginfo_appkit_ns_nsfontdescriptor_nsfontdescriptor_objectforkey, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSFontDescriptor_NSFontDescriptor, fontAttributes, arginfo_appkit_ns_nsfontdescriptor_nsfontdescriptor_fontattributes, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSFontDescriptor_NSFontDescriptor, fontDescriptorWithFontAttributes, arginfo_appkit_ns_nsfontdescriptor_nsfontdescriptor_fontdescriptorwithfontattributes, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSFontDescriptor_NSFontDescriptor, fontDescriptorWithNameSize, arginfo_appkit_ns_nsfontdescriptor_nsfontdescriptor_fontdescriptorwithnamesize, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSFontDescriptor_NSFontDescriptor, fontDescriptorWithNameMatrix, arginfo_appkit_ns_nsfontdescriptor_nsfontdescriptor_fontdescriptorwithnamematrix, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSFontDescriptor_NSFontDescriptor, initWithFontAttributes, arginfo_appkit_ns_nsfontdescriptor_nsfontdescriptor_initwithfontattributes, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSFontDescriptor_NSFontDescriptor, matchingFontDescriptorsWithMandatoryKeys, arginfo_appkit_ns_nsfontdescriptor_nsfontdescriptor_matchingfontdescriptorswithmandatorykeys, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSFontDescriptor_NSFontDescriptor, matchingFontDescriptorWithMandatoryKeys, arginfo_appkit_ns_nsfontdescriptor_nsfontdescriptor_matchingfontdescriptorwithmandatorykeys, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSFontDescriptor_NSFontDescriptor, fontDescriptorByAddingAttributes, arginfo_appkit_ns_nsfontdescriptor_nsfontdescriptor_fontdescriptorbyaddingattributes, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSFontDescriptor_NSFontDescriptor, fontDescriptorWithSymbolicTraits, arginfo_appkit_ns_nsfontdescriptor_nsfontdescriptor_fontdescriptorwithsymbolictraits, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSFontDescriptor_NSFontDescriptor, fontDescriptorWithSize, arginfo_appkit_ns_nsfontdescriptor_nsfontdescriptor_fontdescriptorwithsize, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSFontDescriptor_NSFontDescriptor, fontDescriptorWithMatrix, arginfo_appkit_ns_nsfontdescriptor_nsfontdescriptor_fontdescriptorwithmatrix, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSFontDescriptor_NSFontDescriptor, fontDescriptorWithFace, arginfo_appkit_ns_nsfontdescriptor_nsfontdescriptor_fontdescriptorwithface, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSFontDescriptor_NSFontDescriptor, fontDescriptorWithFamily, arginfo_appkit_ns_nsfontdescriptor_nsfontdescriptor_fontdescriptorwithfamily, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSFontDescriptor_NSFontDescriptor, fontDescriptorWithDesign, arginfo_appkit_ns_nsfontdescriptor_nsfontdescriptor_fontdescriptorwithdesign, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSFontDescriptor_NSFontDescriptor, preferredFontDescriptorForTextStyleOptions, arginfo_appkit_ns_nsfontdescriptor_nsfontdescriptor_preferredfontdescriptorfortextstyleoptions, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_FE_END
+};

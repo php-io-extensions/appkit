@@ -6,7 +6,7 @@
  *
  * install-macos.sh must run prepare-ext, phpize, configure --enable-appkit,
  * make, cp, xattr -cr, codesign --force --sign -, write 30-appkit.ini, and
- * verify with php -m plus php --ri appkit (version 0.9.0).
+ * verify with php -m plus php --ri appkit against the version in config.json.
  *
  * install-macos-herd.sh must only put Herd's PHP first on PATH and exec
  * install-macos.sh — it must not duplicate the build.
@@ -52,7 +52,31 @@ assertContains($macos, 'codesign --force --sign -', 'install-macos', $failures);
 assertContains($macos, '30-${EXTENSION_NAME}.ini', 'install-macos', $failures);
 assertContains($macos, 'php -m', 'install-macos', $failures);
 assertContains($macos, '--ri appkit', 'install-macos', $failures);
-assertContains($macos, '0.9.0', 'install-macos', $failures);
+
+// The reported version must be checked against config.json, not a literal, so
+// a bumped config.json cannot silently pass with a stale .so.
+assertContains($macos, 'EXPECTED_VERSION', 'install-macos', $failures);
+assertNotContains($macos, 'grep -q "0\\.8\\.0"', 'install-macos', $failures);
+
+$configVersion = json_decode((string) file_get_contents($root . '/config.json'), true)['version'] ?? null;
+$composerVersion = json_decode((string) file_get_contents($root . '/composer.json'), true)['version'] ?? null;
+$headerVersion = null;
+$header = $root . '/ext/php_appkit.h';
+if (is_file($header) && preg_match('/PHP_APPKIT_VERSION\s+"([^"]+)"/', (string) file_get_contents($header), $m)) {
+    $headerVersion = $m[1];
+}
+
+if (is_null($configVersion)) {
+    $failures[] = 'config.json has no "version"';
+} else {
+    if ($composerVersion !== $configVersion) {
+        $failures[] = "composer.json version {$composerVersion} != config.json {$configVersion}";
+    }
+    // ext/php_appkit.h is generated, so it is only checked when staged.
+    if (!is_null($headerVersion) && $headerVersion !== $configVersion) {
+        $failures[] = "ext/php_appkit.h version {$headerVersion} != config.json {$configVersion}";
+    }
+}
 
 assertNotContains($macos, 'python3', 'install-macos', $failures);
 assertNotContains($macos, 'proof_appkit.php', 'install-macos', $failures);

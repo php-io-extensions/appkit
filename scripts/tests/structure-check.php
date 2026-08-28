@@ -2,8 +2,8 @@
 <?php
 /*
  * Independent structural verification of gen-zep.php output. Re-derives the
- * expected surface from the @zep/@reserved annotations with its own parser
- * and asserts, per class:
+ * expected surface from the @zep/@zep-construct/@reserved annotations with its
+ * own parser and asserts, per class:
  *   - the .zep file exists at the derived path with the derived namespace/class
  *   - bound method count in the .zep equals the header's @zep count
  *   - reserved comment count in the .zep equals the header's @reserved count
@@ -28,7 +28,9 @@ $symbols = [];
 foreach (glob("{$root}/src/*.h") ?: [] as $header) {
     $awaitingPrototype = false;
     foreach (file($header, FILE_IGNORE_NEW_LINES) ?: [] as $line) {
-        if (preg_match('#/\*\s*@zep\s+([A-Za-z0-9_\\\\]+)\s+(\w+)\s*\([^)]*\)\s*->\s*(\w+)\s*\*/#', $line, $m)) {
+        // @zep-construct emits a method and an optimizer exactly like @zep; it
+        // differs only in that the header audit counts it separately.
+        if (preg_match('#/\*\s*@zep(?:-construct)?\s+([A-Za-z0-9_\\\\]+)\s+(\w+)\s*\([^)]*\)\s*->\s*(\w+)\s*\*/#', $line, $m)) {
             $expected[$m[1]]['zep'][] = ['method' => $m[2], 'return' => $m[3]];
             $awaitingPrototype = true;
             continue;
@@ -93,6 +95,7 @@ foreach ($expected as $classPath => $info) {
     }
 }
 
+$lintTargets = [];
 foreach ($symbols ?? [] as $symbol) {
     $bare = preg_replace('/^ns_/', '', $symbol);
     $optimizerPath = "{$root}/optimizers/" . studly($bare) . 'Optimizer.php';
@@ -100,13 +103,41 @@ foreach ($symbols ?? [] as $symbol) {
         $errors[] = "{$symbol}: missing optimizer {$optimizerPath}";
         continue;
     }
-    exec(sprintf('%s -l %s 2>&1', escapeshellarg(PHP_BINARY), escapeshellarg($optimizerPath)), $lintOut, $lintCode);
-    if ($lintCode !== 0) {
-        $errors[] = "{$symbol}: optimizer fails php -l: " . implode(' ', $lintOut);
-    }
+    $lintTargets[$optimizerPath] = $symbol;
+
     $optimizer = (string) file_get_contents($optimizerPath);
     if (str_contains($optimizer, 'getSymbolVariable') && !str_contains($optimizer, 'processExpectedReturn')) {
         $errors[] = "{$symbol}: symbol-write optimizer missing processExpectedReturn";
+    }
+}
+
+/*
+ * One `php -l` per optimizer means thousands of process spawns, which takes
+ * minutes on a network volume. xargs lints them in parallel batches instead
+ * and only the files it names as failing are reported.
+ */
+if ($lintTargets !== []) {
+    $listFile = tempnam(sys_get_temp_dir(), 'lint');
+    file_put_contents($listFile, implode("\0", array_keys($lintTargets)) . "\0");
+    $cmd = sprintf(
+        'xargs -0 -P 8 -n 32 %s -l < %s 2>&1',
+        escapeshellarg(PHP_BINARY),
+        escapeshellarg($listFile)
+    );
+    exec($cmd, $lintOut, $lintCode);
+    unlink($listFile);
+
+    if ($lintCode !== 0) {
+        foreach ($lintOut as $line) {
+            if (str_contains($line, 'No syntax errors detected')) {
+                continue;
+            }
+            if (preg_match('/ in (\S+\.php)/', $line, $m) && isset($lintTargets[$m[1]])) {
+                $errors[] = "{$lintTargets[$m[1]]}: optimizer fails php -l: {$line}";
+            } elseif (trim($line) !== '') {
+                $errors[] = "optimizer lint: {$line}";
+            }
+        }
     }
 }
 

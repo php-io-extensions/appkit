@@ -1,0 +1,131 @@
+
+extern zend_class_entry *appkit_ns_nscollectionviewgridlayout_nscollectionviewgridlayout_ce;
+
+ZEPHIR_INIT_CLASS(AppKit_NS_NSCollectionViewGridLayout_NSCollectionViewGridLayout);
+
+PHP_METHOD(AppKit_NS_NSCollectionViewGridLayout_NSCollectionViewGridLayout, init);
+PHP_METHOD(AppKit_NS_NSCollectionViewGridLayout_NSCollectionViewGridLayout, margins);
+PHP_METHOD(AppKit_NS_NSCollectionViewGridLayout_NSCollectionViewGridLayout, setMargins);
+PHP_METHOD(AppKit_NS_NSCollectionViewGridLayout_NSCollectionViewGridLayout, minimumInteritemSpacing);
+PHP_METHOD(AppKit_NS_NSCollectionViewGridLayout_NSCollectionViewGridLayout, setMinimumInteritemSpacing);
+PHP_METHOD(AppKit_NS_NSCollectionViewGridLayout_NSCollectionViewGridLayout, minimumLineSpacing);
+PHP_METHOD(AppKit_NS_NSCollectionViewGridLayout_NSCollectionViewGridLayout, setMinimumLineSpacing);
+PHP_METHOD(AppKit_NS_NSCollectionViewGridLayout_NSCollectionViewGridLayout, maximumNumberOfRows);
+PHP_METHOD(AppKit_NS_NSCollectionViewGridLayout_NSCollectionViewGridLayout, setMaximumNumberOfRows);
+PHP_METHOD(AppKit_NS_NSCollectionViewGridLayout_NSCollectionViewGridLayout, maximumNumberOfColumns);
+PHP_METHOD(AppKit_NS_NSCollectionViewGridLayout_NSCollectionViewGridLayout, setMaximumNumberOfColumns);
+PHP_METHOD(AppKit_NS_NSCollectionViewGridLayout_NSCollectionViewGridLayout, minimumItemSize);
+PHP_METHOD(AppKit_NS_NSCollectionViewGridLayout_NSCollectionViewGridLayout, setMinimumItemSize);
+PHP_METHOD(AppKit_NS_NSCollectionViewGridLayout_NSCollectionViewGridLayout, maximumItemSize);
+PHP_METHOD(AppKit_NS_NSCollectionViewGridLayout_NSCollectionViewGridLayout, setMaximumItemSize);
+PHP_METHOD(AppKit_NS_NSCollectionViewGridLayout_NSCollectionViewGridLayout, backgroundColors);
+PHP_METHOD(AppKit_NS_NSCollectionViewGridLayout_NSCollectionViewGridLayout, setBackgroundColors);
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nscollectionviewgridlayout_nscollectionviewgridlayout_init, 0, 0, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nscollectionviewgridlayout_nscollectionviewgridlayout_margins, 0, 1, IS_ARRAY, 0)
+	ZEND_ARG_TYPE_INFO(0, handle, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nscollectionviewgridlayout_nscollectionviewgridlayout_setmargins, 0, 5, IS_VOID, 0)
+
+	ZEND_ARG_TYPE_INFO(0, handle, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, top, IS_DOUBLE, 0)
+	ZEND_ARG_TYPE_INFO(0, left, IS_DOUBLE, 0)
+	ZEND_ARG_TYPE_INFO(0, bottom, IS_DOUBLE, 0)
+	ZEND_ARG_TYPE_INFO(0, right, IS_DOUBLE, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nscollectionviewgridlayout_nscollectionviewgridlayout_minimuminteritemspacing, 0, 1, IS_DOUBLE, 0)
+	ZEND_ARG_TYPE_INFO(0, handle, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nscollectionviewgridlayout_nscollectionviewgridlayout_setminimuminteritemspacing, 0, 2, IS_VOID, 0)
+
+	ZEND_ARG_TYPE_INFO(0, handle, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, minimumInteritemSpacing, IS_DOUBLE, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nscollectionviewgridlayout_nscollectionviewgridlayout_minimumlinespacing, 0, 1, IS_DOUBLE, 0)
+	ZEND_ARG_TYPE_INFO(0, handle, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nscollectionviewgridlayout_nscollectionviewgridlayout_setminimumlinespacing, 0, 2, IS_VOID, 0)
+
+	ZEND_ARG_TYPE_INFO(0, handle, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, minimumLineSpacing, IS_DOUBLE, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nscollectionviewgridlayout_nscollectionviewgridlayout_maximumnumberofrows, 0, 1, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, handle, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nscollectionviewgridlayout_nscollectionviewgridlayout_setmaximumnumberofrows, 0, 2, IS_VOID, 0)
+
+	ZEND_ARG_TYPE_INFO(0, handle, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, maximumNumberOfRows, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nscollectionviewgridlayout_nscollectionviewgridlayout_maximumnumberofcolumns, 0, 1, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, handle, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nscollectionviewgridlayout_nscollectionviewgridlayout_setmaximumnumberofcolumns, 0, 2, IS_VOID, 0)
+
+	ZEND_ARG_TYPE_INFO(0, handle, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, maximumNumberOfColumns, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nscollectionviewgridlayout_nscollectionviewgridlayout_minimumitemsize, 0, 1, IS_ARRAY, 0)
+	ZEND_ARG_TYPE_INFO(0, handle, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nscollectionviewgridlayout_nscollectionviewgridlayout_setminimumitemsize, 0, 3, IS_VOID, 0)
+
+	ZEND_ARG_TYPE_INFO(0, handle, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, width, IS_DOUBLE, 0)
+	ZEND_ARG_TYPE_INFO(0, height, IS_DOUBLE, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nscollectionviewgridlayout_nscollectionviewgridlayout_maximumitemsize, 0, 1, IS_ARRAY, 0)
+	ZEND_ARG_TYPE_INFO(0, handle, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nscollectionviewgridlayout_nscollectionviewgridlayout_setmaximumitemsize, 0, 3, IS_VOID, 0)
+
+	ZEND_ARG_TYPE_INFO(0, handle, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, width, IS_DOUBLE, 0)
+	ZEND_ARG_TYPE_INFO(0, height, IS_DOUBLE, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nscollectionviewgridlayout_nscollectionviewgridlayout_backgroundcolors, 0, 1, IS_ARRAY, 0)
+	ZEND_ARG_TYPE_INFO(0, handle, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nscollectionviewgridlayout_nscollectionviewgridlayout_setbackgroundcolors, 0, 2, IS_VOID, 0)
+
+	ZEND_ARG_TYPE_INFO(0, handle, IS_LONG, 0)
+	ZEND_ARG_INFO(0, backgroundColors)
+ZEND_END_ARG_INFO()
+
+ZEPHIR_INIT_FUNCS(appkit_ns_nscollectionviewgridlayout_nscollectionviewgridlayout_method_entry) {
+	PHP_ME(AppKit_NS_NSCollectionViewGridLayout_NSCollectionViewGridLayout, init, arginfo_appkit_ns_nscollectionviewgridlayout_nscollectionviewgridlayout_init, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSCollectionViewGridLayout_NSCollectionViewGridLayout, margins, arginfo_appkit_ns_nscollectionviewgridlayout_nscollectionviewgridlayout_margins, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSCollectionViewGridLayout_NSCollectionViewGridLayout, setMargins, arginfo_appkit_ns_nscollectionviewgridlayout_nscollectionviewgridlayout_setmargins, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSCollectionViewGridLayout_NSCollectionViewGridLayout, minimumInteritemSpacing, arginfo_appkit_ns_nscollectionviewgridlayout_nscollectionviewgridlayout_minimuminteritemspacing, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSCollectionViewGridLayout_NSCollectionViewGridLayout, setMinimumInteritemSpacing, arginfo_appkit_ns_nscollectionviewgridlayout_nscollectionviewgridlayout_setminimuminteritemspacing, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSCollectionViewGridLayout_NSCollectionViewGridLayout, minimumLineSpacing, arginfo_appkit_ns_nscollectionviewgridlayout_nscollectionviewgridlayout_minimumlinespacing, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSCollectionViewGridLayout_NSCollectionViewGridLayout, setMinimumLineSpacing, arginfo_appkit_ns_nscollectionviewgridlayout_nscollectionviewgridlayout_setminimumlinespacing, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSCollectionViewGridLayout_NSCollectionViewGridLayout, maximumNumberOfRows, arginfo_appkit_ns_nscollectionviewgridlayout_nscollectionviewgridlayout_maximumnumberofrows, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSCollectionViewGridLayout_NSCollectionViewGridLayout, setMaximumNumberOfRows, arginfo_appkit_ns_nscollectionviewgridlayout_nscollectionviewgridlayout_setmaximumnumberofrows, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSCollectionViewGridLayout_NSCollectionViewGridLayout, maximumNumberOfColumns, arginfo_appkit_ns_nscollectionviewgridlayout_nscollectionviewgridlayout_maximumnumberofcolumns, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSCollectionViewGridLayout_NSCollectionViewGridLayout, setMaximumNumberOfColumns, arginfo_appkit_ns_nscollectionviewgridlayout_nscollectionviewgridlayout_setmaximumnumberofcolumns, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSCollectionViewGridLayout_NSCollectionViewGridLayout, minimumItemSize, arginfo_appkit_ns_nscollectionviewgridlayout_nscollectionviewgridlayout_minimumitemsize, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSCollectionViewGridLayout_NSCollectionViewGridLayout, setMinimumItemSize, arginfo_appkit_ns_nscollectionviewgridlayout_nscollectionviewgridlayout_setminimumitemsize, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSCollectionViewGridLayout_NSCollectionViewGridLayout, maximumItemSize, arginfo_appkit_ns_nscollectionviewgridlayout_nscollectionviewgridlayout_maximumitemsize, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSCollectionViewGridLayout_NSCollectionViewGridLayout, setMaximumItemSize, arginfo_appkit_ns_nscollectionviewgridlayout_nscollectionviewgridlayout_setmaximumitemsize, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSCollectionViewGridLayout_NSCollectionViewGridLayout, backgroundColors, arginfo_appkit_ns_nscollectionviewgridlayout_nscollectionviewgridlayout_backgroundcolors, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSCollectionViewGridLayout_NSCollectionViewGridLayout, setBackgroundColors, arginfo_appkit_ns_nscollectionviewgridlayout_nscollectionviewgridlayout_setbackgroundcolors, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_FE_END
+};
