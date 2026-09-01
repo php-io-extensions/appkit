@@ -678,12 +678,12 @@ class NSLayoutManager
         return result;
     }
 
-    public static function setTemporaryAttributesForCharacterRange(int handle, int attrs, int location, int length) -> void
+    public static function setTemporaryAttributesForCharacterRange(int handle, var attrs, int location, int length) -> void
     {
         nslayoutmanager_set_temporary_attributes_for_character_range(handle, attrs, location, length);
     }
 
-    public static function addTemporaryAttributesForCharacterRange(int handle, int attrs, int location, int length) -> void
+    public static function addTemporaryAttributesForCharacterRange(int handle, var attrs, int location, int length) -> void
     {
         nslayoutmanager_add_temporary_attributes_for_character_range(handle, attrs, location, length);
     }

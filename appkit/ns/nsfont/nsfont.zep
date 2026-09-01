@@ -344,7 +344,7 @@ class NSFont
         return nsfont_rendering_mode(handle);
     }
 
-    public static function preferredFontForTextStyleOptions(string style, int options) -> int
+    public static function preferredFontForTextStyleOptions(string style, var options) -> int
     {
         return nsfont_preferred_font_for_text_style_options(style, options);
     }

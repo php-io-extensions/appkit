@@ -173,7 +173,7 @@ class NSImage
         nsimage_draw_in_rect_from_rect_operation_fraction(handle, x, y, width, height, fromX, fromY, fromWidth, fromHeight, op, delta);
     }
 
-    public static function drawInRectFromRectOperationFractionRespectFlippedHints(int handle, double x, double y, double width, double height, double fromX, double fromY, double fromWidth, double fromHeight, int op, double requestedAlpha, bool respectFlipped, int hints) -> void
+    public static function drawInRectFromRectOperationFractionRespectFlippedHints(int handle, double x, double y, double width, double height, double fromX, double fromY, double fromWidth, double fromHeight, int op, double requestedAlpha, bool respectFlipped, var hints) -> void
     {
         nsimage_draw_in_rect_from_rect_operation_fraction_respect_flipped_hints(handle, x, y, width, height, fromX, fromY, fromWidth, fromHeight, op, requestedAlpha, respectFlipped, hints);
     }
@@ -324,12 +324,12 @@ class NSImage
         return nsimage_init_with_cgimage_size(cgImage, width, height);
     }
 
-    public static function bestRepresentationForRectContextHints(int handle, double x, double y, double width, double height, int context, int hints) -> int
+    public static function bestRepresentationForRectContextHints(int handle, double x, double y, double width, double height, int context, var hints) -> int
     {
         return nsimage_best_representation_for_rect_context_hints(handle, x, y, width, height, context, hints);
     }
 
-    public static function hitTestRectWithImageDestinationRectContextHintsFlipped(int handle, double testX, double testY, double testWidth, double testHeight, double destX, double destY, double destWidth, double destHeight, int context, int hints, bool flipped) -> bool
+    public static function hitTestRectWithImageDestinationRectContextHintsFlipped(int handle, double testX, double testY, double testWidth, double testHeight, double destX, double destY, double destWidth, double destHeight, int context, var hints, bool flipped) -> bool
     {
         int r;
 

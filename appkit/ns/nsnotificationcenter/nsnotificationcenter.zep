@@ -20,7 +20,7 @@ class NSNotificationCenter
         nsnotificationcenter_post_notification_name_object(handle, name, object_);
     }
 
-    public static function postNotificationNameObjectUserInfo(int handle, string name, int object_, int userInfo) -> void
+    public static function postNotificationNameObjectUserInfo(int handle, string name, int object_, var userInfo) -> void
     {
         nsnotificationcenter_post_notification_name_object_user_info(handle, name, object_, userInfo);
     }

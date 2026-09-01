@@ -48,7 +48,7 @@ class NSFontDescriptor
         return nsfontdescriptor_font_attributes(handle);
     }
 
-    public static function fontDescriptorWithFontAttributes(int attributes) -> int
+    public static function fontDescriptorWithFontAttributes(var attributes) -> int
     {
         return nsfontdescriptor_font_descriptor_with_font_attributes(attributes);
     }
@@ -63,12 +63,12 @@ class NSFontDescriptor
         return nsfontdescriptor_font_descriptor_with_name_matrix(fontName, matrix);
     }
 
-    public static function initWithFontAttributes(int attributes) -> int
+    public static function initWithFontAttributes(var attributes) -> int
     {
         return nsfontdescriptor_init_with_font_attributes(attributes);
     }
 
-    public static function matchingFontDescriptorsWithMandatoryKeys(int handle, int mandatoryKeys) -> array
+    public static function matchingFontDescriptorsWithMandatoryKeys(int handle, var mandatoryKeys) -> array
     {
         var result;
 
@@ -77,12 +77,12 @@ class NSFontDescriptor
         return result;
     }
 
-    public static function matchingFontDescriptorWithMandatoryKeys(int handle, int mandatoryKeys) -> int
+    public static function matchingFontDescriptorWithMandatoryKeys(int handle, var mandatoryKeys) -> int
     {
         return nsfontdescriptor_matching_font_descriptor_with_mandatory_keys(handle, mandatoryKeys);
     }
 
-    public static function fontDescriptorByAddingAttributes(int handle, int attributes) -> int
+    public static function fontDescriptorByAddingAttributes(int handle, var attributes) -> int
     {
         return nsfontdescriptor_font_descriptor_by_adding_attributes(handle, attributes);
     }
@@ -117,7 +117,7 @@ class NSFontDescriptor
         return nsfontdescriptor_font_descriptor_with_design(handle, design);
     }
 
-    public static function preferredFontDescriptorForTextStyleOptions(string style, int options) -> int
+    public static function preferredFontDescriptorForTextStyleOptions(string style, var options) -> int
     {
         return nsfontdescriptor_preferred_font_descriptor_for_text_style_options(style, options);
     }

@@ -686,13 +686,17 @@ class NSColor
         return nscolor_color_with_ci_color(color);
     }
 
+    public static function CGColor(int handle) -> int
+    {
+        return nscolor_cg_color(handle);
+    }
+
     // ---- @reserved (not bound; see src/*.h) ----
     // @reserved - (nullable instancetype)initWithCoder:(NSCoder *)coder — NSCoder
     // @reserved + (NSColor *)colorWithColorSpace:(NSColorSpace *)space components:(const CGFloat *)components count:(NSInteger)numberOfComponents — C component buffer
     // @reserved + (NSColor *)colorWithName:(nullable NSColorName)colorName dynamicProvider:(NSColor * (^)(NSAppearance *))dynamicProvider — block
     // @reserved + (NSColor *)colorForControlTint:(NSControlTint)controlTint — API_DEPRECATED
     // @reserved - (void)getComponents:(CGFloat *)components — C component buffer
-    // @reserved @property (readonly) CGColorRef CGColor NS_RETURNS_INNER_POINTER — CGColorRef inner pointer
     // @reserved @property (class) BOOL ignoresAlpha — getter API_DEPRECATED
     // @reserved @property (class) BOOL ignoresAlpha — setter API_DEPRECATED
     // @reserved @property (class, strong, readonly) NSColor *controlHighlightColor — API_DEPRECATED

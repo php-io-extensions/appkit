@@ -548,7 +548,7 @@ class NSTextView
         return nstextview_selected_text_attributes(handle);
     }
 
-    public static function setSelectedTextAttributes(int handle, int selectedTextAttributes) -> void
+    public static function setSelectedTextAttributes(int handle, var selectedTextAttributes) -> void
     {
         nstextview_set_selected_text_attributes(handle, selectedTextAttributes);
     }
@@ -573,7 +573,7 @@ class NSTextView
         return nstextview_marked_text_attributes(handle);
     }
 
-    public static function setMarkedTextAttributes(int handle, int markedTextAttributes) -> void
+    public static function setMarkedTextAttributes(int handle, var markedTextAttributes) -> void
     {
         nstextview_set_marked_text_attributes(handle, markedTextAttributes);
     }
@@ -583,7 +583,7 @@ class NSTextView
         return nstextview_link_text_attributes(handle);
     }
 
-    public static function setLinkTextAttributes(int handle, int linkTextAttributes) -> void
+    public static function setLinkTextAttributes(int handle, var linkTextAttributes) -> void
     {
         nstextview_set_link_text_attributes(handle, linkTextAttributes);
     }
@@ -697,7 +697,7 @@ class NSTextView
         return nstextview_typing_attributes(handle);
     }
 
-    public static function setTypingAttributes(int handle, int typingAttributes) -> void
+    public static function setTypingAttributes(int handle, var typingAttributes) -> void
     {
         nstextview_set_typing_attributes(handle, typingAttributes);
     }
@@ -1223,12 +1223,12 @@ class NSTextView
         nstextview_set_enabled_text_checking_types(handle, enabledTextCheckingTypes);
     }
 
-    public static function checkTextInRangeTypesOptions(int handle, int location, int length, int checkingTypes, int options) -> void
+    public static function checkTextInRangeTypesOptions(int handle, int location, int length, int checkingTypes, var options) -> void
     {
         nstextview_check_text_in_range_types_options(handle, location, length, checkingTypes, options);
     }
 
-    public static function handleTextCheckingResultsForRangeTypesOptionsOrthographyWordCount(int handle, array results, int location, int length, int checkingTypes, int options, int orthography, int wordCount) -> void
+    public static function handleTextCheckingResultsForRangeTypesOptionsOrthographyWordCount(int handle, array results, int location, int length, int checkingTypes, var options, int orthography, int wordCount) -> void
     {
         nstextview_handle_text_checking_results_for_range_types_options_orthography_word_count(handle, results, location, length, checkingTypes, options, orthography, wordCount);
     }
@@ -1412,7 +1412,7 @@ class NSTextView
         return nstextview_text_highlight_attributes(handle);
     }
 
-    public static function setTextHighlightAttributes(int handle, int textHighlightAttributes) -> void
+    public static function setTextHighlightAttributes(int handle, var textHighlightAttributes) -> void
     {
         nstextview_set_text_highlight_attributes(handle, textHighlightAttributes);
     }

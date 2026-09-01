@@ -456,7 +456,7 @@ class NSApplication
         nsapplication_order_front_standard_about_panel(handle, sender);
     }
 
-    public static function orderFrontStandardAboutPanelWithOptions(int handle, int options) -> void
+    public static function orderFrontStandardAboutPanelWithOptions(int handle, var options) -> void
     {
         nsapplication_order_front_standard_about_panel_with_options(handle, options);
     }

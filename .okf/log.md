@@ -1,5 +1,24 @@
 # Change log
 
+## 2026-08-30 (style)
+* **Binding**: `NS\NSAttributedString` (curated: initWithString, initWithStringAttributes
+  via the array-to-NSDictionary marshalling, string, length), `NSButton`
+  attributedTitle/setAttributedTitle, and the `NSColor::CGColor` getter — unreserved,
+  answering raw pointer bits per the CF convention (valid while the NSColor lives).
+
+## 2026-08-30
+* **Marshalling**: inbound collections. `ns_arg_value` / `ns_arg_value_array` /
+  `ns_arg_dictionary` / `ns_arg_set` in `src/ns-value.h` convert a PHP array
+  recursively — string→NSString, bool/float→NSNumber, int→the live object when the int
+  is a registered handle else NSNumber, list→NSArray, assoc→NSDictionary<NSString,id>.
+  All 24 `NS_ARG_AS(NSDictionary|NSSet, …)` parameter sites switched to it and their
+  `@zep` params flipped `int`→`var` (About panel options, font/descriptor attributes,
+  text-view attribute dicts, layout-manager temporary attributes, image/imagerep hints,
+  notification userInfo, view fullscreen options, text-checking options). Before this
+  none of those methods was callable from PHP: they wanted a dictionary handle nothing
+  could mint. Gates green (GEN/PARITY/prepare/install/REFLECTION/guards/surfaces);
+  proven headless via NSFontDescriptor attributes + mandatory-keys set on the Mac.
+
 ## 2026-08-27
 
 - `scripts/tests/structure-check.php` was silently unusable and had to be

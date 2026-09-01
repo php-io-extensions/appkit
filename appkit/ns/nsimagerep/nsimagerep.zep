@@ -37,7 +37,7 @@ class NSImageRep
         return r == 1;
     }
 
-    public static function drawInRectFromRectOperationFractionRespectFlippedHints(int handle, double x, double y, double width, double height, double fromX, double fromY, double fromWidth, double fromHeight, int op, double requestedAlpha, bool respectFlipped, int hints) -> bool
+    public static function drawInRectFromRectOperationFractionRespectFlippedHints(int handle, double x, double y, double width, double height, double fromX, double fromY, double fromWidth, double fromHeight, int op, double requestedAlpha, bool respectFlipped, var hints) -> bool
     {
         int r;
 

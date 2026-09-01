@@ -35,6 +35,16 @@ class NSButton
         nsbutton_set_button_type(handle, type);
     }
 
+    public static function attributedTitle(int handle) -> int
+    {
+        return nsbutton_attributed_title(handle);
+    }
+
+    public static function setAttributedTitle(int handle, int attributedTitle) -> void
+    {
+        nsbutton_set_attributed_title(handle, attributedTitle);
+    }
+
     public static function title(int handle) -> string
     {
         var result;

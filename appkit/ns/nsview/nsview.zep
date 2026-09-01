@@ -1330,7 +1330,7 @@ class NSView
         nsview_unregister_dragged_types(handle);
     }
 
-    public static function enterFullScreenModeWithOptions(int handle, int screen, int options) -> bool
+    public static function enterFullScreenModeWithOptions(int handle, int screen, var options) -> bool
     {
         int r;
 
@@ -1339,7 +1339,7 @@ class NSView
         return r == 1;
     }
 
-    public static function exitFullScreenModeWithOptions(int handle, int options) -> void
+    public static function exitFullScreenModeWithOptions(int handle, var options) -> void
     {
         nsview_exit_full_screen_mode_with_options(handle, options);
     }
