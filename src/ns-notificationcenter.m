@@ -35,7 +35,7 @@ void ns_nsnotificationcenter_post_notification_name_object_user_info(zval *handl
     @autoreleasepool {
         NSNotificationCenter *c = NS_ARG_AS(NSNotificationCenter, handle);
         if (c == nil) return;
-        [c postNotificationName:ns_arg_string(name) object:ns_arg_object(object_) userInfo:NS_ARG_AS(NSDictionary, userInfo)];
+        [c postNotificationName:ns_arg_string(name) object:ns_arg_object(object_) userInfo:ns_arg_dictionary(userInfo)];
     }
 }
 

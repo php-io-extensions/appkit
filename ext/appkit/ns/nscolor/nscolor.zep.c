@@ -1538,3 +1538,17 @@ PHP_METHOD(AppKit_NS_NSColor_NSColor, colorWithCIColor)
 	RETURN_LONG(ns_nscolor_color_with_ci_color(&_0));
 }
 
+PHP_METHOD(AppKit_NS_NSColor_NSColor, CGColor)
+{
+	zval *handle_param = NULL, _0;
+	zend_long handle;
+
+	ZVAL_UNDEF(&_0);
+	ZEND_PARSE_PARAMETERS_START(1, 1)
+		Z_PARAM_LONG(handle)
+	ZEND_PARSE_PARAMETERS_END();
+	zephir_fetch_params_without_memory_grow(1, 0, &handle_param);
+	ZVAL_LONG(&_0, handle);
+	RETURN_LONG(ns_nscolor_cg_color(&_0));
+}
+

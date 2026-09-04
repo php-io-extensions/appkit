@@ -56,24 +56,24 @@ zend_long ns_nsfontdescriptor_font_attributes(zval *handle);
 
 /* ---- Instantiation ---- */
 
-/*@zep NS\NSFontDescriptor fontDescriptorWithFontAttributes(int attributes) -> int */
+/*@zep NS\NSFontDescriptor fontDescriptorWithFontAttributes(var attributes) -> int */
 zend_long ns_nsfontdescriptor_font_descriptor_with_font_attributes(zval *attributes);
 /*@zep NS\NSFontDescriptor fontDescriptorWithNameSize(string fontName, double size) -> int */
 zend_long ns_nsfontdescriptor_font_descriptor_with_name_size(zval *fontName, zval *size);
 /*@zep NS\NSFontDescriptor fontDescriptorWithNameMatrix(string fontName, int matrix) -> int */
 zend_long ns_nsfontdescriptor_font_descriptor_with_name_matrix(zval *fontName, zval *matrix);
 
-/*@zep NS\NSFontDescriptor initWithFontAttributes(int attributes) -> int */
+/*@zep NS\NSFontDescriptor initWithFontAttributes(var attributes) -> int */
 zend_long ns_nsfontdescriptor_init_with_font_attributes(zval *attributes);
 
 /* ---- Instance conversion ---- */
 
-/*@zep NS\NSFontDescriptor matchingFontDescriptorsWithMandatoryKeys(int handle, int mandatoryKeys) -> array */
+/*@zep NS\NSFontDescriptor matchingFontDescriptorsWithMandatoryKeys(int handle, var mandatoryKeys) -> array */
 void ns_nsfontdescriptor_matching_font_descriptors_with_mandatory_keys(zval *return_value, zval *handle, zval *mandatoryKeys);
-/*@zep NS\NSFontDescriptor matchingFontDescriptorWithMandatoryKeys(int handle, int mandatoryKeys) -> int */
+/*@zep NS\NSFontDescriptor matchingFontDescriptorWithMandatoryKeys(int handle, var mandatoryKeys) -> int */
 zend_long ns_nsfontdescriptor_matching_font_descriptor_with_mandatory_keys(zval *handle, zval *mandatoryKeys);
 
-/*@zep NS\NSFontDescriptor fontDescriptorByAddingAttributes(int handle, int attributes) -> int */
+/*@zep NS\NSFontDescriptor fontDescriptorByAddingAttributes(int handle, var attributes) -> int */
 zend_long ns_nsfontdescriptor_font_descriptor_by_adding_attributes(zval *handle, zval *attributes);
 /*@zep NS\NSFontDescriptor fontDescriptorWithSymbolicTraits(int handle, int symbolicTraits) -> int */
 zend_long ns_nsfontdescriptor_font_descriptor_with_symbolic_traits(zval *handle, zval *symbolicTraits);
@@ -90,7 +90,7 @@ zend_long ns_nsfontdescriptor_font_descriptor_with_design(zval *handle, zval *de
 
 /* ---- NSFontDescriptor_TextStyles ---- */
 
-/*@zep NS\NSFontDescriptor preferredFontDescriptorForTextStyleOptions(string style, int options) -> int */
+/*@zep NS\NSFontDescriptor preferredFontDescriptorForTextStyleOptions(string style, var options) -> int */
 zend_long ns_nsfontdescriptor_preferred_font_descriptor_for_text_style_options(zval *style, zval *options);
 
 #ifdef __cplusplus

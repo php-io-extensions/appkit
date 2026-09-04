@@ -551,6 +551,6 @@ zend_long ns_nsfont_preferred_font_for_text_style_options(zval *style, zval *opt
 {
     @autoreleasepool {
         return ns_handle_for([NSFont preferredFontForTextStyle:ns_arg_string(style)
-                                                       options:NS_ARG_AS(NSDictionary, options)]);
+                                                       options:ns_arg_dictionary(options)]);
     }
 }

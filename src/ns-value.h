@@ -267,6 +267,98 @@ static inline void ns_ret_string_array(zval *rv, NSArray<NSString *> *a)
     }
 }
 
+
+/*
+ * Inbound collections. AppKit takes NSDictionary / NSSet / NSArray parameters
+ * whose VALUES are mixed — strings, numbers, and objects (an attributes dict
+ * carries an NSFont). PHP hands an array; this converts it recursively:
+ *
+ *   string        -> NSString
+ *   bool          -> NSNumber (bool)
+ *   float         -> NSNumber (double)
+ *   int           -> the registered object when the int is a live handle,
+ *                    otherwise NSNumber (long). Handles are pointer-valued,
+ *                    so a small number never collides with one.
+ *   list array    -> NSArray of the above
+ *   assoc array   -> NSDictionary<NSString, id> of the above (string keys;
+ *                    integer keys become their decimal string)
+ *   null / other  -> dropped
+ *
+ * A dictionary asked for from a list, or a list from a dictionary, answers
+ * empty rather than guessing.
+ */
+static inline id ns_arg_value(zval *z);
+
+static inline BOOL ns_zval_is_list(zval *z)
+{
+    HashTable *ht = Z_ARRVAL_P(z);
+    zend_ulong expected = 0;
+    zend_ulong idx;
+    zend_string *key;
+    ZEND_HASH_FOREACH_KEY(ht, idx, key) {
+        if (key != NULL || idx != expected) return NO;
+        expected++;
+    } ZEND_HASH_FOREACH_END();
+    return YES;
+}
+
+static inline NSArray *ns_arg_value_array(zval *z)
+{
+    NSMutableArray *out = [NSMutableArray new];
+    z = ns_deref(z);
+    if (z == NULL || Z_TYPE_P(z) != IS_ARRAY || !ns_zval_is_list(z)) return out;
+    zval *e;
+    ZEND_HASH_FOREACH_VAL(Z_ARRVAL_P(z), e) {
+        id v = ns_arg_value(e);
+        if (v != nil) [out addObject:v];
+    } ZEND_HASH_FOREACH_END();
+    return out;
+}
+
+static inline NSDictionary *ns_arg_dictionary(zval *z)
+{
+    NSMutableDictionary *out = [NSMutableDictionary new];
+    z = ns_deref(z);
+    if (z == NULL || Z_TYPE_P(z) != IS_ARRAY || ns_zval_is_list(z)) return out;
+    zend_ulong idx;
+    zend_string *key;
+    zval *e;
+    ZEND_HASH_FOREACH_KEY_VAL(Z_ARRVAL_P(z), idx, key, e) {
+        id v = ns_arg_value(e);
+        if (v == nil) continue;
+        NSString *k = key != NULL
+            ? [[NSString alloc] initWithBytes:ZSTR_VAL(key) length:ZSTR_LEN(key) encoding:NSUTF8StringEncoding]
+            : [NSString stringWithFormat:@"%lu", (unsigned long) idx];
+        if (k != nil) out[k] = v;
+    } ZEND_HASH_FOREACH_END();
+    return out;
+}
+
+static inline NSSet *ns_arg_set(zval *z)
+{
+    return [NSSet setWithArray:ns_arg_value_array(z)];
+}
+
+static inline id ns_arg_value(zval *z)
+{
+    z = ns_deref(z);
+    if (z == NULL) return nil;
+    switch (Z_TYPE_P(z)) {
+        case IS_STRING: return ns_arg_string(z);
+        case IS_TRUE:   return @YES;
+        case IS_FALSE:  return @NO;
+        case IS_DOUBLE: return @(Z_DVAL_P(z));
+        case IS_LONG: {
+            id o = ns_handle_object(Z_LVAL_P(z));
+            return o != nil ? o : @((long long) Z_LVAL_P(z));
+        }
+        case IS_ARRAY:
+            return ns_zval_is_list(z) ? (id) ns_arg_value_array(z) : (id) ns_arg_dictionary(z);
+        default:
+            return nil;
+    }
+}
+
 /* Resolve a handle to an instance of a class; nil when not that kind. */
 #define NS_ARG_AS(Type, z) ((Type *) ns_arg_typed(z, [Type class]))
 

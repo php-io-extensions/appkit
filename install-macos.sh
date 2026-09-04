@@ -91,7 +91,7 @@ ok "Found zephir: $ZEPHIR"
 export ZEPHIR_BIN="$ZEPHIR"
 
 step "🖼️  Verifying AppKit frameworks..."
-for fw in Foundation AppKit CoreGraphics QuartzCore; do
+for fw in Foundation AppKit CoreGraphics QuartzCore AVFoundation AVKit; do
     if [ -d "/System/Library/Frameworks/${fw}.framework" ]; then
         ok "${fw}.framework found"
         continue

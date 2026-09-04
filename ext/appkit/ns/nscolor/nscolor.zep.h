@@ -132,6 +132,7 @@ PHP_METHOD(AppKit_NS_NSColor_NSColor, writeToPasteboard);
 PHP_METHOD(AppKit_NS_NSColor_NSColor, drawSwatchInRect);
 PHP_METHOD(AppKit_NS_NSColor_NSColor, colorWithCGColor);
 PHP_METHOD(AppKit_NS_NSColor_NSColor, colorWithCIColor);
+PHP_METHOD(AppKit_NS_NSColor_NSColor, CGColor);
 
 ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nscolor_nscolor_init, 0, 0, IS_LONG, 0)
 ZEND_END_ARG_INFO()
@@ -633,6 +634,10 @@ ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nscolor_nscolor_colorw
 	ZEND_ARG_TYPE_INFO(0, color, IS_LONG, 0)
 ZEND_END_ARG_INFO()
 
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nscolor_nscolor_cgcolor, 0, 1, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, handle, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
 ZEPHIR_INIT_FUNCS(appkit_ns_nscolor_nscolor_method_entry) {
 	PHP_ME(AppKit_NS_NSColor_NSColor, init, arginfo_appkit_ns_nscolor_nscolor_init, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
 	PHP_ME(AppKit_NS_NSColor_NSColor, colorWithSRGBRedGreenBlueAlpha, arginfo_appkit_ns_nscolor_nscolor_colorwithsrgbredgreenbluealpha, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
@@ -763,5 +768,6 @@ ZEPHIR_INIT_FUNCS(appkit_ns_nscolor_nscolor_method_entry) {
 	PHP_ME(AppKit_NS_NSColor_NSColor, drawSwatchInRect, arginfo_appkit_ns_nscolor_nscolor_drawswatchinrect, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
 	PHP_ME(AppKit_NS_NSColor_NSColor, colorWithCGColor, arginfo_appkit_ns_nscolor_nscolor_colorwithcgcolor, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
 	PHP_ME(AppKit_NS_NSColor_NSColor, colorWithCIColor, arginfo_appkit_ns_nscolor_nscolor_colorwithcicolor, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSColor_NSColor, CGColor, arginfo_appkit_ns_nscolor_nscolor_cgcolor, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
 	PHP_FE_END
 };

@@ -374,10 +374,10 @@ void ns_nslayoutmanager_bounds_rect_for_text_block_at_index_effective_range(zval
 /*@zep NS\NSLayoutManager temporaryAttributesAtCharacterIndexEffectiveRange(int handle, int charIndex) -> array */
 void ns_nslayoutmanager_temporary_attributes_at_character_index_effective_range(zval *return_value, zval *handle, zval *charIndex);
 
-/*@zep NS\NSLayoutManager setTemporaryAttributesForCharacterRange(int handle, int attrs, int location, int length) -> void */
+/*@zep NS\NSLayoutManager setTemporaryAttributesForCharacterRange(int handle, var attrs, int location, int length) -> void */
 void ns_nslayoutmanager_set_temporary_attributes_for_character_range(zval *handle, zval *attrs, zval *location, zval *length);
 
-/*@zep NS\NSLayoutManager addTemporaryAttributesForCharacterRange(int handle, int attrs, int location, int length) -> void */
+/*@zep NS\NSLayoutManager addTemporaryAttributesForCharacterRange(int handle, var attrs, int location, int length) -> void */
 void ns_nslayoutmanager_add_temporary_attributes_for_character_range(zval *handle, zval *attrs, zval *location, zval *length);
 
 /*@zep NS\NSLayoutManager removeTemporaryAttributeForCharacterRange(int handle, string attrName, int location, int length) -> void */

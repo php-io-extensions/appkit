@@ -4246,40 +4246,38 @@ PHP_METHOD(AppKit_NS_NSView_NSView, unregisterDraggedTypes)
 
 PHP_METHOD(AppKit_NS_NSView_NSView, enterFullScreenModeWithOptions)
 {
-	zval *handle_param = NULL, *screen_param = NULL, *options_param = NULL, _0, _1, _2;
-	zend_long handle, screen, options, r = 0;
+	zval *handle_param = NULL, *screen_param = NULL, *options = NULL, options_sub, _0, _1;
+	zend_long handle, screen, r = 0;
 
+	ZVAL_UNDEF(&options_sub);
 	ZVAL_UNDEF(&_0);
 	ZVAL_UNDEF(&_1);
-	ZVAL_UNDEF(&_2);
 	ZEND_PARSE_PARAMETERS_START(3, 3)
 		Z_PARAM_LONG(handle)
 		Z_PARAM_LONG(screen)
-		Z_PARAM_LONG(options)
+		Z_PARAM_ZVAL(options)
 	ZEND_PARSE_PARAMETERS_END();
-	zephir_fetch_params_without_memory_grow(3, 0, &handle_param, &screen_param, &options_param);
+	zephir_fetch_params_without_memory_grow(3, 0, &handle_param, &screen_param, &options);
 	ZVAL_LONG(&_0, handle);
 	ZVAL_LONG(&_1, screen);
-	ZVAL_LONG(&_2, options);
-	r = ns_nsview_enter_full_screen_mode_with_options(&_0, &_1, &_2);
+	r = ns_nsview_enter_full_screen_mode_with_options(&_0, &_1, options);
 	RETURN_BOOL(r == 1);
 }
 
 PHP_METHOD(AppKit_NS_NSView_NSView, exitFullScreenModeWithOptions)
 {
-	zval *handle_param = NULL, *options_param = NULL, _0, _1;
-	zend_long handle, options;
+	zval *handle_param = NULL, *options = NULL, options_sub, _0;
+	zend_long handle;
 
+	ZVAL_UNDEF(&options_sub);
 	ZVAL_UNDEF(&_0);
-	ZVAL_UNDEF(&_1);
 	ZEND_PARSE_PARAMETERS_START(2, 2)
 		Z_PARAM_LONG(handle)
-		Z_PARAM_LONG(options)
+		Z_PARAM_ZVAL(options)
 	ZEND_PARSE_PARAMETERS_END();
-	zephir_fetch_params_without_memory_grow(2, 0, &handle_param, &options_param);
+	zephir_fetch_params_without_memory_grow(2, 0, &handle_param, &options);
 	ZVAL_LONG(&_0, handle);
-	ZVAL_LONG(&_1, options);
-	ns_nsview_exit_full_screen_mode_with_options(&_0, &_1);
+	ns_nsview_exit_full_screen_mode_with_options(&_0, options);
 }
 
 PHP_METHOD(AppKit_NS_NSView_NSView, isInFullScreenMode)

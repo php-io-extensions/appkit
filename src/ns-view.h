@@ -451,9 +451,9 @@ void ns_nsview_register_for_dragged_types(zval *handle, zval *newTypes);
 void ns_nsview_unregister_dragged_types(zval *handle);
 
 /* ---- NSFullScreenMode ---- */
-/*@zep NS\NSView enterFullScreenModeWithOptions(int handle, int screen, int options) -> bool */
+/*@zep NS\NSView enterFullScreenModeWithOptions(int handle, int screen, var options) -> bool */
 zend_long ns_nsview_enter_full_screen_mode_with_options(zval *handle, zval *screen, zval *options);
-/*@zep NS\NSView exitFullScreenModeWithOptions(int handle, int options) -> void */
+/*@zep NS\NSView exitFullScreenModeWithOptions(int handle, var options) -> void */
 void ns_nsview_exit_full_screen_mode_with_options(zval *handle, zval *options);
 /*@zep NS\NSView isInFullScreenMode(int handle) -> bool */
 zend_long ns_nsview_is_in_full_screen_mode(zval *handle);

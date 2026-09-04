@@ -139,16 +139,14 @@ PHP_METHOD(AppKit_NS_NSFontDescriptor_NSFontDescriptor, fontAttributes)
 
 PHP_METHOD(AppKit_NS_NSFontDescriptor_NSFontDescriptor, fontDescriptorWithFontAttributes)
 {
-	zval *attributes_param = NULL, _0;
-	zend_long attributes;
+	zval *attributes = NULL, attributes_sub;
 
-	ZVAL_UNDEF(&_0);
+	ZVAL_UNDEF(&attributes_sub);
 	ZEND_PARSE_PARAMETERS_START(1, 1)
-		Z_PARAM_LONG(attributes)
+		Z_PARAM_ZVAL(attributes)
 	ZEND_PARSE_PARAMETERS_END();
-	zephir_fetch_params_without_memory_grow(1, 0, &attributes_param);
-	ZVAL_LONG(&_0, attributes);
-	RETURN_LONG(ns_nsfontdescriptor_font_descriptor_with_font_attributes(&_0));
+	zephir_fetch_params_without_memory_grow(1, 0, &attributes);
+	RETURN_LONG(ns_nsfontdescriptor_font_descriptor_with_font_attributes(attributes));
 }
 
 PHP_METHOD(AppKit_NS_NSFontDescriptor_NSFontDescriptor, fontDescriptorWithNameSize)
@@ -196,73 +194,68 @@ PHP_METHOD(AppKit_NS_NSFontDescriptor_NSFontDescriptor, fontDescriptorWithNameMa
 
 PHP_METHOD(AppKit_NS_NSFontDescriptor_NSFontDescriptor, initWithFontAttributes)
 {
-	zval *attributes_param = NULL, _0;
-	zend_long attributes;
+	zval *attributes = NULL, attributes_sub;
 
-	ZVAL_UNDEF(&_0);
+	ZVAL_UNDEF(&attributes_sub);
 	ZEND_PARSE_PARAMETERS_START(1, 1)
-		Z_PARAM_LONG(attributes)
+		Z_PARAM_ZVAL(attributes)
 	ZEND_PARSE_PARAMETERS_END();
-	zephir_fetch_params_without_memory_grow(1, 0, &attributes_param);
-	ZVAL_LONG(&_0, attributes);
-	RETURN_LONG(ns_nsfontdescriptor_init_with_font_attributes(&_0));
+	zephir_fetch_params_without_memory_grow(1, 0, &attributes);
+	RETURN_LONG(ns_nsfontdescriptor_init_with_font_attributes(attributes));
 }
 
 PHP_METHOD(AppKit_NS_NSFontDescriptor_NSFontDescriptor, matchingFontDescriptorsWithMandatoryKeys)
 {
 	zephir_method_globals *ZEPHIR_METHOD_GLOBALS_PTR = NULL;
-	zval *handle_param = NULL, *mandatoryKeys_param = NULL, result, _0, _1;
-	zend_long handle, mandatoryKeys;
+	zval *handle_param = NULL, *mandatoryKeys = NULL, mandatoryKeys_sub, result, _0;
+	zend_long handle;
 
+	ZVAL_UNDEF(&mandatoryKeys_sub);
 	ZVAL_UNDEF(&result);
 	ZVAL_UNDEF(&_0);
-	ZVAL_UNDEF(&_1);
 	ZEND_PARSE_PARAMETERS_START(2, 2)
 		Z_PARAM_LONG(handle)
-		Z_PARAM_LONG(mandatoryKeys)
+		Z_PARAM_ZVAL(mandatoryKeys)
 	ZEND_PARSE_PARAMETERS_END();
 	ZEPHIR_METHOD_GLOBALS_PTR = pecalloc(1, sizeof(zephir_method_globals), 0);
 	zephir_memory_grow_stack(ZEPHIR_METHOD_GLOBALS_PTR, __func__);
-	zephir_fetch_params(1, 2, 0, &handle_param, &mandatoryKeys_param);
+	zephir_fetch_params(1, 2, 0, &handle_param, &mandatoryKeys);
 	ZEPHIR_INIT_VAR(&result);
 	ZVAL_LONG(&_0, handle);
-	ZVAL_LONG(&_1, mandatoryKeys);
-	ns_nsfontdescriptor_matching_font_descriptors_with_mandatory_keys(&result, &_0, &_1);
+	ns_nsfontdescriptor_matching_font_descriptors_with_mandatory_keys(&result, &_0, mandatoryKeys);
 	RETURN_CCTOR(&result);
 }
 
 PHP_METHOD(AppKit_NS_NSFontDescriptor_NSFontDescriptor, matchingFontDescriptorWithMandatoryKeys)
 {
-	zval *handle_param = NULL, *mandatoryKeys_param = NULL, _0, _1;
-	zend_long handle, mandatoryKeys;
+	zval *handle_param = NULL, *mandatoryKeys = NULL, mandatoryKeys_sub, _0;
+	zend_long handle;
 
+	ZVAL_UNDEF(&mandatoryKeys_sub);
 	ZVAL_UNDEF(&_0);
-	ZVAL_UNDEF(&_1);
 	ZEND_PARSE_PARAMETERS_START(2, 2)
 		Z_PARAM_LONG(handle)
-		Z_PARAM_LONG(mandatoryKeys)
+		Z_PARAM_ZVAL(mandatoryKeys)
 	ZEND_PARSE_PARAMETERS_END();
-	zephir_fetch_params_without_memory_grow(2, 0, &handle_param, &mandatoryKeys_param);
+	zephir_fetch_params_without_memory_grow(2, 0, &handle_param, &mandatoryKeys);
 	ZVAL_LONG(&_0, handle);
-	ZVAL_LONG(&_1, mandatoryKeys);
-	RETURN_LONG(ns_nsfontdescriptor_matching_font_descriptor_with_mandatory_keys(&_0, &_1));
+	RETURN_LONG(ns_nsfontdescriptor_matching_font_descriptor_with_mandatory_keys(&_0, mandatoryKeys));
 }
 
 PHP_METHOD(AppKit_NS_NSFontDescriptor_NSFontDescriptor, fontDescriptorByAddingAttributes)
 {
-	zval *handle_param = NULL, *attributes_param = NULL, _0, _1;
-	zend_long handle, attributes;
+	zval *handle_param = NULL, *attributes = NULL, attributes_sub, _0;
+	zend_long handle;
 
+	ZVAL_UNDEF(&attributes_sub);
 	ZVAL_UNDEF(&_0);
-	ZVAL_UNDEF(&_1);
 	ZEND_PARSE_PARAMETERS_START(2, 2)
 		Z_PARAM_LONG(handle)
-		Z_PARAM_LONG(attributes)
+		Z_PARAM_ZVAL(attributes)
 	ZEND_PARSE_PARAMETERS_END();
-	zephir_fetch_params_without_memory_grow(2, 0, &handle_param, &attributes_param);
+	zephir_fetch_params_without_memory_grow(2, 0, &handle_param, &attributes);
 	ZVAL_LONG(&_0, handle);
-	ZVAL_LONG(&_1, attributes);
-	RETURN_LONG(ns_nsfontdescriptor_font_descriptor_by_adding_attributes(&_0, &_1));
+	RETURN_LONG(ns_nsfontdescriptor_font_descriptor_by_adding_attributes(&_0, attributes));
 }
 
 PHP_METHOD(AppKit_NS_NSFontDescriptor_NSFontDescriptor, fontDescriptorWithSymbolicTraits)
@@ -384,21 +377,19 @@ PHP_METHOD(AppKit_NS_NSFontDescriptor_NSFontDescriptor, fontDescriptorWithDesign
 PHP_METHOD(AppKit_NS_NSFontDescriptor_NSFontDescriptor, preferredFontDescriptorForTextStyleOptions)
 {
 	zephir_method_globals *ZEPHIR_METHOD_GLOBALS_PTR = NULL;
-	zend_long options;
-	zval *style_param = NULL, *options_param = NULL, _0;
+	zval *style_param = NULL, *options = NULL, options_sub;
 	zval style;
 
 	ZVAL_UNDEF(&style);
-	ZVAL_UNDEF(&_0);
+	ZVAL_UNDEF(&options_sub);
 	ZEND_PARSE_PARAMETERS_START(2, 2)
 		Z_PARAM_STR(style)
-		Z_PARAM_LONG(options)
+		Z_PARAM_ZVAL(options)
 	ZEND_PARSE_PARAMETERS_END();
 	ZEPHIR_METHOD_GLOBALS_PTR = pecalloc(1, sizeof(zephir_method_globals), 0);
 	zephir_memory_grow_stack(ZEPHIR_METHOD_GLOBALS_PTR, __func__);
-	zephir_fetch_params(1, 2, 0, &style_param, &options_param);
+	zephir_fetch_params(1, 2, 0, &style_param, &options);
 	zephir_get_strval(&style, style_param);
-	ZVAL_LONG(&_0, options);
-	RETURN_MM_LONG(ns_nsfontdescriptor_preferred_font_descriptor_for_text_style_options(&style, &_0));
+	RETURN_MM_LONG(ns_nsfontdescriptor_preferred_font_descriptor_for_text_style_options(&style, options));
 }
 

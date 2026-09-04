@@ -795,7 +795,7 @@ void ns_nsapplication_order_front_standard_about_panel_with_options(zval *handle
     @autoreleasepool {
         NSApplication *app = NS_ARG_AS(NSApplication, handle);
         if (app == nil) { return; }
-        [app orderFrontStandardAboutPanelWithOptions:NS_ARG_AS(NSDictionary, options)];
+        [app orderFrontStandardAboutPanelWithOptions:ns_arg_dictionary(options)];
     }
 }
 

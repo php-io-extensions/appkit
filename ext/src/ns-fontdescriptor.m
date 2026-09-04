@@ -80,7 +80,7 @@ zend_long ns_nsfontdescriptor_font_attributes(zval *handle)
 zend_long ns_nsfontdescriptor_font_descriptor_with_font_attributes(zval *attributes)
 {
     @autoreleasepool {
-        return ns_handle_for([NSFontDescriptor fontDescriptorWithFontAttributes:NS_ARG_AS(NSDictionary, attributes)]);
+        return ns_handle_for([NSFontDescriptor fontDescriptorWithFontAttributes:ns_arg_dictionary(attributes)]);
     }
 }
 
@@ -102,7 +102,7 @@ zend_long ns_nsfontdescriptor_font_descriptor_with_name_matrix(zval *fontName, z
 zend_long ns_nsfontdescriptor_init_with_font_attributes(zval *attributes)
 {
     @autoreleasepool {
-        return ns_handle_for([[NSFontDescriptor alloc] initWithFontAttributes:NS_ARG_AS(NSDictionary, attributes)]);
+        return ns_handle_for([[NSFontDescriptor alloc] initWithFontAttributes:ns_arg_dictionary(attributes)]);
     }
 }
 
@@ -114,7 +114,7 @@ void ns_nsfontdescriptor_matching_font_descriptors_with_mandatory_keys(zval *ret
 {
     @autoreleasepool {
         NSFontDescriptor *d = NS_ARG_AS(NSFontDescriptor, handle);
-        ns_ret_object_array(return_value, d != nil ? [d matchingFontDescriptorsWithMandatoryKeys:NS_ARG_AS(NSSet, mandatoryKeys)] : nil);
+        ns_ret_object_array(return_value, d != nil ? [d matchingFontDescriptorsWithMandatoryKeys:ns_arg_set(mandatoryKeys)] : nil);
     }
 }
 
@@ -123,7 +123,7 @@ zend_long ns_nsfontdescriptor_matching_font_descriptor_with_mandatory_keys(zval 
     zend_long h = 0;
     @autoreleasepool {
         NSFontDescriptor *d = NS_ARG_AS(NSFontDescriptor, handle);
-        h = ns_handle_for(d != nil ? [d matchingFontDescriptorWithMandatoryKeys:NS_ARG_AS(NSSet, mandatoryKeys)] : nil);
+        h = ns_handle_for(d != nil ? [d matchingFontDescriptorWithMandatoryKeys:ns_arg_set(mandatoryKeys)] : nil);
     }
     return h;
 }
@@ -133,7 +133,7 @@ zend_long ns_nsfontdescriptor_font_descriptor_by_adding_attributes(zval *handle,
     zend_long h = 0;
     @autoreleasepool {
         NSFontDescriptor *d = NS_ARG_AS(NSFontDescriptor, handle);
-        h = ns_handle_for(d != nil ? [d fontDescriptorByAddingAttributes:NS_ARG_AS(NSDictionary, attributes)] : nil);
+        h = ns_handle_for(d != nil ? [d fontDescriptorByAddingAttributes:ns_arg_dictionary(attributes)] : nil);
     }
     return h;
 }
@@ -206,6 +206,6 @@ zend_long ns_nsfontdescriptor_preferred_font_descriptor_for_text_style_options(z
 {
     @autoreleasepool {
         return ns_handle_for([NSFontDescriptor preferredFontDescriptorForTextStyle:ns_arg_string(style)
-                                                                          options:NS_ARG_AS(NSDictionary, options)]);
+                                                                          options:ns_arg_dictionary(options)]);
     }
 }

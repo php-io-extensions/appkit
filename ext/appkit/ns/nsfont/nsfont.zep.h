@@ -319,7 +319,7 @@ ZEND_END_ARG_INFO()
 
 ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsfont_nsfont_preferredfontfortextstyleoptions, 0, 2, IS_LONG, 0)
 	ZEND_ARG_TYPE_INFO(0, style, IS_STRING, 0)
-	ZEND_ARG_TYPE_INFO(0, options, IS_LONG, 0)
+	ZEND_ARG_INFO(0, options)
 ZEND_END_ARG_INFO()
 
 ZEPHIR_INIT_FUNCS(appkit_ns_nsfont_nsfont_method_entry) {

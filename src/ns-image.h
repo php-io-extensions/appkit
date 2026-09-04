@@ -114,7 +114,7 @@ void ns_nsimage_set_matches_only_on_best_fitting_axis(zval *handle, zval *flag);
 void ns_nsimage_draw_at_point_from_rect_operation_fraction(zval *handle, zval *x, zval *y, zval *fromX, zval *fromY, zval *fromWidth, zval *fromHeight, zval *op, zval *delta);
 /*@zep NS\NSImage drawInRectFromRectOperationFraction(int handle, double x, double y, double width, double height, double fromX, double fromY, double fromWidth, double fromHeight, int op, double delta) -> void */
 void ns_nsimage_draw_in_rect_from_rect_operation_fraction(zval *handle, zval *x, zval *y, zval *width, zval *height, zval *fromX, zval *fromY, zval *fromWidth, zval *fromHeight, zval *op, zval *delta);
-/*@zep NS\NSImage drawInRectFromRectOperationFractionRespectFlippedHints(int handle, double x, double y, double width, double height, double fromX, double fromY, double fromWidth, double fromHeight, int op, double requestedAlpha, bool respectFlipped, int hints) -> void */
+/*@zep NS\NSImage drawInRectFromRectOperationFractionRespectFlippedHints(int handle, double x, double y, double width, double height, double fromX, double fromY, double fromWidth, double fromHeight, int op, double requestedAlpha, bool respectFlipped, var hints) -> void */
 void ns_nsimage_draw_in_rect_from_rect_operation_fraction_respect_flipped_hints(zval *handle, zval *x, zval *y, zval *width, zval *height, zval *fromX, zval *fromY, zval *fromWidth, zval *fromHeight, zval *op, zval *requestedAlpha, zval *respectFlipped, zval *hints);
 /*@zep NS\NSImage drawRepresentationInRect(int handle, int imageRep, double x, double y, double width, double height) -> bool */
 zend_long ns_nsimage_draw_representation_in_rect(zval *handle, zval *imageRep, zval *x, zval *y, zval *width, zval *height);
@@ -180,9 +180,9 @@ void ns_nsimage_set_accessibility_description(zval *handle, zval *accessibilityD
 zend_long ns_nsimage_init_with_cgimage_size(zval *cgImage, zval *width, zval *height);
 /*@reserved NS\NSImage - (nullable CGImageRef)CGImageForProposedRect:(nullable NSRect *)proposedDestRect context:(nullable NSGraphicsContext *)referenceContext hints:(nullable NSDictionary<NSImageHintKey, id> *)hints — CGImageRef plus NSRect * inout */
 
-/*@zep NS\NSImage bestRepresentationForRectContextHints(int handle, double x, double y, double width, double height, int context, int hints) -> int */
+/*@zep NS\NSImage bestRepresentationForRectContextHints(int handle, double x, double y, double width, double height, int context, var hints) -> int */
 zend_long ns_nsimage_best_representation_for_rect_context_hints(zval *handle, zval *x, zval *y, zval *width, zval *height, zval *context, zval *hints);
-/*@zep NS\NSImage hitTestRectWithImageDestinationRectContextHintsFlipped(int handle, double testX, double testY, double testWidth, double testHeight, double destX, double destY, double destWidth, double destHeight, int context, int hints, bool flipped) -> bool */
+/*@zep NS\NSImage hitTestRectWithImageDestinationRectContextHintsFlipped(int handle, double testX, double testY, double testWidth, double testHeight, double destX, double destY, double destWidth, double destHeight, int context, var hints, bool flipped) -> bool */
 zend_long ns_nsimage_hit_test_rect_with_image_destination_rect_context_hints_flipped(zval *handle, zval *testX, zval *testY, zval *testWidth, zval *testHeight, zval *destX, zval *destY, zval *destWidth, zval *destHeight, zval *context, zval *hints, zval *flipped);
 
 /*@zep NS\NSImage recommendedLayerContentsScale(int handle, double preferredContentsScale) -> double */

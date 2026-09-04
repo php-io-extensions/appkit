@@ -587,3 +587,21 @@ zend_long ns_nsbutton_active_compression_options(zval *handle)
     }
     return h;
 }
+
+zend_long ns_nsbutton_attributed_title(zval *handle)
+{
+    @autoreleasepool {
+        NSButton *b = NS_ARG_AS(NSButton, handle);
+        return b != nil ? ns_handle_for([b attributedTitle]) : 0;
+    }
+}
+
+void ns_nsbutton_set_attributed_title(zval *handle, zval *attributedTitle)
+{
+    @autoreleasepool {
+        NSButton *b = NS_ARG_AS(NSButton, handle);
+        NSAttributedString *t = NS_ARG_AS(NSAttributedString, attributedTitle);
+        if (b == nil || t == nil) return;
+        [b setAttributedTitle:t];
+    }
+}

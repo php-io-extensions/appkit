@@ -233,7 +233,7 @@ ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsimage_nsimage_drawin
 	ZEND_ARG_TYPE_INFO(0, op, IS_LONG, 0)
 	ZEND_ARG_TYPE_INFO(0, requestedAlpha, IS_DOUBLE, 0)
 	ZEND_ARG_TYPE_INFO(0, respectFlipped, _IS_BOOL, 0)
-	ZEND_ARG_TYPE_INFO(0, hints, IS_LONG, 0)
+	ZEND_ARG_INFO(0, hints)
 ZEND_END_ARG_INFO()
 
 ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsimage_nsimage_drawrepresentationinrect, 0, 6, _IS_BOOL, 0)
@@ -361,7 +361,7 @@ ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsimage_nsimage_bestre
 	ZEND_ARG_TYPE_INFO(0, width, IS_DOUBLE, 0)
 	ZEND_ARG_TYPE_INFO(0, height, IS_DOUBLE, 0)
 	ZEND_ARG_TYPE_INFO(0, context, IS_LONG, 0)
-	ZEND_ARG_TYPE_INFO(0, hints, IS_LONG, 0)
+	ZEND_ARG_INFO(0, hints)
 ZEND_END_ARG_INFO()
 
 ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsimage_nsimage_hittestrectwithimagedestinationrectcontexthintsflipped, 0, 12, _IS_BOOL, 0)
@@ -375,7 +375,7 @@ ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsimage_nsimage_hittes
 	ZEND_ARG_TYPE_INFO(0, destWidth, IS_DOUBLE, 0)
 	ZEND_ARG_TYPE_INFO(0, destHeight, IS_DOUBLE, 0)
 	ZEND_ARG_TYPE_INFO(0, context, IS_LONG, 0)
-	ZEND_ARG_TYPE_INFO(0, hints, IS_LONG, 0)
+	ZEND_ARG_INFO(0, hints)
 	ZEND_ARG_TYPE_INFO(0, flipped, _IS_BOOL, 0)
 ZEND_END_ARG_INFO()
 

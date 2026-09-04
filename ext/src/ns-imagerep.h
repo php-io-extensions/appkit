@@ -41,7 +41,7 @@ zend_long ns_nsimagerep_draw(zval *handle);
 zend_long ns_nsimagerep_draw_at_point(zval *handle, zval *x, zval *y);
 /*@zep NS\NSImageRep drawInRect(int handle, double x, double y, double width, double height) -> bool */
 zend_long ns_nsimagerep_draw_in_rect(zval *handle, zval *x, zval *y, zval *width, zval *height);
-/*@zep NS\NSImageRep drawInRectFromRectOperationFractionRespectFlippedHints(int handle, double x, double y, double width, double height, double fromX, double fromY, double fromWidth, double fromHeight, int op, double requestedAlpha, bool respectFlipped, int hints) -> bool */
+/*@zep NS\NSImageRep drawInRectFromRectOperationFractionRespectFlippedHints(int handle, double x, double y, double width, double height, double fromX, double fromY, double fromWidth, double fromHeight, int op, double requestedAlpha, bool respectFlipped, var hints) -> bool */
 zend_long ns_nsimagerep_draw_in_rect_from_rect_operation_fraction_respect_flipped_hints(zval *handle, zval *x, zval *y, zval *width, zval *height, zval *fromX, zval *fromY, zval *fromWidth, zval *fromHeight, zval *op, zval *requestedAlpha, zval *respectFlipped, zval *hints);
 
 /* ---- Image info ---- */

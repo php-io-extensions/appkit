@@ -1805,19 +1805,18 @@ PHP_METHOD(AppKit_NS_NSTextView_NSTextView, selectedTextAttributes)
 
 PHP_METHOD(AppKit_NS_NSTextView_NSTextView, setSelectedTextAttributes)
 {
-	zval *handle_param = NULL, *selectedTextAttributes_param = NULL, _0, _1;
-	zend_long handle, selectedTextAttributes;
+	zval *handle_param = NULL, *selectedTextAttributes = NULL, selectedTextAttributes_sub, _0;
+	zend_long handle;
 
+	ZVAL_UNDEF(&selectedTextAttributes_sub);
 	ZVAL_UNDEF(&_0);
-	ZVAL_UNDEF(&_1);
 	ZEND_PARSE_PARAMETERS_START(2, 2)
 		Z_PARAM_LONG(handle)
-		Z_PARAM_LONG(selectedTextAttributes)
+		Z_PARAM_ZVAL(selectedTextAttributes)
 	ZEND_PARSE_PARAMETERS_END();
-	zephir_fetch_params_without_memory_grow(2, 0, &handle_param, &selectedTextAttributes_param);
+	zephir_fetch_params_without_memory_grow(2, 0, &handle_param, &selectedTextAttributes);
 	ZVAL_LONG(&_0, handle);
-	ZVAL_LONG(&_1, selectedTextAttributes);
-	ns_nstextview_set_selected_text_attributes(&_0, &_1);
+	ns_nstextview_set_selected_text_attributes(&_0, selectedTextAttributes);
 }
 
 PHP_METHOD(AppKit_NS_NSTextView_NSTextView, insertionPointColor)
@@ -1885,19 +1884,18 @@ PHP_METHOD(AppKit_NS_NSTextView_NSTextView, markedTextAttributes)
 
 PHP_METHOD(AppKit_NS_NSTextView_NSTextView, setMarkedTextAttributes)
 {
-	zval *handle_param = NULL, *markedTextAttributes_param = NULL, _0, _1;
-	zend_long handle, markedTextAttributes;
+	zval *handle_param = NULL, *markedTextAttributes = NULL, markedTextAttributes_sub, _0;
+	zend_long handle;
 
+	ZVAL_UNDEF(&markedTextAttributes_sub);
 	ZVAL_UNDEF(&_0);
-	ZVAL_UNDEF(&_1);
 	ZEND_PARSE_PARAMETERS_START(2, 2)
 		Z_PARAM_LONG(handle)
-		Z_PARAM_LONG(markedTextAttributes)
+		Z_PARAM_ZVAL(markedTextAttributes)
 	ZEND_PARSE_PARAMETERS_END();
-	zephir_fetch_params_without_memory_grow(2, 0, &handle_param, &markedTextAttributes_param);
+	zephir_fetch_params_without_memory_grow(2, 0, &handle_param, &markedTextAttributes);
 	ZVAL_LONG(&_0, handle);
-	ZVAL_LONG(&_1, markedTextAttributes);
-	ns_nstextview_set_marked_text_attributes(&_0, &_1);
+	ns_nstextview_set_marked_text_attributes(&_0, markedTextAttributes);
 }
 
 PHP_METHOD(AppKit_NS_NSTextView_NSTextView, linkTextAttributes)
@@ -1916,19 +1914,18 @@ PHP_METHOD(AppKit_NS_NSTextView_NSTextView, linkTextAttributes)
 
 PHP_METHOD(AppKit_NS_NSTextView_NSTextView, setLinkTextAttributes)
 {
-	zval *handle_param = NULL, *linkTextAttributes_param = NULL, _0, _1;
-	zend_long handle, linkTextAttributes;
+	zval *handle_param = NULL, *linkTextAttributes = NULL, linkTextAttributes_sub, _0;
+	zend_long handle;
 
+	ZVAL_UNDEF(&linkTextAttributes_sub);
 	ZVAL_UNDEF(&_0);
-	ZVAL_UNDEF(&_1);
 	ZEND_PARSE_PARAMETERS_START(2, 2)
 		Z_PARAM_LONG(handle)
-		Z_PARAM_LONG(linkTextAttributes)
+		Z_PARAM_ZVAL(linkTextAttributes)
 	ZEND_PARSE_PARAMETERS_END();
-	zephir_fetch_params_without_memory_grow(2, 0, &handle_param, &linkTextAttributes_param);
+	zephir_fetch_params_without_memory_grow(2, 0, &handle_param, &linkTextAttributes);
 	ZVAL_LONG(&_0, handle);
-	ZVAL_LONG(&_1, linkTextAttributes);
-	ns_nstextview_set_link_text_attributes(&_0, &_1);
+	ns_nstextview_set_link_text_attributes(&_0, linkTextAttributes);
 }
 
 PHP_METHOD(AppKit_NS_NSTextView_NSTextView, displaysLinkToolTips)
@@ -2216,19 +2213,18 @@ PHP_METHOD(AppKit_NS_NSTextView_NSTextView, typingAttributes)
 
 PHP_METHOD(AppKit_NS_NSTextView_NSTextView, setTypingAttributes)
 {
-	zval *handle_param = NULL, *typingAttributes_param = NULL, _0, _1;
-	zend_long handle, typingAttributes;
+	zval *handle_param = NULL, *typingAttributes = NULL, typingAttributes_sub, _0;
+	zend_long handle;
 
+	ZVAL_UNDEF(&typingAttributes_sub);
 	ZVAL_UNDEF(&_0);
-	ZVAL_UNDEF(&_1);
 	ZEND_PARSE_PARAMETERS_START(2, 2)
 		Z_PARAM_LONG(handle)
-		Z_PARAM_LONG(typingAttributes)
+		Z_PARAM_ZVAL(typingAttributes)
 	ZEND_PARSE_PARAMETERS_END();
-	zephir_fetch_params_without_memory_grow(2, 0, &handle_param, &typingAttributes_param);
+	zephir_fetch_params_without_memory_grow(2, 0, &handle_param, &typingAttributes);
 	ZVAL_LONG(&_0, handle);
-	ZVAL_LONG(&_1, typingAttributes);
-	ns_nstextview_set_typing_attributes(&_0, &_1);
+	ns_nstextview_set_typing_attributes(&_0, typingAttributes);
 }
 
 PHP_METHOD(AppKit_NS_NSTextView_NSTextView, shouldChangeTextInRangesReplacementStrings)
@@ -3589,44 +3585,43 @@ PHP_METHOD(AppKit_NS_NSTextView_NSTextView, setEnabledTextCheckingTypes)
 
 PHP_METHOD(AppKit_NS_NSTextView_NSTextView, checkTextInRangeTypesOptions)
 {
-	zval *handle_param = NULL, *location_param = NULL, *length_param = NULL, *checkingTypes_param = NULL, *options_param = NULL, _0, _1, _2, _3, _4;
-	zend_long handle, location, length, checkingTypes, options;
+	zval *handle_param = NULL, *location_param = NULL, *length_param = NULL, *checkingTypes_param = NULL, *options = NULL, options_sub, _0, _1, _2, _3;
+	zend_long handle, location, length, checkingTypes;
 
+	ZVAL_UNDEF(&options_sub);
 	ZVAL_UNDEF(&_0);
 	ZVAL_UNDEF(&_1);
 	ZVAL_UNDEF(&_2);
 	ZVAL_UNDEF(&_3);
-	ZVAL_UNDEF(&_4);
 	ZEND_PARSE_PARAMETERS_START(5, 5)
 		Z_PARAM_LONG(handle)
 		Z_PARAM_LONG(location)
 		Z_PARAM_LONG(length)
 		Z_PARAM_LONG(checkingTypes)
-		Z_PARAM_LONG(options)
+		Z_PARAM_ZVAL(options)
 	ZEND_PARSE_PARAMETERS_END();
-	zephir_fetch_params_without_memory_grow(5, 0, &handle_param, &location_param, &length_param, &checkingTypes_param, &options_param);
+	zephir_fetch_params_without_memory_grow(5, 0, &handle_param, &location_param, &length_param, &checkingTypes_param, &options);
 	ZVAL_LONG(&_0, handle);
 	ZVAL_LONG(&_1, location);
 	ZVAL_LONG(&_2, length);
 	ZVAL_LONG(&_3, checkingTypes);
-	ZVAL_LONG(&_4, options);
-	ns_nstextview_check_text_in_range_types_options(&_0, &_1, &_2, &_3, &_4);
+	ns_nstextview_check_text_in_range_types_options(&_0, &_1, &_2, &_3, options);
 }
 
 PHP_METHOD(AppKit_NS_NSTextView_NSTextView, handleTextCheckingResultsForRangeTypesOptionsOrthographyWordCount)
 {
 	zephir_method_globals *ZEPHIR_METHOD_GLOBALS_PTR = NULL;
 	zval results;
-	zval *handle_param = NULL, *results_param = NULL, *location_param = NULL, *length_param = NULL, *checkingTypes_param = NULL, *options_param = NULL, *orthography_param = NULL, *wordCount_param = NULL, _0, _1, _2, _3, _4, _5, _6;
-	zend_long handle, location, length, checkingTypes, options, orthography, wordCount;
+	zval *handle_param = NULL, *results_param = NULL, *location_param = NULL, *length_param = NULL, *checkingTypes_param = NULL, *options = NULL, options_sub, *orthography_param = NULL, *wordCount_param = NULL, _0, _1, _2, _3, _4, _5;
+	zend_long handle, location, length, checkingTypes, orthography, wordCount;
 
+	ZVAL_UNDEF(&options_sub);
 	ZVAL_UNDEF(&_0);
 	ZVAL_UNDEF(&_1);
 	ZVAL_UNDEF(&_2);
 	ZVAL_UNDEF(&_3);
 	ZVAL_UNDEF(&_4);
 	ZVAL_UNDEF(&_5);
-	ZVAL_UNDEF(&_6);
 	ZVAL_UNDEF(&results);
 	ZEND_PARSE_PARAMETERS_START(8, 8)
 		Z_PARAM_LONG(handle)
@@ -3634,22 +3629,21 @@ PHP_METHOD(AppKit_NS_NSTextView_NSTextView, handleTextCheckingResultsForRangeTyp
 		Z_PARAM_LONG(location)
 		Z_PARAM_LONG(length)
 		Z_PARAM_LONG(checkingTypes)
-		Z_PARAM_LONG(options)
+		Z_PARAM_ZVAL(options)
 		Z_PARAM_LONG(orthography)
 		Z_PARAM_LONG(wordCount)
 	ZEND_PARSE_PARAMETERS_END();
 	ZEPHIR_METHOD_GLOBALS_PTR = pecalloc(1, sizeof(zephir_method_globals), 0);
 	zephir_memory_grow_stack(ZEPHIR_METHOD_GLOBALS_PTR, __func__);
-	zephir_fetch_params(1, 8, 0, &handle_param, &results_param, &location_param, &length_param, &checkingTypes_param, &options_param, &orthography_param, &wordCount_param);
+	zephir_fetch_params(1, 8, 0, &handle_param, &results_param, &location_param, &length_param, &checkingTypes_param, &options, &orthography_param, &wordCount_param);
 	zephir_get_arrval(&results, results_param);
 	ZVAL_LONG(&_0, handle);
 	ZVAL_LONG(&_1, location);
 	ZVAL_LONG(&_2, length);
 	ZVAL_LONG(&_3, checkingTypes);
-	ZVAL_LONG(&_4, options);
-	ZVAL_LONG(&_5, orthography);
-	ZVAL_LONG(&_6, wordCount);
-	ns_nstextview_handle_text_checking_results_for_range_types_options_orthography_word_count(&_0, &results, &_1, &_2, &_3, &_4, &_5, &_6);
+	ZVAL_LONG(&_4, orthography);
+	ZVAL_LONG(&_5, wordCount);
+	ns_nstextview_handle_text_checking_results_for_range_types_options_orthography_word_count(&_0, &results, &_1, &_2, &_3, options, &_4, &_5);
 	ZEPHIR_MM_RESTORE();
 }
 
@@ -4116,19 +4110,18 @@ PHP_METHOD(AppKit_NS_NSTextView_NSTextView, textHighlightAttributes)
 
 PHP_METHOD(AppKit_NS_NSTextView_NSTextView, setTextHighlightAttributes)
 {
-	zval *handle_param = NULL, *textHighlightAttributes_param = NULL, _0, _1;
-	zend_long handle, textHighlightAttributes;
+	zval *handle_param = NULL, *textHighlightAttributes = NULL, textHighlightAttributes_sub, _0;
+	zend_long handle;
 
+	ZVAL_UNDEF(&textHighlightAttributes_sub);
 	ZVAL_UNDEF(&_0);
-	ZVAL_UNDEF(&_1);
 	ZEND_PARSE_PARAMETERS_START(2, 2)
 		Z_PARAM_LONG(handle)
-		Z_PARAM_LONG(textHighlightAttributes)
+		Z_PARAM_ZVAL(textHighlightAttributes)
 	ZEND_PARSE_PARAMETERS_END();
-	zephir_fetch_params_without_memory_grow(2, 0, &handle_param, &textHighlightAttributes_param);
+	zephir_fetch_params_without_memory_grow(2, 0, &handle_param, &textHighlightAttributes);
 	ZVAL_LONG(&_0, handle);
-	ZVAL_LONG(&_1, textHighlightAttributes);
-	ns_nstextview_set_text_highlight_attributes(&_0, &_1);
+	ns_nstextview_set_text_highlight_attributes(&_0, textHighlightAttributes);
 }
 
 PHP_METHOD(AppKit_NS_NSTextView_NSTextView, drawTextHighlightBackgroundForTextRangeOrigin)

@@ -166,6 +166,37 @@ PHP_METHOD(AppKit_NS_NSButton_NSButton, setButtonType)
 	ns_nsbutton_set_button_type(&_0, &_1);
 }
 
+PHP_METHOD(AppKit_NS_NSButton_NSButton, attributedTitle)
+{
+	zval *handle_param = NULL, _0;
+	zend_long handle;
+
+	ZVAL_UNDEF(&_0);
+	ZEND_PARSE_PARAMETERS_START(1, 1)
+		Z_PARAM_LONG(handle)
+	ZEND_PARSE_PARAMETERS_END();
+	zephir_fetch_params_without_memory_grow(1, 0, &handle_param);
+	ZVAL_LONG(&_0, handle);
+	RETURN_LONG(ns_nsbutton_attributed_title(&_0));
+}
+
+PHP_METHOD(AppKit_NS_NSButton_NSButton, setAttributedTitle)
+{
+	zval *handle_param = NULL, *attributedTitle_param = NULL, _0, _1;
+	zend_long handle, attributedTitle;
+
+	ZVAL_UNDEF(&_0);
+	ZVAL_UNDEF(&_1);
+	ZEND_PARSE_PARAMETERS_START(2, 2)
+		Z_PARAM_LONG(handle)
+		Z_PARAM_LONG(attributedTitle)
+	ZEND_PARSE_PARAMETERS_END();
+	zephir_fetch_params_without_memory_grow(2, 0, &handle_param, &attributedTitle_param);
+	ZVAL_LONG(&_0, handle);
+	ZVAL_LONG(&_1, attributedTitle);
+	ns_nsbutton_set_attributed_title(&_0, &_1);
+}
+
 PHP_METHOD(AppKit_NS_NSButton_NSButton, title)
 {
 	zephir_method_globals *ZEPHIR_METHOD_GLOBALS_PTR = NULL;

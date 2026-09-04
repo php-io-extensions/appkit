@@ -2,6 +2,12 @@
 # PHP_ADD_SOURCES_X has no *.m case; these compile via libtool.
 NS_OBJC_CFLAGS = -fobjc-arc -x objective-c -Wno-deprecated-declarations
 
+$(builddir)/src/av-player.lo: $(srcdir)/src/av-player.m
+	$(LIBTOOL) --tag=CC --mode=compile $(CC) -I. -I$(srcdir) -I$(srcdir)/src $(COMMON_FLAGS) $(CFLAGS_CLEAN) $(EXTRA_CFLAGS) $(NS_OBJC_CFLAGS) -DZEND_COMPILE_DL_EXT=1 -c $(srcdir)/src/av-player.m -o $@
+
+$(builddir)/src/av-playerview.lo: $(srcdir)/src/av-playerview.m
+	$(LIBTOOL) --tag=CC --mode=compile $(CC) -I. -I$(srcdir) -I$(srcdir)/src $(COMMON_FLAGS) $(CFLAGS_CLEAN) $(EXTRA_CFLAGS) $(NS_OBJC_CFLAGS) -DZEND_COMPILE_DL_EXT=1 -c $(srcdir)/src/av-playerview.m -o $@
+
 $(builddir)/src/ca-layer.lo: $(srcdir)/src/ca-layer.m
 	$(LIBTOOL) --tag=CC --mode=compile $(CC) -I. -I$(srcdir) -I$(srcdir)/src $(COMMON_FLAGS) $(CFLAGS_CLEAN) $(EXTRA_CFLAGS) $(NS_OBJC_CFLAGS) -DZEND_COMPILE_DL_EXT=1 -c $(srcdir)/src/ca-layer.m -o $@
 
@@ -10,6 +16,9 @@ $(builddir)/src/ns-alert.lo: $(srcdir)/src/ns-alert.m
 
 $(builddir)/src/ns-application.lo: $(srcdir)/src/ns-application.m
 	$(LIBTOOL) --tag=CC --mode=compile $(CC) -I. -I$(srcdir) -I$(srcdir)/src $(COMMON_FLAGS) $(CFLAGS_CLEAN) $(EXTRA_CFLAGS) $(NS_OBJC_CFLAGS) -DZEND_COMPILE_DL_EXT=1 -c $(srcdir)/src/ns-application.m -o $@
+
+$(builddir)/src/ns-attributedstring.lo: $(srcdir)/src/ns-attributedstring.m
+	$(LIBTOOL) --tag=CC --mode=compile $(CC) -I. -I$(srcdir) -I$(srcdir)/src $(COMMON_FLAGS) $(CFLAGS_CLEAN) $(EXTRA_CFLAGS) $(NS_OBJC_CFLAGS) -DZEND_COMPILE_DL_EXT=1 -c $(srcdir)/src/ns-attributedstring.m -o $@
 
 $(builddir)/src/ns-box.lo: $(srcdir)/src/ns-box.m
 	$(LIBTOOL) --tag=CC --mode=compile $(CC) -I. -I$(srcdir) -I$(srcdir)/src $(COMMON_FLAGS) $(CFLAGS_CLEAN) $(EXTRA_CFLAGS) $(NS_OBJC_CFLAGS) -DZEND_COMPILE_DL_EXT=1 -c $(srcdir)/src/ns-box.m -o $@
@@ -226,6 +235,9 @@ $(builddir)/src/ns-toolbaritem.lo: $(srcdir)/src/ns-toolbaritem.m
 
 $(builddir)/src/ns-toolbaritemgroup.lo: $(srcdir)/src/ns-toolbaritemgroup.m
 	$(LIBTOOL) --tag=CC --mode=compile $(CC) -I. -I$(srcdir) -I$(srcdir)/src $(COMMON_FLAGS) $(CFLAGS_CLEAN) $(EXTRA_CFLAGS) $(NS_OBJC_CFLAGS) -DZEND_COMPILE_DL_EXT=1 -c $(srcdir)/src/ns-toolbaritemgroup.m -o $@
+
+$(builddir)/src/ns-url.lo: $(srcdir)/src/ns-url.m
+	$(LIBTOOL) --tag=CC --mode=compile $(CC) -I. -I$(srcdir) -I$(srcdir)/src $(COMMON_FLAGS) $(CFLAGS_CLEAN) $(EXTRA_CFLAGS) $(NS_OBJC_CFLAGS) -DZEND_COMPILE_DL_EXT=1 -c $(srcdir)/src/ns-url.m -o $@
 
 $(builddir)/src/ns-view.lo: $(srcdir)/src/ns-view.m
 	$(LIBTOOL) --tag=CC --mode=compile $(CC) -I. -I$(srcdir) -I$(srcdir)/src $(COMMON_FLAGS) $(CFLAGS_CLEAN) $(EXTRA_CFLAGS) $(NS_OBJC_CFLAGS) -DZEND_COMPILE_DL_EXT=1 -c $(srcdir)/src/ns-view.m -o $@

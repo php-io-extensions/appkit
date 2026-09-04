@@ -55,7 +55,7 @@ ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsfontdescriptor_nsfon
 ZEND_END_ARG_INFO()
 
 ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsfontdescriptor_nsfontdescriptor_fontdescriptorwithfontattributes, 0, 1, IS_LONG, 0)
-	ZEND_ARG_TYPE_INFO(0, attributes, IS_LONG, 0)
+	ZEND_ARG_INFO(0, attributes)
 ZEND_END_ARG_INFO()
 
 ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsfontdescriptor_nsfontdescriptor_fontdescriptorwithnamesize, 0, 2, IS_LONG, 0)
@@ -69,22 +69,22 @@ ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsfontdescriptor_nsfon
 ZEND_END_ARG_INFO()
 
 ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsfontdescriptor_nsfontdescriptor_initwithfontattributes, 0, 1, IS_LONG, 0)
-	ZEND_ARG_TYPE_INFO(0, attributes, IS_LONG, 0)
+	ZEND_ARG_INFO(0, attributes)
 ZEND_END_ARG_INFO()
 
 ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsfontdescriptor_nsfontdescriptor_matchingfontdescriptorswithmandatorykeys, 0, 2, IS_ARRAY, 0)
 	ZEND_ARG_TYPE_INFO(0, handle, IS_LONG, 0)
-	ZEND_ARG_TYPE_INFO(0, mandatoryKeys, IS_LONG, 0)
+	ZEND_ARG_INFO(0, mandatoryKeys)
 ZEND_END_ARG_INFO()
 
 ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsfontdescriptor_nsfontdescriptor_matchingfontdescriptorwithmandatorykeys, 0, 2, IS_LONG, 0)
 	ZEND_ARG_TYPE_INFO(0, handle, IS_LONG, 0)
-	ZEND_ARG_TYPE_INFO(0, mandatoryKeys, IS_LONG, 0)
+	ZEND_ARG_INFO(0, mandatoryKeys)
 ZEND_END_ARG_INFO()
 
 ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsfontdescriptor_nsfontdescriptor_fontdescriptorbyaddingattributes, 0, 2, IS_LONG, 0)
 	ZEND_ARG_TYPE_INFO(0, handle, IS_LONG, 0)
-	ZEND_ARG_TYPE_INFO(0, attributes, IS_LONG, 0)
+	ZEND_ARG_INFO(0, attributes)
 ZEND_END_ARG_INFO()
 
 ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsfontdescriptor_nsfontdescriptor_fontdescriptorwithsymbolictraits, 0, 2, IS_LONG, 0)
@@ -119,7 +119,7 @@ ZEND_END_ARG_INFO()
 
 ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsfontdescriptor_nsfontdescriptor_preferredfontdescriptorfortextstyleoptions, 0, 2, IS_LONG, 0)
 	ZEND_ARG_TYPE_INFO(0, style, IS_STRING, 0)
-	ZEND_ARG_TYPE_INFO(0, options, IS_LONG, 0)
+	ZEND_ARG_INFO(0, options)
 ZEND_END_ARG_INFO()
 
 ZEPHIR_INIT_FUNCS(appkit_ns_nsfontdescriptor_nsfontdescriptor_method_entry) {

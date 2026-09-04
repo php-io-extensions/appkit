@@ -1418,13 +1418,13 @@ ZEND_END_ARG_INFO()
 ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsview_nsview_enterfullscreenmodewithoptions, 0, 3, _IS_BOOL, 0)
 	ZEND_ARG_TYPE_INFO(0, handle, IS_LONG, 0)
 	ZEND_ARG_TYPE_INFO(0, screen, IS_LONG, 0)
-	ZEND_ARG_TYPE_INFO(0, options, IS_LONG, 0)
+	ZEND_ARG_INFO(0, options)
 ZEND_END_ARG_INFO()
 
 ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsview_nsview_exitfullscreenmodewithoptions, 0, 2, IS_VOID, 0)
 
 	ZEND_ARG_TYPE_INFO(0, handle, IS_LONG, 0)
-	ZEND_ARG_TYPE_INFO(0, options, IS_LONG, 0)
+	ZEND_ARG_INFO(0, options)
 ZEND_END_ARG_INFO()
 
 ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsview_nsview_isinfullscreenmode, 0, 1, _IS_BOOL, 0)

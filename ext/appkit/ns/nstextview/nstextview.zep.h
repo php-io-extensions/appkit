@@ -772,7 +772,7 @@ ZEND_END_ARG_INFO()
 ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nstextview_nstextview_setselectedtextattributes, 0, 2, IS_VOID, 0)
 
 	ZEND_ARG_TYPE_INFO(0, handle, IS_LONG, 0)
-	ZEND_ARG_TYPE_INFO(0, selectedTextAttributes, IS_LONG, 0)
+	ZEND_ARG_INFO(0, selectedTextAttributes)
 ZEND_END_ARG_INFO()
 
 ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nstextview_nstextview_insertionpointcolor, 0, 1, IS_LONG, 0)
@@ -798,7 +798,7 @@ ZEND_END_ARG_INFO()
 ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nstextview_nstextview_setmarkedtextattributes, 0, 2, IS_VOID, 0)
 
 	ZEND_ARG_TYPE_INFO(0, handle, IS_LONG, 0)
-	ZEND_ARG_TYPE_INFO(0, markedTextAttributes, IS_LONG, 0)
+	ZEND_ARG_INFO(0, markedTextAttributes)
 ZEND_END_ARG_INFO()
 
 ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nstextview_nstextview_linktextattributes, 0, 1, IS_LONG, 0)
@@ -808,7 +808,7 @@ ZEND_END_ARG_INFO()
 ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nstextview_nstextview_setlinktextattributes, 0, 2, IS_VOID, 0)
 
 	ZEND_ARG_TYPE_INFO(0, handle, IS_LONG, 0)
-	ZEND_ARG_TYPE_INFO(0, linkTextAttributes, IS_LONG, 0)
+	ZEND_ARG_INFO(0, linkTextAttributes)
 ZEND_END_ARG_INFO()
 
 ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nstextview_nstextview_displayslinktooltips, 0, 1, _IS_BOOL, 0)
@@ -902,7 +902,7 @@ ZEND_END_ARG_INFO()
 ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nstextview_nstextview_settypingattributes, 0, 2, IS_VOID, 0)
 
 	ZEND_ARG_TYPE_INFO(0, handle, IS_LONG, 0)
-	ZEND_ARG_TYPE_INFO(0, typingAttributes, IS_LONG, 0)
+	ZEND_ARG_INFO(0, typingAttributes)
 ZEND_END_ARG_INFO()
 
 ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nstextview_nstextview_shouldchangetextinrangesreplacementstrings, 0, 3, _IS_BOOL, 0)
@@ -1309,7 +1309,7 @@ ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nstextview_nstextview_
 	ZEND_ARG_TYPE_INFO(0, location, IS_LONG, 0)
 	ZEND_ARG_TYPE_INFO(0, length, IS_LONG, 0)
 	ZEND_ARG_TYPE_INFO(0, checkingTypes, IS_LONG, 0)
-	ZEND_ARG_TYPE_INFO(0, options, IS_LONG, 0)
+	ZEND_ARG_INFO(0, options)
 ZEND_END_ARG_INFO()
 
 ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nstextview_nstextview_handletextcheckingresultsforrangetypesoptionsorthographywordcount, 0, 8, IS_VOID, 0)
@@ -1319,7 +1319,7 @@ ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nstextview_nstextview_
 	ZEND_ARG_TYPE_INFO(0, location, IS_LONG, 0)
 	ZEND_ARG_TYPE_INFO(0, length, IS_LONG, 0)
 	ZEND_ARG_TYPE_INFO(0, checkingTypes, IS_LONG, 0)
-	ZEND_ARG_TYPE_INFO(0, options, IS_LONG, 0)
+	ZEND_ARG_INFO(0, options)
 	ZEND_ARG_TYPE_INFO(0, orthography, IS_LONG, 0)
 	ZEND_ARG_TYPE_INFO(0, wordCount, IS_LONG, 0)
 ZEND_END_ARG_INFO()
@@ -1478,7 +1478,7 @@ ZEND_END_ARG_INFO()
 ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nstextview_nstextview_settexthighlightattributes, 0, 2, IS_VOID, 0)
 
 	ZEND_ARG_TYPE_INFO(0, handle, IS_LONG, 0)
-	ZEND_ARG_TYPE_INFO(0, textHighlightAttributes, IS_LONG, 0)
+	ZEND_ARG_INFO(0, textHighlightAttributes)
 ZEND_END_ARG_INFO()
 
 ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nstextview_nstextview_drawtexthighlightbackgroundfortextrangeorigin, 0, 4, IS_VOID, 0)

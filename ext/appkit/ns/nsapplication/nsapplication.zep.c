@@ -1442,19 +1442,18 @@ PHP_METHOD(AppKit_NS_NSApplication_NSApplication, orderFrontStandardAboutPanel)
 
 PHP_METHOD(AppKit_NS_NSApplication_NSApplication, orderFrontStandardAboutPanelWithOptions)
 {
-	zval *handle_param = NULL, *options_param = NULL, _0, _1;
-	zend_long handle, options;
+	zval *handle_param = NULL, *options = NULL, options_sub, _0;
+	zend_long handle;
 
+	ZVAL_UNDEF(&options_sub);
 	ZVAL_UNDEF(&_0);
-	ZVAL_UNDEF(&_1);
 	ZEND_PARSE_PARAMETERS_START(2, 2)
 		Z_PARAM_LONG(handle)
-		Z_PARAM_LONG(options)
+		Z_PARAM_ZVAL(options)
 	ZEND_PARSE_PARAMETERS_END();
-	zephir_fetch_params_without_memory_grow(2, 0, &handle_param, &options_param);
+	zephir_fetch_params_without_memory_grow(2, 0, &handle_param, &options);
 	ZVAL_LONG(&_0, handle);
-	ZVAL_LONG(&_1, options);
-	ns_nsapplication_order_front_standard_about_panel_with_options(&_0, &_1);
+	ns_nsapplication_order_front_standard_about_panel_with_options(&_0, options);
 }
 
 PHP_METHOD(AppKit_NS_NSApplication_NSApplication, userInterfaceLayoutDirection)

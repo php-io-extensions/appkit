@@ -9,6 +9,8 @@ PHP_METHOD(AppKit_NS_NSButton_NSButton, buttonWithImageTargetAction);
 PHP_METHOD(AppKit_NS_NSButton_NSButton, checkboxWithTitleTargetAction);
 PHP_METHOD(AppKit_NS_NSButton_NSButton, radioButtonWithTitleTargetAction);
 PHP_METHOD(AppKit_NS_NSButton_NSButton, setButtonType);
+PHP_METHOD(AppKit_NS_NSButton_NSButton, attributedTitle);
+PHP_METHOD(AppKit_NS_NSButton_NSButton, setAttributedTitle);
 PHP_METHOD(AppKit_NS_NSButton_NSButton, title);
 PHP_METHOD(AppKit_NS_NSButton_NSButton, setTitle);
 PHP_METHOD(AppKit_NS_NSButton_NSButton, alternateTitle);
@@ -97,6 +99,16 @@ ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsbutton_nsbutton_setb
 
 	ZEND_ARG_TYPE_INFO(0, handle, IS_LONG, 0)
 	ZEND_ARG_TYPE_INFO(0, type, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsbutton_nsbutton_attributedtitle, 0, 1, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, handle, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsbutton_nsbutton_setattributedtitle, 0, 2, IS_VOID, 0)
+
+	ZEND_ARG_TYPE_INFO(0, handle, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, attributedTitle, IS_LONG, 0)
 ZEND_END_ARG_INFO()
 
 ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsbutton_nsbutton_title, 0, 1, IS_STRING, 0)
@@ -368,6 +380,8 @@ ZEPHIR_INIT_FUNCS(appkit_ns_nsbutton_nsbutton_method_entry) {
 	PHP_ME(AppKit_NS_NSButton_NSButton, checkboxWithTitleTargetAction, arginfo_appkit_ns_nsbutton_nsbutton_checkboxwithtitletargetaction, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
 	PHP_ME(AppKit_NS_NSButton_NSButton, radioButtonWithTitleTargetAction, arginfo_appkit_ns_nsbutton_nsbutton_radiobuttonwithtitletargetaction, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
 	PHP_ME(AppKit_NS_NSButton_NSButton, setButtonType, arginfo_appkit_ns_nsbutton_nsbutton_setbuttontype, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSButton_NSButton, attributedTitle, arginfo_appkit_ns_nsbutton_nsbutton_attributedtitle, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSButton_NSButton, setAttributedTitle, arginfo_appkit_ns_nsbutton_nsbutton_setattributedtitle, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
 	PHP_ME(AppKit_NS_NSButton_NSButton, title, arginfo_appkit_ns_nsbutton_nsbutton_title, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
 	PHP_ME(AppKit_NS_NSButton_NSButton, setTitle, arginfo_appkit_ns_nsbutton_nsbutton_settitle, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
 	PHP_ME(AppKit_NS_NSButton_NSButton, alternateTitle, arginfo_appkit_ns_nsbutton_nsbutton_alternatetitle, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)

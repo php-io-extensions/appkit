@@ -68,7 +68,7 @@ ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsimagerep_nsimagerep_
 	ZEND_ARG_TYPE_INFO(0, op, IS_LONG, 0)
 	ZEND_ARG_TYPE_INFO(0, requestedAlpha, IS_DOUBLE, 0)
 	ZEND_ARG_TYPE_INFO(0, respectFlipped, _IS_BOOL, 0)
-	ZEND_ARG_TYPE_INFO(0, hints, IS_LONG, 0)
+	ZEND_ARG_INFO(0, hints)
 ZEND_END_ARG_INFO()
 
 ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsimagerep_nsimagerep_size, 0, 1, IS_ARRAY, 0)

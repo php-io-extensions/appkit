@@ -28,6 +28,7 @@
         "src/ns-comboboxcell.m",
         "src/ns-datepicker.m",
         "src/ns-datepickercell.m",
+        "src/ns-attributedstring.m",
         "src/ns-colorwell.m",
         "src/ns-segmentedcontrol.m",
         "src/ns-segmentedcell.m",
@@ -84,13 +85,16 @@
         "src/ns-event.m",
         "src/ca-layer.m",
         "src/ns-screen.m",
-        "src/ns-notificationcenter.m"
+        "src/ns-notificationcenter.m",
+        "src/ns-url.m",
+        "src/av-player.m",
+        "src/av-playerview.m"
     ],
     "optimizer-dirs": [
         "optimizers"
     ],
     "extra-cflags": "-fobjc-arc -Wno-deprecated-declarations",
-    "extra-libs": "-framework Foundation -framework AppKit -framework QuartzCore -framework CoreImage -framework Symbols",
+    "extra-libs": "-framework Foundation -framework AppKit -framework QuartzCore -framework CoreImage -framework Symbols -framework AVFoundation -framework AVKit",
     "stubs": {
         "path": "ide/%version%/%namespace%/",
         "stubs-run-after-generate": false

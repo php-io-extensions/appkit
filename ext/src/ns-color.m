@@ -1128,3 +1128,12 @@ zend_long ns_nscolor_color_with_ci_color(zval *color)
         return ns_handle_for([NSColor colorWithCIColor:NS_ARG_AS(CIColor, color)]);
     }
 }
+
+zend_long ns_nscolor_cg_color(zval *handle)
+{
+    @autoreleasepool {
+        NSColor *c = NS_ARG_AS(NSColor, handle);
+        if (c == nil) return 0;
+        return (zend_long) (uintptr_t) [c CGColor];
+    }
+}

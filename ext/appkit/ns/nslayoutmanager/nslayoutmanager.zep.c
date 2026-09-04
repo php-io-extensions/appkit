@@ -2404,48 +2404,46 @@ PHP_METHOD(AppKit_NS_NSLayoutManager_NSLayoutManager, temporaryAttributesAtChara
 
 PHP_METHOD(AppKit_NS_NSLayoutManager_NSLayoutManager, setTemporaryAttributesForCharacterRange)
 {
-	zval *handle_param = NULL, *attrs_param = NULL, *location_param = NULL, *length_param = NULL, _0, _1, _2, _3;
-	zend_long handle, attrs, location, length;
+	zval *handle_param = NULL, *attrs = NULL, attrs_sub, *location_param = NULL, *length_param = NULL, _0, _1, _2;
+	zend_long handle, location, length;
 
+	ZVAL_UNDEF(&attrs_sub);
 	ZVAL_UNDEF(&_0);
 	ZVAL_UNDEF(&_1);
 	ZVAL_UNDEF(&_2);
-	ZVAL_UNDEF(&_3);
 	ZEND_PARSE_PARAMETERS_START(4, 4)
 		Z_PARAM_LONG(handle)
-		Z_PARAM_LONG(attrs)
+		Z_PARAM_ZVAL(attrs)
 		Z_PARAM_LONG(location)
 		Z_PARAM_LONG(length)
 	ZEND_PARSE_PARAMETERS_END();
-	zephir_fetch_params_without_memory_grow(4, 0, &handle_param, &attrs_param, &location_param, &length_param);
+	zephir_fetch_params_without_memory_grow(4, 0, &handle_param, &attrs, &location_param, &length_param);
 	ZVAL_LONG(&_0, handle);
-	ZVAL_LONG(&_1, attrs);
-	ZVAL_LONG(&_2, location);
-	ZVAL_LONG(&_3, length);
-	ns_nslayoutmanager_set_temporary_attributes_for_character_range(&_0, &_1, &_2, &_3);
+	ZVAL_LONG(&_1, location);
+	ZVAL_LONG(&_2, length);
+	ns_nslayoutmanager_set_temporary_attributes_for_character_range(&_0, attrs, &_1, &_2);
 }
 
 PHP_METHOD(AppKit_NS_NSLayoutManager_NSLayoutManager, addTemporaryAttributesForCharacterRange)
 {
-	zval *handle_param = NULL, *attrs_param = NULL, *location_param = NULL, *length_param = NULL, _0, _1, _2, _3;
-	zend_long handle, attrs, location, length;
+	zval *handle_param = NULL, *attrs = NULL, attrs_sub, *location_param = NULL, *length_param = NULL, _0, _1, _2;
+	zend_long handle, location, length;
 
+	ZVAL_UNDEF(&attrs_sub);
 	ZVAL_UNDEF(&_0);
 	ZVAL_UNDEF(&_1);
 	ZVAL_UNDEF(&_2);
-	ZVAL_UNDEF(&_3);
 	ZEND_PARSE_PARAMETERS_START(4, 4)
 		Z_PARAM_LONG(handle)
-		Z_PARAM_LONG(attrs)
+		Z_PARAM_ZVAL(attrs)
 		Z_PARAM_LONG(location)
 		Z_PARAM_LONG(length)
 	ZEND_PARSE_PARAMETERS_END();
-	zephir_fetch_params_without_memory_grow(4, 0, &handle_param, &attrs_param, &location_param, &length_param);
+	zephir_fetch_params_without_memory_grow(4, 0, &handle_param, &attrs, &location_param, &length_param);
 	ZVAL_LONG(&_0, handle);
-	ZVAL_LONG(&_1, attrs);
-	ZVAL_LONG(&_2, location);
-	ZVAL_LONG(&_3, length);
-	ns_nslayoutmanager_add_temporary_attributes_for_character_range(&_0, &_1, &_2, &_3);
+	ZVAL_LONG(&_1, location);
+	ZVAL_LONG(&_2, length);
+	ns_nslayoutmanager_add_temporary_attributes_for_character_range(&_0, attrs, &_1, &_2);
 }
 
 PHP_METHOD(AppKit_NS_NSLayoutManager_NSLayoutManager, removeTemporaryAttributeForCharacterRange)

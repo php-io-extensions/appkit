@@ -200,7 +200,7 @@ zend_long ns_nsfont_rendering_mode(zval *handle);
 
 /* ---- NSFont_TextStyles ---- */
 
-/*@zep NS\NSFont preferredFontForTextStyleOptions(string style, int options) -> int */
+/*@zep NS\NSFont preferredFontForTextStyleOptions(string style, var options) -> int */
 zend_long ns_nsfont_preferred_font_for_text_style_options(zval *style, zval *options);
 
 #ifdef __cplusplus

@@ -23,9 +23,12 @@
 
 
 
+zend_class_entry *appkit_av_avplayer_avplayer_ce;
+zend_class_entry *appkit_av_avplayerview_avplayerview_ce;
 zend_class_entry *appkit_bridge_bridge_ce;
 zend_class_entry *appkit_ns_nsalert_nsalert_ce;
 zend_class_entry *appkit_ns_nsapplication_nsapplication_ce;
+zend_class_entry *appkit_ns_nsattributedstring_nsattributedstring_ce;
 zend_class_entry *appkit_ns_nsbox_nsbox_ce;
 zend_class_entry *appkit_ns_nsbutton_nsbutton_ce;
 zend_class_entry *appkit_ns_nscell_nscell_ce;
@@ -107,6 +110,7 @@ zend_class_entry *appkit_ns_nstextview_nstextview_ce;
 zend_class_entry *appkit_ns_nstoolbar_nstoolbar_ce;
 zend_class_entry *appkit_ns_nstoolbaritem_nstoolbaritem_ce;
 zend_class_entry *appkit_ns_nstoolbaritemgroup_nstoolbaritemgroup_ce;
+zend_class_entry *appkit_ns_nsurl_nsurl_ce;
 zend_class_entry *appkit_ns_nsview_nsview_ce;
 zend_class_entry *appkit_ns_nsviewcontroller_nsviewcontroller_ce;
 zend_class_entry *appkit_ns_nsvisualeffectview_nsvisualeffectview_ce;
@@ -123,9 +127,12 @@ static PHP_MINIT_FUNCTION(appkit)
 {
 	REGISTER_INI_ENTRIES();
 	zephir_module_init();
+	ZEPHIR_INIT(AppKit_AV_AVPlayerView_AVPlayerView);
+	ZEPHIR_INIT(AppKit_AV_AVPlayer_AVPlayer);
 	ZEPHIR_INIT(AppKit_Bridge_Bridge);
 	ZEPHIR_INIT(AppKit_NS_NSAlert_NSAlert);
 	ZEPHIR_INIT(AppKit_NS_NSApplication_NSApplication);
+	ZEPHIR_INIT(AppKit_NS_NSAttributedString_NSAttributedString);
 	ZEPHIR_INIT(AppKit_NS_NSBox_NSBox);
 	ZEPHIR_INIT(AppKit_NS_NSButton_NSButton);
 	ZEPHIR_INIT(AppKit_NS_NSCell_NSCell);
@@ -207,6 +214,7 @@ static PHP_MINIT_FUNCTION(appkit)
 	ZEPHIR_INIT(AppKit_NS_NSToolbarItemGroup_NSToolbarItemGroup);
 	ZEPHIR_INIT(AppKit_NS_NSToolbarItem_NSToolbarItem);
 	ZEPHIR_INIT(AppKit_NS_NSToolbar_NSToolbar);
+	ZEPHIR_INIT(AppKit_NS_NSURL_NSURL);
 	ZEPHIR_INIT(AppKit_NS_NSViewController_NSViewController);
 	ZEPHIR_INIT(AppKit_NS_NSView_NSView);
 	ZEPHIR_INIT(AppKit_NS_NSVisualEffectView_NSVisualEffectView);

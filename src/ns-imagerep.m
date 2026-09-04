@@ -56,7 +56,7 @@ zend_long ns_nsimagerep_draw_in_rect_from_rect_operation_fraction_respect_flippe
                                 operation:(NSCompositingOperation) ns_arg_long(op)
                                  fraction:ns_arg_double(requestedAlpha)
                            respectFlipped:ns_arg_bool(respectFlipped)
-                                    hints:NS_ARG_AS(NSDictionary, hints)]) ? 1 : 0;
+                                    hints:ns_arg_dictionary(hints)]) ? 1 : 0;
     }
     return r;
 }

@@ -1880,7 +1880,7 @@ zend_long ns_nsview_enter_full_screen_mode_with_options(zval *handle, zval *scre
     @autoreleasepool {
         NSView *v = NS_ARG_AS(NSView, handle);
         if (v == nil) { return 0; }
-        return [v enterFullScreenMode:NS_ARG_AS(NSScreen, screen) withOptions:NS_ARG_AS(NSDictionary, options)] ? 1 : 0;
+        return [v enterFullScreenMode:NS_ARG_AS(NSScreen, screen) withOptions:ns_arg_dictionary(options)] ? 1 : 0;
     }
 }
 
@@ -1889,7 +1889,7 @@ void ns_nsview_exit_full_screen_mode_with_options(zval *handle, zval *options)
     @autoreleasepool {
         NSView *v = NS_ARG_AS(NSView, handle);
         if (v == nil) { return; }
-        [v exitFullScreenModeWithOptions:NS_ARG_AS(NSDictionary, options)];
+        [v exitFullScreenModeWithOptions:ns_arg_dictionary(options)];
     }
 }
 

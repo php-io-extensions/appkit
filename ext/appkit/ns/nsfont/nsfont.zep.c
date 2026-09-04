@@ -969,21 +969,19 @@ PHP_METHOD(AppKit_NS_NSFont_NSFont, renderingMode)
 PHP_METHOD(AppKit_NS_NSFont_NSFont, preferredFontForTextStyleOptions)
 {
 	zephir_method_globals *ZEPHIR_METHOD_GLOBALS_PTR = NULL;
-	zend_long options;
-	zval *style_param = NULL, *options_param = NULL, _0;
+	zval *style_param = NULL, *options = NULL, options_sub;
 	zval style;
 
 	ZVAL_UNDEF(&style);
-	ZVAL_UNDEF(&_0);
+	ZVAL_UNDEF(&options_sub);
 	ZEND_PARSE_PARAMETERS_START(2, 2)
 		Z_PARAM_STR(style)
-		Z_PARAM_LONG(options)
+		Z_PARAM_ZVAL(options)
 	ZEND_PARSE_PARAMETERS_END();
 	ZEPHIR_METHOD_GLOBALS_PTR = pecalloc(1, sizeof(zephir_method_globals), 0);
 	zephir_memory_grow_stack(ZEPHIR_METHOD_GLOBALS_PTR, __func__);
-	zephir_fetch_params(1, 2, 0, &style_param, &options_param);
+	zephir_fetch_params(1, 2, 0, &style_param, &options);
 	zephir_get_strval(&style, style_param);
-	ZVAL_LONG(&_0, options);
-	RETURN_MM_LONG(ns_nsfont_preferred_font_for_text_style_options(&style, &_0));
+	RETURN_MM_LONG(ns_nsfont_preferred_font_for_text_style_options(&style, options));
 }
 

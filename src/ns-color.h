@@ -20,10 +20,11 @@
  * Reserved: initWithCoder: (NSCoder); colorWithColorSpace:components:count:
  * and getComponents: (C component buffers);
  * colorWithName:dynamicProvider: (block); colorForControlTint: and
- * the ignoresAlpha class property (API_DEPRECATED); the CGColor
- * getter (CGColorRef / NS_RETURNS_INNER_POINTER, no CFType registry);
- * and the entire NSDeprecated category. colorWithCGColor: takes
- * CGColorRef as int pointer bits (0 = NULL), not a registry handle.
+ * the ignoresAlpha class property (API_DEPRECATED) and the entire
+ * NSDeprecated category. CGColorRef crosses as int pointer bits
+ * (0 = NULL), never a registry handle: colorWithCGColor: takes bits,
+ * and the CGColor getter answers bits valid only while the NSColor
+ * lives (NS_RETURNS_INNER_POINTER) — hold the colour, not the bits.
  * CIColor on colorWithCIColor: crosses as a handle.
  *
  * NSColorType / NSColorSystemEffect / NSControlTint cross as int.
@@ -365,7 +366,6 @@ void ns_nscolor_draw_swatch_in_rect(zval *handle, zval *x, zval *y, zval *width,
 
 /*@zep NS\NSColor colorWithCGColor(int cgColor) -> int */
 zend_long ns_nscolor_color_with_cg_color(zval *cgColor);
-/*@reserved NS\NSColor @property (readonly) CGColorRef CGColor NS_RETURNS_INNER_POINTER — CGColorRef inner pointer */
 
 /*@reserved NS\NSColor @property (class) BOOL ignoresAlpha — getter API_DEPRECATED */
 /*@reserved NS\NSColor @property (class) BOOL ignoresAlpha — setter API_DEPRECATED */
@@ -393,6 +393,9 @@ zend_long ns_nscolor_color_with_cg_color(zval *cgColor);
 
 /*@zep NS\NSColor colorWithCIColor(int color) -> int */
 zend_long ns_nscolor_color_with_ci_color(zval *color);
+
+/*@zep NS\NSColor CGColor(int handle) -> int */
+zend_long ns_nscolor_cg_color(zval *handle);
 
 #ifdef __cplusplus
 }

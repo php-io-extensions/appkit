@@ -107,9 +107,10 @@ PHP_METHOD(AppKit_NS_NSImageRep_NSImageRep, drawInRectFromRectOperationFractionR
 {
 	zend_bool respectFlipped;
 	double x, y, width, height, fromX, fromY, fromWidth, fromHeight, requestedAlpha;
-	zval *handle_param = NULL, *x_param = NULL, *y_param = NULL, *width_param = NULL, *height_param = NULL, *fromX_param = NULL, *fromY_param = NULL, *fromWidth_param = NULL, *fromHeight_param = NULL, *op_param = NULL, *requestedAlpha_param = NULL, *respectFlipped_param = NULL, *hints_param = NULL, _0, _1, _2, _3, _4, _5, _6, _7, _8, _9, _10, _11, _12;
-	zend_long handle, op, hints, r = 0;
+	zval *handle_param = NULL, *x_param = NULL, *y_param = NULL, *width_param = NULL, *height_param = NULL, *fromX_param = NULL, *fromY_param = NULL, *fromWidth_param = NULL, *fromHeight_param = NULL, *op_param = NULL, *requestedAlpha_param = NULL, *respectFlipped_param = NULL, *hints = NULL, hints_sub, _0, _1, _2, _3, _4, _5, _6, _7, _8, _9, _10, _11;
+	zend_long handle, op, r = 0;
 
+	ZVAL_UNDEF(&hints_sub);
 	ZVAL_UNDEF(&_0);
 	ZVAL_UNDEF(&_1);
 	ZVAL_UNDEF(&_2);
@@ -122,7 +123,6 @@ PHP_METHOD(AppKit_NS_NSImageRep_NSImageRep, drawInRectFromRectOperationFractionR
 	ZVAL_UNDEF(&_9);
 	ZVAL_UNDEF(&_10);
 	ZVAL_UNDEF(&_11);
-	ZVAL_UNDEF(&_12);
 	ZEND_PARSE_PARAMETERS_START(13, 13)
 		Z_PARAM_LONG(handle)
 		Z_PARAM_ZVAL(x)
@@ -136,9 +136,9 @@ PHP_METHOD(AppKit_NS_NSImageRep_NSImageRep, drawInRectFromRectOperationFractionR
 		Z_PARAM_LONG(op)
 		Z_PARAM_ZVAL(requestedAlpha)
 		Z_PARAM_BOOL(respectFlipped)
-		Z_PARAM_LONG(hints)
+		Z_PARAM_ZVAL(hints)
 	ZEND_PARSE_PARAMETERS_END();
-	zephir_fetch_params_without_memory_grow(13, 0, &handle_param, &x_param, &y_param, &width_param, &height_param, &fromX_param, &fromY_param, &fromWidth_param, &fromHeight_param, &op_param, &requestedAlpha_param, &respectFlipped_param, &hints_param);
+	zephir_fetch_params_without_memory_grow(13, 0, &handle_param, &x_param, &y_param, &width_param, &height_param, &fromX_param, &fromY_param, &fromWidth_param, &fromHeight_param, &op_param, &requestedAlpha_param, &respectFlipped_param, &hints);
 	x = zephir_get_doubleval(x_param);
 	y = zephir_get_doubleval(y_param);
 	width = zephir_get_doubleval(width_param);
@@ -160,8 +160,7 @@ PHP_METHOD(AppKit_NS_NSImageRep_NSImageRep, drawInRectFromRectOperationFractionR
 	ZVAL_LONG(&_9, op);
 	ZVAL_DOUBLE(&_10, requestedAlpha);
 	ZVAL_BOOL(&_11, (respectFlipped ? 1 : 0));
-	ZVAL_LONG(&_12, hints);
-	r = ns_nsimagerep_draw_in_rect_from_rect_operation_fraction_respect_flipped_hints(&_0, &_1, &_2, &_3, &_4, &_5, &_6, &_7, &_8, &_9, &_10, &_11, &_12);
+	r = ns_nsimagerep_draw_in_rect_from_rect_operation_fraction_respect_flipped_hints(&_0, &_1, &_2, &_3, &_4, &_5, &_6, &_7, &_8, &_9, &_10, &_11, hints);
 	RETURN_BOOL(r == 1);
 }
 

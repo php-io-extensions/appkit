@@ -55,7 +55,7 @@ void ns_nsnotificationcenter_post_notification(zval *handle, zval *notification)
 /*@zep NS\NSNotificationCenter postNotificationNameObject(int handle, string name, int object_) -> void */
 void ns_nsnotificationcenter_post_notification_name_object(zval *handle, zval *name, zval *object_);
 
-/*@zep NS\NSNotificationCenter postNotificationNameObjectUserInfo(int handle, string name, int object_, int userInfo) -> void */
+/*@zep NS\NSNotificationCenter postNotificationNameObjectUserInfo(int handle, string name, int object_, var userInfo) -> void */
 void ns_nsnotificationcenter_post_notification_name_object_user_info(zval *handle, zval *name, zval *object_, zval *userInfo);
 
 /* ---- Remove ---- */

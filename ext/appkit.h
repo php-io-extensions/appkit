@@ -4,9 +4,12 @@
 #ifndef ZEPHIR_CLASS_ENTRIES_H
 #define ZEPHIR_CLASS_ENTRIES_H
 
+#include "appkit/av/avplayer/avplayer.zep.h"
+#include "appkit/av/avplayerview/avplayerview.zep.h"
 #include "appkit/bridge/bridge.zep.h"
 #include "appkit/ns/nsalert/nsalert.zep.h"
 #include "appkit/ns/nsapplication/nsapplication.zep.h"
+#include "appkit/ns/nsattributedstring/nsattributedstring.zep.h"
 #include "appkit/ns/nsbox/nsbox.zep.h"
 #include "appkit/ns/nsbutton/nsbutton.zep.h"
 #include "appkit/ns/nscell/nscell.zep.h"
@@ -88,6 +91,7 @@
 #include "appkit/ns/nstoolbar/nstoolbar.zep.h"
 #include "appkit/ns/nstoolbaritem/nstoolbaritem.zep.h"
 #include "appkit/ns/nstoolbaritemgroup/nstoolbaritemgroup.zep.h"
+#include "appkit/ns/nsurl/nsurl.zep.h"
 #include "appkit/ns/nsview/nsview.zep.h"
 #include "appkit/ns/nsviewcontroller/nsviewcontroller.zep.h"
 #include "appkit/ns/nsvisualeffectview/nsvisualeffectview.zep.h"

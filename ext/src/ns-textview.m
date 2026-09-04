@@ -844,7 +844,7 @@ void ns_nstextview_set_selected_text_attributes(zval *handle, zval *selectedText
     @autoreleasepool {
         NSTextView *v = NS_ARG_AS(NSTextView, handle);
         if (v == nil) return;
-        [v setSelectedTextAttributes:NS_ARG_AS(NSDictionary, selectedTextAttributes)];
+        [v setSelectedTextAttributes:ns_arg_dictionary(selectedTextAttributes)];
     }
 }
 
@@ -891,7 +891,7 @@ void ns_nstextview_set_marked_text_attributes(zval *handle, zval *markedTextAttr
     @autoreleasepool {
         NSTextView *v = NS_ARG_AS(NSTextView, handle);
         if (v == nil) return;
-        [v setMarkedTextAttributes:NS_ARG_AS(NSDictionary, markedTextAttributes)];
+        [v setMarkedTextAttributes:ns_arg_dictionary(markedTextAttributes)];
     }
 }
 
@@ -910,7 +910,7 @@ void ns_nstextview_set_link_text_attributes(zval *handle, zval *linkTextAttribut
     @autoreleasepool {
         NSTextView *v = NS_ARG_AS(NSTextView, handle);
         if (v == nil) return;
-        [v setLinkTextAttributes:NS_ARG_AS(NSDictionary, linkTextAttributes)];
+        [v setLinkTextAttributes:ns_arg_dictionary(linkTextAttributes)];
     }
 }
 
@@ -1080,7 +1080,7 @@ void ns_nstextview_set_typing_attributes(zval *handle, zval *typingAttributes)
     @autoreleasepool {
         NSTextView *v = NS_ARG_AS(NSTextView, handle);
         if (v == nil) return;
-        [v setTypingAttributes:NS_ARG_AS(NSDictionary, typingAttributes)];
+        [v setTypingAttributes:ns_arg_dictionary(typingAttributes)];
     }
 }
 
@@ -1806,7 +1806,7 @@ void ns_nstextview_check_text_in_range_types_options(zval *handle, zval *locatio
     @autoreleasepool {
         NSTextView *v = NS_ARG_AS(NSTextView, handle);
         if (v == nil) return;
-        [v checkTextInRange:ns_arg_range(location, length) types:(NSTextCheckingTypes) ns_arg_long(checkingTypes) options:NS_ARG_AS(NSDictionary, options)];
+        [v checkTextInRange:ns_arg_range(location, length) types:(NSTextCheckingTypes) ns_arg_long(checkingTypes) options:ns_arg_dictionary(options)];
     }
 }
 
@@ -1815,7 +1815,7 @@ void ns_nstextview_handle_text_checking_results_for_range_types_options_orthogra
     @autoreleasepool {
         NSTextView *v = NS_ARG_AS(NSTextView, handle);
         if (v == nil) return;
-        [v handleTextCheckingResults:ns_arg_object_array(results) forRange:ns_arg_range(location, length) types:(NSTextCheckingTypes) ns_arg_long(checkingTypes) options:NS_ARG_AS(NSDictionary, options) orthography:NS_ARG_AS(NSOrthography, orthography) wordCount:(NSInteger) ns_arg_long(wordCount)];
+        [v handleTextCheckingResults:ns_arg_object_array(results) forRange:ns_arg_range(location, length) types:(NSTextCheckingTypes) ns_arg_long(checkingTypes) options:ns_arg_dictionary(options) orthography:NS_ARG_AS(NSOrthography, orthography) wordCount:(NSInteger) ns_arg_long(wordCount)];
     }
 }
 
@@ -2111,7 +2111,7 @@ void ns_nstextview_set_text_highlight_attributes(zval *handle, zval *textHighlig
     @autoreleasepool {
         NSTextView *v = NS_ARG_AS(NSTextView, handle);
         if (v == nil) return;
-        [v setTextHighlightAttributes:NS_ARG_AS(NSDictionary, textHighlightAttributes)];
+        [v setTextHighlightAttributes:ns_arg_dictionary(textHighlightAttributes)];
     }
 }
 

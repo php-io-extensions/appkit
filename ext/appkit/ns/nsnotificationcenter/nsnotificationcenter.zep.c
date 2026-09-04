@@ -77,27 +77,26 @@ PHP_METHOD(AppKit_NS_NSNotificationCenter_NSNotificationCenter, postNotification
 {
 	zephir_method_globals *ZEPHIR_METHOD_GLOBALS_PTR = NULL;
 	zval name;
-	zval *handle_param = NULL, *name_param = NULL, *object__param = NULL, *userInfo_param = NULL, _0, _1, _2;
-	zend_long handle, object_, userInfo;
+	zval *handle_param = NULL, *name_param = NULL, *object__param = NULL, *userInfo = NULL, userInfo_sub, _0, _1;
+	zend_long handle, object_;
 
+	ZVAL_UNDEF(&userInfo_sub);
 	ZVAL_UNDEF(&_0);
 	ZVAL_UNDEF(&_1);
-	ZVAL_UNDEF(&_2);
 	ZVAL_UNDEF(&name);
 	ZEND_PARSE_PARAMETERS_START(4, 4)
 		Z_PARAM_LONG(handle)
 		Z_PARAM_STR(name)
 		Z_PARAM_LONG(object_)
-		Z_PARAM_LONG(userInfo)
+		Z_PARAM_ZVAL(userInfo)
 	ZEND_PARSE_PARAMETERS_END();
 	ZEPHIR_METHOD_GLOBALS_PTR = pecalloc(1, sizeof(zephir_method_globals), 0);
 	zephir_memory_grow_stack(ZEPHIR_METHOD_GLOBALS_PTR, __func__);
-	zephir_fetch_params(1, 4, 0, &handle_param, &name_param, &object__param, &userInfo_param);
+	zephir_fetch_params(1, 4, 0, &handle_param, &name_param, &object__param, &userInfo);
 	zephir_get_strval(&name, name_param);
 	ZVAL_LONG(&_0, handle);
 	ZVAL_LONG(&_1, object_);
-	ZVAL_LONG(&_2, userInfo);
-	ns_nsnotificationcenter_post_notification_name_object_user_info(&_0, &name, &_1, &_2);
+	ns_nsnotificationcenter_post_notification_name_object_user_info(&_0, &name, &_1, userInfo);
 	ZEPHIR_MM_RESTORE();
 }
 

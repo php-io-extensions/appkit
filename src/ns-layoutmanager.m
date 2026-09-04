@@ -1092,7 +1092,7 @@ void ns_nslayoutmanager_set_temporary_attributes_for_character_range(zval *handl
     @autoreleasepool {
         NSLayoutManager *lm = NS_ARG_AS(NSLayoutManager, handle);
         if (lm == nil) return;
-        [lm setTemporaryAttributes:NS_ARG_AS(NSDictionary, attrs) forCharacterRange:ns_arg_range(location, length)];
+        [lm setTemporaryAttributes:ns_arg_dictionary(attrs) forCharacterRange:ns_arg_range(location, length)];
     }
 }
 
@@ -1101,7 +1101,7 @@ void ns_nslayoutmanager_add_temporary_attributes_for_character_range(zval *handl
     @autoreleasepool {
         NSLayoutManager *lm = NS_ARG_AS(NSLayoutManager, handle);
         if (lm == nil) return;
-        [lm addTemporaryAttributes:NS_ARG_AS(NSDictionary, attrs) forCharacterRange:ns_arg_range(location, length)];
+        [lm addTemporaryAttributes:ns_arg_dictionary(attrs) forCharacterRange:ns_arg_range(location, length)];
     }
 }
 

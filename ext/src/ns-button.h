@@ -32,6 +32,10 @@ zend_long ns_nsbutton_radio_button_with_title_target_action(zval *title, zval *t
 /*@zep NS\NSButton setButtonType(int handle, int type) -> void */
 void ns_nsbutton_set_button_type(zval *handle, zval *type);
 
+/*@zep NS\NSButton attributedTitle(int handle) -> int */
+zend_long ns_nsbutton_attributed_title(zval *handle);
+/*@zep NS\NSButton setAttributedTitle(int handle, int attributedTitle) -> void */
+void ns_nsbutton_set_attributed_title(zval *handle, zval *attributedTitle);
 /*@zep NS\NSButton title(int handle) -> string */
 void ns_nsbutton_title(zval *return_value, zval *handle);
 /*@zep NS\NSButton setTitle(int handle, string title) -> void */

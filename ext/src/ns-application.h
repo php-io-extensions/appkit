@@ -201,7 +201,7 @@ void ns_nsapplication_set_services_provider(zval *handle, zval *provider);
 /* ---- NSStandardAboutPanel ---- */
 /*@zep NS\NSApplication orderFrontStandardAboutPanel(int handle, int sender) -> void */
 void ns_nsapplication_order_front_standard_about_panel(zval *handle, zval *sender);
-/*@zep NS\NSApplication orderFrontStandardAboutPanelWithOptions(int handle, int options) -> void */
+/*@zep NS\NSApplication orderFrontStandardAboutPanelWithOptions(int handle, var options) -> void */
 void ns_nsapplication_order_front_standard_about_panel_with_options(zval *handle, zval *options);
 
 /* ---- NSApplicationLayoutDirection ---- */

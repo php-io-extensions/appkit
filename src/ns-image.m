@@ -263,7 +263,7 @@ void ns_nsimage_draw_in_rect_from_rect_operation_fraction_respect_flipped_hints(
               operation:(NSCompositingOperation) ns_arg_long(op)
                fraction:ns_arg_double(requestedAlpha)
          respectFlipped:ns_arg_bool(respectFlipped)
-                  hints:NS_ARG_AS(NSDictionary, hints)];
+                  hints:ns_arg_dictionary(hints)];
     }
 }
 
@@ -470,7 +470,7 @@ zend_long ns_nsimage_best_representation_for_rect_context_hints(zval *handle, zv
         NSImage *img = NS_ARG_AS(NSImage, handle);
         h = ns_handle_for(img != nil ? [img bestRepresentationForRect:ns_arg_rect(x, y, width, height)
                                                              context:NS_ARG_AS(NSGraphicsContext, context)
-                                                               hints:NS_ARG_AS(NSDictionary, hints)] : nil);
+                                                               hints:ns_arg_dictionary(hints)] : nil);
     }
     return h;
 }
@@ -483,7 +483,7 @@ zend_long ns_nsimage_hit_test_rect_with_image_destination_rect_context_hints_fli
         r = (img != nil && [img hitTestRect:ns_arg_rect(testX, testY, testWidth, testHeight)
                  withImageDestinationRect:ns_arg_rect(destX, destY, destWidth, destHeight)
                                   context:NS_ARG_AS(NSGraphicsContext, context)
-                                    hints:NS_ARG_AS(NSDictionary, hints)
+                                    hints:ns_arg_dictionary(hints)
                                   flipped:ns_arg_bool(flipped)]) ? 1 : 0;
     }
     return r;

@@ -215,7 +215,7 @@ zend_long ns_nstextview_selection_granularity(zval *handle);
 void ns_nstextview_set_selection_granularity(zval *handle, zval *selectionGranularity);
 /*@zep NS\NSTextView selectedTextAttributes(int handle) -> int */
 zend_long ns_nstextview_selected_text_attributes(zval *handle);
-/*@zep NS\NSTextView setSelectedTextAttributes(int handle, int selectedTextAttributes) -> void */
+/*@zep NS\NSTextView setSelectedTextAttributes(int handle, var selectedTextAttributes) -> void */
 void ns_nstextview_set_selected_text_attributes(zval *handle, zval *selectedTextAttributes);
 /*@zep NS\NSTextView insertionPointColor(int handle) -> int */
 zend_long ns_nstextview_insertion_point_color(zval *handle);
@@ -225,11 +225,11 @@ void ns_nstextview_set_insertion_point_color(zval *handle, zval *insertionPointC
 void ns_nstextview_update_insertion_point_state_and_restart_timer(zval *handle, zval *restartFlag);
 /*@zep NS\NSTextView markedTextAttributes(int handle) -> int */
 zend_long ns_nstextview_marked_text_attributes(zval *handle);
-/*@zep NS\NSTextView setMarkedTextAttributes(int handle, int markedTextAttributes) -> void */
+/*@zep NS\NSTextView setMarkedTextAttributes(int handle, var markedTextAttributes) -> void */
 void ns_nstextview_set_marked_text_attributes(zval *handle, zval *markedTextAttributes);
 /*@zep NS\NSTextView linkTextAttributes(int handle) -> int */
 zend_long ns_nstextview_link_text_attributes(zval *handle);
-/*@zep NS\NSTextView setLinkTextAttributes(int handle, int linkTextAttributes) -> void */
+/*@zep NS\NSTextView setLinkTextAttributes(int handle, var linkTextAttributes) -> void */
 void ns_nstextview_set_link_text_attributes(zval *handle, zval *linkTextAttributes);
 /*@zep NS\NSTextView displaysLinkToolTips(int handle) -> bool */
 zend_long ns_nstextview_displays_link_tool_tips(zval *handle);
@@ -265,7 +265,7 @@ void ns_nstextview_toggle_grammar_checking(zval *handle, zval *sender);
 void ns_nstextview_set_spelling_state_range(zval *handle, zval *value, zval *location, zval *length);
 /*@zep NS\NSTextView typingAttributes(int handle) -> int */
 zend_long ns_nstextview_typing_attributes(zval *handle);
-/*@zep NS\NSTextView setTypingAttributes(int handle, int typingAttributes) -> void */
+/*@zep NS\NSTextView setTypingAttributes(int handle, var typingAttributes) -> void */
 void ns_nstextview_set_typing_attributes(zval *handle, zval *typingAttributes);
 /*@zep NS\NSTextView shouldChangeTextInRangesReplacementStrings(int handle, array affectedRanges, array replacementStrings) -> bool */
 zend_long ns_nstextview_should_change_text_in_ranges_replacement_strings(zval *handle, zval *affectedRanges, zval *replacementStrings);
@@ -421,9 +421,9 @@ void ns_nstextview_toggle_automatic_spelling_correction(zval *handle, zval *send
 zend_long ns_nstextview_enabled_text_checking_types(zval *handle);
 /*@zep NS\NSTextView setEnabledTextCheckingTypes(int handle, int enabledTextCheckingTypes) -> void */
 void ns_nstextview_set_enabled_text_checking_types(zval *handle, zval *enabledTextCheckingTypes);
-/*@zep NS\NSTextView checkTextInRangeTypesOptions(int handle, int location, int length, int checkingTypes, int options) -> void */
+/*@zep NS\NSTextView checkTextInRangeTypesOptions(int handle, int location, int length, int checkingTypes, var options) -> void */
 void ns_nstextview_check_text_in_range_types_options(zval *handle, zval *location, zval *length, zval *checkingTypes, zval *options);
-/*@zep NS\NSTextView handleTextCheckingResultsForRangeTypesOptionsOrthographyWordCount(int handle, array results, int location, int length, int checkingTypes, int options, int orthography, int wordCount) -> void */
+/*@zep NS\NSTextView handleTextCheckingResultsForRangeTypesOptionsOrthographyWordCount(int handle, array results, int location, int length, int checkingTypes, var options, int orthography, int wordCount) -> void */
 void ns_nstextview_handle_text_checking_results_for_range_types_options_orthography_word_count(zval *handle, zval *results, zval *location, zval *length, zval *checkingTypes, zval *options, zval *orthography, zval *wordCount);
 /*@zep NS\NSTextView orderFrontSubstitutionsPanel(int handle, int sender) -> void */
 void ns_nstextview_order_front_substitutions_panel(zval *handle, zval *sender);
@@ -487,7 +487,7 @@ zend_long ns_nstextview_scrollable_document_content_text_view(void);
 zend_long ns_nstextview_scrollable_plain_document_content_text_view(void);
 /*@zep NS\NSTextView textHighlightAttributes(int handle) -> int */
 zend_long ns_nstextview_text_highlight_attributes(zval *handle);
-/*@zep NS\NSTextView setTextHighlightAttributes(int handle, int textHighlightAttributes) -> void */
+/*@zep NS\NSTextView setTextHighlightAttributes(int handle, var textHighlightAttributes) -> void */
 void ns_nstextview_set_text_highlight_attributes(zval *handle, zval *textHighlightAttributes);
 /*@zep NS\NSTextView drawTextHighlightBackgroundForTextRangeOrigin(int handle, int textRange, double x, double y) -> void */
 void ns_nstextview_draw_text_highlight_background_for_text_range_origin(zval *handle, zval *textRange, zval *x, zval *y);

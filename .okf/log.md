@@ -1,5 +1,26 @@
 # Change log
 
+## 2026-08-31 (AV wave)
+* **Binding**: the AVKit/AVFoundation sister seam opens, shaped exactly like QuartzCore:
+  `av-` file prefix, `AV\` namespace segment, `-framework AVFoundation -framework AVKit`
+  in extra-libs, liftable later if a need appears. Curated minimums (documented like
+  NSAttributedString): `NS\NSURL` (two factories + three reads), `AV\AVPlayer` (URL
+  factory, play/pause/rate/volume/mute, two status reads; CMTime seeking and item
+  plumbing reserved), `AV\AVPlayerView` (initWithFrame, player, controlsStyle,
+  videoGravity, fullscreen toggle). GEN_OK, PARITY_OK, built into Herd; playback proven
+  against a real mp4 (rate 1, timeControlStatus PLAYING).
+
+## 2026-08-31
+* **Packaging**: in-place `phpize`/`make` leftovers stripped from `ext/`
+  using the official `scripts/prepare-ext.sh` leftover list (496 object
+  files + 97 leftover directories: `Makefile`, `configure`, `modules/`,
+  `.libs/`, `*.lo`/`*.dep`/`*.la`/`*.so`/`*.dSYM`, `autom4te.cache/`,
+  `build/`, `libtool`, `run-tests.php`, `config.h*`). Ship-ready C left
+  intact: 90 `.zep.c` / 90 `.zep.h`, 161 `src/*.{c,h,m}`, 40 kernel
+  files, portable `config.m4`, `Makefile.frag`, `php_appkit.h` at 0.8.0.
+  Zephir `ext/install` + `ext/clean` wrappers kept — this package's
+  prepare-ext does not strip them (gtk does). Did not regenerate.
+
 ## 2026-08-30 (style)
 * **Binding**: `NS\NSAttributedString` (curated: initWithString, initWithStringAttributes
   via the array-to-NSDictionary marshalling, string, length), `NSButton`

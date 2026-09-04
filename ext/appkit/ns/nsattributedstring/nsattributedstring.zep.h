@@ -1,0 +1,34 @@
+
+extern zend_class_entry *appkit_ns_nsattributedstring_nsattributedstring_ce;
+
+ZEPHIR_INIT_CLASS(AppKit_NS_NSAttributedString_NSAttributedString);
+
+PHP_METHOD(AppKit_NS_NSAttributedString_NSAttributedString, initWithString);
+PHP_METHOD(AppKit_NS_NSAttributedString_NSAttributedString, initWithStringAttributes);
+PHP_METHOD(AppKit_NS_NSAttributedString_NSAttributedString, string_);
+PHP_METHOD(AppKit_NS_NSAttributedString_NSAttributedString, length);
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsattributedstring_nsattributedstring_initwithstring, 0, 1, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, str, IS_STRING, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsattributedstring_nsattributedstring_initwithstringattributes, 0, 2, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, str, IS_STRING, 0)
+	ZEND_ARG_INFO(0, attributes)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_INFO_EX(arginfo_appkit_ns_nsattributedstring_nsattributedstring_string_, 0, 0, 1)
+	ZEND_ARG_TYPE_INFO(0, handle, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsattributedstring_nsattributedstring_length, 0, 1, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, handle, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEPHIR_INIT_FUNCS(appkit_ns_nsattributedstring_nsattributedstring_method_entry) {
+	PHP_ME(AppKit_NS_NSAttributedString_NSAttributedString, initWithString, arginfo_appkit_ns_nsattributedstring_nsattributedstring_initwithstring, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSAttributedString_NSAttributedString, initWithStringAttributes, arginfo_appkit_ns_nsattributedstring_nsattributedstring_initwithstringattributes, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSAttributedString_NSAttributedString, string_, arginfo_appkit_ns_nsattributedstring_nsattributedstring_string_, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSAttributedString_NSAttributedString, length, arginfo_appkit_ns_nsattributedstring_nsattributedstring_length, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_FE_END
+};
