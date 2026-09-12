@@ -24,6 +24,8 @@ use AppKit\NS\NSAlert\NSAlert;
 use AppKit\NS\NSApplication\NSApplication;
 use AppKit\NS\NSButton\NSButton;
 use AppKit\NS\NSComboBox\NSComboBox;
+use AppKit\NS\NSDateFormatter\NSDateFormatter;
+use AppKit\NS\NSIndexSet\NSIndexSet;
 use AppKit\NS\NSControl\NSControl;
 use AppKit\NS\NSMenu\NSMenu;
 use AppKit\NS\NSMenuItem\NSMenuItem;
@@ -288,6 +290,28 @@ check(
     'ROUNDTRIP_OK'
 );
 NSControl::setEnabled($btn, true);
+
+/* ---- Foundation date formatter + index set (datepicker / table twins) ---- */
+$fmt = NSDateFormatter::init();
+NSDateFormatter::setDateFormat($fmt, 'yyyy-MM-dd');
+$parsed = NSDateFormatter::dateFromString($fmt, '2026-09-12');
+$back = NSDateFormatter::stringFromDate($fmt, $parsed);
+check(
+    $fmt !== 0
+    && $parsed !== 0
+    && $back === '2026-09-12',
+    'DATEFORMATTER_OK'
+);
+$idx = NSIndexSet::indexSetWithIndex(2);
+check(
+    $idx !== 0
+    && NSIndexSet::containsIndex($idx, 2) === true
+    && NSIndexSet::containsIndex($idx, 1) === false,
+    'INDEXSET_OK'
+);
+Bridge::release($fmt);
+Bridge::release($parsed);
+Bridge::release($idx);
 
 Bridge::release($colA);
 Bridge::release($colB);

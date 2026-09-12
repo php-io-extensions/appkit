@@ -1,0 +1,540 @@
+
+extern zend_class_entry *appkit_ns_nsdateformatter_nsdateformatter_ce;
+
+ZEPHIR_INIT_CLASS(AppKit_NS_NSDateFormatter_NSDateFormatter);
+
+PHP_METHOD(AppKit_NS_NSDateFormatter_NSDateFormatter, init);
+PHP_METHOD(AppKit_NS_NSDateFormatter_NSDateFormatter, stringFromDate);
+PHP_METHOD(AppKit_NS_NSDateFormatter_NSDateFormatter, dateFromString);
+PHP_METHOD(AppKit_NS_NSDateFormatter_NSDateFormatter, localizedStringFromDateDateStyleTimeStyle);
+PHP_METHOD(AppKit_NS_NSDateFormatter_NSDateFormatter, dateFormatFromTemplateOptionsLocale);
+PHP_METHOD(AppKit_NS_NSDateFormatter_NSDateFormatter, defaultFormatterBehavior);
+PHP_METHOD(AppKit_NS_NSDateFormatter_NSDateFormatter, setDefaultFormatterBehavior);
+PHP_METHOD(AppKit_NS_NSDateFormatter_NSDateFormatter, formattingContext);
+PHP_METHOD(AppKit_NS_NSDateFormatter_NSDateFormatter, setFormattingContext);
+PHP_METHOD(AppKit_NS_NSDateFormatter_NSDateFormatter, setLocalizedDateFormatFromTemplate);
+PHP_METHOD(AppKit_NS_NSDateFormatter_NSDateFormatter, dateFormat);
+PHP_METHOD(AppKit_NS_NSDateFormatter_NSDateFormatter, setDateFormat);
+PHP_METHOD(AppKit_NS_NSDateFormatter_NSDateFormatter, dateStyle);
+PHP_METHOD(AppKit_NS_NSDateFormatter_NSDateFormatter, setDateStyle);
+PHP_METHOD(AppKit_NS_NSDateFormatter_NSDateFormatter, timeStyle);
+PHP_METHOD(AppKit_NS_NSDateFormatter_NSDateFormatter, setTimeStyle);
+PHP_METHOD(AppKit_NS_NSDateFormatter_NSDateFormatter, locale);
+PHP_METHOD(AppKit_NS_NSDateFormatter_NSDateFormatter, setLocale);
+PHP_METHOD(AppKit_NS_NSDateFormatter_NSDateFormatter, generatesCalendarDates);
+PHP_METHOD(AppKit_NS_NSDateFormatter_NSDateFormatter, setGeneratesCalendarDates);
+PHP_METHOD(AppKit_NS_NSDateFormatter_NSDateFormatter, formatterBehavior);
+PHP_METHOD(AppKit_NS_NSDateFormatter_NSDateFormatter, setFormatterBehavior);
+PHP_METHOD(AppKit_NS_NSDateFormatter_NSDateFormatter, timeZone);
+PHP_METHOD(AppKit_NS_NSDateFormatter_NSDateFormatter, setTimeZone);
+PHP_METHOD(AppKit_NS_NSDateFormatter_NSDateFormatter, calendar);
+PHP_METHOD(AppKit_NS_NSDateFormatter_NSDateFormatter, setCalendar);
+PHP_METHOD(AppKit_NS_NSDateFormatter_NSDateFormatter, isLenient);
+PHP_METHOD(AppKit_NS_NSDateFormatter_NSDateFormatter, setLenient);
+PHP_METHOD(AppKit_NS_NSDateFormatter_NSDateFormatter, twoDigitStartDate);
+PHP_METHOD(AppKit_NS_NSDateFormatter_NSDateFormatter, setTwoDigitStartDate);
+PHP_METHOD(AppKit_NS_NSDateFormatter_NSDateFormatter, defaultDate);
+PHP_METHOD(AppKit_NS_NSDateFormatter_NSDateFormatter, setDefaultDate);
+PHP_METHOD(AppKit_NS_NSDateFormatter_NSDateFormatter, eraSymbols);
+PHP_METHOD(AppKit_NS_NSDateFormatter_NSDateFormatter, setEraSymbols);
+PHP_METHOD(AppKit_NS_NSDateFormatter_NSDateFormatter, monthSymbols);
+PHP_METHOD(AppKit_NS_NSDateFormatter_NSDateFormatter, setMonthSymbols);
+PHP_METHOD(AppKit_NS_NSDateFormatter_NSDateFormatter, shortMonthSymbols);
+PHP_METHOD(AppKit_NS_NSDateFormatter_NSDateFormatter, setShortMonthSymbols);
+PHP_METHOD(AppKit_NS_NSDateFormatter_NSDateFormatter, weekdaySymbols);
+PHP_METHOD(AppKit_NS_NSDateFormatter_NSDateFormatter, setWeekdaySymbols);
+PHP_METHOD(AppKit_NS_NSDateFormatter_NSDateFormatter, shortWeekdaySymbols);
+PHP_METHOD(AppKit_NS_NSDateFormatter_NSDateFormatter, setShortWeekdaySymbols);
+PHP_METHOD(AppKit_NS_NSDateFormatter_NSDateFormatter, AMSymbol);
+PHP_METHOD(AppKit_NS_NSDateFormatter_NSDateFormatter, setAMSymbol);
+PHP_METHOD(AppKit_NS_NSDateFormatter_NSDateFormatter, PMSymbol);
+PHP_METHOD(AppKit_NS_NSDateFormatter_NSDateFormatter, setPMSymbol);
+PHP_METHOD(AppKit_NS_NSDateFormatter_NSDateFormatter, longEraSymbols);
+PHP_METHOD(AppKit_NS_NSDateFormatter_NSDateFormatter, setLongEraSymbols);
+PHP_METHOD(AppKit_NS_NSDateFormatter_NSDateFormatter, veryShortMonthSymbols);
+PHP_METHOD(AppKit_NS_NSDateFormatter_NSDateFormatter, setVeryShortMonthSymbols);
+PHP_METHOD(AppKit_NS_NSDateFormatter_NSDateFormatter, standaloneMonthSymbols);
+PHP_METHOD(AppKit_NS_NSDateFormatter_NSDateFormatter, setStandaloneMonthSymbols);
+PHP_METHOD(AppKit_NS_NSDateFormatter_NSDateFormatter, shortStandaloneMonthSymbols);
+PHP_METHOD(AppKit_NS_NSDateFormatter_NSDateFormatter, setShortStandaloneMonthSymbols);
+PHP_METHOD(AppKit_NS_NSDateFormatter_NSDateFormatter, veryShortStandaloneMonthSymbols);
+PHP_METHOD(AppKit_NS_NSDateFormatter_NSDateFormatter, setVeryShortStandaloneMonthSymbols);
+PHP_METHOD(AppKit_NS_NSDateFormatter_NSDateFormatter, veryShortWeekdaySymbols);
+PHP_METHOD(AppKit_NS_NSDateFormatter_NSDateFormatter, setVeryShortWeekdaySymbols);
+PHP_METHOD(AppKit_NS_NSDateFormatter_NSDateFormatter, standaloneWeekdaySymbols);
+PHP_METHOD(AppKit_NS_NSDateFormatter_NSDateFormatter, setStandaloneWeekdaySymbols);
+PHP_METHOD(AppKit_NS_NSDateFormatter_NSDateFormatter, shortStandaloneWeekdaySymbols);
+PHP_METHOD(AppKit_NS_NSDateFormatter_NSDateFormatter, setShortStandaloneWeekdaySymbols);
+PHP_METHOD(AppKit_NS_NSDateFormatter_NSDateFormatter, veryShortStandaloneWeekdaySymbols);
+PHP_METHOD(AppKit_NS_NSDateFormatter_NSDateFormatter, setVeryShortStandaloneWeekdaySymbols);
+PHP_METHOD(AppKit_NS_NSDateFormatter_NSDateFormatter, quarterSymbols);
+PHP_METHOD(AppKit_NS_NSDateFormatter_NSDateFormatter, setQuarterSymbols);
+PHP_METHOD(AppKit_NS_NSDateFormatter_NSDateFormatter, shortQuarterSymbols);
+PHP_METHOD(AppKit_NS_NSDateFormatter_NSDateFormatter, setShortQuarterSymbols);
+PHP_METHOD(AppKit_NS_NSDateFormatter_NSDateFormatter, standaloneQuarterSymbols);
+PHP_METHOD(AppKit_NS_NSDateFormatter_NSDateFormatter, setStandaloneQuarterSymbols);
+PHP_METHOD(AppKit_NS_NSDateFormatter_NSDateFormatter, shortStandaloneQuarterSymbols);
+PHP_METHOD(AppKit_NS_NSDateFormatter_NSDateFormatter, setShortStandaloneQuarterSymbols);
+PHP_METHOD(AppKit_NS_NSDateFormatter_NSDateFormatter, gregorianStartDate);
+PHP_METHOD(AppKit_NS_NSDateFormatter_NSDateFormatter, setGregorianStartDate);
+PHP_METHOD(AppKit_NS_NSDateFormatter_NSDateFormatter, doesRelativeDateFormatting);
+PHP_METHOD(AppKit_NS_NSDateFormatter_NSDateFormatter, setDoesRelativeDateFormatting);
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsdateformatter_nsdateformatter_init, 0, 0, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_INFO_EX(arginfo_appkit_ns_nsdateformatter_nsdateformatter_stringfromdate, 0, 0, 2)
+	ZEND_ARG_TYPE_INFO(0, handle, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, date, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsdateformatter_nsdateformatter_datefromstring, 0, 2, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, handle, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, string_, IS_STRING, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_INFO_EX(arginfo_appkit_ns_nsdateformatter_nsdateformatter_localizedstringfromdatedatestyletimestyle, 0, 0, 3)
+	ZEND_ARG_TYPE_INFO(0, date, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, dstyle, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, tstyle, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_INFO_EX(arginfo_appkit_ns_nsdateformatter_nsdateformatter_dateformatfromtemplateoptionslocale, 0, 0, 3)
+	ZEND_ARG_TYPE_INFO(0, tmplate, IS_STRING, 0)
+	ZEND_ARG_TYPE_INFO(0, opts, IS_LONG, 0)
+	ZEND_ARG_INFO(0, locale)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsdateformatter_nsdateformatter_defaultformatterbehavior, 0, 0, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsdateformatter_nsdateformatter_setdefaultformatterbehavior, 0, 1, IS_VOID, 0)
+
+	ZEND_ARG_TYPE_INFO(0, defaultFormatterBehavior, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsdateformatter_nsdateformatter_formattingcontext, 0, 1, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, handle, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsdateformatter_nsdateformatter_setformattingcontext, 0, 2, IS_VOID, 0)
+
+	ZEND_ARG_TYPE_INFO(0, handle, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, formattingContext, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsdateformatter_nsdateformatter_setlocalizeddateformatfromtemplate, 0, 2, IS_VOID, 0)
+
+	ZEND_ARG_TYPE_INFO(0, handle, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, dateFormatTemplate, IS_STRING, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_INFO_EX(arginfo_appkit_ns_nsdateformatter_nsdateformatter_dateformat, 0, 0, 1)
+	ZEND_ARG_TYPE_INFO(0, handle, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsdateformatter_nsdateformatter_setdateformat, 0, 2, IS_VOID, 0)
+
+	ZEND_ARG_TYPE_INFO(0, handle, IS_LONG, 0)
+	ZEND_ARG_INFO(0, dateFormat)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsdateformatter_nsdateformatter_datestyle, 0, 1, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, handle, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsdateformatter_nsdateformatter_setdatestyle, 0, 2, IS_VOID, 0)
+
+	ZEND_ARG_TYPE_INFO(0, handle, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, dateStyle, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsdateformatter_nsdateformatter_timestyle, 0, 1, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, handle, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsdateformatter_nsdateformatter_settimestyle, 0, 2, IS_VOID, 0)
+
+	ZEND_ARG_TYPE_INFO(0, handle, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, timeStyle, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsdateformatter_nsdateformatter_locale, 0, 1, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, handle, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsdateformatter_nsdateformatter_setlocale, 0, 2, IS_VOID, 0)
+
+	ZEND_ARG_TYPE_INFO(0, handle, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, locale, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsdateformatter_nsdateformatter_generatescalendardates, 0, 1, _IS_BOOL, 0)
+	ZEND_ARG_TYPE_INFO(0, handle, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsdateformatter_nsdateformatter_setgeneratescalendardates, 0, 2, IS_VOID, 0)
+
+	ZEND_ARG_TYPE_INFO(0, handle, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, generatesCalendarDates, _IS_BOOL, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsdateformatter_nsdateformatter_formatterbehavior, 0, 1, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, handle, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsdateformatter_nsdateformatter_setformatterbehavior, 0, 2, IS_VOID, 0)
+
+	ZEND_ARG_TYPE_INFO(0, handle, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, formatterBehavior, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsdateformatter_nsdateformatter_timezone, 0, 1, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, handle, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsdateformatter_nsdateformatter_settimezone, 0, 2, IS_VOID, 0)
+
+	ZEND_ARG_TYPE_INFO(0, handle, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, timeZone, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsdateformatter_nsdateformatter_calendar, 0, 1, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, handle, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsdateformatter_nsdateformatter_setcalendar, 0, 2, IS_VOID, 0)
+
+	ZEND_ARG_TYPE_INFO(0, handle, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, calendar, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsdateformatter_nsdateformatter_islenient, 0, 1, _IS_BOOL, 0)
+	ZEND_ARG_TYPE_INFO(0, handle, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsdateformatter_nsdateformatter_setlenient, 0, 2, IS_VOID, 0)
+
+	ZEND_ARG_TYPE_INFO(0, handle, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, lenient, _IS_BOOL, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsdateformatter_nsdateformatter_twodigitstartdate, 0, 1, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, handle, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsdateformatter_nsdateformatter_settwodigitstartdate, 0, 2, IS_VOID, 0)
+
+	ZEND_ARG_TYPE_INFO(0, handle, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, twoDigitStartDate, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsdateformatter_nsdateformatter_defaultdate, 0, 1, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, handle, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsdateformatter_nsdateformatter_setdefaultdate, 0, 2, IS_VOID, 0)
+
+	ZEND_ARG_TYPE_INFO(0, handle, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, defaultDate, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsdateformatter_nsdateformatter_erasymbols, 0, 1, IS_ARRAY, 0)
+	ZEND_ARG_TYPE_INFO(0, handle, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsdateformatter_nsdateformatter_seterasymbols, 0, 2, IS_VOID, 0)
+
+	ZEND_ARG_TYPE_INFO(0, handle, IS_LONG, 0)
+	ZEND_ARG_INFO(0, eraSymbols)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsdateformatter_nsdateformatter_monthsymbols, 0, 1, IS_ARRAY, 0)
+	ZEND_ARG_TYPE_INFO(0, handle, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsdateformatter_nsdateformatter_setmonthsymbols, 0, 2, IS_VOID, 0)
+
+	ZEND_ARG_TYPE_INFO(0, handle, IS_LONG, 0)
+	ZEND_ARG_INFO(0, monthSymbols)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsdateformatter_nsdateformatter_shortmonthsymbols, 0, 1, IS_ARRAY, 0)
+	ZEND_ARG_TYPE_INFO(0, handle, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsdateformatter_nsdateformatter_setshortmonthsymbols, 0, 2, IS_VOID, 0)
+
+	ZEND_ARG_TYPE_INFO(0, handle, IS_LONG, 0)
+	ZEND_ARG_INFO(0, shortMonthSymbols)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsdateformatter_nsdateformatter_weekdaysymbols, 0, 1, IS_ARRAY, 0)
+	ZEND_ARG_TYPE_INFO(0, handle, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsdateformatter_nsdateformatter_setweekdaysymbols, 0, 2, IS_VOID, 0)
+
+	ZEND_ARG_TYPE_INFO(0, handle, IS_LONG, 0)
+	ZEND_ARG_INFO(0, weekdaySymbols)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsdateformatter_nsdateformatter_shortweekdaysymbols, 0, 1, IS_ARRAY, 0)
+	ZEND_ARG_TYPE_INFO(0, handle, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsdateformatter_nsdateformatter_setshortweekdaysymbols, 0, 2, IS_VOID, 0)
+
+	ZEND_ARG_TYPE_INFO(0, handle, IS_LONG, 0)
+	ZEND_ARG_INFO(0, shortWeekdaySymbols)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_INFO_EX(arginfo_appkit_ns_nsdateformatter_nsdateformatter_amsymbol, 0, 0, 1)
+	ZEND_ARG_TYPE_INFO(0, handle, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsdateformatter_nsdateformatter_setamsymbol, 0, 2, IS_VOID, 0)
+
+	ZEND_ARG_TYPE_INFO(0, handle, IS_LONG, 0)
+	ZEND_ARG_INFO(0, AMSymbol)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_INFO_EX(arginfo_appkit_ns_nsdateformatter_nsdateformatter_pmsymbol, 0, 0, 1)
+	ZEND_ARG_TYPE_INFO(0, handle, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsdateformatter_nsdateformatter_setpmsymbol, 0, 2, IS_VOID, 0)
+
+	ZEND_ARG_TYPE_INFO(0, handle, IS_LONG, 0)
+	ZEND_ARG_INFO(0, PMSymbol)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsdateformatter_nsdateformatter_longerasymbols, 0, 1, IS_ARRAY, 0)
+	ZEND_ARG_TYPE_INFO(0, handle, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsdateformatter_nsdateformatter_setlongerasymbols, 0, 2, IS_VOID, 0)
+
+	ZEND_ARG_TYPE_INFO(0, handle, IS_LONG, 0)
+	ZEND_ARG_INFO(0, longEraSymbols)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsdateformatter_nsdateformatter_veryshortmonthsymbols, 0, 1, IS_ARRAY, 0)
+	ZEND_ARG_TYPE_INFO(0, handle, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsdateformatter_nsdateformatter_setveryshortmonthsymbols, 0, 2, IS_VOID, 0)
+
+	ZEND_ARG_TYPE_INFO(0, handle, IS_LONG, 0)
+	ZEND_ARG_INFO(0, veryShortMonthSymbols)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsdateformatter_nsdateformatter_standalonemonthsymbols, 0, 1, IS_ARRAY, 0)
+	ZEND_ARG_TYPE_INFO(0, handle, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsdateformatter_nsdateformatter_setstandalonemonthsymbols, 0, 2, IS_VOID, 0)
+
+	ZEND_ARG_TYPE_INFO(0, handle, IS_LONG, 0)
+	ZEND_ARG_INFO(0, standaloneMonthSymbols)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsdateformatter_nsdateformatter_shortstandalonemonthsymbols, 0, 1, IS_ARRAY, 0)
+	ZEND_ARG_TYPE_INFO(0, handle, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsdateformatter_nsdateformatter_setshortstandalonemonthsymbols, 0, 2, IS_VOID, 0)
+
+	ZEND_ARG_TYPE_INFO(0, handle, IS_LONG, 0)
+	ZEND_ARG_INFO(0, shortStandaloneMonthSymbols)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsdateformatter_nsdateformatter_veryshortstandalonemonthsymbols, 0, 1, IS_ARRAY, 0)
+	ZEND_ARG_TYPE_INFO(0, handle, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsdateformatter_nsdateformatter_setveryshortstandalonemonthsymbols, 0, 2, IS_VOID, 0)
+
+	ZEND_ARG_TYPE_INFO(0, handle, IS_LONG, 0)
+	ZEND_ARG_INFO(0, veryShortStandaloneMonthSymbols)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsdateformatter_nsdateformatter_veryshortweekdaysymbols, 0, 1, IS_ARRAY, 0)
+	ZEND_ARG_TYPE_INFO(0, handle, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsdateformatter_nsdateformatter_setveryshortweekdaysymbols, 0, 2, IS_VOID, 0)
+
+	ZEND_ARG_TYPE_INFO(0, handle, IS_LONG, 0)
+	ZEND_ARG_INFO(0, veryShortWeekdaySymbols)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsdateformatter_nsdateformatter_standaloneweekdaysymbols, 0, 1, IS_ARRAY, 0)
+	ZEND_ARG_TYPE_INFO(0, handle, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsdateformatter_nsdateformatter_setstandaloneweekdaysymbols, 0, 2, IS_VOID, 0)
+
+	ZEND_ARG_TYPE_INFO(0, handle, IS_LONG, 0)
+	ZEND_ARG_INFO(0, standaloneWeekdaySymbols)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsdateformatter_nsdateformatter_shortstandaloneweekdaysymbols, 0, 1, IS_ARRAY, 0)
+	ZEND_ARG_TYPE_INFO(0, handle, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsdateformatter_nsdateformatter_setshortstandaloneweekdaysymbols, 0, 2, IS_VOID, 0)
+
+	ZEND_ARG_TYPE_INFO(0, handle, IS_LONG, 0)
+	ZEND_ARG_INFO(0, shortStandaloneWeekdaySymbols)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsdateformatter_nsdateformatter_veryshortstandaloneweekdaysymbols, 0, 1, IS_ARRAY, 0)
+	ZEND_ARG_TYPE_INFO(0, handle, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsdateformatter_nsdateformatter_setveryshortstandaloneweekdaysymbols, 0, 2, IS_VOID, 0)
+
+	ZEND_ARG_TYPE_INFO(0, handle, IS_LONG, 0)
+	ZEND_ARG_INFO(0, veryShortStandaloneWeekdaySymbols)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsdateformatter_nsdateformatter_quartersymbols, 0, 1, IS_ARRAY, 0)
+	ZEND_ARG_TYPE_INFO(0, handle, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsdateformatter_nsdateformatter_setquartersymbols, 0, 2, IS_VOID, 0)
+
+	ZEND_ARG_TYPE_INFO(0, handle, IS_LONG, 0)
+	ZEND_ARG_INFO(0, quarterSymbols)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsdateformatter_nsdateformatter_shortquartersymbols, 0, 1, IS_ARRAY, 0)
+	ZEND_ARG_TYPE_INFO(0, handle, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsdateformatter_nsdateformatter_setshortquartersymbols, 0, 2, IS_VOID, 0)
+
+	ZEND_ARG_TYPE_INFO(0, handle, IS_LONG, 0)
+	ZEND_ARG_INFO(0, shortQuarterSymbols)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsdateformatter_nsdateformatter_standalonequartersymbols, 0, 1, IS_ARRAY, 0)
+	ZEND_ARG_TYPE_INFO(0, handle, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsdateformatter_nsdateformatter_setstandalonequartersymbols, 0, 2, IS_VOID, 0)
+
+	ZEND_ARG_TYPE_INFO(0, handle, IS_LONG, 0)
+	ZEND_ARG_INFO(0, standaloneQuarterSymbols)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsdateformatter_nsdateformatter_shortstandalonequartersymbols, 0, 1, IS_ARRAY, 0)
+	ZEND_ARG_TYPE_INFO(0, handle, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsdateformatter_nsdateformatter_setshortstandalonequartersymbols, 0, 2, IS_VOID, 0)
+
+	ZEND_ARG_TYPE_INFO(0, handle, IS_LONG, 0)
+	ZEND_ARG_INFO(0, shortStandaloneQuarterSymbols)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsdateformatter_nsdateformatter_gregorianstartdate, 0, 1, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, handle, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsdateformatter_nsdateformatter_setgregorianstartdate, 0, 2, IS_VOID, 0)
+
+	ZEND_ARG_TYPE_INFO(0, handle, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, gregorianStartDate, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsdateformatter_nsdateformatter_doesrelativedateformatting, 0, 1, _IS_BOOL, 0)
+	ZEND_ARG_TYPE_INFO(0, handle, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsdateformatter_nsdateformatter_setdoesrelativedateformatting, 0, 2, IS_VOID, 0)
+
+	ZEND_ARG_TYPE_INFO(0, handle, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, doesRelativeDateFormatting, _IS_BOOL, 0)
+ZEND_END_ARG_INFO()
+
+ZEPHIR_INIT_FUNCS(appkit_ns_nsdateformatter_nsdateformatter_method_entry) {
+	PHP_ME(AppKit_NS_NSDateFormatter_NSDateFormatter, init, arginfo_appkit_ns_nsdateformatter_nsdateformatter_init, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSDateFormatter_NSDateFormatter, stringFromDate, arginfo_appkit_ns_nsdateformatter_nsdateformatter_stringfromdate, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSDateFormatter_NSDateFormatter, dateFromString, arginfo_appkit_ns_nsdateformatter_nsdateformatter_datefromstring, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSDateFormatter_NSDateFormatter, localizedStringFromDateDateStyleTimeStyle, arginfo_appkit_ns_nsdateformatter_nsdateformatter_localizedstringfromdatedatestyletimestyle, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSDateFormatter_NSDateFormatter, dateFormatFromTemplateOptionsLocale, arginfo_appkit_ns_nsdateformatter_nsdateformatter_dateformatfromtemplateoptionslocale, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSDateFormatter_NSDateFormatter, defaultFormatterBehavior, arginfo_appkit_ns_nsdateformatter_nsdateformatter_defaultformatterbehavior, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSDateFormatter_NSDateFormatter, setDefaultFormatterBehavior, arginfo_appkit_ns_nsdateformatter_nsdateformatter_setdefaultformatterbehavior, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSDateFormatter_NSDateFormatter, formattingContext, arginfo_appkit_ns_nsdateformatter_nsdateformatter_formattingcontext, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSDateFormatter_NSDateFormatter, setFormattingContext, arginfo_appkit_ns_nsdateformatter_nsdateformatter_setformattingcontext, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSDateFormatter_NSDateFormatter, setLocalizedDateFormatFromTemplate, arginfo_appkit_ns_nsdateformatter_nsdateformatter_setlocalizeddateformatfromtemplate, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSDateFormatter_NSDateFormatter, dateFormat, arginfo_appkit_ns_nsdateformatter_nsdateformatter_dateformat, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSDateFormatter_NSDateFormatter, setDateFormat, arginfo_appkit_ns_nsdateformatter_nsdateformatter_setdateformat, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSDateFormatter_NSDateFormatter, dateStyle, arginfo_appkit_ns_nsdateformatter_nsdateformatter_datestyle, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSDateFormatter_NSDateFormatter, setDateStyle, arginfo_appkit_ns_nsdateformatter_nsdateformatter_setdatestyle, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSDateFormatter_NSDateFormatter, timeStyle, arginfo_appkit_ns_nsdateformatter_nsdateformatter_timestyle, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSDateFormatter_NSDateFormatter, setTimeStyle, arginfo_appkit_ns_nsdateformatter_nsdateformatter_settimestyle, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSDateFormatter_NSDateFormatter, locale, arginfo_appkit_ns_nsdateformatter_nsdateformatter_locale, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSDateFormatter_NSDateFormatter, setLocale, arginfo_appkit_ns_nsdateformatter_nsdateformatter_setlocale, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSDateFormatter_NSDateFormatter, generatesCalendarDates, arginfo_appkit_ns_nsdateformatter_nsdateformatter_generatescalendardates, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSDateFormatter_NSDateFormatter, setGeneratesCalendarDates, arginfo_appkit_ns_nsdateformatter_nsdateformatter_setgeneratescalendardates, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSDateFormatter_NSDateFormatter, formatterBehavior, arginfo_appkit_ns_nsdateformatter_nsdateformatter_formatterbehavior, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSDateFormatter_NSDateFormatter, setFormatterBehavior, arginfo_appkit_ns_nsdateformatter_nsdateformatter_setformatterbehavior, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSDateFormatter_NSDateFormatter, timeZone, arginfo_appkit_ns_nsdateformatter_nsdateformatter_timezone, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSDateFormatter_NSDateFormatter, setTimeZone, arginfo_appkit_ns_nsdateformatter_nsdateformatter_settimezone, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSDateFormatter_NSDateFormatter, calendar, arginfo_appkit_ns_nsdateformatter_nsdateformatter_calendar, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSDateFormatter_NSDateFormatter, setCalendar, arginfo_appkit_ns_nsdateformatter_nsdateformatter_setcalendar, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSDateFormatter_NSDateFormatter, isLenient, arginfo_appkit_ns_nsdateformatter_nsdateformatter_islenient, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSDateFormatter_NSDateFormatter, setLenient, arginfo_appkit_ns_nsdateformatter_nsdateformatter_setlenient, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSDateFormatter_NSDateFormatter, twoDigitStartDate, arginfo_appkit_ns_nsdateformatter_nsdateformatter_twodigitstartdate, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSDateFormatter_NSDateFormatter, setTwoDigitStartDate, arginfo_appkit_ns_nsdateformatter_nsdateformatter_settwodigitstartdate, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSDateFormatter_NSDateFormatter, defaultDate, arginfo_appkit_ns_nsdateformatter_nsdateformatter_defaultdate, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSDateFormatter_NSDateFormatter, setDefaultDate, arginfo_appkit_ns_nsdateformatter_nsdateformatter_setdefaultdate, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSDateFormatter_NSDateFormatter, eraSymbols, arginfo_appkit_ns_nsdateformatter_nsdateformatter_erasymbols, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSDateFormatter_NSDateFormatter, setEraSymbols, arginfo_appkit_ns_nsdateformatter_nsdateformatter_seterasymbols, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSDateFormatter_NSDateFormatter, monthSymbols, arginfo_appkit_ns_nsdateformatter_nsdateformatter_monthsymbols, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSDateFormatter_NSDateFormatter, setMonthSymbols, arginfo_appkit_ns_nsdateformatter_nsdateformatter_setmonthsymbols, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSDateFormatter_NSDateFormatter, shortMonthSymbols, arginfo_appkit_ns_nsdateformatter_nsdateformatter_shortmonthsymbols, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSDateFormatter_NSDateFormatter, setShortMonthSymbols, arginfo_appkit_ns_nsdateformatter_nsdateformatter_setshortmonthsymbols, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSDateFormatter_NSDateFormatter, weekdaySymbols, arginfo_appkit_ns_nsdateformatter_nsdateformatter_weekdaysymbols, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSDateFormatter_NSDateFormatter, setWeekdaySymbols, arginfo_appkit_ns_nsdateformatter_nsdateformatter_setweekdaysymbols, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSDateFormatter_NSDateFormatter, shortWeekdaySymbols, arginfo_appkit_ns_nsdateformatter_nsdateformatter_shortweekdaysymbols, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSDateFormatter_NSDateFormatter, setShortWeekdaySymbols, arginfo_appkit_ns_nsdateformatter_nsdateformatter_setshortweekdaysymbols, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSDateFormatter_NSDateFormatter, AMSymbol, arginfo_appkit_ns_nsdateformatter_nsdateformatter_amsymbol, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSDateFormatter_NSDateFormatter, setAMSymbol, arginfo_appkit_ns_nsdateformatter_nsdateformatter_setamsymbol, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSDateFormatter_NSDateFormatter, PMSymbol, arginfo_appkit_ns_nsdateformatter_nsdateformatter_pmsymbol, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSDateFormatter_NSDateFormatter, setPMSymbol, arginfo_appkit_ns_nsdateformatter_nsdateformatter_setpmsymbol, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSDateFormatter_NSDateFormatter, longEraSymbols, arginfo_appkit_ns_nsdateformatter_nsdateformatter_longerasymbols, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSDateFormatter_NSDateFormatter, setLongEraSymbols, arginfo_appkit_ns_nsdateformatter_nsdateformatter_setlongerasymbols, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSDateFormatter_NSDateFormatter, veryShortMonthSymbols, arginfo_appkit_ns_nsdateformatter_nsdateformatter_veryshortmonthsymbols, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSDateFormatter_NSDateFormatter, setVeryShortMonthSymbols, arginfo_appkit_ns_nsdateformatter_nsdateformatter_setveryshortmonthsymbols, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSDateFormatter_NSDateFormatter, standaloneMonthSymbols, arginfo_appkit_ns_nsdateformatter_nsdateformatter_standalonemonthsymbols, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSDateFormatter_NSDateFormatter, setStandaloneMonthSymbols, arginfo_appkit_ns_nsdateformatter_nsdateformatter_setstandalonemonthsymbols, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSDateFormatter_NSDateFormatter, shortStandaloneMonthSymbols, arginfo_appkit_ns_nsdateformatter_nsdateformatter_shortstandalonemonthsymbols, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSDateFormatter_NSDateFormatter, setShortStandaloneMonthSymbols, arginfo_appkit_ns_nsdateformatter_nsdateformatter_setshortstandalonemonthsymbols, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSDateFormatter_NSDateFormatter, veryShortStandaloneMonthSymbols, arginfo_appkit_ns_nsdateformatter_nsdateformatter_veryshortstandalonemonthsymbols, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSDateFormatter_NSDateFormatter, setVeryShortStandaloneMonthSymbols, arginfo_appkit_ns_nsdateformatter_nsdateformatter_setveryshortstandalonemonthsymbols, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSDateFormatter_NSDateFormatter, veryShortWeekdaySymbols, arginfo_appkit_ns_nsdateformatter_nsdateformatter_veryshortweekdaysymbols, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSDateFormatter_NSDateFormatter, setVeryShortWeekdaySymbols, arginfo_appkit_ns_nsdateformatter_nsdateformatter_setveryshortweekdaysymbols, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSDateFormatter_NSDateFormatter, standaloneWeekdaySymbols, arginfo_appkit_ns_nsdateformatter_nsdateformatter_standaloneweekdaysymbols, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSDateFormatter_NSDateFormatter, setStandaloneWeekdaySymbols, arginfo_appkit_ns_nsdateformatter_nsdateformatter_setstandaloneweekdaysymbols, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSDateFormatter_NSDateFormatter, shortStandaloneWeekdaySymbols, arginfo_appkit_ns_nsdateformatter_nsdateformatter_shortstandaloneweekdaysymbols, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSDateFormatter_NSDateFormatter, setShortStandaloneWeekdaySymbols, arginfo_appkit_ns_nsdateformatter_nsdateformatter_setshortstandaloneweekdaysymbols, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSDateFormatter_NSDateFormatter, veryShortStandaloneWeekdaySymbols, arginfo_appkit_ns_nsdateformatter_nsdateformatter_veryshortstandaloneweekdaysymbols, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSDateFormatter_NSDateFormatter, setVeryShortStandaloneWeekdaySymbols, arginfo_appkit_ns_nsdateformatter_nsdateformatter_setveryshortstandaloneweekdaysymbols, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSDateFormatter_NSDateFormatter, quarterSymbols, arginfo_appkit_ns_nsdateformatter_nsdateformatter_quartersymbols, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSDateFormatter_NSDateFormatter, setQuarterSymbols, arginfo_appkit_ns_nsdateformatter_nsdateformatter_setquartersymbols, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSDateFormatter_NSDateFormatter, shortQuarterSymbols, arginfo_appkit_ns_nsdateformatter_nsdateformatter_shortquartersymbols, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSDateFormatter_NSDateFormatter, setShortQuarterSymbols, arginfo_appkit_ns_nsdateformatter_nsdateformatter_setshortquartersymbols, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSDateFormatter_NSDateFormatter, standaloneQuarterSymbols, arginfo_appkit_ns_nsdateformatter_nsdateformatter_standalonequartersymbols, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSDateFormatter_NSDateFormatter, setStandaloneQuarterSymbols, arginfo_appkit_ns_nsdateformatter_nsdateformatter_setstandalonequartersymbols, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSDateFormatter_NSDateFormatter, shortStandaloneQuarterSymbols, arginfo_appkit_ns_nsdateformatter_nsdateformatter_shortstandalonequartersymbols, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSDateFormatter_NSDateFormatter, setShortStandaloneQuarterSymbols, arginfo_appkit_ns_nsdateformatter_nsdateformatter_setshortstandalonequartersymbols, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSDateFormatter_NSDateFormatter, gregorianStartDate, arginfo_appkit_ns_nsdateformatter_nsdateformatter_gregorianstartdate, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSDateFormatter_NSDateFormatter, setGregorianStartDate, arginfo_appkit_ns_nsdateformatter_nsdateformatter_setgregorianstartdate, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSDateFormatter_NSDateFormatter, doesRelativeDateFormatting, arginfo_appkit_ns_nsdateformatter_nsdateformatter_doesrelativedateformatting, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSDateFormatter_NSDateFormatter, setDoesRelativeDateFormatting, arginfo_appkit_ns_nsdateformatter_nsdateformatter_setdoesrelativedateformatting, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_FE_END
+};

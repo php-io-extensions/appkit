@@ -62,6 +62,9 @@ $(builddir)/src/ns-comboboxcell.lo: $(srcdir)/src/ns-comboboxcell.m
 $(builddir)/src/ns-control.lo: $(srcdir)/src/ns-control.m
 	$(LIBTOOL) --tag=CC --mode=compile $(CC) -I. -I$(srcdir) -I$(srcdir)/src $(COMMON_FLAGS) $(CFLAGS_CLEAN) $(EXTRA_CFLAGS) $(NS_OBJC_CFLAGS) -DZEND_COMPILE_DL_EXT=1 -c $(srcdir)/src/ns-control.m -o $@
 
+$(builddir)/src/ns-dateformatter.lo: $(srcdir)/src/ns-dateformatter.m
+	$(LIBTOOL) --tag=CC --mode=compile $(CC) -I. -I$(srcdir) -I$(srcdir)/src $(COMMON_FLAGS) $(CFLAGS_CLEAN) $(EXTRA_CFLAGS) $(NS_OBJC_CFLAGS) -DZEND_COMPILE_DL_EXT=1 -c $(srcdir)/src/ns-dateformatter.m -o $@
+
 $(builddir)/src/ns-datepicker.lo: $(srcdir)/src/ns-datepicker.m
 	$(LIBTOOL) --tag=CC --mode=compile $(CC) -I. -I$(srcdir) -I$(srcdir)/src $(COMMON_FLAGS) $(CFLAGS_CLEAN) $(EXTRA_CFLAGS) $(NS_OBJC_CFLAGS) -DZEND_COMPILE_DL_EXT=1 -c $(srcdir)/src/ns-datepicker.m -o $@
 
@@ -88,6 +91,9 @@ $(builddir)/src/ns-imagerep.lo: $(srcdir)/src/ns-imagerep.m
 
 $(builddir)/src/ns-imageview.lo: $(srcdir)/src/ns-imageview.m
 	$(LIBTOOL) --tag=CC --mode=compile $(CC) -I. -I$(srcdir) -I$(srcdir)/src $(COMMON_FLAGS) $(CFLAGS_CLEAN) $(EXTRA_CFLAGS) $(NS_OBJC_CFLAGS) -DZEND_COMPILE_DL_EXT=1 -c $(srcdir)/src/ns-imageview.m -o $@
+
+$(builddir)/src/ns-indexset.lo: $(srcdir)/src/ns-indexset.m
+	$(LIBTOOL) --tag=CC --mode=compile $(CC) -I. -I$(srcdir) -I$(srcdir)/src $(COMMON_FLAGS) $(CFLAGS_CLEAN) $(EXTRA_CFLAGS) $(NS_OBJC_CFLAGS) -DZEND_COMPILE_DL_EXT=1 -c $(srcdir)/src/ns-indexset.m -o $@
 
 $(builddir)/src/ns-layoutmanager.lo: $(srcdir)/src/ns-layoutmanager.m
 	$(LIBTOOL) --tag=CC --mode=compile $(CC) -I. -I$(srcdir) -I$(srcdir)/src $(COMMON_FLAGS) $(CFLAGS_CLEAN) $(EXTRA_CFLAGS) $(NS_OBJC_CFLAGS) -DZEND_COMPILE_DL_EXT=1 -c $(srcdir)/src/ns-layoutmanager.m -o $@

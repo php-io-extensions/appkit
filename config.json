@@ -87,6 +87,8 @@
         "src/ns-screen.m",
         "src/ns-notificationcenter.m",
         "src/ns-url.m",
+        "src/ns-dateformatter.m",
+        "src/ns-indexset.m",
         "src/av-player.m",
         "src/av-playerview.m"
     ],

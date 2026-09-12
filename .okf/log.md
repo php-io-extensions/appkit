@@ -1,5 +1,8 @@
 # Change log
 
+## 2026-09-12 (NSDateFormatter + NSIndexSet)
+* **Binding**: Foundation `NS\NSDateFormatter` is a full 1:1 (`header=78 bound=75 reserved=3 construct=1`). Reserved: `getObjectValue:forString:range:error:` (out id*, inout NSRange*, NSError**) and the two `API_DEPRECATED` compatibility methods. Construction is synthesized `init`. `stringFromDate:` / `dateFromString:` / `setDateFormat:` are the path an `NSDatePicker` dateValue handle takes to `Y-m-d` and back, in the formatter's default time zone. Curated `NS\NSIndexSet` (`indexSet`, `indexSetWithIndex:`, `containsIndex:`) exists so `NSTableView::selectRowIndexesByExtendingSelection` can take a single-row set — same shape as `NSURL`. `NSDATEFORMATTER_SURFACE_OK`, `GEN_OK`, `PARITY_OK`.
+
 ## 2026-08-31 (AV wave)
 * **Binding**: the AVKit/AVFoundation sister seam opens, shaped exactly like QuartzCore:
   `av-` file prefix, `AV\` namespace segment, `-framework AVFoundation -framework AVKit`
