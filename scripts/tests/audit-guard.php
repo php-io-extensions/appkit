@@ -26,7 +26,7 @@ if ($exitCode === 0) {
     fwrite(STDERR, "audit accepted an under-bound class (exit 0):\n{$text}\n");
     exit(1);
 }
-if (!preg_match('/NS\\\\NSWidget\s+header=12\s+bound=3\s+reserved=8\s+construct=0\s+FAIL/', $text)) {
+if (!preg_match('/NS\\\\NSWidget\s+header=12\s+bound=3\s+reserved=8\s+construct=0\s+deprecated=1\s+FAIL/', $text)) {
     fwrite(STDERR, "audit failed but did not report NSWidget 12 vs 3+8 FAIL:\n{$text}\n");
     exit(1);
 }

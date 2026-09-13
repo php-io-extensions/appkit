@@ -126,6 +126,37 @@ zend_long ns_bridge_is_kind_of_class(zval *handle, zval *className)
 }
 
 /* ====================================================================== */
+/* Cross-extension pointer seam                                           */
+/* ====================================================================== */
+
+zend_long ns_bridge_pointer_of(zval *handle)
+{
+    zend_long r = 0;
+    @autoreleasepool {
+        id o = ns_handle_object(ns_arg_long(handle));
+        r = (zend_long) (uintptr_t) (__bridge void *) o;
+    }
+    return r;
+}
+
+zend_long ns_bridge_adopt(zval *className, zval *pointerBits)
+{
+    zend_long r = 0;
+    @autoreleasepool {
+        void *p = (void *) (uintptr_t) ns_arg_long(pointerBits);
+        if (p == NULL) return 0;
+        id o = (__bridge id) p;
+        NSString *want = ns_arg_string(className);
+        Class cls = want != nil ? NSClassFromString(want) : Nil;
+        /* Known class: enforce kind-of. Unknown name: adopt unchecked —
+           the caller asked. */
+        if (cls != Nil && ![o isKindOfClass:cls]) return 0;
+        r = ns_handle_for(o); /* retains */
+    }
+    return r;
+}
+
+/* ====================================================================== */
 /* Calling PHP                                                            */
 /* ====================================================================== */
 

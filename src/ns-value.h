@@ -152,6 +152,79 @@ static inline NSArray<NSString *> *ns_arg_string_array(zval *z)
     return out;
 }
 
+/*
+ * C scalar arrays passed by pointer.
+ *
+ * A few AppKit parameters are not objects but plain C arrays the callee
+ * reads through a pointer: NSOpenGLPixelFormat's
+ * `const NSOpenGLPixelFormatAttribute *attribs` and NSOpenGLContext's
+ * `const GLint *vals`. PHP has no byte buffer here, so a PHP list of ints
+ * is marshalled into a stack-lifetime C array for the duration of the one
+ * message send — marshalling of the parameter's own C representation, not
+ * composition: the send is still one send, and the array is still exactly
+ * what the caller passed.
+ *
+ * Both helpers write into a caller-owned fixed buffer so nothing is
+ * allocated and nothing can leak, and both zero the slots the caller did
+ * not fill: a C array parameter is read by the callee for as many elements
+ * as the API defines, so a short PHP list must read as zeros rather than
+ * as whatever was on the stack.
+ */
+#define NS_C_ARRAY_MAX 256
+
+/*
+ * PHP list of ints -> zero-terminated uint32 array (NSOpenGLPixelFormatAttribute).
+ * The terminating 0 the C ABI requires is always written by the binding; a
+ * caller-supplied trailing 0 is simply the caller ending the list earlier.
+ * Returns the number of elements written, excluding the terminator; entries
+ * past NS_C_ARRAY_MAX - 1 are dropped rather than overrun.
+ */
+static inline size_t ns_arg_uint32_zarray(zval *z, uint32_t *out, size_t capacity)
+{
+    size_t n = 0;
+    if (out == NULL || capacity == 0) return 0;
+    memset(out, 0, capacity * sizeof(uint32_t));
+    z = ns_deref(z);
+    if (z != NULL && Z_TYPE_P(z) == IS_ARRAY) {
+        zval *e;
+        ZEND_HASH_FOREACH_VAL(Z_ARRVAL_P(z), e) {
+            if (n + 1 >= capacity) break;
+            out[n++] = (uint32_t) ns_arg_long(e);
+        } ZEND_HASH_FOREACH_END();
+    }
+    out[n] = 0;
+    return n;
+}
+
+/*
+ * PHP list of ints -> int32 array (GLint), not terminated: the element count
+ * of a `const GLint *` parameter is defined by the API, not by a sentinel.
+ * The whole buffer is zeroed first, so a caller who passes fewer values than
+ * the parameter defines gets defined zeros. Returns the number written.
+ */
+static inline size_t ns_arg_int32_array(zval *z, int32_t *out, size_t capacity)
+{
+    size_t n = 0;
+    if (out == NULL || capacity == 0) return 0;
+    memset(out, 0, capacity * sizeof(int32_t));
+    z = ns_deref(z);
+    if (z != NULL && Z_TYPE_P(z) == IS_ARRAY) {
+        zval *e;
+        ZEND_HASH_FOREACH_VAL(Z_ARRVAL_P(z), e) {
+            if (n >= capacity) break;
+            out[n++] = (int32_t) ns_arg_long(e);
+        } ZEND_HASH_FOREACH_END();
+    }
+    return n;
+}
+
+/* int32 C array -> PHP list of ints. */
+static inline void ns_ret_int32_array(zval *rv, const int32_t *vals, size_t count)
+{
+    array_init(rv);
+    for (size_t i = 0; i < count; i++) { add_next_index_long(rv, (zend_long) vals[i]); }
+}
+
 /* ---- returns: write into return_value ---- */
 
 static inline void ns_ret_string(zval *rv, NSString *s)

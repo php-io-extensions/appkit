@@ -1,5 +1,121 @@
 # Change log
 
+## 2026-09-13 (windowed OpenGL — NSOpenGLPixelFormat / NSOpenGLContext / NSOpenGLView, 0.8.2)
+* **Ruling**: every windowed-GL API on macOS is `API_DEPRECATED` since 10.14
+  and still shipped and functional. Rule 4 reserves deprecated members, which
+  applied to a class deprecated in its entirety leaves no windowed GL path at
+  all. Decision (Angel, 2026-09-13): **a class deprecated in its entirety that
+  remains the only OS path for a feature is bound, marked, and audited
+  normally; deprecated members inside otherwise-live classes remain
+  reserved.** Written up on [binding-rules.md](/binding-rules.md).
+* **Binding**: `src/ns-openglpixelformat.{h,m}` (`header=8 bound=5
+  reserved=3` — the three NSData members, reserved for the ordinary NSData
+  reason), `src/ns-openglcontext.{h,m}` (`header=26 bound=25 reserved=1` —
+  NSOpenGL.h declares the drawable's view twice, as the `view` property and
+  again as a standalone `- (void)setView:`, so the setter binds once as the
+  property setter and the duplicate declaration is reserved; the same-file
+  NSOpenGLPixelBuffer category binds here), `src/ns-openglview.{h,m}`
+  (`header=14 bound=14 reserved=0`; the two NSView categories in that header
+  belong to NSView). `CGLPixelFormatObj` / `CGLContextObj` cross as int
+  pointer bits, not registry handles — the currency ext-opengl's
+  `OpenGL\CGL\CGL` speaks. Version 0.8.1 → 0.8.2 (config.json +
+  composer.json).
+* **Marshalling decision**: `initWithAttributes:` (`const
+  NSOpenGLPixelFormatAttribute *`) and `setValues:forParameter:` (`const
+  GLint *`) take plain C arrays, and this extension has no byte-buffer
+  Bridge. They cross as a PHP list of ints marshalled into a caller-owned
+  zeroed C array for the duration of the one send (`ns_arg_uint32_zarray` /
+  `ns_arg_int32_array` / `ns_ret_int32_array`, added to `src/ns-value.h`;
+  rule 7 keeps all marshalling there). The binding always writes the
+  terminating `0` the pixel-format ABI requires; `GLint *` out-params come
+  back as `{vals: [4 ints]}` from a 4-slot buffer, 4 being the widest any
+  `NSOpenGLContextParameter` uses. Marshalling of the parameter's own C
+  representation, not composition — one ext call is still one message send.
+* **Audit**: `scripts/audit-headers.php` learned the
+  `/*@audit deprecated-class <Class> <reason> */` marker and enforces it both
+  ways — a wholly deprecated class bound without the marker FAILs, and a
+  marker on a class the SDK does not deprecate FAILs. Every class line now
+  also prints `deprecated=N` (deprecated SDK members, weighted like the
+  member count). Negative control:
+  `scripts/tests/deprecated-class-guard.php` (`DEPRECATED_CLASS_GUARD_OK`)
+  with three fixtures — `pkg` (marked, accepted), `pkg-deprecated-unmarked`,
+  `pkg-misplaced-marker`. `scripts/tests/audit-guard.php` updated for the new
+  report column.
+* **Audit bug found and fixed in passing**: `FRAMEWORK_MAP` had no `AV`
+  entry, so the AV wave's `AV\AVPlayer` made the audit `fail()` on its first
+  class and audit *nothing at all*. Added `AV` → AVFoundation with an AVKit
+  fallback. The audit now runs to completion and reports 6 pre-existing
+  failures from earlier waves, none of them from this wave:
+  `AV\AVPlayer` (77 vs 11), `AV\AVPlayerView` (43 vs 8),
+  `NS\NSAttributedString` (37 vs 2+2), `NS\NSButton` (63 vs 60+5 — *over*
+  bound), `NS\NSIndexSet` (32 vs 3), `NS\NSURL` (2 vs 5 — AppKit's NSURL.h is
+  a category-only header, so the audit resolves the wrong header for a class
+  bound against Foundation's). Those are for their own waves to answer; they
+  were invisible before and are now on the record.
+* **Pipeline**: `gen-zep.php` → `GEN_OK` (classes=98 methods=3771
+  optimizers=3771, 44 new optimizers), `check-parity.php` → `PARITY_OK`
+  (zep_calls=3771 optimizers=3771 prototypes=3771 extra_sources=88), all 16
+  `scripts/tests/*.php` green, `prepare-ext.sh` → `PREPARE_EXT_OK`,
+  `install-macos.sh` → `php --ri appkit` 0.8.2,
+  `verify-reflection.php` → `REFLECTION_OK` (classes=98 failures=0, the three
+  new classes 5/25/14 reflected exactly).
+* **Proof**: `examples/proof_nsopengl.php` → `PROOF_NSOPENGL_OK`. An
+  `NSApplication` + `NSWindow` whose content view is an `NSOpenGLView` on a
+  4.1 core, double-buffered, accelerated `NSOpenGLPixelFormat`;
+  `makeCurrentContext`; ext-opengl's `Bridge::load` then VAO/VBO/GLSL 1.50
+  core triangle from that repo's `proof_headless.php` drawn into the view's
+  default framebuffer; `glReadPixels` into an OpenGL Bridge buffer with the
+  centre byte-checked as the shader colour (255,128,64,255) and the corner as
+  the clear colour (0,0,0,255) *before* `flushBuffer` (after the swap the back
+  buffer is undefined); then ~2s of animation through `Bridge::pump` — 235
+  frames on an M1 Pro, `GL_VERSION` `4.1 Metal - 89.4`. The cross-extension
+  seam is asserted, not assumed: `NSOpenGLContext::CGLContextObj()` and
+  `CGL::CGLGetCurrentContext()` are the same address (`0x10A09BE00`).
+  Gotcha worth keeping: ext-opengl resolves its entry points in
+  `Bridge::load()`, so any CGL call before that load warns and returns 0.
+
+
+## 2026-09-13 (Bridge::pointerOf/adopt — cross-extension pointer seam, 0.8.1)
+* **Binding**: ported ext-metal's `mtl_bridge_pointer_of` / `mtl_bridge_adopt`
+  (`mtl-bridge.{h,m}`, reviewed) into `src/ns-bridge.{h,m}` as
+  `ns_bridge_pointer_of` / `ns_bridge_adopt`, appkit's own registry/value
+  helpers (`ns_handle_for`, `ns_handle_object`, `ns_arg_long`,
+  `ns_arg_string`). `Bridge::pointerOf(int handle) -> int` returns the
+  `__bridge void*` bits of a registry object (0 for invalid); `Bridge::adopt(string
+  className, int pointerBits) -> int` wraps a foreign pointer into this
+  extension's own registry, retained (0 for a `NULL` pointer; a resolvable
+  class name enforces `isKindOfClass:`, 0 on mismatch; an unresolvable name
+  adopts unchecked). Raw pointer bits are the only inter-extension currency.
+  Documents the QuartzCore split — `CALayer` here, `CAMetalLayer` in
+  ext-metal (decision: Angel, 2026-09-12) — on
+  [binding-rules.md](/binding-rules.md) and the two calls on
+  [bridge.md](/bridge.md). Version 0.8.0 → 0.8.1 (config.json +
+  composer.json).
+* **Pipeline**: `gen-zep.php` → `GEN_OK` (classes=95 methods=3727
+  optimizers=3727, 2 new optimizers: `BridgePointerOfOptimizer`,
+  `BridgeAdoptOptimizer`); `check-parity.php` → `PARITY_OK`
+  (zep_calls=3727 optimizers=3727 prototypes=3727); `audit-headers.php`
+  run separately (this repo's `check-parity.php` does not chain it) — it
+  fails at `AV\AVPlayer` ("no framework mapping for namespace 'AV'"), a
+  **pre-existing** gap confirmed present on the baseline commit before this
+  patch (`git stash` + re-run reproduces the identical failure); `Bridge\*`
+  is audit-exempt (SKIP, no SDK counterpart) so this patch changes no audit
+  counts. `prepare-ext.sh` → `PREPARE_EXT_OK`; `install-macos.sh` → built,
+  installed, `php --ri appkit` reports `0.8.1`; `verify-reflection.php` →
+  `REFLECTION_OK` (classes=95 failures=0). Negative controls
+  (`parity-guard`, `audit-guard`, `drift-guard`, `prepare-ext-guard`,
+  `install-script-check`) all green. `examples/smoke.php` → `SMOKE_OK`
+  (unchanged, proving the patch does not disturb existing behavior).
+* **Cross-repo proof**: ext-metal's `examples/proof_view.php` — gated on
+  `method_exists('AppKit\Bridge\Bridge', 'adopt')`, previously SKIPping —
+  now runs for the first time anywhere: an `NSWindow`/`NSView` (this
+  extension) hosts a `CAMetalLayer` (ext-metal) via
+  `MetalBridge::pointerOf` → `AppKitBridge::adopt('CAMetalLayer', …)` →
+  `NSView::setWantsLayer`/`setLayer`, animating ~120 frames through
+  `CAMetalDrawable` present/commit. Passed clean on the first run:
+  `PROOF_VIEW_OK`, exit 0. No debugging needed — the seam, the class
+  check, and the layer sizing all worked as designed.
+
 ## 2026-09-12 (NSDateFormatter + NSIndexSet)
 * **Binding**: Foundation `NS\NSDateFormatter` is a full 1:1 (`header=78 bound=75 reserved=3 construct=1`). Reserved: `getObjectValue:forString:range:error:` (out id*, inout NSRange*, NSError**) and the two `API_DEPRECATED` compatibility methods. Construction is synthesized `init`. `stringFromDate:` / `dateFromString:` / `setDateFormat:` are the path an `NSDatePicker` dateValue handle takes to `Y-m-d` and back, in the formatter's default time zone. Curated `NS\NSIndexSet` (`indexSet`, `indexSetWithIndex:`, `containsIndex:`) exists so `NSTableView::selectRowIndexesByExtendingSelection` can take a single-row set — same shape as `NSURL`. `NSDATEFORMATTER_SURFACE_OK`, `GEN_OK`, `PARITY_OK`.
 

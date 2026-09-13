@@ -43,9 +43,19 @@ php scripts/verify-reflection.php  # loaded .so exposes exactly the annotated me
   resolve by scanning for `@interface Class` when `{Class}.h` is absent.
   NS-prefixed types missing from AppKit (e.g. `NSNotificationCenter` in
   `Foundation/NSNotification.h`) resolve via `FRAMEWORK_FALLBACK`.
+  `FRAMEWORK_MAP` maps the first namespace segment to an SDK framework —
+  `NS` → AppKit, `QuartzCore` → QuartzCore, `AV` → AVFoundation (falling
+  back to AVKit); an unmapped namespace is a hard fail that stops the
+  whole audit, so a new namespace must be added here in the same wave.
+  A class the SDK deprecates in its entirety needs an
+  `@audit deprecated-class` marker — see
+  [binding-rules.md](/binding-rules.md).
 - `scripts/tests/*.php` — negative controls: each guard is proven able to fail
   against a bad fixture (drift, parity break, audit miss, prepare-ext patch
-  failure).
+  failure, and the deprecation exemption —
+  `deprecated-class-guard.php`, which proves the audit accepts a marked
+  wholly deprecated class, refuses an unmarked one, and refuses a marker
+  on a live class).
 - `verify-reflection.php` — the only guard that inspects the **installed**
   binary: for every class it asserts the reflected method count equals that
   class's `@zep` + `@zep-construct` count. The other guards compare source

@@ -8,6 +8,8 @@ PHP_METHOD(AppKit_Bridge_Bridge, release);
 PHP_METHOD(AppKit_Bridge_Bridge, isValid);
 PHP_METHOD(AppKit_Bridge_Bridge, className);
 PHP_METHOD(AppKit_Bridge_Bridge, isKindOfClass);
+PHP_METHOD(AppKit_Bridge_Bridge, pointerOf);
+PHP_METHOD(AppKit_Bridge_Bridge, adopt);
 PHP_METHOD(AppKit_Bridge_Bridge, pump);
 PHP_METHOD(AppKit_Bridge_Bridge, setAction);
 PHP_METHOD(AppKit_Bridge_Bridge, removeAction);
@@ -37,6 +39,15 @@ ZEND_END_ARG_INFO()
 ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_bridge_bridge_iskindofclass, 0, 2, _IS_BOOL, 0)
 	ZEND_ARG_TYPE_INFO(0, handle, IS_LONG, 0)
 	ZEND_ARG_TYPE_INFO(0, className, IS_STRING, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_bridge_bridge_pointerof, 0, 1, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, handle, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_bridge_bridge_adopt, 0, 2, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, className, IS_STRING, 0)
+	ZEND_ARG_TYPE_INFO(0, pointerBits, IS_LONG, 0)
 ZEND_END_ARG_INFO()
 
 ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_bridge_bridge_pump, 0, 1, IS_LONG, 0)
@@ -86,6 +97,8 @@ ZEPHIR_INIT_FUNCS(appkit_bridge_bridge_method_entry) {
 	PHP_ME(AppKit_Bridge_Bridge, isValid, arginfo_appkit_bridge_bridge_isvalid, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
 	PHP_ME(AppKit_Bridge_Bridge, className, arginfo_appkit_bridge_bridge_classname, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
 	PHP_ME(AppKit_Bridge_Bridge, isKindOfClass, arginfo_appkit_bridge_bridge_iskindofclass, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_Bridge_Bridge, pointerOf, arginfo_appkit_bridge_bridge_pointerof, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_Bridge_Bridge, adopt, arginfo_appkit_bridge_bridge_adopt, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
 	PHP_ME(AppKit_Bridge_Bridge, pump, arginfo_appkit_bridge_bridge_pump, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
 	PHP_ME(AppKit_Bridge_Bridge, setAction, arginfo_appkit_bridge_bridge_setaction, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
 	PHP_ME(AppKit_Bridge_Bridge, removeAction, arginfo_appkit_bridge_bridge_removeaction, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)

@@ -29,6 +29,20 @@
  * A partial class must not exceed the header count but may fall short; it is
  * reported as PARTIAL so review can see exactly what is sanctioned.
  *
+ * A class the SDK deprecates in its entirety needs a second visible marker:
+ *
+ *   /*@audit deprecated-class NS\NSOpenGLContext still the only OS path * /
+ *
+ * The house rule reserves deprecated members, which for a wholly deprecated
+ * class would bind nothing at all. The marker is the sanctioned exemption:
+ * on a marked class, deprecated members count as bindable and the class is
+ * audited for completeness like any other, reported as DEPRECATED-CLASS with
+ * its deprecated member count. The marker is checked both ways — binding a
+ * class the SDK deprecates wholesale without one FAILs, and a marker on a
+ * class the SDK does not deprecate wholesale FAILs too, so the exemption
+ * cannot spread silently. Deprecated members inside otherwise-live classes
+ * are unaffected: they stay reserved by the rule in binding-rules.md.
+ *
  * Bridge\* classes are PHP-side glue with no SDK counterpart and are skipped.
  *
  * Known limits (documented, reviewable): both branches of an #if/#else are
@@ -54,11 +68,13 @@ const DEFAULT_FRAMEWORKS = '/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/
 const FRAMEWORK_MAP = [
     'NS' => 'AppKit',
     'QuartzCore' => 'QuartzCore',
+    'AV' => 'AVFoundation',
 ];
 
 /** Extra frameworks searched when `{Class}.h` is absent from the mapped one. */
 const FRAMEWORK_FALLBACK = [
     'NS' => ['Foundation'],
+    'AV' => ['AVKit'],
 ];
 
 /**
@@ -210,7 +226,54 @@ function interfaceBlocks(string $blanked, string $class): array
 }
 
 /**
- * @return array{methods: int, rw: int, ro: int, expected: int}
+ * Does this declaration text carry an availability-deprecation attribute?
+ * Matches API_DEPRECATED, API_DEPRECATED_WITH_REPLACEMENT and the framework
+ * macros that wrap them (NS_DEPRECATED_MAC, NS_OPENGL_DEPRECATED,
+ * NS_OPENGL_CLASS_DEPRECATED, …).
+ */
+function isDeprecationAttribute(string $text): bool
+{
+    return preg_match('/(?:^|[^A-Za-z0-9_])(?:API_DEPRECATED|[A-Z][A-Z0-9_]*_DEPRECATED)[A-Z0-9_]*\s*\(/', $text) === 1;
+}
+
+/**
+ * Is the class itself deprecated — the attribute sitting on the @interface
+ * declaration rather than on individual members?
+ *
+ * Only the attribute lines that belong to the declaration are considered:
+ * the walk backwards stops at the first line ending a previous declaration
+ * (';', '{', '}') or at an '@end', so a deprecated enum or typedef standing
+ * above an otherwise live class is never mistaken for one.
+ */
+function classDeprecatedInHeader(string $blanked, string $class): bool
+{
+    $pattern = '/@interface\s+' . preg_quote($class, '/') . '\b[^\n]*/';
+    if (preg_match($pattern, $blanked, $m, PREG_OFFSET_CAPTURE) !== 1) {
+        return false;
+    }
+    if (isDeprecationAttribute($m[0][0])) {
+        return true;
+    }
+
+    $lines = explode("\n", substr($blanked, 0, $m[0][1]));
+    array_pop($lines); // the partial line the @interface starts on
+    for ($i = count($lines) - 1; $i >= 0; $i--) {
+        $line = trim($lines[$i]);
+        if ($line === '') {
+            continue;
+        }
+        if (str_contains($line, '@end') || in_array(substr($line, -1), [';', '{', '}'], true)) {
+            return false;
+        }
+        if (isDeprecationAttribute($line)) {
+            return true;
+        }
+    }
+
+    return false;
+}
+/**
+ * @return array{methods: int, rw: int, ro: int, expected: int, deprecated: int, classDeprecated: bool}
  */
 function countMembers(string $headerPath, string $class): array
 {
@@ -223,6 +286,7 @@ function countMembers(string $headerPath, string $class): array
     $methods = 0;
     $rw = 0;
     $ro = 0;
+    $deprecated = 0;
 
     foreach (interfaceBlocks($blanked, $class) as $body) {
         $len = strlen($body);
@@ -241,6 +305,10 @@ function countMembers(string $headerPath, string $class): array
             if (($c === '-' || $c === '+')) {
                 $methods++;
                 $semi = strpos($body, ';', $lineStart);
+                $decl = substr($body, $lineStart, ($semi === false ? $len : $semi) - $lineStart);
+                if (isDeprecationAttribute($decl)) {
+                    $deprecated++;
+                }
                 $i = $semi === false ? $len : $semi + 1;
             } elseif ($c === '@' && substr($body, $lineStart, 9) === '@property') {
                 $semi = strpos($body, ';', $lineStart);
@@ -249,10 +317,14 @@ function countMembers(string $headerPath, string $class): array
                 if (preg_match('/@property\s*\(([^)]*)\)/', $decl, $am)) {
                     $attrs = $am[1];
                 }
-                if (preg_match('/\breadonly\b/', $attrs)) {
+                $weight = preg_match('/\breadonly\b/', $attrs) ? 1 : 2;
+                if ($weight === 1) {
                     $ro++;
                 } else {
                     $rw++;
+                }
+                if (isDeprecationAttribute($decl)) {
+                    $deprecated += $weight;
                 }
                 $i = $semi === false ? $len : $semi + 1;
             } else {
@@ -262,7 +334,14 @@ function countMembers(string $headerPath, string $class): array
         }
     }
 
-    return ['methods' => $methods, 'rw' => $rw, 'ro' => $ro, 'expected' => $methods + 2 * $rw + $ro];
+    return [
+        'methods' => $methods,
+        'rw' => $rw,
+        'ro' => $ro,
+        'expected' => $methods + 2 * $rw + $ro,
+        'deprecated' => $deprecated,
+        'classDeprecated' => classDeprecatedInHeader($blanked, $class),
+    ];
 }
 
 function isInitMethodName(string $method): bool
@@ -276,13 +355,15 @@ function isInitMethodName(string $method): bool
  *
  * @return array{
  *   classes: array<string, array{bound: int, reserved: int, construct: int, hasConstruction: bool}>,
- *   partial: array<string, string>
+ *   partial: array<string, string>,
+ *   deprecatedClass: array<string, string>
  * }
  */
 function collectAnnotations(string $root): array
 {
     $classes = [];
     $partial = [];
+    $deprecatedClass = [];
     foreach (glob("{$root}/src/*.h") ?: [] as $path) {
         foreach (file($path, FILE_IGNORE_NEW_LINES) ?: [] as $line) {
             if (preg_match('#/\*\s*@zep-construct\s+([A-Za-z0-9_\\\\]+)\s+(\w+)\s*\(([^)]*)\)\s*->\s*(\w+)\s*\*/#', $line, $m)) {
@@ -306,11 +387,16 @@ function collectAnnotations(string $root): array
                     fail("@audit partial for {$m[1]} needs a reason");
                 }
                 $partial[$m[1]] = $m[2];
+            } elseif (preg_match('#/\*\s*@audit\s+deprecated-class\s+([A-Za-z0-9_\\\\]+)\s+(.*?)\s*\*/#', $line, $m)) {
+                if (trim($m[2]) === '') {
+                    fail("@audit deprecated-class for {$m[1]} needs a reason");
+                }
+                $deprecatedClass[$m[1]] = $m[2];
             }
         }
     }
 
-    return ['classes' => $classes, 'partial' => $partial];
+    return ['classes' => $classes, 'partial' => $partial, 'deprecatedClass' => $deprecatedClass];
 }
 
 function sdkHeaderFor(string $classPath, string $frameworksDir): ?string
@@ -423,6 +509,7 @@ foreach ($annotations['classes'] as $classPath => $counts) {
     $c = countMembers($headerPath, (string) end($segments));
     $expected = $c['expected'];
     $isPartial = isset($annotations['partial'][$classPath]);
+    $isDeprecatedClass = isset($annotations['deprecatedClass'][$classPath]);
     $accessOnly = in_array($classPath, ACCESS_ONLY, true);
     $hasConstruction = ($counts['hasConstruction'] ?? false) === true;
     $audited++;
@@ -439,13 +526,26 @@ foreach ($annotations['classes'] as $classPath => $counts) {
         $status = 'FAIL (no construction path)';
         $failures++;
     }
+    // The deprecation exemption, checked both ways: a class the SDK
+    // deprecates in its entirety may only be bound under a visible marker,
+    // and the marker may only sit on such a class.
+    if ($c['classDeprecated'] && !$isDeprecatedClass) {
+        $status = 'FAIL (deprecated class bound without an @audit deprecated-class marker)';
+        $failures++;
+    } elseif ($isDeprecatedClass && !$c['classDeprecated']) {
+        $status = 'FAIL (@audit deprecated-class marker on a class the SDK does not deprecate)';
+        $failures++;
+    } elseif ($isDeprecatedClass && !str_starts_with($status, 'FAIL')) {
+        $status = 'DEPRECATED-CLASS ' . $status . ' (' . $annotations['deprecatedClass'][$classPath] . ')';
+    }
     echo sprintf(
-        "%-40s header=%-4d bound=%-4d reserved=%-4d construct=%-4d %s\n",
+        "%-40s header=%-4d bound=%-4d reserved=%-4d construct=%-4d deprecated=%-4d %s\n",
         $classPath,
         $expected,
         $bound,
         $reserved,
         $construct,
+        $c['deprecated'],
         $status
     );
 }

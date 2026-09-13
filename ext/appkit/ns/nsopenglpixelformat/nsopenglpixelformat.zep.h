@@ -1,0 +1,41 @@
+
+extern zend_class_entry *appkit_ns_nsopenglpixelformat_nsopenglpixelformat_ce;
+
+ZEPHIR_INIT_CLASS(AppKit_NS_NSOpenGLPixelFormat_NSOpenGLPixelFormat);
+
+PHP_METHOD(AppKit_NS_NSOpenGLPixelFormat_NSOpenGLPixelFormat, initWithCGLPixelFormatObj);
+PHP_METHOD(AppKit_NS_NSOpenGLPixelFormat_NSOpenGLPixelFormat, initWithAttributes);
+PHP_METHOD(AppKit_NS_NSOpenGLPixelFormat_NSOpenGLPixelFormat, getValuesForAttributeForVirtualScreen);
+PHP_METHOD(AppKit_NS_NSOpenGLPixelFormat_NSOpenGLPixelFormat, numberOfVirtualScreens);
+PHP_METHOD(AppKit_NS_NSOpenGLPixelFormat_NSOpenGLPixelFormat, CGLPixelFormatObj);
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsopenglpixelformat_nsopenglpixelformat_initwithcglpixelformatobj, 0, 1, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, format, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsopenglpixelformat_nsopenglpixelformat_initwithattributes, 0, 1, IS_LONG, 0)
+	ZEND_ARG_ARRAY_INFO(0, attribs, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsopenglpixelformat_nsopenglpixelformat_getvaluesforattributeforvirtualscreen, 0, 3, IS_ARRAY, 0)
+	ZEND_ARG_TYPE_INFO(0, handle, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, attrib, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, screen, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsopenglpixelformat_nsopenglpixelformat_numberofvirtualscreens, 0, 1, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, handle, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_ns_nsopenglpixelformat_nsopenglpixelformat_cglpixelformatobj, 0, 1, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, handle, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEPHIR_INIT_FUNCS(appkit_ns_nsopenglpixelformat_nsopenglpixelformat_method_entry) {
+	PHP_ME(AppKit_NS_NSOpenGLPixelFormat_NSOpenGLPixelFormat, initWithCGLPixelFormatObj, arginfo_appkit_ns_nsopenglpixelformat_nsopenglpixelformat_initwithcglpixelformatobj, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSOpenGLPixelFormat_NSOpenGLPixelFormat, initWithAttributes, arginfo_appkit_ns_nsopenglpixelformat_nsopenglpixelformat_initwithattributes, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSOpenGLPixelFormat_NSOpenGLPixelFormat, getValuesForAttributeForVirtualScreen, arginfo_appkit_ns_nsopenglpixelformat_nsopenglpixelformat_getvaluesforattributeforvirtualscreen, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSOpenGLPixelFormat_NSOpenGLPixelFormat, numberOfVirtualScreens, arginfo_appkit_ns_nsopenglpixelformat_nsopenglpixelformat_numberofvirtualscreens, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_NS_NSOpenGLPixelFormat_NSOpenGLPixelFormat, CGLPixelFormatObj, arginfo_appkit_ns_nsopenglpixelformat_nsopenglpixelformat_cglpixelformatobj, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_FE_END
+};

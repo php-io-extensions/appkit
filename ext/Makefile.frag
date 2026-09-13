@@ -107,6 +107,15 @@ $(builddir)/src/ns-menuitem.lo: $(srcdir)/src/ns-menuitem.m
 $(builddir)/src/ns-notificationcenter.lo: $(srcdir)/src/ns-notificationcenter.m
 	$(LIBTOOL) --tag=CC --mode=compile $(CC) -I. -I$(srcdir) -I$(srcdir)/src $(COMMON_FLAGS) $(CFLAGS_CLEAN) $(EXTRA_CFLAGS) $(NS_OBJC_CFLAGS) -DZEND_COMPILE_DL_EXT=1 -c $(srcdir)/src/ns-notificationcenter.m -o $@
 
+$(builddir)/src/ns-openglcontext.lo: $(srcdir)/src/ns-openglcontext.m
+	$(LIBTOOL) --tag=CC --mode=compile $(CC) -I. -I$(srcdir) -I$(srcdir)/src $(COMMON_FLAGS) $(CFLAGS_CLEAN) $(EXTRA_CFLAGS) $(NS_OBJC_CFLAGS) -DZEND_COMPILE_DL_EXT=1 -c $(srcdir)/src/ns-openglcontext.m -o $@
+
+$(builddir)/src/ns-openglpixelformat.lo: $(srcdir)/src/ns-openglpixelformat.m
+	$(LIBTOOL) --tag=CC --mode=compile $(CC) -I. -I$(srcdir) -I$(srcdir)/src $(COMMON_FLAGS) $(CFLAGS_CLEAN) $(EXTRA_CFLAGS) $(NS_OBJC_CFLAGS) -DZEND_COMPILE_DL_EXT=1 -c $(srcdir)/src/ns-openglpixelformat.m -o $@
+
+$(builddir)/src/ns-openglview.lo: $(srcdir)/src/ns-openglview.m
+	$(LIBTOOL) --tag=CC --mode=compile $(CC) -I. -I$(srcdir) -I$(srcdir)/src $(COMMON_FLAGS) $(CFLAGS_CLEAN) $(EXTRA_CFLAGS) $(NS_OBJC_CFLAGS) -DZEND_COMPILE_DL_EXT=1 -c $(srcdir)/src/ns-openglview.m -o $@
+
 $(builddir)/src/ns-openpanel.lo: $(srcdir)/src/ns-openpanel.m
 	$(LIBTOOL) --tag=CC --mode=compile $(CC) -I. -I$(srcdir) -I$(srcdir)/src $(COMMON_FLAGS) $(CFLAGS_CLEAN) $(EXTRA_CFLAGS) $(NS_OBJC_CFLAGS) -DZEND_COMPILE_DL_EXT=1 -c $(srcdir)/src/ns-openpanel.m -o $@
 

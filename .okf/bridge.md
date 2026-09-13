@@ -25,6 +25,19 @@ about how AppKit is used. **No other `NSPhp*` class may exist** — verified by
 - Handle registry: `retain(handle)`, `release(handle)`, `isValid(handle)`,
   `className(handle)`, `isKindOfClass(handle, className)`. Handles are the
   object's pointer as int; 0 = nil; stale ints resolve to nil, never crash.
+- Cross-extension pointer seam: `pointerOf(int handle) -> int` and
+  `adopt(string className, int pointerBits) -> int` (0.8.1). `pointerOf`
+  hands out the `__bridge void*` bits of a registry object (0 for an
+  invalid handle); `adopt` wraps a foreign pointer into *this* extension's
+  own registry, retained — a `NULL` pointer returns 0, a resolvable class
+  name enforces `isKindOfClass:` (0 on mismatch), and an unresolvable name
+  adopts unchecked (the caller asked). Raw pointer bits are the only
+  inter-extension currency — never a registry handle from another
+  extension. Ported from ext-metal's identical `mtl_bridge_pointer_of` /
+  `mtl_bridge_adopt` (`mtl-bridge.{h,m}`, that repo's `.okf/bridge.md`);
+  see [binding-rules.md](/binding-rules.md) for the QuartzCore split this
+  seam exists for, proven end-to-end by that repo's
+  `examples/proof_view.php` (`PROOF_VIEW_OK`, 2026-09-13).
 - `pump(timeout)` — dequeue and send pending events; PHP callables fire on
   this stack (direct callbacks, hardware-proven 2026-08-27, no queue).
 - `setAction(handle, callable)` / `removeAction(handle)` — target/action with

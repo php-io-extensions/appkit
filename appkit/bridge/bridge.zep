@@ -46,6 +46,16 @@ class Bridge
         return r == 1;
     }
 
+    public static function pointerOf(int handle) -> int
+    {
+        return bridge_pointer_of(handle);
+    }
+
+    public static function adopt(string className, int pointerBits) -> int
+    {
+        return bridge_adopt(className, pointerBits);
+    }
+
     public static function pump(double timeout) -> int
     {
         return bridge_pump(timeout);

@@ -27,6 +27,20 @@ void ns_bridge_class_name(zval *return_value, zval *handle);
 /*@zep Bridge\Bridge isKindOfClass(int handle, string className) -> bool */
 zend_long ns_bridge_is_kind_of_class(zval *handle, zval *className);
 
+/* ---- cross-extension pointer seam ---- */
+
+/*
+ * Raw pointer bits are the only inter-extension currency: pointerOf hands
+ * out the __bridge void* of a registry object (0 for invalid); adopt wraps
+ * a foreign pointer into this extension's own registry, retained. Every
+ * sibling extension (ext-metal today) exposes the identical pair under
+ * mtl_ naming so a CAMetalLayer minted there can be adopted here.
+ */
+/*@zep Bridge\Bridge pointerOf(int handle) -> int */
+zend_long ns_bridge_pointer_of(zval *handle);
+/*@zep Bridge\Bridge adopt(string className, int pointerBits) -> int */
+zend_long ns_bridge_adopt(zval *className, zval *pointerBits);
+
 /* ---- event pump ---- */
 
 /*

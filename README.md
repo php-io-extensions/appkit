@@ -23,7 +23,9 @@ Requires macOS and PHP 8.4+. Install with `bash install-macos.sh`
 | `SEL` | `string` |
 | NSRect / NSPoint / NSSize / NSRange / NSEdgeInsets | component doubles in, assoc array out |
 | `NSArray<NS*>` / `NSArray<NSString *>` | array of handles / array of strings |
-| blocks, `NSError**`, `NSCoder`, `Class`, `NSAttributedString`, `NSData`, deprecated | not bound; kept as a commented `@reserved` signature in `src/*.h` |
+| blocks, `NSError**`, `NSCoder`, `Class`, `NSAttributedString`, `NSData`, deprecated members | not bound; kept as a commented `@reserved` signature in `src/*.h` |
+| a class the SDK deprecates *in its entirety* and still ships (`NSOpenGLContext`) | bound in full under a visible `@audit deprecated-class` marker the audit enforces |
+| C scalar arrays passed by pointer (`const GLint *`) | array of ints, marshalled into the C array for the one send |
 | inherited methods | bound once on the declaring class; handles are untyped, so `NSView::setFrame($button, ...)` works |
 
 Enum values and notification-name constants are deliberately absent — they live
@@ -67,6 +69,11 @@ while (NSWindow::isVisible($win)) {
 
 See [`examples/smoke.php`](examples/smoke.php) for notifications, protocol
 delegates, menus, tables, toolbars, and the failure paths.
+
+[`examples/proof_nsopengl.php`](examples/proof_nsopengl.php) is the windowed
+OpenGL path: an `NSOpenGLView` on a 4.1 core `NSOpenGLPixelFormat` inside a
+real `NSWindow`, drawn by `php-io-extensions/opengl`, byte-checked out of
+`glReadPixels` and animated through `Bridge::pump` (`PROOF_NSOPENGL_OK`).
 
 ## Working on this extension
 
