@@ -43,6 +43,19 @@
  * cannot spread silently. Deprecated members inside otherwise-live classes
  * are unaffected: they stay reserved by the rule in binding-rules.md.
  *
+ * A class whose header declares it adopting a protocol that carries members
+ * the binding needs (GCController adopts GCDevice for vendorName /
+ * productCategory) declares that with a third visible marker:
+ *
+ *   /*@audit adopts GC\GCController GCDevice vendorName lives on the protocol * /
+ *
+ * The protocol's own members (same counting rules, its @protocol block in
+ * the class's framework search list) are then added to the class's expected
+ * count, so every protocol member is bound or reserved on that class, once.
+ * The marker is checked: the protocol must be found, and the class's
+ * @interface line must list it among its adopted protocols — otherwise FAIL.
+ * Without a marker protocol members stay out of scope as before.
+ *
  * Bridge\* classes are PHP-side glue with no SDK counterpart and are skipped.
  *
  * Known limits (documented, reviewable): both branches of an #if/#else are
@@ -69,6 +82,7 @@ const FRAMEWORK_MAP = [
     'NS' => 'AppKit',
     'QuartzCore' => 'QuartzCore',
     'AV' => 'AVFoundation',
+    'GC' => 'GameController',
 ];
 
 /** Extra frameworks searched when `{Class}.h` is absent from the mapped one. */
@@ -87,6 +101,12 @@ const ACCESS_ONLY = [
     'NS\\NSEvent',
     'NS\\NSScreen',
     'NS\\NSNotificationCenter',
+    // GameController profiles and elements come from a GCController.
+    'GC\\GCExtendedGamepad',
+    'GC\\GCMicroGamepad',
+    'GC\\GCControllerButtonInput',
+    'GC\\GCControllerAxisInput',
+    'GC\\GCControllerDirectionPad',
 ];
 
 function fail(string $msg): never
@@ -273,22 +293,19 @@ function classDeprecatedInHeader(string $blanked, string $class): bool
     return false;
 }
 /**
- * @return array{methods: int, rw: int, ro: int, expected: int, deprecated: int, classDeprecated: bool}
+ * Count members across member-list bodies (interface or protocol blocks).
+ *
+ * @param list<string> $bodies
+ * @return array{methods: int, rw: int, ro: int, expected: int, deprecated: int}
  */
-function countMembers(string $headerPath, string $class): array
+function countBodies(array $bodies): array
 {
-    $src = file_get_contents($headerPath);
-    if ($src === false) {
-        fail("cannot read {$headerPath}");
-    }
-    $blanked = blankPreprocessor(blankCommentsAndStrings($src));
-
     $methods = 0;
     $rw = 0;
     $ro = 0;
     $deprecated = 0;
 
-    foreach (interfaceBlocks($blanked, $class) as $body) {
+    foreach ($bodies as $body) {
         $len = strlen($body);
         $i = 0;
         while ($i < $len) {
@@ -340,8 +357,90 @@ function countMembers(string $headerPath, string $class): array
         'ro' => $ro,
         'expected' => $methods + 2 * $rw + $ro,
         'deprecated' => $deprecated,
-        'classDeprecated' => classDeprecatedInHeader($blanked, $class),
     ];
+}
+
+/**
+ * @return array{methods: int, rw: int, ro: int, expected: int, deprecated: int, classDeprecated: bool}
+ */
+function countMembers(string $headerPath, string $class): array
+{
+    $src = file_get_contents($headerPath);
+    if ($src === false) {
+        fail("cannot read {$headerPath}");
+    }
+    $blanked = blankPreprocessor(blankCommentsAndStrings($src));
+
+    return countBodies(interfaceBlocks($blanked, $class))
+        + ['classDeprecated' => classDeprecatedInHeader($blanked, $class)];
+}
+
+/**
+ * Body of the `@protocol $protocol` definition (not a forward declaration)
+ * in blanked source, or null when the source does not define it.
+ */
+function protocolBlock(string $blanked, string $protocol): ?string
+{
+    $pattern = '/@protocol\s+' . preg_quote($protocol, '/') . '\b(?!\s*[;,])/';
+    if (preg_match($pattern, $blanked, $m, PREG_OFFSET_CAPTURE) !== 1) {
+        return null;
+    }
+    $start = $m[0][1] + strlen($m[0][0]);
+    $end = strpos($blanked, '@end', $start);
+    $body = substr($blanked, $start, ($end === false ? strlen($blanked) : $end) - $start);
+    $introEnd = strpos($body, "\n");
+
+    return $introEnd === false ? '' : substr($body, $introEnd);
+}
+
+/**
+ * Member count of a protocol, searched for across the given frameworks.
+ *
+ * @param list<string> $frameworks
+ * @return array{methods: int, rw: int, ro: int, expected: int, deprecated: int}|null
+ */
+function countProtocolMembers(string $frameworksDir, array $frameworks, string $protocol): ?array
+{
+    foreach ($frameworks as $fw) {
+        foreach (glob("{$frameworksDir}/{$fw}.framework/Headers/*.h") ?: [] as $candidate) {
+            $src = file_get_contents($candidate);
+            if ($src === false || !str_contains($src, $protocol)) {
+                continue;
+            }
+            $body = protocolBlock(blankPreprocessor(blankCommentsAndStrings($src)), $protocol);
+            if (!is_null($body)) {
+                return countBodies([$body]);
+            }
+        }
+    }
+
+    return null;
+}
+
+/** Does the class's @interface line in its header list $protocol as adopted? */
+function classAdoptsInHeader(string $headerPath, string $class, string $protocol): bool
+{
+    $blanked = blankPreprocessor(blankCommentsAndStrings((string) file_get_contents($headerPath)));
+    $pattern = '/@interface\s+' . preg_quote($class, '/') . '\s*:[^\n<]*<([^>\n]*)>/';
+    if (preg_match($pattern, $blanked, $m) !== 1) {
+        return false;
+    }
+
+    return in_array($protocol, array_map('trim', explode(',', $m[1])), true);
+}
+
+/** @return list<string> the mapped framework plus its fallbacks for a class path */
+function frameworksFor(string $classPath): array
+{
+    $segment = explode('\\', $classPath)[0];
+    $search = [FRAMEWORK_MAP[$segment]];
+    foreach (FRAMEWORK_FALLBACK[$segment] ?? [] as $extra) {
+        if (!in_array($extra, $search, true)) {
+            $search[] = $extra;
+        }
+    }
+
+    return $search;
 }
 
 function isInitMethodName(string $method): bool
@@ -356,7 +455,8 @@ function isInitMethodName(string $method): bool
  * @return array{
  *   classes: array<string, array{bound: int, reserved: int, construct: int, hasConstruction: bool}>,
  *   partial: array<string, string>,
- *   deprecatedClass: array<string, string>
+ *   deprecatedClass: array<string, string>,
+ *   adopts: array<string, array<string, string>>
  * }
  */
 function collectAnnotations(string $root): array
@@ -364,6 +464,7 @@ function collectAnnotations(string $root): array
     $classes = [];
     $partial = [];
     $deprecatedClass = [];
+    $adopts = [];
     foreach (glob("{$root}/src/*.h") ?: [] as $path) {
         foreach (file($path, FILE_IGNORE_NEW_LINES) ?: [] as $line) {
             if (preg_match('#/\*\s*@zep-construct\s+([A-Za-z0-9_\\\\]+)\s+(\w+)\s*\(([^)]*)\)\s*->\s*(\w+)\s*\*/#', $line, $m)) {
@@ -392,11 +493,16 @@ function collectAnnotations(string $root): array
                     fail("@audit deprecated-class for {$m[1]} needs a reason");
                 }
                 $deprecatedClass[$m[1]] = $m[2];
+            } elseif (preg_match('#/\*\s*@audit\s+adopts\s+([A-Za-z0-9_\\\\]+)\s+([A-Za-z_][A-Za-z0-9_]*)\s+(.*?)\s*\*/#', $line, $m)) {
+                if (trim($m[3]) === '') {
+                    fail("@audit adopts for {$m[1]} {$m[2]} needs a reason");
+                }
+                $adopts[$m[1]][$m[2]] = $m[3];
             }
         }
     }
 
-    return ['classes' => $classes, 'partial' => $partial, 'deprecatedClass' => $deprecatedClass];
+    return ['classes' => $classes, 'partial' => $partial, 'deprecatedClass' => $deprecatedClass, 'adopts' => $adopts];
 }
 
 function sdkHeaderFor(string $classPath, string $frameworksDir): ?string
@@ -508,6 +614,22 @@ foreach ($annotations['classes'] as $classPath => $counts) {
     $segments = explode('\\', $classPath);
     $c = countMembers($headerPath, (string) end($segments));
     $expected = $c['expected'];
+    $adoptNotes = [];
+    $adoptFailure = null;
+    foreach ($annotations['adopts'][$classPath] ?? [] as $protocol => $reason) {
+        $p = countProtocolMembers($frameworksDir, frameworksFor($classPath), $protocol);
+        if (is_null($p)) {
+            $adoptFailure = "FAIL (@audit adopts {$protocol}: protocol not found in the framework headers)";
+            continue;
+        }
+        if (!classAdoptsInHeader($headerPath, (string) end($segments), $protocol)) {
+            $adoptFailure = "FAIL (@audit adopts {$protocol}: the class does not adopt it in its header)";
+            continue;
+        }
+        $expected += $p['expected'];
+        $c['deprecated'] += $p['deprecated'];
+        $adoptNotes[] = "{$protocol}+{$p['expected']}";
+    }
     $isPartial = isset($annotations['partial'][$classPath]);
     $isDeprecatedClass = isset($annotations['deprecatedClass'][$classPath]);
     $accessOnly = in_array($classPath, ACCESS_ONLY, true);
@@ -537,6 +659,14 @@ foreach ($annotations['classes'] as $classPath => $counts) {
         $failures++;
     } elseif ($isDeprecatedClass && !str_starts_with($status, 'FAIL')) {
         $status = 'DEPRECATED-CLASS ' . $status . ' (' . $annotations['deprecatedClass'][$classPath] . ')';
+    }
+    if (!is_null($adoptFailure)) {
+        if (!str_starts_with($status, 'FAIL')) {
+            $failures++;
+        }
+        $status = $adoptFailure;
+    } elseif ($adoptNotes !== [] && !str_starts_with($status, 'FAIL')) {
+        $status = 'ADOPTS ' . implode(' ', $adoptNotes) . ' ' . $status;
     }
     echo sprintf(
         "%-40s header=%-4d bound=%-4d reserved=%-4d construct=%-4d deprecated=%-4d %s\n",

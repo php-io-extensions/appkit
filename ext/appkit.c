@@ -26,6 +26,12 @@
 zend_class_entry *appkit_av_avplayer_avplayer_ce;
 zend_class_entry *appkit_av_avplayerview_avplayerview_ce;
 zend_class_entry *appkit_bridge_bridge_ce;
+zend_class_entry *appkit_gc_gccontroller_gccontroller_ce;
+zend_class_entry *appkit_gc_gccontrolleraxisinput_gccontrolleraxisinput_ce;
+zend_class_entry *appkit_gc_gccontrollerbuttoninput_gccontrollerbuttoninput_ce;
+zend_class_entry *appkit_gc_gccontrollerdirectionpad_gccontrollerdirectionpad_ce;
+zend_class_entry *appkit_gc_gcextendedgamepad_gcextendedgamepad_ce;
+zend_class_entry *appkit_gc_gcmicrogamepad_gcmicrogamepad_ce;
 zend_class_entry *appkit_ns_nsalert_nsalert_ce;
 zend_class_entry *appkit_ns_nsapplication_nsapplication_ce;
 zend_class_entry *appkit_ns_nsattributedstring_nsattributedstring_ce;
@@ -135,6 +141,12 @@ static PHP_MINIT_FUNCTION(appkit)
 	ZEPHIR_INIT(AppKit_AV_AVPlayerView_AVPlayerView);
 	ZEPHIR_INIT(AppKit_AV_AVPlayer_AVPlayer);
 	ZEPHIR_INIT(AppKit_Bridge_Bridge);
+	ZEPHIR_INIT(AppKit_GC_GCControllerAxisInput_GCControllerAxisInput);
+	ZEPHIR_INIT(AppKit_GC_GCControllerButtonInput_GCControllerButtonInput);
+	ZEPHIR_INIT(AppKit_GC_GCControllerDirectionPad_GCControllerDirectionPad);
+	ZEPHIR_INIT(AppKit_GC_GCController_GCController);
+	ZEPHIR_INIT(AppKit_GC_GCExtendedGamepad_GCExtendedGamepad);
+	ZEPHIR_INIT(AppKit_GC_GCMicroGamepad_GCMicroGamepad);
 	ZEPHIR_INIT(AppKit_NS_NSAlert_NSAlert);
 	ZEPHIR_INIT(AppKit_NS_NSApplication_NSApplication);
 	ZEPHIR_INIT(AppKit_NS_NSAttributedString_NSAttributedString);

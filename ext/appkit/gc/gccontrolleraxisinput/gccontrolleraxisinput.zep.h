@@ -1,0 +1,15 @@
+
+extern zend_class_entry *appkit_gc_gccontrolleraxisinput_gccontrolleraxisinput_ce;
+
+ZEPHIR_INIT_CLASS(AppKit_GC_GCControllerAxisInput_GCControllerAxisInput);
+
+PHP_METHOD(AppKit_GC_GCControllerAxisInput_GCControllerAxisInput, value);
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_gc_gccontrolleraxisinput_gccontrolleraxisinput_value, 0, 1, IS_DOUBLE, 0)
+	ZEND_ARG_TYPE_INFO(0, handle, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEPHIR_INIT_FUNCS(appkit_gc_gccontrolleraxisinput_gccontrolleraxisinput_method_entry) {
+	PHP_ME(AppKit_GC_GCControllerAxisInput_GCControllerAxisInput, value, arginfo_appkit_gc_gccontrolleraxisinput_gccontrolleraxisinput_value, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_FE_END
+};

@@ -111,6 +111,19 @@ static inline NSRange ns_arg_range(zval *loc, zval *len)
     return NSMakeRange((NSUInteger) ns_arg_long(loc), (NSUInteger) ns_arg_long(len));
 }
 
+/* PHP list of integers -> NSSet<NSNumber *> (values stay integers, never handles). */
+static inline NSSet<NSNumber *> *ns_arg_long_set(zval *z)
+{
+    NSMutableSet *out = [NSMutableSet new];
+    z = ns_deref(z);
+    if (z == NULL || Z_TYPE_P(z) != IS_ARRAY) return out;
+    zval *e;
+    ZEND_HASH_FOREACH_VAL(Z_ARRVAL_P(z), e) {
+        [out addObject:@(zval_get_long(e))];
+    }     ZEND_HASH_FOREACH_END();
+    return out;
+}
+
 /* PHP list of handles -> NSArray of objects (unknown handles skipped). */
 static inline NSArray *ns_arg_object_array(zval *z)
 {

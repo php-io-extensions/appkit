@@ -1,0 +1,27 @@
+
+extern zend_class_entry *appkit_gc_gccontrollerbuttoninput_gccontrollerbuttoninput_ce;
+
+ZEPHIR_INIT_CLASS(AppKit_GC_GCControllerButtonInput_GCControllerButtonInput);
+
+PHP_METHOD(AppKit_GC_GCControllerButtonInput_GCControllerButtonInput, value);
+PHP_METHOD(AppKit_GC_GCControllerButtonInput_GCControllerButtonInput, isPressed);
+PHP_METHOD(AppKit_GC_GCControllerButtonInput_GCControllerButtonInput, isTouched);
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_gc_gccontrollerbuttoninput_gccontrollerbuttoninput_value, 0, 1, IS_DOUBLE, 0)
+	ZEND_ARG_TYPE_INFO(0, handle, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_gc_gccontrollerbuttoninput_gccontrollerbuttoninput_ispressed, 0, 1, _IS_BOOL, 0)
+	ZEND_ARG_TYPE_INFO(0, handle, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_gc_gccontrollerbuttoninput_gccontrollerbuttoninput_istouched, 0, 1, _IS_BOOL, 0)
+	ZEND_ARG_TYPE_INFO(0, handle, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEPHIR_INIT_FUNCS(appkit_gc_gccontrollerbuttoninput_gccontrollerbuttoninput_method_entry) {
+	PHP_ME(AppKit_GC_GCControllerButtonInput_GCControllerButtonInput, value, arginfo_appkit_gc_gccontrollerbuttoninput_gccontrollerbuttoninput_value, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_GC_GCControllerButtonInput_GCControllerButtonInput, isPressed, arginfo_appkit_gc_gccontrollerbuttoninput_gccontrollerbuttoninput_ispressed, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_GC_GCControllerButtonInput_GCControllerButtonInput, isTouched, arginfo_appkit_gc_gccontrollerbuttoninput_gccontrollerbuttoninput_istouched, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_FE_END
+};

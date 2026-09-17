@@ -1,5 +1,30 @@
 # Change log
 
+## 2026-09-17 (input tap field gates)
+* `drainInput`: button/click read on mouse down/up/dragged only (not
+  mouseMoved); deltas on mouseMoved/*Dragged/scrollWheel only (not
+  down/up); new `isDirectionInvertedFromDevice` (bool, scrollWheel only).
+  Smoke: `SCROLL_INVERTED_KEY_OK`, `MOUSE_FIELD_GATES_OK`.
+  [bridge.md](/bridge.md).
+
+## 2026-09-17 (input tap + GameController, 0.8.0)
+* `Bridge::watchInput` / `Bridge::drainInput` — NSEvent local-monitor input
+  tap, C ring buffer cap 4096. [bridge.md](/bridge.md).
+* `GC\` namespace → GameController.framework: GCController,
+  GCExtendedGamepad, GCMicroGamepad, GCControllerButtonInput,
+  GCControllerAxisInput, GCControllerDirectionPad (43 bound). Linked in
+  `extra-libs`, checked by `install-macos.sh`, mapped in audit
+  `FRAMEWORK_MAP`, profiles/elements added to `ACCESS_ONLY`.
+  [binding-rules.md](/binding-rules.md).
+* Audit: `@audit adopts <Class> <Protocol> <reason>` counts an adopted
+  protocol's members on the class (GCController / GCDevice);
+  `scripts/tests/adopts-guard.php` negative control.
+  [toolchain.md](/toolchain.md).
+* `drainInput` records `keyCode` on flagsChanged too (left/right modifier
+  identity); characters/isARepeat stay keyDown/keyUp only.
+* Pipeline: GEN_OK (classes=104 methods=3816), PARITY_OK, audit: GC classes
+  OK, 6 pre-existing FAILs unchanged, REFLECTION_OK, SMOKE_OK.
+
 ## 2026-09-13 (windowed OpenGL — NSOpenGLPixelFormat / NSOpenGLContext / NSOpenGLView, 0.8.2)
 * **Ruling**: every windowed-GL API on macOS is `API_DEPRECATED` since 10.14
   and still shipped and functional. Rule 4 reserves deprecated members, which
@@ -1753,3 +1778,7 @@
 - Bundle seeded by claude-fable-5/cursor after the toolchain landed:
   `binding-rules.md`, `bridge.md`, `toolchain.md`. All three are
   `status: draft` pending human verification.
+
+## 2026-09-17
+* **Update**: [bridge](/bridge.md) — `swallowKeysIn(windowNumbers)`: the input tap consumes (after recording) keyDown/keyUp in listed windows whose first responder is the window or its content view; Command keys pass. Ends the no-responder beep.
+* **Update**: [bridge](/bridge.md) — `swallowKeysIn` also consumes Command keys, after offering keyDown to the main menu's key equivalents (held key + Cmd beeped).

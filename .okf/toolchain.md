@@ -38,24 +38,33 @@ php scripts/verify-reflection.php  # loaded .so exposes exactly the annotated me
   and is not part of that sum). A non-exempt class with no construction path
   (`init*`, no-handle factory returning int, or `@zep-construct`) fails.
   Access-only exemptions: `NSApplication`, `NSEvent`, `NSScreen`,
-  `NSNotificationCenter`. Companion classes that live in another
+  `NSNotificationCenter`, and the GameController profiles/elements
+  (`GCExtendedGamepad`, `GCMicroGamepad`, `GCControllerButtonInput`,
+  `GCControllerAxisInput`, `GCControllerDirectionPad`). Companion classes that live in another
   type's header (e.g. `NSSecureTextFieldCell` in `NSSecureTextField.h`)
   resolve by scanning for `@interface Class` when `{Class}.h` is absent.
   NS-prefixed types missing from AppKit (e.g. `NSNotificationCenter` in
   `Foundation/NSNotification.h`) resolve via `FRAMEWORK_FALLBACK`.
   `FRAMEWORK_MAP` maps the first namespace segment to an SDK framework —
   `NS` → AppKit, `QuartzCore` → QuartzCore, `AV` → AVFoundation (falling
-  back to AVKit); an unmapped namespace is a hard fail that stops the
+  back to AVKit), `GC` → GameController; an unmapped namespace is a hard fail that stops the
   whole audit, so a new namespace must be added here in the same wave.
   A class the SDK deprecates in its entirety needs an
   `@audit deprecated-class` marker — see
-  [binding-rules.md](/binding-rules.md).
+  [binding-rules.md](/binding-rules.md). Protocol members count only under
+  an `@audit adopts` marker (same page).
+- Baseline audit is not clean: 6 pre-existing FAILs (`AV\AVPlayer`,
+  `AV\AVPlayerView`, `NS\NSAttributedString`, `NS\NSButton`,
+  `NS\NSIndexSet`, `NS\NSURL`), so `AUDIT_OK` does not print until those
+  are fixed; judge a wave by its own classes' lines.
 - `scripts/tests/*.php` — negative controls: each guard is proven able to fail
   against a bad fixture (drift, parity break, audit miss, prepare-ext patch
   failure, and the deprecation exemption —
   `deprecated-class-guard.php`, which proves the audit accepts a marked
   wholly deprecated class, refuses an unmarked one, and refuses a marker
-  on a live class).
+  on a live class; `adopts-guard.php`, which proves an `@audit adopts`
+  marker is accepted for an adopted protocol and refused for an unadopted or
+  undefined one).
 - `verify-reflection.php` — the only guard that inspects the **installed**
   binary: for every class it asserts the reflected method count equals that
   class's `@zep` + `@zep-construct` count. The other guards compare source

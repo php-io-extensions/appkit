@@ -11,6 +11,24 @@ $(builddir)/src/av-playerview.lo: $(srcdir)/src/av-playerview.m
 $(builddir)/src/ca-layer.lo: $(srcdir)/src/ca-layer.m
 	$(LIBTOOL) --tag=CC --mode=compile $(CC) -I. -I$(srcdir) -I$(srcdir)/src $(COMMON_FLAGS) $(CFLAGS_CLEAN) $(EXTRA_CFLAGS) $(NS_OBJC_CFLAGS) -DZEND_COMPILE_DL_EXT=1 -c $(srcdir)/src/ca-layer.m -o $@
 
+$(builddir)/src/gc-controller.lo: $(srcdir)/src/gc-controller.m
+	$(LIBTOOL) --tag=CC --mode=compile $(CC) -I. -I$(srcdir) -I$(srcdir)/src $(COMMON_FLAGS) $(CFLAGS_CLEAN) $(EXTRA_CFLAGS) $(NS_OBJC_CFLAGS) -DZEND_COMPILE_DL_EXT=1 -c $(srcdir)/src/gc-controller.m -o $@
+
+$(builddir)/src/gc-controlleraxisinput.lo: $(srcdir)/src/gc-controlleraxisinput.m
+	$(LIBTOOL) --tag=CC --mode=compile $(CC) -I. -I$(srcdir) -I$(srcdir)/src $(COMMON_FLAGS) $(CFLAGS_CLEAN) $(EXTRA_CFLAGS) $(NS_OBJC_CFLAGS) -DZEND_COMPILE_DL_EXT=1 -c $(srcdir)/src/gc-controlleraxisinput.m -o $@
+
+$(builddir)/src/gc-controllerbuttoninput.lo: $(srcdir)/src/gc-controllerbuttoninput.m
+	$(LIBTOOL) --tag=CC --mode=compile $(CC) -I. -I$(srcdir) -I$(srcdir)/src $(COMMON_FLAGS) $(CFLAGS_CLEAN) $(EXTRA_CFLAGS) $(NS_OBJC_CFLAGS) -DZEND_COMPILE_DL_EXT=1 -c $(srcdir)/src/gc-controllerbuttoninput.m -o $@
+
+$(builddir)/src/gc-controllerdirectionpad.lo: $(srcdir)/src/gc-controllerdirectionpad.m
+	$(LIBTOOL) --tag=CC --mode=compile $(CC) -I. -I$(srcdir) -I$(srcdir)/src $(COMMON_FLAGS) $(CFLAGS_CLEAN) $(EXTRA_CFLAGS) $(NS_OBJC_CFLAGS) -DZEND_COMPILE_DL_EXT=1 -c $(srcdir)/src/gc-controllerdirectionpad.m -o $@
+
+$(builddir)/src/gc-extendedgamepad.lo: $(srcdir)/src/gc-extendedgamepad.m
+	$(LIBTOOL) --tag=CC --mode=compile $(CC) -I. -I$(srcdir) -I$(srcdir)/src $(COMMON_FLAGS) $(CFLAGS_CLEAN) $(EXTRA_CFLAGS) $(NS_OBJC_CFLAGS) -DZEND_COMPILE_DL_EXT=1 -c $(srcdir)/src/gc-extendedgamepad.m -o $@
+
+$(builddir)/src/gc-microgamepad.lo: $(srcdir)/src/gc-microgamepad.m
+	$(LIBTOOL) --tag=CC --mode=compile $(CC) -I. -I$(srcdir) -I$(srcdir)/src $(COMMON_FLAGS) $(CFLAGS_CLEAN) $(EXTRA_CFLAGS) $(NS_OBJC_CFLAGS) -DZEND_COMPILE_DL_EXT=1 -c $(srcdir)/src/gc-microgamepad.m -o $@
+
 $(builddir)/src/ns-alert.lo: $(srcdir)/src/ns-alert.m
 	$(LIBTOOL) --tag=CC --mode=compile $(CC) -I. -I$(srcdir) -I$(srcdir)/src $(COMMON_FLAGS) $(CFLAGS_CLEAN) $(EXTRA_CFLAGS) $(NS_OBJC_CFLAGS) -DZEND_COMPILE_DL_EXT=1 -c $(srcdir)/src/ns-alert.m -o $@
 

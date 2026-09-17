@@ -11,6 +11,9 @@ PHP_METHOD(AppKit_Bridge_Bridge, isKindOfClass);
 PHP_METHOD(AppKit_Bridge_Bridge, pointerOf);
 PHP_METHOD(AppKit_Bridge_Bridge, adopt);
 PHP_METHOD(AppKit_Bridge_Bridge, pump);
+PHP_METHOD(AppKit_Bridge_Bridge, watchInput);
+PHP_METHOD(AppKit_Bridge_Bridge, drainInput);
+PHP_METHOD(AppKit_Bridge_Bridge, swallowKeysIn);
 PHP_METHOD(AppKit_Bridge_Bridge, setAction);
 PHP_METHOD(AppKit_Bridge_Bridge, removeAction);
 PHP_METHOD(AppKit_Bridge_Bridge, observeNotification);
@@ -52,6 +55,19 @@ ZEND_END_ARG_INFO()
 
 ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_bridge_bridge_pump, 0, 1, IS_LONG, 0)
 	ZEND_ARG_TYPE_INFO(0, timeout, IS_DOUBLE, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_bridge_bridge_watchinput, 0, 1, IS_VOID, 0)
+
+	ZEND_ARG_TYPE_INFO(0, mask, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_bridge_bridge_draininput, 0, 0, IS_ARRAY, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_bridge_bridge_swallowkeysin, 0, 1, IS_VOID, 0)
+
+	ZEND_ARG_INFO(0, windowNumbers)
 ZEND_END_ARG_INFO()
 
 ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_bridge_bridge_setaction, 0, 2, _IS_BOOL, 0)
@@ -100,6 +116,9 @@ ZEPHIR_INIT_FUNCS(appkit_bridge_bridge_method_entry) {
 	PHP_ME(AppKit_Bridge_Bridge, pointerOf, arginfo_appkit_bridge_bridge_pointerof, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
 	PHP_ME(AppKit_Bridge_Bridge, adopt, arginfo_appkit_bridge_bridge_adopt, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
 	PHP_ME(AppKit_Bridge_Bridge, pump, arginfo_appkit_bridge_bridge_pump, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_Bridge_Bridge, watchInput, arginfo_appkit_bridge_bridge_watchinput, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_Bridge_Bridge, drainInput, arginfo_appkit_bridge_bridge_draininput, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_Bridge_Bridge, swallowKeysIn, arginfo_appkit_bridge_bridge_swallowkeysin, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
 	PHP_ME(AppKit_Bridge_Bridge, setAction, arginfo_appkit_bridge_bridge_setaction, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
 	PHP_ME(AppKit_Bridge_Bridge, removeAction, arginfo_appkit_bridge_bridge_removeaction, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
 	PHP_ME(AppKit_Bridge_Bridge, observeNotification, arginfo_appkit_bridge_bridge_observenotification, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)

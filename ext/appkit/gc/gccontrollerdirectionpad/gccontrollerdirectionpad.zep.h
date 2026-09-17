@@ -1,0 +1,45 @@
+
+extern zend_class_entry *appkit_gc_gccontrollerdirectionpad_gccontrollerdirectionpad_ce;
+
+ZEPHIR_INIT_CLASS(AppKit_GC_GCControllerDirectionPad_GCControllerDirectionPad);
+
+PHP_METHOD(AppKit_GC_GCControllerDirectionPad_GCControllerDirectionPad, xAxis);
+PHP_METHOD(AppKit_GC_GCControllerDirectionPad_GCControllerDirectionPad, yAxis);
+PHP_METHOD(AppKit_GC_GCControllerDirectionPad_GCControllerDirectionPad, up);
+PHP_METHOD(AppKit_GC_GCControllerDirectionPad_GCControllerDirectionPad, down);
+PHP_METHOD(AppKit_GC_GCControllerDirectionPad_GCControllerDirectionPad, left);
+PHP_METHOD(AppKit_GC_GCControllerDirectionPad_GCControllerDirectionPad, right);
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_gc_gccontrollerdirectionpad_gccontrollerdirectionpad_xaxis, 0, 1, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, handle, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_gc_gccontrollerdirectionpad_gccontrollerdirectionpad_yaxis, 0, 1, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, handle, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_gc_gccontrollerdirectionpad_gccontrollerdirectionpad_up, 0, 1, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, handle, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_gc_gccontrollerdirectionpad_gccontrollerdirectionpad_down, 0, 1, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, handle, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_gc_gccontrollerdirectionpad_gccontrollerdirectionpad_left, 0, 1, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, handle, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_gc_gccontrollerdirectionpad_gccontrollerdirectionpad_right, 0, 1, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, handle, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEPHIR_INIT_FUNCS(appkit_gc_gccontrollerdirectionpad_gccontrollerdirectionpad_method_entry) {
+	PHP_ME(AppKit_GC_GCControllerDirectionPad_GCControllerDirectionPad, xAxis, arginfo_appkit_gc_gccontrollerdirectionpad_gccontrollerdirectionpad_xaxis, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_GC_GCControllerDirectionPad_GCControllerDirectionPad, yAxis, arginfo_appkit_gc_gccontrollerdirectionpad_gccontrollerdirectionpad_yaxis, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_GC_GCControllerDirectionPad_GCControllerDirectionPad, up, arginfo_appkit_gc_gccontrollerdirectionpad_gccontrollerdirectionpad_up, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_GC_GCControllerDirectionPad_GCControllerDirectionPad, down, arginfo_appkit_gc_gccontrollerdirectionpad_gccontrollerdirectionpad_down, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_GC_GCControllerDirectionPad_GCControllerDirectionPad, left, arginfo_appkit_gc_gccontrollerdirectionpad_gccontrollerdirectionpad_left, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_GC_GCControllerDirectionPad_GCControllerDirectionPad, right, arginfo_appkit_gc_gccontrollerdirectionpad_gccontrollerdirectionpad_right, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_FE_END
+};

@@ -52,6 +52,55 @@ zend_long ns_bridge_adopt(zval *className, zval *pointerBits);
 /*@zep Bridge\Bridge pump(double timeout) -> int */
 zend_long ns_bridge_pump(zval *timeout);
 
+/* ---- input tap ---- */
+
+/*
+ * Record every NSEvent whose type bit is set in `mask` (NSEventMaskFromType)
+ * while pump() dispatches. Implemented as an NSEvent local monitor that
+ * copies the fields below into a C buffer and returns the event unchanged,
+ * so AppKit still delivers it. mask 0 removes the monitor and empties the
+ * buffer. Calling again replaces the mask. Buffer cap 4096 events; past the
+ * cap the oldest are dropped.
+ */
+/*@zep Bridge\Bridge watchInput(int mask) -> void */
+void ns_bridge_watch_input(zval *mask);
+
+/*
+ * Hand over and empty the buffer: a list, oldest first, of
+ * ['type' => int, 'timestamp' => float, 'windowNumber' => int,
+ *  'keyCode' => int, 'characters' => string, 'charactersIgnoringModifiers' => string,
+ *  'isARepeat' => bool, 'modifierFlags' => int,
+ *  'buttonNumber' => int, 'clickCount' => int,
+ *  'locationInWindow' => ['x' => float, 'y' => float],
+ *  'deltaX' => float, 'deltaY' => float,
+ *  'scrollingDeltaX' => float, 'scrollingDeltaY' => float, 'hasPreciseScrollingDeltas' => bool,
+ *  'isDirectionInvertedFromDevice' => bool]
+ * keyCode is read for keyDown / keyUp / flagsChanged (flagsChanged carries
+ * the modifier key: left/right shift, control, option, command, caps lock);
+ * characters / charactersIgnoringModifiers / isARepeat only for keyDown /
+ * keyUp — reading them on other types raises in AppKit. buttonNumber /
+ * clickCount only for left/right/other mouse down / up / dragged;
+ * locationInWindow for those + mouseMoved / scrollWheel / entered / exited;
+ * deltaX / deltaY only for mouseMoved / *Dragged / scrollWheel; scrolling
+ * fields and isDirectionInvertedFromDevice (true = natural scrolling: the
+ * deltas are inverted from the physical motion) only for scrollWheel.
+ * Unread fields are 0 / '' / false. modifierFlags is the full value,
+ * device-dependent low bits included.
+ */
+/*@zep Bridge\Bridge drainInput() -> array */
+void ns_bridge_drain_input(zval *return_value);
+
+/*
+ * While the tap is on, consume keyDown / keyUp events (after recording them)
+ * in the listed windows (by windowNumber) when nothing there can take a key:
+ * the window's first responder is the window itself or its content view.
+ * Stops the "no responder" beep. Command-key events always pass through so
+ * menu equivalents work; a focused text field still gets its typing. An
+ * empty list consumes nothing. watchInput(0) clears the list.
+ */
+/*@zep Bridge\Bridge swallowKeysIn(var windowNumbers) -> void */
+void ns_bridge_swallow_keys_in(zval *windowNumbers);
+
 /* ---- target/action ---- */
 
 /*

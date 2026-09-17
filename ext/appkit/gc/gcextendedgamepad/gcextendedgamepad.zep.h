@@ -1,0 +1,111 @@
+
+extern zend_class_entry *appkit_gc_gcextendedgamepad_gcextendedgamepad_ce;
+
+ZEPHIR_INIT_CLASS(AppKit_GC_GCExtendedGamepad_GCExtendedGamepad);
+
+PHP_METHOD(AppKit_GC_GCExtendedGamepad_GCExtendedGamepad, controller);
+PHP_METHOD(AppKit_GC_GCExtendedGamepad_GCExtendedGamepad, dpad);
+PHP_METHOD(AppKit_GC_GCExtendedGamepad_GCExtendedGamepad, buttonA);
+PHP_METHOD(AppKit_GC_GCExtendedGamepad_GCExtendedGamepad, buttonB);
+PHP_METHOD(AppKit_GC_GCExtendedGamepad_GCExtendedGamepad, buttonX);
+PHP_METHOD(AppKit_GC_GCExtendedGamepad_GCExtendedGamepad, buttonY);
+PHP_METHOD(AppKit_GC_GCExtendedGamepad_GCExtendedGamepad, buttonMenu);
+PHP_METHOD(AppKit_GC_GCExtendedGamepad_GCExtendedGamepad, buttonOptions);
+PHP_METHOD(AppKit_GC_GCExtendedGamepad_GCExtendedGamepad, buttonHome);
+PHP_METHOD(AppKit_GC_GCExtendedGamepad_GCExtendedGamepad, leftThumbstick);
+PHP_METHOD(AppKit_GC_GCExtendedGamepad_GCExtendedGamepad, rightThumbstick);
+PHP_METHOD(AppKit_GC_GCExtendedGamepad_GCExtendedGamepad, leftShoulder);
+PHP_METHOD(AppKit_GC_GCExtendedGamepad_GCExtendedGamepad, rightShoulder);
+PHP_METHOD(AppKit_GC_GCExtendedGamepad_GCExtendedGamepad, leftTrigger);
+PHP_METHOD(AppKit_GC_GCExtendedGamepad_GCExtendedGamepad, rightTrigger);
+PHP_METHOD(AppKit_GC_GCExtendedGamepad_GCExtendedGamepad, leftThumbstickButton);
+PHP_METHOD(AppKit_GC_GCExtendedGamepad_GCExtendedGamepad, rightThumbstickButton);
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_gc_gcextendedgamepad_gcextendedgamepad_controller, 0, 1, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, handle, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_gc_gcextendedgamepad_gcextendedgamepad_dpad, 0, 1, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, handle, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_gc_gcextendedgamepad_gcextendedgamepad_buttona, 0, 1, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, handle, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_gc_gcextendedgamepad_gcextendedgamepad_buttonb, 0, 1, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, handle, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_gc_gcextendedgamepad_gcextendedgamepad_buttonx, 0, 1, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, handle, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_gc_gcextendedgamepad_gcextendedgamepad_buttony, 0, 1, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, handle, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_gc_gcextendedgamepad_gcextendedgamepad_buttonmenu, 0, 1, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, handle, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_gc_gcextendedgamepad_gcextendedgamepad_buttonoptions, 0, 1, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, handle, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_gc_gcextendedgamepad_gcextendedgamepad_buttonhome, 0, 1, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, handle, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_gc_gcextendedgamepad_gcextendedgamepad_leftthumbstick, 0, 1, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, handle, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_gc_gcextendedgamepad_gcextendedgamepad_rightthumbstick, 0, 1, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, handle, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_gc_gcextendedgamepad_gcextendedgamepad_leftshoulder, 0, 1, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, handle, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_gc_gcextendedgamepad_gcextendedgamepad_rightshoulder, 0, 1, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, handle, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_gc_gcextendedgamepad_gcextendedgamepad_lefttrigger, 0, 1, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, handle, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_gc_gcextendedgamepad_gcextendedgamepad_righttrigger, 0, 1, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, handle, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_gc_gcextendedgamepad_gcextendedgamepad_leftthumbstickbutton, 0, 1, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, handle, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_appkit_gc_gcextendedgamepad_gcextendedgamepad_rightthumbstickbutton, 0, 1, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, handle, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEPHIR_INIT_FUNCS(appkit_gc_gcextendedgamepad_gcextendedgamepad_method_entry) {
+	PHP_ME(AppKit_GC_GCExtendedGamepad_GCExtendedGamepad, controller, arginfo_appkit_gc_gcextendedgamepad_gcextendedgamepad_controller, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_GC_GCExtendedGamepad_GCExtendedGamepad, dpad, arginfo_appkit_gc_gcextendedgamepad_gcextendedgamepad_dpad, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_GC_GCExtendedGamepad_GCExtendedGamepad, buttonA, arginfo_appkit_gc_gcextendedgamepad_gcextendedgamepad_buttona, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_GC_GCExtendedGamepad_GCExtendedGamepad, buttonB, arginfo_appkit_gc_gcextendedgamepad_gcextendedgamepad_buttonb, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_GC_GCExtendedGamepad_GCExtendedGamepad, buttonX, arginfo_appkit_gc_gcextendedgamepad_gcextendedgamepad_buttonx, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_GC_GCExtendedGamepad_GCExtendedGamepad, buttonY, arginfo_appkit_gc_gcextendedgamepad_gcextendedgamepad_buttony, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_GC_GCExtendedGamepad_GCExtendedGamepad, buttonMenu, arginfo_appkit_gc_gcextendedgamepad_gcextendedgamepad_buttonmenu, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_GC_GCExtendedGamepad_GCExtendedGamepad, buttonOptions, arginfo_appkit_gc_gcextendedgamepad_gcextendedgamepad_buttonoptions, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_GC_GCExtendedGamepad_GCExtendedGamepad, buttonHome, arginfo_appkit_gc_gcextendedgamepad_gcextendedgamepad_buttonhome, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_GC_GCExtendedGamepad_GCExtendedGamepad, leftThumbstick, arginfo_appkit_gc_gcextendedgamepad_gcextendedgamepad_leftthumbstick, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_GC_GCExtendedGamepad_GCExtendedGamepad, rightThumbstick, arginfo_appkit_gc_gcextendedgamepad_gcextendedgamepad_rightthumbstick, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_GC_GCExtendedGamepad_GCExtendedGamepad, leftShoulder, arginfo_appkit_gc_gcextendedgamepad_gcextendedgamepad_leftshoulder, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_GC_GCExtendedGamepad_GCExtendedGamepad, rightShoulder, arginfo_appkit_gc_gcextendedgamepad_gcextendedgamepad_rightshoulder, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_GC_GCExtendedGamepad_GCExtendedGamepad, leftTrigger, arginfo_appkit_gc_gcextendedgamepad_gcextendedgamepad_lefttrigger, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_GC_GCExtendedGamepad_GCExtendedGamepad, rightTrigger, arginfo_appkit_gc_gcextendedgamepad_gcextendedgamepad_righttrigger, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_GC_GCExtendedGamepad_GCExtendedGamepad, leftThumbstickButton, arginfo_appkit_gc_gcextendedgamepad_gcextendedgamepad_leftthumbstickbutton, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_ME(AppKit_GC_GCExtendedGamepad_GCExtendedGamepad, rightThumbstickButton, arginfo_appkit_gc_gcextendedgamepad_gcextendedgamepad_rightthumbstickbutton, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	PHP_FE_END
+};

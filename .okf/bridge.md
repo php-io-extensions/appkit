@@ -3,13 +3,14 @@ type: Component
 title: AppKit\Bridge\Bridge — the only glue
 description: >-
   Everything PHP cannot do without native code, and nothing else: handle
-  registry, event pump, target/action, notification observer, generic delegate.
+  registry, event pump, input tap, target/action, notification observer,
+  generic delegate.
 resource: src/ns-bridge.m
 tags: [bridge, glue, appkit]
 status: draft
 generated:
-  by: cursor-grok-4.6/cursor
-  at: 2026-08-27T18:40:00Z
+  by: claude-opus-5/claude-code
+  at: 2026-09-17T03:00:00Z
 ---
 
 # AppKit\Bridge\Bridge
@@ -40,6 +41,36 @@ about how AppKit is used. **No other `NSPhp*` class may exist** — verified by
   `examples/proof_view.php` (`PROOF_VIEW_OK`, 2026-09-13).
 - `pump(timeout)` — dequeue and send pending events; PHP callables fire on
   this stack (direct callbacks, hardware-proven 2026-08-27, no queue).
+- Input tap (0.8.0, 2026-09-17): `watchInput(int mask)` /
+  `drainInput() -> array`. One `+[NSEvent addLocalMonitorForEventsMatchingMask:handler:]`
+  monitor; block copies fields into a C ring buffer (cap 4096, drop oldest)
+  and returns the event unchanged. `mask` = OR of `1 << NSEventType`;
+  re-call replaces the monitor; `0` removes it and empties the buffer.
+  `drainInput` returns and empties, oldest first: `type`, `timestamp`,
+  `windowNumber`, `keyCode`, `characters`, `charactersIgnoringModifiers`,
+  `isARepeat`, `modifierFlags` (full value), `buttonNumber`, `clickCount`,
+  `locationInWindow {x, y}`, `deltaX`, `deltaY`, `scrollingDeltaX`,
+  `scrollingDeltaY`, `hasPreciseScrollingDeltas`,
+  `isDirectionInvertedFromDevice`. Type-gated reads (AppKit raises
+  otherwise): `keyCode` keyDown/keyUp/flagsChanged (modifier-key identity);
+  characters/isARepeat keyDown/keyUp only; button/click on left/right/other
+  mouse down/up/dragged only; location on those + mouseMoved + scrollWheel +
+  entered/exited; deltas on mouseMoved, *Dragged, scrollWheel only (not
+  down/up); scrolling fields + `isDirectionInvertedFromDevice` (true =
+  natural scrolling, deltas inverted from physical motion) scrollWheel only.
+  Ungated fields read 0 / '' / false. Monitor fires on the main
+  thread inside `pump` → no lock. Captures real keystrokes to the key
+  window too. Proof: `examples/smoke.php` `INPUT_TAP_OK` (posted keyDown),
+  `MOUSE_FIELD_GATES_OK` (posted mouseDown + mouseMoved),
+  `SCROLL_INVERTED_KEY_OK` (key present, false off scrollWheel — no bound
+  path posts a scroll event);
+  `examples/input-probe.php` (10 s, prints events + controllers).
+- `swallowKeysIn(array windowNumbers)` — tap consumes (after recording)
+  keyDown/keyUp in listed windows whose first responder is nil, the window,
+  or its content view → no no-responder beep. Swallowed Command keyDown goes
+  to `[[NSApp mainMenu] performKeyEquivalent:]` first (menu shortcuts live;
+  Cmd + held key no beep). `[]` or `watchInput(0)` clears. Proof: smoke
+  `SWALLOW_RECORDS_OK`.
 - `setAction(handle, callable)` / `removeAction(handle)` — target/action with
   a PHP receiver; the callable receives `(int sender)`.
 - `observeNotification(object, name, callable)` / `removeObserver(token)` —

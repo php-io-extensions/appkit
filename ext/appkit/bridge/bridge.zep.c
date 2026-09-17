@@ -161,6 +161,46 @@ PHP_METHOD(AppKit_Bridge_Bridge, pump)
 	RETURN_LONG(ns_bridge_pump(&_0));
 }
 
+PHP_METHOD(AppKit_Bridge_Bridge, watchInput)
+{
+	zval *mask_param = NULL, _0;
+	zend_long mask;
+
+	ZVAL_UNDEF(&_0);
+	ZEND_PARSE_PARAMETERS_START(1, 1)
+		Z_PARAM_LONG(mask)
+	ZEND_PARSE_PARAMETERS_END();
+	zephir_fetch_params_without_memory_grow(1, 0, &mask_param);
+	ZVAL_LONG(&_0, mask);
+	ns_bridge_watch_input(&_0);
+}
+
+PHP_METHOD(AppKit_Bridge_Bridge, drainInput)
+{
+	zval result;
+	zephir_method_globals *ZEPHIR_METHOD_GLOBALS_PTR = NULL;
+
+	ZVAL_UNDEF(&result);
+	ZEPHIR_METHOD_GLOBALS_PTR = pecalloc(1, sizeof(zephir_method_globals), 0);
+	zephir_memory_grow_stack(ZEPHIR_METHOD_GLOBALS_PTR, __func__);
+
+	ZEPHIR_INIT_VAR(&result);
+	ns_bridge_drain_input(&result);
+	RETURN_CCTOR(&result);
+}
+
+PHP_METHOD(AppKit_Bridge_Bridge, swallowKeysIn)
+{
+	zval *windowNumbers = NULL, windowNumbers_sub;
+
+	ZVAL_UNDEF(&windowNumbers_sub);
+	ZEND_PARSE_PARAMETERS_START(1, 1)
+		Z_PARAM_ZVAL(windowNumbers)
+	ZEND_PARSE_PARAMETERS_END();
+	zephir_fetch_params_without_memory_grow(1, 0, &windowNumbers);
+	ns_bridge_swallow_keys_in(windowNumbers);
+}
+
 PHP_METHOD(AppKit_Bridge_Bridge, setAction)
 {
 	zval *handle_param = NULL, *callable_ = NULL, callable__sub, _0;

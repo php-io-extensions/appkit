@@ -200,6 +200,228 @@ zend_long ns_bridge_pump(zval *timeout)
 }
 
 /* ====================================================================== */
+/* Input tap                                                              */
+/* ====================================================================== */
+
+/*
+ * A local monitor block copies each matching event into a C ring buffer and
+ * hands the event back unchanged. Local monitors run on the main thread from
+ * inside -[NSApp sendEvent:], i.e. inside ns_bridge_pump — the only place PHP
+ * drives AppKit — so the buffer is touched by one thread only and needs no
+ * lock. Accessors that AppKit raises on for the wrong event type are gated:
+ * keyCode for keyDown/keyUp/flagsChanged, characters / isARepeat for
+ * keyDown/keyUp only, button/click for mouse down/up/dragged, deltas for
+ * mouseMoved/dragged/scrollWheel, scrolling fields and
+ * isDirectionInvertedFromDevice for scrollWheel only.
+ */
+#define NS_INPUT_CAP 4096
+
+typedef struct {
+    zend_long type;
+    double    timestamp;
+    zend_long window_number;
+    zend_long key_code;
+    char     *characters;                     /* strdup'd UTF-8, NULL = '' */
+    char     *characters_ignoring_modifiers;  /* strdup'd UTF-8, NULL = '' */
+    bool      is_a_repeat;
+    zend_long modifier_flags;
+    zend_long button_number;
+    zend_long click_count;
+    double    location_x;
+    double    location_y;
+    double    delta_x;
+    double    delta_y;
+    double    scrolling_delta_x;
+    double    scrolling_delta_y;
+    bool      has_precise_scrolling_deltas;
+    bool      is_direction_inverted_from_device;
+} ns_input_record;
+
+static ns_input_record ns_input_buffer[NS_INPUT_CAP];
+static size_t ns_input_head = 0;   /* index of the oldest record */
+static size_t ns_input_count = 0;
+static id ns_input_monitor = nil;
+
+static char *ns_input_strdup(NSString *s)
+{
+    if (s == nil) return NULL;
+    const char *u = [s UTF8String];
+    return u != NULL ? strdup(u) : NULL;
+}
+
+static void ns_input_record_free(ns_input_record *r)
+{
+    free(r->characters);
+    free(r->characters_ignoring_modifiers);
+    r->characters = NULL;
+    r->characters_ignoring_modifiers = NULL;
+}
+
+static void ns_input_clear(void)
+{
+    for (size_t i = 0; i < ns_input_count; i++) {
+        ns_input_record_free(&ns_input_buffer[(ns_input_head + i) % NS_INPUT_CAP]);
+    }
+    ns_input_head = 0;
+    ns_input_count = 0;
+}
+
+/* Mouse down / up / dragged: buttonNumber and clickCount are valid. */
+static BOOL ns_input_is_mouse_button(NSEventType t)
+{
+    switch (t) {
+        case NSEventTypeLeftMouseDown: case NSEventTypeLeftMouseUp: case NSEventTypeLeftMouseDragged:
+        case NSEventTypeRightMouseDown: case NSEventTypeRightMouseUp: case NSEventTypeRightMouseDragged:
+        case NSEventTypeOtherMouseDown: case NSEventTypeOtherMouseUp: case NSEventTypeOtherMouseDragged:
+            return YES;
+        default:
+            return NO;
+    }
+}
+
+/* mouseMoved / *Dragged / scrollWheel: deltaX and deltaY are valid. */
+static BOOL ns_input_has_delta(NSEventType t)
+{
+    switch (t) {
+        case NSEventTypeMouseMoved:
+        case NSEventTypeLeftMouseDragged: case NSEventTypeRightMouseDragged: case NSEventTypeOtherMouseDragged:
+        case NSEventTypeScrollWheel:
+            return YES;
+        default:
+            return NO;
+    }
+}
+
+static void ns_input_record_event(NSEvent *e)
+{
+    if (ns_input_count == NS_INPUT_CAP) {
+        /* Full: drop the oldest. */
+        ns_input_record_free(&ns_input_buffer[ns_input_head]);
+        ns_input_head = (ns_input_head + 1) % NS_INPUT_CAP;
+        ns_input_count--;
+    }
+    ns_input_record *r = &ns_input_buffer[(ns_input_head + ns_input_count) % NS_INPUT_CAP];
+    memset(r, 0, sizeof(*r));
+
+    NSEventType t = [e type];
+    r->type = (zend_long) t;
+    r->timestamp = [e timestamp];
+    r->window_number = (zend_long) [e windowNumber];
+    r->modifier_flags = (zend_long) [e modifierFlags];
+
+    if (t == NSEventTypeKeyDown || t == NSEventTypeKeyUp || t == NSEventTypeFlagsChanged) {
+        r->key_code = (zend_long) [e keyCode];
+    }
+    if (t == NSEventTypeKeyDown || t == NSEventTypeKeyUp) {
+        r->characters = ns_input_strdup([e characters]);
+        r->characters_ignoring_modifiers = ns_input_strdup([e charactersIgnoringModifiers]);
+        r->is_a_repeat = [e isARepeat] ? true : false;
+    }
+    if (ns_input_is_mouse_button(t)) {
+        r->button_number = (zend_long) [e buttonNumber];
+        r->click_count = (zend_long) [e clickCount];
+    }
+    if (ns_input_is_mouse_button(t) || t == NSEventTypeMouseMoved || t == NSEventTypeScrollWheel
+        || t == NSEventTypeMouseEntered || t == NSEventTypeMouseExited) {
+        NSPoint p = [e locationInWindow];
+        r->location_x = p.x;
+        r->location_y = p.y;
+    }
+    if (ns_input_has_delta(t)) {
+        r->delta_x = [e deltaX];
+        r->delta_y = [e deltaY];
+    }
+    if (t == NSEventTypeScrollWheel) {
+        r->scrolling_delta_x = [e scrollingDeltaX];
+        r->scrolling_delta_y = [e scrollingDeltaY];
+        r->has_precise_scrolling_deltas = [e hasPreciseScrollingDeltas] ? true : false;
+        r->is_direction_inverted_from_device = [e isDirectionInvertedFromDevice] ? true : false;
+    }
+    ns_input_count++;
+}
+
+static NSSet<NSNumber *> *ns_input_key_sink = nil;
+
+static BOOL ns_input_swallows(NSEvent *e)
+{
+    NSEventType t = [e type];
+    if (t != NSEventTypeKeyDown && t != NSEventTypeKeyUp) return NO;
+    if (ns_input_key_sink == nil || [ns_input_key_sink count] == 0) return NO;
+    if (![ns_input_key_sink containsObject:@([e windowNumber])]) return NO;
+    NSWindow *w = [e window];
+    if (w == nil) return NO;
+    NSResponder *fr = [w firstResponder];
+    return fr == nil || fr == w || fr == [w contentView];
+}
+
+void ns_bridge_swallow_keys_in(zval *windowNumbers)
+{
+    @autoreleasepool {
+        ns_input_key_sink = [ns_arg_long_set(windowNumbers) copy];
+    }
+}
+
+void ns_bridge_watch_input(zval *mask)
+{
+    @autoreleasepool {
+        NSEventMask m = (NSEventMask) ns_arg_long(mask);
+        if (ns_input_monitor != nil) {
+            [NSEvent removeMonitor:ns_input_monitor];
+            ns_input_monitor = nil;
+        }
+        if (m == 0) {
+            ns_input_clear();
+            ns_input_key_sink = nil;
+            return;
+        }
+        ns_input_monitor = [NSEvent addLocalMonitorForEventsMatchingMask:m handler:^NSEvent *(NSEvent *event) {
+            ns_input_record_event(event);
+            if (!ns_input_swallows(event)) return event;
+            /* A swallowed Command key still reaches the menu bar's key equivalents. */
+            if ([event type] == NSEventTypeKeyDown && ([event modifierFlags] & NSEventModifierFlagCommand) != 0) {
+                [[NSApp mainMenu] performKeyEquivalent:event];
+            }
+            return nil;
+        }];
+    }
+}
+
+static void ns_input_add_string(zval *arr, const char *key, const char *value)
+{
+    add_assoc_string(arr, key, value != NULL ? (char *) value : "");
+}
+
+void ns_bridge_drain_input(zval *return_value)
+{
+    array_init_size(return_value, (uint32_t) ns_input_count);
+    for (size_t i = 0; i < ns_input_count; i++) {
+        ns_input_record *r = &ns_input_buffer[(ns_input_head + i) % NS_INPUT_CAP];
+        zval item, location;
+        array_init_size(&item, 17);
+        add_assoc_long(&item, "type", r->type);
+        add_assoc_double(&item, "timestamp", r->timestamp);
+        add_assoc_long(&item, "windowNumber", r->window_number);
+        add_assoc_long(&item, "keyCode", r->key_code);
+        ns_input_add_string(&item, "characters", r->characters);
+        ns_input_add_string(&item, "charactersIgnoringModifiers", r->characters_ignoring_modifiers);
+        add_assoc_bool(&item, "isARepeat", r->is_a_repeat);
+        add_assoc_long(&item, "modifierFlags", r->modifier_flags);
+        add_assoc_long(&item, "buttonNumber", r->button_number);
+        add_assoc_long(&item, "clickCount", r->click_count);
+        ns_ret_point(&location, NSMakePoint(r->location_x, r->location_y));
+        add_assoc_zval(&item, "locationInWindow", &location);
+        add_assoc_double(&item, "deltaX", r->delta_x);
+        add_assoc_double(&item, "deltaY", r->delta_y);
+        add_assoc_double(&item, "scrollingDeltaX", r->scrolling_delta_x);
+        add_assoc_double(&item, "scrollingDeltaY", r->scrolling_delta_y);
+        add_assoc_bool(&item, "hasPreciseScrollingDeltas", r->has_precise_scrolling_deltas);
+        add_assoc_bool(&item, "isDirectionInvertedFromDevice", r->is_direction_inverted_from_device);
+        add_next_index_zval(return_value, &item);
+    }
+    ns_input_clear();
+}
+
+/* ====================================================================== */
 /* Target/action                                                          */
 /* ====================================================================== */
 

@@ -61,6 +61,25 @@ class Bridge
         return bridge_pump(timeout);
     }
 
+    public static function watchInput(int mask) -> void
+    {
+        bridge_watch_input(mask);
+    }
+
+    public static function drainInput() -> array
+    {
+        var result;
+
+        let result = bridge_drain_input();
+
+        return result;
+    }
+
+    public static function swallowKeysIn(var windowNumbers) -> void
+    {
+        bridge_swallow_keys_in(windowNumbers);
+    }
+
     public static function setAction(int handle, var callable_) -> bool
     {
         int r;

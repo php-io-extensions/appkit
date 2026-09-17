@@ -81,6 +81,44 @@ Proven end-to-end by ext-metal's `examples/proof_view.php`
 (`PROOF_VIEW_OK`, 2026-09-13): an `NSWindow`/`NSView` here hosts a
 `CAMetalLayer` minted there, animating ~120 frames.
 
+## Sister frameworks
+
+Namespace segment → SDK framework (audit `FRAMEWORK_MAP`): `NS` → AppKit
+(fallback Foundation), `QuartzCore` → QuartzCore, `AV` → AVFoundation
+(fallback AVKit), `GC` → GameController. File prefix per framework: `ns-`,
+`ca-`, `av-`, `gc-`. Each linked in `config.json` `extra-libs` and checked by
+`install-macos.sh`.
+
+`GC\` (0.8.0, 2026-09-17): `src/gc-controller.{h,m}` (`header=30 bound=12
+reserved=18`, incl. GCDevice +5), `src/gc-extendedgamepad.{h,m}` (`21/17/4`),
+`src/gc-microgamepad.{h,m}` (`13/4/9`), `src/gc-controllerbuttoninput.{h,m}`
+(`10/3/7`), `src/gc-controlleraxisinput.{h,m}` (`4/1/3`),
+`src/gc-controllerdirectionpad.{h,m}` (`9/6/3`). PHP classes
+`AppKit\GC\<Class>\<Class>`. Reserved: value/pressed/touched/paused handler
+blocks, snapshot writes (`setValue:`, `setStateFrom…`, `capture`,
+`controllerWith…Gamepad`), discovery, `input`, battery, light, haptics,
+motion, `physicalInputProfile`, `supportsHIDDevice:` (IOHIDDeviceRef),
+deprecated `gamepad` / `saveSnapshot`, `GCMicroGamepad.controller` /
+`reportsAbsoluteDpadValues` / `allowsRotation`. Inherited
+`GCPhysicalInputProfile` / `GCControllerElement` members unbound. Profiles
+and elements are access-only (audit `ACCESS_ONLY`); controllers come from
+`controllers()` / `current()`. Connect/disconnect: `Bridge::observeNotification(0,
+'GCControllerDidConnectNotification', …)` — name string equals symbol name.
+
+## Adopted-protocol members — `@audit adopts`
+
+Protocol members are not class members; the audit ignores them. Exception:
+a protocol the class's header adopts that carries members the binding needs.
+Marker `/*@audit adopts <ClassPath> <Protocol> <reason> */` adds the
+protocol's `@protocol` block count (same weights) to the class's expected
+total; every protocol member is then bound or reserved on that class, once.
+FAIL when the protocol is not defined in the class's framework search list,
+or the class's `@interface` line does not list it. Only use:
+`GC\GCController` adopts `GCDevice` (`vendorName`, `productCategory` bound;
+`handlerQueue` pair and the deprecated protocol copy of
+`physicalInputProfile` reserved). Negative control:
+`scripts/tests/adopts-guard.php`.
+
 ## Wholly deprecated classes — the NSOpenGL exemption
 
 Rule 4 reserves `API_DEPRECATED` members. Applied literally to a class the

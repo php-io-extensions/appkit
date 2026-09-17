@@ -93,13 +93,19 @@
         "src/av-playerview.m",
         "src/ns-openglpixelformat.m",
         "src/ns-openglcontext.m",
-        "src/ns-openglview.m"
+        "src/ns-openglview.m",
+        "src/gc-controller.m",
+        "src/gc-extendedgamepad.m",
+        "src/gc-microgamepad.m",
+        "src/gc-controllerbuttoninput.m",
+        "src/gc-controlleraxisinput.m",
+        "src/gc-controllerdirectionpad.m"
     ],
     "optimizer-dirs": [
         "optimizers"
     ],
     "extra-cflags": "-fobjc-arc -Wno-deprecated-declarations",
-    "extra-libs": "-framework Foundation -framework AppKit -framework QuartzCore -framework CoreImage -framework Symbols -framework AVFoundation -framework AVKit",
+    "extra-libs": "-framework Foundation -framework AppKit -framework QuartzCore -framework CoreImage -framework Symbols -framework AVFoundation -framework AVKit -framework GameController",
     "stubs": {
         "path": "ide/%version%/%namespace%/",
         "stubs-run-after-generate": false

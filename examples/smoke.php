@@ -20,11 +20,13 @@
 declare(strict_types=1);
 
 use AppKit\Bridge\Bridge;
+use AppKit\GC\GCController\GCController;
 use AppKit\NS\NSAlert\NSAlert;
 use AppKit\NS\NSApplication\NSApplication;
 use AppKit\NS\NSButton\NSButton;
 use AppKit\NS\NSComboBox\NSComboBox;
 use AppKit\NS\NSDateFormatter\NSDateFormatter;
+use AppKit\NS\NSEvent\NSEvent;
 use AppKit\NS\NSIndexSet\NSIndexSet;
 use AppKit\NS\NSControl\NSControl;
 use AppKit\NS\NSMenu\NSMenu;
@@ -124,6 +126,93 @@ check(NSApplication::mainMenu($app) === $bar, 'MENU_OK');
 /* ---- pump ---- */
 $sent = Bridge::pump(0.1);
 check(is_int($sent), 'PUMP_OK');
+
+/* ---- input tap: a posted keyDown (type 10, mask 1 << 10) is recorded ---- */
+Bridge::watchInput(1 << 10);
+$key = NSEvent::keyEventWithTypeLocationModifierFlagsTimestampWindowNumberContextCharactersCharactersIgnoringModifiersIsARepeatKeyCode(
+    10, 0.0, 0.0, 0, 0.0, NSWindow::windowNumber($win), 0, 'a', 'a', false, 0
+);
+NSApplication::postEventAtStart($app, $key, false);
+Bridge::pump(0.05);
+$drained = Bridge::drainInput();
+check(is_array($drained), 'DRAIN_INPUT_OK');
+check(
+    count($drained) === 1
+    && $drained[0]['type'] === 10
+    && $drained[0]['characters'] === 'a'
+    && $drained[0]['keyCode'] === 0
+    && $drained[0]['windowNumber'] === NSWindow::windowNumber($win)
+    && $drained[0]['locationInWindow'] === ['x' => 0.0, 'y' => 0.0],
+    'INPUT_TAP_OK'
+);
+check(Bridge::drainInput() === [], 'DRAIN_EMPTIES_OK');
+
+/* swallowKeysIn: a key in a listed window with no key responder is still recorded */
+Bridge::swallowKeysIn([NSWindow::windowNumber($win)]);
+NSApplication::postEventAtStart($app, $key, false);
+Bridge::pump(0.05);
+$drained = Bridge::drainInput();
+check(count($drained) === 1 && $drained[0]['type'] === 10, 'SWALLOW_RECORDS_OK');
+Bridge::swallowKeysIn([]);
+
+/* flagsChanged (type 12, mask 1 << 12): keyCode 56 (left shift) recorded, characters not read */
+Bridge::watchInput(1 << 12);
+$flags = NSEvent::keyEventWithTypeLocationModifierFlagsTimestampWindowNumberContextCharactersCharactersIgnoringModifiersIsARepeatKeyCode(
+    12, 0.0, 0.0, 1 << 17, 0.0, NSWindow::windowNumber($win), 0, '', '', false, 56
+);
+check($flags !== 0, 'FLAGS_EVENT_OK');
+NSApplication::postEventAtStart($app, $flags, false);
+Bridge::pump(0.05);
+$drained = Bridge::drainInput();
+check(
+    count($drained) === 1
+    && $drained[0]['type'] === 12
+    && $drained[0]['keyCode'] === 56
+    && $drained[0]['characters'] === ''
+    && $drained[0]['isARepeat'] === false
+    && ($drained[0]['modifierFlags'] & (1 << 17)) !== 0,
+    'FLAGS_CHANGED_KEYCODE_OK'
+);
+Bridge::release($flags);
+/* isDirectionInvertedFromDevice is scrollWheel-only; a scroll event cannot be
+   posted through a bound path, so assert the key exists and reads false here */
+check(
+    array_key_exists('isDirectionInvertedFromDevice', $drained[0])
+    && $drained[0]['isDirectionInvertedFromDevice'] === false,
+    'SCROLL_INVERTED_KEY_OK'
+);
+
+/* mouseDown (type 1) reads button/click, not deltas; mouseMoved (type 5) reads
+   deltas, not button/click */
+Bridge::watchInput((1 << 1) | (1 << 5));
+$down = NSEvent::mouseEventWithTypeLocationModifierFlagsTimestampWindowNumberContextEventNumberClickCountPressure(
+    1, 12.0, 34.0, 0, 0.0, NSWindow::windowNumber($win), 0, 0, 2, 1.0
+);
+$moved = NSEvent::mouseEventWithTypeLocationModifierFlagsTimestampWindowNumberContextEventNumberClickCountPressure(
+    5, 56.0, 78.0, 0, 0.0, NSWindow::windowNumber($win), 0, 0, 0, 0.0
+);
+NSApplication::postEventAtStart($app, $moved, false);
+NSApplication::postEventAtStart($app, $down, false);
+Bridge::pump(0.05);
+$drained = Bridge::drainInput();
+$byType = array_column($drained, null, 'type');
+check(
+    count($drained) === 2
+    && isset($byType[1], $byType[5])
+    && $byType[1]['clickCount'] === 2
+    && $byType[1]['deltaX'] === 0.0
+    && $byType[1]['locationInWindow'] === ['x' => 12.0, 'y' => 34.0]
+    && $byType[5]['clickCount'] === 0
+    && $byType[5]['buttonNumber'] === 0
+    && $byType[5]['locationInWindow'] === ['x' => 56.0, 'y' => 78.0]
+    && $byType[5]['isDirectionInvertedFromDevice'] === false,
+    'MOUSE_FIELD_GATES_OK'
+);
+Bridge::release($down);
+Bridge::release($moved);
+Bridge::watchInput(0);
+Bridge::release($key);
+check(is_array(GCController::controllers()), 'GC_CONTROLLERS_OK');
 
 /* ---- failure path: unknown handle is a nil no-op ---- */
 NSView::setFrame(999999999, 0.0, 0.0, 1.0, 1.0);

@@ -36,6 +36,15 @@ All glue lives in `AppKit\Bridge\Bridge`: the handle registry
 `observeNotification`, and the generic protocol delegate (`delegateNew`,
 `delegateOn`, `delegateOff`).
 
+## Input
+
+`Bridge::watchInput(mask)` installs one NSEvent local monitor that records
+key, mouse and scroll events into a ring buffer; `Bridge::drainInput()`
+returns and empties it. `Bridge::swallowKeysIn(windowNumbers)` consumes keys
+no view takes in those windows (Command keys go to the menu first), so AppKit
+does not beep. Gamepads are the `AppKit\GC\*` GameController classes. The
+composition lives in `jovian/venusian-appkit`'s `input.appkit` engine.
+
 ## Example
 
 ```php
