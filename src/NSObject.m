@@ -27,7 +27,8 @@ ZEND_METHOD(NSObject, className)
 {
 	ZEND_PARSE_PARAMETERS_NONE();
 
-	RETURN_STRING(class_getName(object_getClass(APPKIT_ID(Z_OBJ_P(ZEND_THIS)))));
+	/* -class, not object_getClass(): key-value observing swaps in a subclass the program never sees. */
+	RETURN_STRING(class_getName([APPKIT_ID(Z_OBJ_P(ZEND_THIS)) class]));
 }
 
 ZEND_METHOD(NSObject, isKindOfClass)

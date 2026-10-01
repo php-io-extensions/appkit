@@ -11,6 +11,7 @@ okf_version: "0.2"
 
 * [Object model](architecture/object-model.md) - One PHP object per native object, retained while PHP holds it, boxed as its nearest bound class.
 * [Callouts](architecture/callouts.md) - PHP callables native code calls back into; lifetime follows the native object, detached at request end.
+* [Glue trampolines](architecture/glue.md) - ObjCDelegate answers a protocol's selectors by calling PHP; ObjCTarget answers action:.
 * [Errors and threads](architecture/errors-and-threads.md) - NSException becomes AppKitException; main-thread AppKit calls refuse other threads.
 
 # Runbooks

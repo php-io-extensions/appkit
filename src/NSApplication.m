@@ -237,3 +237,97 @@ ZEND_METHOD(NSApplication, updateWindows)
 		[THIS_APP updateWindows];
 	APPKIT_END
 }
+
+ZEND_METHOD(NSApplication, mainMenu)
+{
+	ZEND_PARSE_PARAMETERS_NONE();
+	APPKIT_REQUIRE_MAIN_THREAD();
+
+	APPKIT_BEGIN
+		appkit_box_objc(return_value, [THIS_APP mainMenu]);
+	APPKIT_END
+}
+
+ZEND_METHOD(NSApplication, setMainMenu)
+{
+	zend_object *menu = NULL;
+
+	ZEND_PARSE_PARAMETERS_START(1, 1)
+		Z_PARAM_OBJ_OF_CLASS_OR_NULL(menu, appkit_ce_NSMenu)
+	ZEND_PARSE_PARAMETERS_END();
+	APPKIT_REQUIRE_MAIN_THREAD();
+
+	APPKIT_BEGIN
+		[THIS_APP setMainMenu:(menu != NULL ? (NSMenu *) APPKIT_ID(menu) : nil)];
+	APPKIT_END
+}
+
+ZEND_METHOD(NSApplication, keyWindow)
+{
+	ZEND_PARSE_PARAMETERS_NONE();
+	APPKIT_REQUIRE_MAIN_THREAD();
+
+	APPKIT_BEGIN
+		appkit_box_objc(return_value, [THIS_APP keyWindow]);
+	APPKIT_END
+}
+
+ZEND_METHOD(NSApplication, mainWindow)
+{
+	ZEND_PARSE_PARAMETERS_NONE();
+	APPKIT_REQUIRE_MAIN_THREAD();
+
+	APPKIT_BEGIN
+		appkit_box_objc(return_value, [THIS_APP mainWindow]);
+	APPKIT_END
+}
+
+ZEND_METHOD(NSApplication, windows)
+{
+	ZEND_PARSE_PARAMETERS_NONE();
+	APPKIT_REQUIRE_MAIN_THREAD();
+
+	APPKIT_BEGIN
+		NSArray<NSWindow *> *windows = [THIS_APP windows];
+
+		array_init_size(return_value, (uint32_t) [windows count]);
+		for (NSWindow *window in windows) {
+			zval boxed;
+			appkit_box_objc(&boxed, window);
+			add_next_index_zval(return_value, &boxed);
+		}
+	APPKIT_END
+}
+
+ZEND_METHOD(NSApplication, orderFrontStandardAboutPanel)
+{
+	zend_object *sender = NULL;
+
+	ZEND_PARSE_PARAMETERS_START(1, 1)
+		Z_PARAM_OBJ_OF_CLASS_OR_NULL(sender, appkit_ce_NSObject)
+	ZEND_PARSE_PARAMETERS_END();
+	APPKIT_REQUIRE_MAIN_THREAD();
+
+	APPKIT_BEGIN
+		[THIS_APP orderFrontStandardAboutPanel:(sender != NULL ? APPKIT_ID(sender) : nil)];
+	APPKIT_END
+}
+
+ZEND_METHOD(NSApplication, orderFrontStandardAboutPanelWithOptions)
+{
+	HashTable *options;
+
+	ZEND_PARSE_PARAMETERS_START(1, 1)
+		Z_PARAM_ARRAY_HT(options)
+	ZEND_PARSE_PARAMETERS_END();
+	APPKIT_REQUIRE_MAIN_THREAD();
+
+	APPKIT_BEGIN
+		NSDictionary *dictionary = appkit_nsdictionary(options, 1);
+
+		if (dictionary == nil) {
+			RETURN_THROWS();
+		}
+		[THIS_APP orderFrontStandardAboutPanelWithOptions:dictionary];
+	APPKIT_END
+}

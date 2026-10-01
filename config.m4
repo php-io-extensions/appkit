@@ -13,7 +13,7 @@ if test "$PHP_APPKIT" != "no"; then
     AC_MSG_ERROR([appkit builds as a shared extension only])
   fi
 
-  APPKIT_SOURCES="src/appkit.m src/runtime.m src/NSObject.m src/NSApplication.m src/NSEvent.m src/NSDate.m src/CFType.m src/CFRunLoop.m src/CFFileDescriptor.m"
+  APPKIT_SOURCES="src/appkit.m src/runtime.m src/NSObject.m src/NSApplication.m src/NSEvent.m src/NSDate.m src/CFType.m src/CFRunLoop.m src/CFFileDescriptor.m src/NSGeometry.m src/NSView.m src/NSWindow.m src/NSMenu.m src/ObjCGlue.m"
 
   dnl No C sources: every translation unit is Objective-C, compiled by the rules below.
   PHP_NEW_EXTENSION([appkit], [], [$ext_shared],, [-DZEND_ENABLE_STATIC_TSRMLS_CACHE=1])

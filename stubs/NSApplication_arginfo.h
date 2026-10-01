@@ -1,5 +1,5 @@
 /* This is a generated file, edit the .stub.php file instead.
- * Stub hash: 294d6b2ecd2df5cd353ef7bcd482dba299edd622 */
+ * Stub hash: 38e0de19a17125adf9ebd9abbc430156dbdadd5b */
 
 ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(arginfo_class_NSApplication_sharedApplication, 0, 0, NSApplication, 0)
 ZEND_END_ARG_INFO()
@@ -59,6 +59,27 @@ ZEND_END_ARG_INFO()
 
 #define arginfo_class_NSApplication_updateWindows arginfo_class_NSApplication_finishLaunching
 
+ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(arginfo_class_NSApplication_mainMenu, 0, 0, NSMenu, 1)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_NSApplication_setMainMenu, 0, 1, IS_VOID, 0)
+	ZEND_ARG_OBJ_INFO(0, mainMenu, NSMenu, 1)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(arginfo_class_NSApplication_keyWindow, 0, 0, NSWindow, 1)
+ZEND_END_ARG_INFO()
+
+#define arginfo_class_NSApplication_mainWindow arginfo_class_NSApplication_keyWindow
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_NSApplication_windows, 0, 0, IS_ARRAY, 0)
+ZEND_END_ARG_INFO()
+
+#define arginfo_class_NSApplication_orderFrontStandardAboutPanel arginfo_class_NSApplication_stop
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_NSApplication_orderFrontStandardAboutPanelWithOptions, 0, 1, IS_VOID, 0)
+	ZEND_ARG_TYPE_INFO(0, optionsDictionary, IS_ARRAY, 0)
+ZEND_END_ARG_INFO()
+
 ZEND_METHOD(NSApplication, sharedApplication);
 ZEND_METHOD(NSApplication, finishLaunching);
 ZEND_METHOD(NSApplication, run);
@@ -76,6 +97,13 @@ ZEND_METHOD(NSApplication, sendEvent);
 ZEND_METHOD(NSApplication, postEventAtStart);
 ZEND_METHOD(NSApplication, currentEvent);
 ZEND_METHOD(NSApplication, updateWindows);
+ZEND_METHOD(NSApplication, mainMenu);
+ZEND_METHOD(NSApplication, setMainMenu);
+ZEND_METHOD(NSApplication, keyWindow);
+ZEND_METHOD(NSApplication, mainWindow);
+ZEND_METHOD(NSApplication, windows);
+ZEND_METHOD(NSApplication, orderFrontStandardAboutPanel);
+ZEND_METHOD(NSApplication, orderFrontStandardAboutPanelWithOptions);
 
 static const zend_function_entry class_NSApplication_methods[] = {
 	ZEND_ME(NSApplication, sharedApplication, arginfo_class_NSApplication_sharedApplication, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
@@ -95,6 +123,13 @@ static const zend_function_entry class_NSApplication_methods[] = {
 	ZEND_ME(NSApplication, postEventAtStart, arginfo_class_NSApplication_postEventAtStart, ZEND_ACC_PUBLIC)
 	ZEND_ME(NSApplication, currentEvent, arginfo_class_NSApplication_currentEvent, ZEND_ACC_PUBLIC)
 	ZEND_ME(NSApplication, updateWindows, arginfo_class_NSApplication_updateWindows, ZEND_ACC_PUBLIC)
+	ZEND_ME(NSApplication, mainMenu, arginfo_class_NSApplication_mainMenu, ZEND_ACC_PUBLIC)
+	ZEND_ME(NSApplication, setMainMenu, arginfo_class_NSApplication_setMainMenu, ZEND_ACC_PUBLIC)
+	ZEND_ME(NSApplication, keyWindow, arginfo_class_NSApplication_keyWindow, ZEND_ACC_PUBLIC)
+	ZEND_ME(NSApplication, mainWindow, arginfo_class_NSApplication_mainWindow, ZEND_ACC_PUBLIC)
+	ZEND_ME(NSApplication, windows, arginfo_class_NSApplication_windows, ZEND_ACC_PUBLIC)
+	ZEND_ME(NSApplication, orderFrontStandardAboutPanel, arginfo_class_NSApplication_orderFrontStandardAboutPanel, ZEND_ACC_PUBLIC)
+	ZEND_ME(NSApplication, orderFrontStandardAboutPanelWithOptions, arginfo_class_NSApplication_orderFrontStandardAboutPanelWithOptions, ZEND_ACC_PUBLIC)
 	ZEND_FE_END
 };
 

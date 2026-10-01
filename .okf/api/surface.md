@@ -5,7 +5,7 @@ description: Classes, enums and constants ext-appkit binds, each method one AppK
 resource: stubs/
 tags: [appkit, corefoundation, api]
 status: draft
-generated: { by: claude-opus/5.5, at: 2026-09-30T20:37:59Z }
+generated: { by: claude-opus/5.5, at: 2026-10-01T17:59:05Z }
 sources:
   - id: stubs
     resource: stubs/
@@ -17,7 +17,7 @@ sources:
 
 # Overview
 
-Scope: calls that start AppKit, present/withdraw app from OS, pump events, sleep with a budget, wake a sleep. Stubs = source of truth; `tests/SurfaceTest.php` fails if a stub declaration is missing from the build.[^stubs]
+Scope: calls that start AppKit, present/withdraw app from OS, pump events, sleep with a budget, wake a sleep, open/close windows, build the main menu. Stubs = source of truth; `tests/SurfaceTest.php` fails if a stub declaration is missing from the build.[^stubs]
 
 Naming, all fixed:
 
@@ -37,6 +37,13 @@ Naming, all fixed:
 | `NSObject` | className, isKindOfClass:, respondsToSelector:, isEqual:, hash, description; `pointer()` = address for other exts |
 | `NSResponder` | hierarchy only |
 | `NSApplication` | sharedApplication, finishLaunching, run, stop:, isRunning, isActive, activationPolicy, setActivationPolicy:, activate, activateIgnoringOtherApps:, deactivate, nextEventMatchingMask:untilDate:inMode:dequeue:, discardEventsMatchingMask:beforeEvent:, sendEvent:, postEvent:atStart:, currentEvent, updateWindows |
+| `NSWindow` | initWithContentRect:styleMask:backing:defer: (alloc+init, static), title/setTitle:, makeKeyAndOrderFront:, orderOut:, close, performClose:, miniaturize:, isVisible, isKeyWindow, isMainWindow, makeKeyWindow, delegate/setDelegate:, isReleasedWhenClosed/setReleasedWhenClosed:, center, contentView, windowNumber, frame, setContentSize:, styleMask |
+| `NSView` | frame, window |
+| `NSMenu` | initWithTitle:, title/setTitle:, addItem:, insertItem:atIndex:, removeItem:, removeAllItems, numberOfItems, itemAtIndex:, indexOfItem:, autoenablesItems/setAutoenablesItems:, performActionForItemAtIndex: |
+| `NSMenuItem` | initWithTitle:action:keyEquivalent:, separatorItem, title/setTitle:, isSeparatorItem, hasSubmenu, submenu/setSubmenu:, menu, target/setTarget:, action/setAction: (selector name), state/setState:, isEnabled/setEnabled:, keyEquivalent/setKeyEquivalent:, keyEquivalentModifierMask/setKeyEquivalentModifierMask:, tag/setTag: |
+| `NSRect`, `NSSize` | value classes like `NSPoint` |
+| `ObjCDelegate` | trampoline: `new ObjCDelegate(protocol)`, `on(selector, callable)`, `off(selector)`; answers the protocol's selectors by calling PHP (see [glue](/architecture/glue.md)) |
+| `ObjCTarget` | trampoline: `new ObjCTarget(callable)`; `ObjCTarget::ACTION` (`action:`) calls PHP with the sender |
 | `NSEvent` | otherEventWithType:location:modifierFlags:timestamp:windowNumber:context:subtype:data1:data2:, type, subtype, modifierFlags, timestamp, windowNumber, locationInWindow, data1, data2 |
 | `NSDate` | date, dateWithTimeIntervalSinceNow:, distantPast, distantFuture, timeIntervalSinceNow, timeIntervalSince1970 |
 | `NSPoint` | value class: `float $x`, `float $y` |
@@ -46,7 +53,9 @@ Naming, all fixed:
 | `CFFileDescriptor` | Create (fd = int, stream or Socket; callout = PHP callable), GetNativeDescriptor, EnableCallBacks, DisableCallBacks, Invalidate, IsValid, CreateRunLoopSource |
 | `AppKitException` | extends RuntimeException |
 
-Enums: `NSApplicationActivationPolicy`, `NSEventType`, `NSEventMask`, `NSEventModifierFlags`, `CFRunLoopRunResult`.
+Enums: `NSApplicationActivationPolicy`, `NSEventType`, `NSEventMask`, `NSEventModifierFlags`, `CFRunLoopRunResult`, `NSWindowStyleMask`, `NSBackingStoreType`, `NSControlStateValue`.
+
+Ownership: `init…` statics return an object the PHP wrapper owns (+1 from alloc/init, kept, not re-retained). `NSWindow` defaults to `releasedWhenClosed = YES`, which releases the window a second time on close; whoever holds the PHP object sets it to `false`. Weak references in AppKit (`delegate`, `target`) do not keep trampolines alive: hold the PHP object.
 
 Constants: `kCFFileDescriptorReadCallBack`, `kCFFileDescriptorWriteCallBack`, `kCFRunLoopDefaultMode`, `kCFRunLoopCommonModes`, `NSDefaultRunLoopMode`, `NSRunLoopCommonModes`, `NSEventTrackingRunLoopMode`, `NSModalPanelRunLoopMode`.
 

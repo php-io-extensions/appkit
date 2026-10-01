@@ -48,12 +48,17 @@ it('keeps the native class hierarchy', function (): void {
         ->and(get_parent_class(CFRunLoop::class))->toBe(CFType::class)
         ->and(get_parent_class(CFRunLoopSource::class))->toBe(CFType::class)
         ->and(get_parent_class(CFFileDescriptor::class))->toBe(CFType::class)
+        ->and(get_parent_class(NSWindow::class))->toBe(NSResponder::class)
+        ->and(get_parent_class(NSView::class))->toBe(NSResponder::class)
+        ->and(get_parent_class(NSMenu::class))->toBe(NSObject::class)
+        ->and(get_parent_class(NSMenuItem::class))->toBe(NSObject::class)
+        ->and(get_parent_class(ObjCDelegate::class))->toBe(NSObject::class)
         ->and(get_parent_class(AppKitException::class))->toBe(RuntimeException::class);
 });
 
 it('cannot construct native wrappers from PHP', function (string $class): void {
     expect(fn () => new $class())->toThrow(Error::class);
-})->with([NSObject::class, NSApplication::class, NSEvent::class, NSDate::class, CFType::class, CFRunLoop::class, CFFileDescriptor::class]);
+})->with([NSObject::class, NSApplication::class, NSEvent::class, NSDate::class, CFType::class, CFRunLoop::class, CFFileDescriptor::class, NSWindow::class, NSView::class, NSMenu::class, NSMenuItem::class]);
 
 it('refuses to clone or serialize a native wrapper', function (): void {
     $date = NSDate::date();

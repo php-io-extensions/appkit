@@ -127,6 +127,16 @@ void appkit_box_objc(zval *rv, id obj)
 	appkit_box_new(rv, ce, (void *) [obj retain], false);
 }
 
+/* A constructor's new object: the wrapper takes the +1 reference alloc/init returned. */
+void appkit_adopt_objc(zend_object *wrapper, id retained)
+{
+	appkit_object *intern = appkit_object_from(wrapper);
+
+	intern->ptr = (void *) retained;
+	intern->cf = false;
+	zend_hash_index_update_ptr(&APPKIT_G(boxes), (zend_ulong) (uintptr_t) retained, wrapper);
+}
+
 void appkit_box_cf(zval *rv, CFTypeRef ref)
 {
 	if (ref == NULL) {
@@ -361,23 +371,35 @@ void appkit_callout_release(const void *info)
 
 void appkit_callout_invoke(appkit_callout *callout, uint32_t argc, zval *argv)
 {
+	zval retval;
+
+	appkit_callout_call(callout, argc, argv, &retval);
+	zval_ptr_dtor(&retval);
+}
+
+/* Calls the PHP callable; false when it did not run (detached, or an exception already pending). */
+bool appkit_callout_call(appkit_callout *callout, uint32_t argc, zval *argv, zval *retval)
+{
+	ZVAL_UNDEF(retval);
+
 	/* A PHP exception already on its way out wins; later callbacks in the same native call wait for the next one. */
 	if (Z_ISUNDEF(callout->callable) || EG(exception) != NULL) {
-		return;
+		return false;
 	}
 
-	zval callable, retval;
+	zval callable;
+	bool called;
 
 	/* The callable may drop the last native reference to its own record (invalidate()), so hold both. */
 	appkit_callout_retain(callout);
 	ZVAL_COPY(&callable, &callout->callable);
 
-	if (call_user_function(NULL, NULL, &callable, &retval, argc, argv) == SUCCESS) {
-		zval_ptr_dtor(&retval);
-	}
+	called = call_user_function(NULL, NULL, &callable, retval, argc, argv) == SUCCESS && EG(exception) == NULL;
 
 	zval_ptr_dtor(&callable);
 	appkit_callout_release(callout);
+
+	return called;
 }
 
 /*
@@ -404,4 +426,108 @@ void appkit_callouts_detach_all(void)
 
 		zval_ptr_dtor(&callable);
 	}
+}
+
+static bool appkit_double_props(zend_object *object, uint32_t arg_num, int count, double *out)
+{
+	for (int i = 0; i < count; i++) {
+		zval *prop = OBJ_PROP_NUM(object, i);
+
+		if (Z_TYPE_P(prop) != IS_DOUBLE) {
+			zend_argument_value_error(arg_num, "must have every property initialized");
+			return false;
+		}
+		out[i] = Z_DVAL_P(prop);
+	}
+
+	return true;
+}
+
+bool appkit_rect_from(zend_object *rect, uint32_t arg_num, NSRect *out)
+{
+	double v[4];
+
+	if (!appkit_double_props(rect, arg_num, 4, v)) {
+		return false;
+	}
+	*out = NSMakeRect(v[0], v[1], v[2], v[3]);
+	return true;
+}
+
+bool appkit_size_from(zend_object *size, uint32_t arg_num, NSSize *out)
+{
+	double v[2];
+
+	if (!appkit_double_props(size, arg_num, 2, v)) {
+		return false;
+	}
+	*out = NSMakeSize(v[0], v[1]);
+	return true;
+}
+
+static void appkit_return_doubles(zval *rv, zend_class_entry *ce, int count, const double *values)
+{
+	object_init_ex(rv, ce);
+	for (int i = 0; i < count; i++) {
+		ZVAL_DOUBLE(OBJ_PROP_NUM(Z_OBJ_P(rv), i), values[i]);
+	}
+}
+
+void appkit_return_rect(zval *rv, NSRect rect)
+{
+	double v[4] = { rect.origin.x, rect.origin.y, rect.size.width, rect.size.height };
+	appkit_return_doubles(rv, appkit_ce_NSRect, 4, v);
+}
+
+void appkit_return_size(zval *rv, NSSize size)
+{
+	double v[2] = { size.width, size.height };
+	appkit_return_doubles(rv, appkit_ce_NSSize, 2, v);
+}
+
+void appkit_return_point(zval *rv, NSPoint point)
+{
+	double v[2] = { point.x, point.y };
+	appkit_return_doubles(rv, appkit_ce_NSPoint, 2, v);
+}
+
+/* A PHP array as an NSDictionary: string keys; string, int, float, bool or NSObject values. Autoreleased. */
+NSDictionary *appkit_nsdictionary(HashTable *ht, uint32_t arg_num)
+{
+	NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithCapacity:zend_hash_num_elements(ht)];
+	zend_string *key;
+	zval *value;
+
+	ZEND_HASH_FOREACH_STR_KEY_VAL(ht, key, value) {
+		id object = nil;
+
+		if (key == NULL) {
+			zend_argument_value_error(arg_num, "must have string keys only");
+			return nil;
+		}
+
+		ZVAL_DEREF(value);
+		switch (Z_TYPE_P(value)) {
+			case IS_STRING: object = appkit_nsstring(Z_STR_P(value)); break;
+			case IS_LONG:   object = [NSNumber numberWithLongLong:(long long) Z_LVAL_P(value)]; break;
+			case IS_DOUBLE: object = [NSNumber numberWithDouble:Z_DVAL_P(value)]; break;
+			case IS_TRUE:   object = [NSNumber numberWithBool:YES]; break;
+			case IS_FALSE:  object = [NSNumber numberWithBool:NO]; break;
+			case IS_OBJECT:
+				if (instanceof_function(Z_OBJCE_P(value), appkit_ce_NSObject)) {
+					object = APPKIT_ID(Z_OBJ_P(value));
+				}
+				break;
+		}
+
+		if (object == nil) {
+			zend_argument_type_error(arg_num, "value for key \"%s\" must be string, int, float, bool or NSObject, %s given",
+				ZSTR_VAL(key), zend_zval_value_name(value));
+			return nil;
+		}
+
+		dict[appkit_nsstring(key)] = object;
+	} ZEND_HASH_FOREACH_END();
+
+	return dict;
 }

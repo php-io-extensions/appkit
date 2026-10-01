@@ -18,6 +18,7 @@
 
 #import <Foundation/Foundation.h>
 #import <CoreFoundation/CoreFoundation.h>
+#import <AppKit/AppKit.h>
 
 /* A PHP callable held for native code to call back into. */
 typedef struct appkit_callout {
@@ -67,6 +68,17 @@ extern zend_class_entry *appkit_ce_CFRunLoop;
 extern zend_class_entry *appkit_ce_CFRunLoopRunResult;
 extern zend_class_entry *appkit_ce_CFRunLoopSource;
 extern zend_class_entry *appkit_ce_CFFileDescriptor;
+extern zend_class_entry *appkit_ce_NSSize;
+extern zend_class_entry *appkit_ce_NSRect;
+extern zend_class_entry *appkit_ce_NSView;
+extern zend_class_entry *appkit_ce_NSWindow;
+extern zend_class_entry *appkit_ce_NSWindowStyleMask;
+extern zend_class_entry *appkit_ce_NSBackingStoreType;
+extern zend_class_entry *appkit_ce_NSMenu;
+extern zend_class_entry *appkit_ce_NSMenuItem;
+extern zend_class_entry *appkit_ce_NSControlStateValue;
+extern zend_class_entry *appkit_ce_ObjCDelegate;
+extern zend_class_entry *appkit_ce_ObjCTarget;
 
 /* Class registration, one per stub, called from MINIT in hierarchy order. */
 void appkit_register_NSObject(void);
@@ -78,12 +90,18 @@ void appkit_register_NSPoint(void);
 void appkit_register_CFType(void);
 void appkit_register_CFRunLoop(void);
 void appkit_register_CFFileDescriptor(void);
+void appkit_register_NSGeometry(void);
+void appkit_register_NSView(void);
+void appkit_register_NSWindow(void);
+void appkit_register_NSMenu(void);
+void appkit_register_ObjCGlue(void);
 
 /* Object model. */
 void appkit_object_setup(zend_class_entry *ce);
 void appkit_map_objc_class(const char *objc_class, zend_class_entry *ce);
 void appkit_box_objc(zval *rv, id obj);
 void appkit_box_cf(zval *rv, CFTypeRef ref);
+void appkit_adopt_objc(zend_object *wrapper, id retained);
 
 /* Values. */
 NSString *appkit_nsstring(zend_string *str);
@@ -93,6 +111,12 @@ const char *appkit_cfstring_constant(CFStringRef str);
 zend_long appkit_enum_value(zend_object *obj_or_null, zend_long fallback);
 void appkit_return_enum(zval *rv, zend_class_entry *ce, zend_long value, bool int_fallback);
 bool appkit_fd_from_zval(zval *zfd, uint32_t arg_num, int *fd);
+bool appkit_rect_from(zend_object *rect, uint32_t arg_num, NSRect *out);
+bool appkit_size_from(zend_object *size, uint32_t arg_num, NSSize *out);
+void appkit_return_rect(zval *rv, NSRect rect);
+void appkit_return_size(zval *rv, NSSize size);
+void appkit_return_point(zval *rv, NSPoint point);
+NSDictionary *appkit_nsdictionary(HashTable *ht, uint32_t arg_num);
 
 /* Errors. */
 void appkit_throw_nsexception(NSException *e);
@@ -103,6 +127,7 @@ appkit_callout *appkit_callout_new(zval *callable, void (*detach)(CFTypeRef));
 const void *appkit_callout_retain(const void *info);
 void appkit_callout_release(const void *info);
 void appkit_callout_invoke(appkit_callout *callout, uint32_t argc, zval *argv);
+bool appkit_callout_call(appkit_callout *callout, uint32_t argc, zval *argv, zval *retval);
 void appkit_callouts_detach_all(void);
 
 /*

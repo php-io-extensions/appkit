@@ -29,6 +29,17 @@ zend_class_entry *appkit_ce_CFRunLoop;
 zend_class_entry *appkit_ce_CFRunLoopRunResult;
 zend_class_entry *appkit_ce_CFRunLoopSource;
 zend_class_entry *appkit_ce_CFFileDescriptor;
+zend_class_entry *appkit_ce_NSSize;
+zend_class_entry *appkit_ce_NSRect;
+zend_class_entry *appkit_ce_NSView;
+zend_class_entry *appkit_ce_NSWindow;
+zend_class_entry *appkit_ce_NSWindowStyleMask;
+zend_class_entry *appkit_ce_NSBackingStoreType;
+zend_class_entry *appkit_ce_NSMenu;
+zend_class_entry *appkit_ce_NSMenuItem;
+zend_class_entry *appkit_ce_NSControlStateValue;
+zend_class_entry *appkit_ce_ObjCDelegate;
+zend_class_entry *appkit_ce_ObjCTarget;
 
 static PHP_GINIT_FUNCTION(appkit)
 {
@@ -55,6 +66,11 @@ PHP_MINIT_FUNCTION(appkit)
 	appkit_register_NSEvent();
 	appkit_register_NSDate();
 	appkit_register_NSPoint();
+	appkit_register_NSGeometry();
+	appkit_register_NSView();
+	appkit_register_NSWindow();
+	appkit_register_NSMenu();
+	appkit_register_ObjCGlue();
 
 	appkit_register_CFType();
 	appkit_register_CFRunLoop();

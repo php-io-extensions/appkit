@@ -47,4 +47,20 @@ class NSApplication extends NSResponder
     public function currentEvent(): ?NSEvent {}
 
     public function updateWindows(): void {}
+
+    public function mainMenu(): ?NSMenu {}
+
+    public function setMainMenu(?NSMenu $mainMenu): void {}
+
+    public function keyWindow(): ?NSWindow {}
+
+    public function mainWindow(): ?NSWindow {}
+
+    /** @return array a list of NSWindow */
+    public function windows(): array {}
+
+    public function orderFrontStandardAboutPanel(?NSObject $sender): void {}
+
+    /** @param array $optionsDictionary string keys; string, int, float or bool values; marshalled to an NSDictionary */
+    public function orderFrontStandardAboutPanelWithOptions(array $optionsDictionary): void {}
 }
