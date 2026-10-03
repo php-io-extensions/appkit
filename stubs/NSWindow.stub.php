@@ -68,6 +68,8 @@ class NSWindow extends NSResponder
 
     public function contentView(): ?NSView {}
 
+    public function setContentView(?NSView $view): void {}
+
     public function windowNumber(): int {}
 
     public function frame(): NSRect {}

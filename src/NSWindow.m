@@ -166,6 +166,20 @@ ZEND_METHOD(NSWindow, contentView)
 	APPKIT_END
 }
 
+ZEND_METHOD(NSWindow, setContentView)
+{
+	zend_object *view = NULL;
+
+	ZEND_PARSE_PARAMETERS_START(1, 1)
+		Z_PARAM_OBJ_OF_CLASS_OR_NULL(view, appkit_ce_NSView)
+	ZEND_PARSE_PARAMETERS_END();
+	APPKIT_REQUIRE_MAIN_THREAD();
+
+	APPKIT_BEGIN
+		[THIS_WINDOW setContentView:(NSView *) APPKIT_OPTIONAL_ID(view)];
+	APPKIT_END
+}
+
 ZEND_METHOD(NSWindow, windowNumber)
 {
 	ZEND_PARSE_PARAMETERS_NONE();

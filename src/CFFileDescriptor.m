@@ -14,6 +14,9 @@ static void appkit_fd_callout(CFFileDescriptorRef fd, CFOptionFlags callBackType
 {
 	zval argv[2];
 
+	if (!appkit_callout_can_enter((appkit_callout *) info)) {
+		return;
+	}
 	appkit_box_cf(&argv[0], fd);
 	ZVAL_LONG(&argv[1], (zend_long) callBackTypes);
 

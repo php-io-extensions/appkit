@@ -44,3 +44,19 @@ function pumpFor(NSApplication $app, float $seconds): void
         }
     }
 }
+
+/** Dispatch AppKit events until $until() holds or $seconds pass; true when it held. */
+function pumpUntil(NSApplication $app, callable $until, float $seconds): bool
+{
+    $limit = microtime(true) + $seconds;
+    while (! $until()) {
+        if (microtime(true) >= $limit) {
+            return false;
+        }
+        if ($event = $app->nextEventMatchingMaskUntilDateInModeDequeue(NSEventMask::ANY, NSDate::dateWithTimeIntervalSinceNow(0.01), NSDefaultRunLoopMode, true)) {
+            $app->sendEvent($event);
+        }
+    }
+
+    return true;
+}

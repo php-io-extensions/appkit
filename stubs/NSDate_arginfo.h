@@ -1,5 +1,5 @@
 /* This is a generated file, edit the .stub.php file instead.
- * Stub hash: f4f47ba0aa3b4bd4e5196a899d36d7928731a4f7 */
+ * Stub hash: 97a3d0e1d63bc2c23f006d28d765dc6bc8c81a02 */
 
 ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(arginfo_class_NSDate_date, 0, 0, NSDate, 0)
 ZEND_END_ARG_INFO()
@@ -7,6 +7,8 @@ ZEND_END_ARG_INFO()
 ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(arginfo_class_NSDate_dateWithTimeIntervalSinceNow, 0, 1, NSDate, 0)
 	ZEND_ARG_TYPE_INFO(0, secs, IS_DOUBLE, 0)
 ZEND_END_ARG_INFO()
+
+#define arginfo_class_NSDate_dateWithTimeIntervalSince1970 arginfo_class_NSDate_dateWithTimeIntervalSinceNow
 
 #define arginfo_class_NSDate_distantPast arginfo_class_NSDate_date
 
@@ -19,6 +21,7 @@ ZEND_END_ARG_INFO()
 
 ZEND_METHOD(NSDate, date);
 ZEND_METHOD(NSDate, dateWithTimeIntervalSinceNow);
+ZEND_METHOD(NSDate, dateWithTimeIntervalSince1970);
 ZEND_METHOD(NSDate, distantPast);
 ZEND_METHOD(NSDate, distantFuture);
 ZEND_METHOD(NSDate, timeIntervalSinceNow);
@@ -27,6 +30,7 @@ ZEND_METHOD(NSDate, timeIntervalSince1970);
 static const zend_function_entry class_NSDate_methods[] = {
 	ZEND_ME(NSDate, date, arginfo_class_NSDate_date, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
 	ZEND_ME(NSDate, dateWithTimeIntervalSinceNow, arginfo_class_NSDate_dateWithTimeIntervalSinceNow, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	ZEND_ME(NSDate, dateWithTimeIntervalSince1970, arginfo_class_NSDate_dateWithTimeIntervalSince1970, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
 	ZEND_ME(NSDate, distantPast, arginfo_class_NSDate_distantPast, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
 	ZEND_ME(NSDate, distantFuture, arginfo_class_NSDate_distantFuture, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
 	ZEND_ME(NSDate, timeIntervalSinceNow, arginfo_class_NSDate_timeIntervalSinceNow, ZEND_ACC_PUBLIC)

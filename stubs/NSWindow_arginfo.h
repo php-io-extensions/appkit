@@ -1,5 +1,5 @@
 /* This is a generated file, edit the .stub.php file instead.
- * Stub hash: 8aa44a6a67e68a47e568d4f9e57406b6995d1949 */
+ * Stub hash: 3a02b7f0407e31dc7a17912e751ec91472e2063f */
 
 ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(arginfo_class_NSWindow_initWithContentRectStyleMaskBackingDefer, 0, 4, NSWindow, 0)
 	ZEND_ARG_OBJ_INFO(0, contentRect, NSRect, 0)
@@ -55,6 +55,10 @@ ZEND_END_ARG_INFO()
 ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(arginfo_class_NSWindow_contentView, 0, 0, NSView, 1)
 ZEND_END_ARG_INFO()
 
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_NSWindow_setContentView, 0, 1, IS_VOID, 0)
+	ZEND_ARG_OBJ_INFO(0, view, NSView, 1)
+ZEND_END_ARG_INFO()
+
 ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_NSWindow_windowNumber, 0, 0, IS_LONG, 0)
 ZEND_END_ARG_INFO()
 
@@ -85,6 +89,7 @@ ZEND_METHOD(NSWindow, isReleasedWhenClosed);
 ZEND_METHOD(NSWindow, setReleasedWhenClosed);
 ZEND_METHOD(NSWindow, center);
 ZEND_METHOD(NSWindow, contentView);
+ZEND_METHOD(NSWindow, setContentView);
 ZEND_METHOD(NSWindow, windowNumber);
 ZEND_METHOD(NSWindow, frame);
 ZEND_METHOD(NSWindow, setContentSize);
@@ -109,6 +114,7 @@ static const zend_function_entry class_NSWindow_methods[] = {
 	ZEND_ME(NSWindow, setReleasedWhenClosed, arginfo_class_NSWindow_setReleasedWhenClosed, ZEND_ACC_PUBLIC)
 	ZEND_ME(NSWindow, center, arginfo_class_NSWindow_center, ZEND_ACC_PUBLIC)
 	ZEND_ME(NSWindow, contentView, arginfo_class_NSWindow_contentView, ZEND_ACC_PUBLIC)
+	ZEND_ME(NSWindow, setContentView, arginfo_class_NSWindow_setContentView, ZEND_ACC_PUBLIC)
 	ZEND_ME(NSWindow, windowNumber, arginfo_class_NSWindow_windowNumber, ZEND_ACC_PUBLIC)
 	ZEND_ME(NSWindow, frame, arginfo_class_NSWindow_frame, ZEND_ACC_PUBLIC)
 	ZEND_ME(NSWindow, setContentSize, arginfo_class_NSWindow_setContentSize, ZEND_ACC_PUBLIC)

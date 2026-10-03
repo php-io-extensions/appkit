@@ -124,8 +124,18 @@ static void appkit_invocation_return(NSInvocation *invocation, zval *value)
 		case 'd': { double out = zval_get_double(value); [invocation setReturnValue:&out]; return; }
 		case '@': {
 			__unsafe_unretained id out = nil;
-			if (Z_TYPE_P(value) == IS_OBJECT && instanceof_function(Z_OBJCE_P(value), appkit_ce_NSObject)) {
-				out = APPKIT_ID(Z_OBJ_P(value));
+			switch (Z_TYPE_P(value)) {
+				case IS_OBJECT:
+					/* +1 for the caller, released by the pool it is running in: the PHP value may be the object's only owner and dies right after this returns. */
+					if (instanceof_function(Z_OBJCE_P(value), appkit_ce_NSObject)) {
+						out = [[APPKIT_ID(Z_OBJ_P(value)) retain] autorelease];
+					}
+					break;
+				case IS_STRING: out = appkit_nsstring(Z_STR_P(value)); break;
+				case IS_LONG:   out = [NSNumber numberWithLongLong:(long long) Z_LVAL_P(value)]; break;
+				case IS_DOUBLE: out = [NSNumber numberWithDouble:Z_DVAL_P(value)]; break;
+				case IS_TRUE:   out = [NSNumber numberWithBool:YES]; break;
+				case IS_FALSE:  out = [NSNumber numberWithBool:NO]; break;
 			}
 			[invocation setReturnValue:&out];
 			return;
@@ -217,6 +227,9 @@ static void appkit_invocation_return(NSInvocation *invocation, zval *value)
 		[super forwardInvocation:invocation];
 		return;
 	}
+	if (!appkit_callout_can_enter([handler pointerValue])) {
+		return;
+	}
 
 	NSUInteger count = [[invocation methodSignature] numberOfArguments];
 	uint32_t argc = (uint32_t) (count > 2 ? count - 2 : 0);
@@ -265,9 +278,87 @@ static void appkit_invocation_return(NSInvocation *invocation, zval *value)
 {
 	zval argv[1];
 
+	if (!appkit_callout_can_enter(callout)) {
+		return;
+	}
+
 	appkit_box_objc(&argv[0], sender);
 	appkit_callout_invoke(callout, 1, argv);
 	zval_ptr_dtor(&argv[0]);
+}
+
+@end
+
+/* ---- PHPAppKitObserver -------------------------------------------------- */
+
+@interface PHPAppKitObserver : NSObject {
+@public
+	appkit_callout *callout;
+	NSMutableArray<NSArray *> *observed;  /* (object, keyPath) pairs still registered */
+}
+@end
+
+@implementation PHPAppKitObserver
+
+- (instancetype)init
+{
+	if ((self = [super init])) {
+		observed = [[NSMutableArray alloc] init];
+	}
+
+	return self;
+}
+
+- (void)dealloc
+{
+	/* Every recorded pair was registered; the guard keeps a dealloc from ever raising out of PHP's object free. */
+	for (NSArray *pair in observed) {
+		@try {
+			[pair[0] removeObserver:self forKeyPath:pair[1]];
+		} @catch (NSException *ignored) {
+		}
+	}
+	[observed release];
+	if (callout != NULL) {
+		appkit_callout_release(callout);
+	}
+	[super dealloc];
+}
+
+- (NSUInteger)indexOfObject:(id)object keyPath:(NSString *)keyPath
+{
+	return [observed indexOfObjectPassingTest:^BOOL(NSArray *pair, NSUInteger idx, BOOL *stop) {
+		return pair[0] == object && [pair[1] isEqualToString:keyPath];
+	}];
+}
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
+{
+	zval argv[3];
+	id value;
+
+	if (!appkit_callout_can_enter(callout)) {
+		return;
+	}
+	ZVAL_STR(&argv[0], appkit_zend_string((CFStringRef) keyPath));
+	appkit_box_objc(&argv[1], object);
+	array_init(&argv[2]);
+	if ((value = change[NSKeyValueChangeNewKey]) != nil) {
+		zval zv;
+		appkit_zval_from_id(&zv, value);
+		add_assoc_zval(&argv[2], "new", &zv);
+	}
+	if ((value = change[NSKeyValueChangeOldKey]) != nil) {
+		zval zv;
+		appkit_zval_from_id(&zv, value);
+		add_assoc_zval(&argv[2], "old", &zv);
+	}
+
+	appkit_callout_invoke(callout, 3, argv);
+
+	for (int i = 0; i < 3; i++) {
+		zval_ptr_dtor(&argv[i]);
+	}
 }
 
 @end
@@ -283,6 +374,10 @@ void appkit_register_ObjCGlue(void)
 	appkit_ce_ObjCTarget = register_class_ObjCTarget(appkit_ce_NSObject);
 	appkit_object_setup(appkit_ce_ObjCTarget);
 	appkit_map_objc_class("PHPAppKitTarget", appkit_ce_ObjCTarget);
+
+	appkit_ce_ObjCObserver = register_class_ObjCObserver(appkit_ce_NSObject);
+	appkit_object_setup(appkit_ce_ObjCObserver);
+	appkit_map_objc_class("PHPAppKitObserver", appkit_ce_ObjCObserver);
 }
 
 #define THIS_DELEGATE ((PHPAppKitDelegate *) APPKIT_ID(Z_OBJ_P(ZEND_THIS)))
@@ -394,5 +489,90 @@ ZEND_METHOD(ObjCTarget, __construct)
 		target->callout = appkit_callout_new(handler, NULL);
 		appkit_callout_retain(target->callout);
 		appkit_adopt_objc(Z_OBJ_P(ZEND_THIS), target);
+	APPKIT_END
+}
+
+#define THIS_OBSERVER ((PHPAppKitObserver *) APPKIT_ID(Z_OBJ_P(ZEND_THIS)))
+
+ZEND_METHOD(ObjCObserver, __construct)
+{
+	zval *handler;
+
+	ZEND_PARSE_PARAMETERS_START(1, 1)
+		Z_PARAM_ZVAL(handler)
+	ZEND_PARSE_PARAMETERS_END();
+
+	if (!appkit_require_unconstructed(ZEND_THIS)) {
+		RETURN_THROWS();
+	}
+
+	if (!zend_is_callable(handler, 0, NULL)) {
+		zend_argument_type_error(1, "must be a valid callback");
+		RETURN_THROWS();
+	}
+
+	APPKIT_BEGIN
+		PHPAppKitObserver *observer = [[PHPAppKitObserver alloc] init];
+		observer->callout = appkit_callout_new(handler, NULL);
+		appkit_callout_retain(observer->callout);
+		appkit_adopt_objc(Z_OBJ_P(ZEND_THIS), observer);
+	APPKIT_END
+}
+
+ZEND_METHOD(ObjCObserver, observe)
+{
+	zend_object *object;
+	zend_string *key_path;
+	zend_long options;
+
+	ZEND_PARSE_PARAMETERS_START(3, 3)
+		Z_PARAM_OBJ_OF_CLASS(object, appkit_ce_NSObject)
+		Z_PARAM_STR(key_path)
+		Z_PARAM_LONG(options)
+	ZEND_PARSE_PARAMETERS_END();
+	APPKIT_REQUIRE_MAIN_THREAD();
+
+	APPKIT_BEGIN
+		id target = APPKIT_ID(object);
+		NSString *path = appkit_nsstring(key_path);
+
+		if ([THIS_OBSERVER indexOfObject:target keyPath:path] != NSNotFound) {
+			zend_throw_exception_ex(appkit_ce_AppKitException, 0, "ObjCObserver already observes \"%s\" on this object; stop() it first", ZSTR_VAL(key_path));
+			RETURN_THROWS();
+		}
+		/* Recorded first so an OPTION_INITIAL handler can stop() it; dropped again when AppKit refuses the key path. */
+		NSArray *pair = @[target, path];
+		[THIS_OBSERVER->observed addObject:pair];
+		@try {
+			[target addObserver:THIS_OBSERVER forKeyPath:path options:(NSKeyValueObservingOptions) options context:NULL];
+		} @catch (NSException *refused) {
+			[THIS_OBSERVER->observed removeObjectIdenticalTo:pair];
+			@throw;
+		}
+	APPKIT_END
+}
+
+ZEND_METHOD(ObjCObserver, stop)
+{
+	zend_object *object;
+	zend_string *key_path;
+
+	ZEND_PARSE_PARAMETERS_START(2, 2)
+		Z_PARAM_OBJ_OF_CLASS(object, appkit_ce_NSObject)
+		Z_PARAM_STR(key_path)
+	ZEND_PARSE_PARAMETERS_END();
+	APPKIT_REQUIRE_MAIN_THREAD();
+
+	APPKIT_BEGIN
+		id target = APPKIT_ID(object);
+		NSString *path = appkit_nsstring(key_path);
+		NSUInteger index = [THIS_OBSERVER indexOfObject:target keyPath:path];
+
+		if (index == NSNotFound) {
+			zend_throw_exception_ex(appkit_ce_AppKitException, 0, "ObjCObserver does not observe \"%s\" on this object", ZSTR_VAL(key_path));
+			RETURN_THROWS();
+		}
+		[THIS_OBSERVER->observed removeObjectAtIndex:index];
+		[target removeObserver:THIS_OBSERVER forKeyPath:path];
 	APPKIT_END
 }

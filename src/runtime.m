@@ -127,6 +127,24 @@ void appkit_box_objc(zval *rv, id obj)
 	appkit_box_new(rv, ce, (void *) [obj retain], false);
 }
 
+/*
+ * The native class a static constructor or factory was called on: the PHP class name
+ * where it names an Objective-C class, else the nearest parent that does. So
+ * NSTextField::initWithFrame() allocates an NSTextField, as [NSTextField alloc] would.
+ */
+Class appkit_called_class(zend_execute_data *execute_data)
+{
+	for (zend_class_entry *ce = zend_get_called_scope(execute_data); ce != NULL; ce = ce->parent) {
+		Class cls = objc_getClass(ZSTR_VAL(ce->name));
+
+		if (cls != Nil) {
+			return cls;
+		}
+	}
+
+	return Nil;
+}
+
 /* A constructor's new object: the wrapper takes the +1 reference alloc/init returned. */
 void appkit_adopt_objc(zend_object *wrapper, id retained)
 {
@@ -321,6 +339,7 @@ appkit_callout *appkit_callout_new(zval *callable, void (*detach)(CFTypeRef))
 
 	ZVAL_COPY(&callout->callable, callable);
 	callout->detach = detach;
+	callout->thread = pthread_self();
 
 	callout->next = APPKIT_G(callouts);
 	if (callout->next != NULL) {
@@ -361,6 +380,16 @@ void appkit_callout_release(const void *info)
 	}
 
 	if (!Z_ISUNDEF(callout->callable)) {
+		/*
+		 * The last native reference went away on another thread: the callable belongs
+		 * to the owner thread's request, so leave the record linked, with nothing left
+		 * to detach, for that thread's request end to free.
+		 */
+		if (!pthread_equal(callout->thread, pthread_self())) {
+			callout->owner = NULL;
+			callout->detach = NULL;
+			return;
+		}
 		appkit_callout_unlink(callout);
 		zval_ptr_dtor(&callout->callable);
 		ZVAL_UNDEF(&callout->callable);
@@ -377,13 +406,24 @@ void appkit_callout_invoke(appkit_callout *callout, uint32_t argc, zval *argv)
 	zval_ptr_dtor(&retval);
 }
 
-/* Calls the PHP callable; false when it did not run (detached, or an exception already pending). */
+/*
+ * Whether native code may enter this callable now: only on the thread that made it
+ * (PHP's state is per thread; another thread would run it against the wrong engine,
+ * or none), only while attached, and not while a PHP exception is on its way out.
+ * Native entry points check this before boxing anything.
+ */
+bool appkit_callout_can_enter(appkit_callout *callout)
+{
+	return pthread_equal(callout->thread, pthread_self()) && !Z_ISUNDEF(callout->callable) && EG(exception) == NULL;
+}
+
+/* Calls the PHP callable; false when it did not run (another thread, detached, or an exception already pending). */
 bool appkit_callout_call(appkit_callout *callout, uint32_t argc, zval *argv, zval *retval)
 {
 	ZVAL_UNDEF(retval);
 
 	/* A PHP exception already on its way out wins; later callbacks in the same native call wait for the next one. */
-	if (Z_ISUNDEF(callout->callable) || EG(exception) != NULL) {
+	if (!appkit_callout_can_enter(callout)) {
 		return false;
 	}
 
@@ -489,6 +529,37 @@ void appkit_return_point(zval *rv, NSPoint point)
 {
 	double v[2] = { point.x, point.y };
 	appkit_return_doubles(rv, appkit_ce_NSPoint, 2, v);
+}
+
+/*
+ * A Foundation value as PHP: NSNull → null, NSString → string, NSNumber → bool/int/float
+ * by its type, an NSValue holding a rect/size/point → NSRect/NSSize/NSPoint, anything else boxed.
+ */
+void appkit_zval_from_id(zval *out, id value)
+{
+	if (value == nil || value == [NSNull null]) {
+		ZVAL_NULL(out);
+	} else if ([value isKindOfClass:[NSString class]]) {
+		ZVAL_STR(out, appkit_zend_string((CFStringRef) value));
+	} else if ([value isKindOfClass:[NSNumber class]]) {
+		const char *type = [(NSNumber *) value objCType];
+
+		if (CFGetTypeID((CFTypeRef) value) == CFBooleanGetTypeID()) {
+			ZVAL_BOOL(out, [(NSNumber *) value boolValue]);
+		} else if (type[0] == 'f' || type[0] == 'd') {
+			ZVAL_DOUBLE(out, [(NSNumber *) value doubleValue]);
+		} else {
+			ZVAL_LONG(out, (zend_long) [(NSNumber *) value longLongValue]);
+		}
+	} else if ([value isKindOfClass:[NSValue class]] && strncmp([(NSValue *) value objCType], "{CGRect=", 8) == 0) {
+		appkit_return_rect(out, [(NSValue *) value rectValue]);
+	} else if ([value isKindOfClass:[NSValue class]] && strncmp([(NSValue *) value objCType], "{CGSize=", 8) == 0) {
+		appkit_return_size(out, [(NSValue *) value sizeValue]);
+	} else if ([value isKindOfClass:[NSValue class]] && strncmp([(NSValue *) value objCType], "{CGPoint=", 9) == 0) {
+		appkit_return_point(out, [(NSValue *) value pointValue]);
+	} else {
+		appkit_box_objc(out, value);
+	}
 }
 
 /* A PHP array as an NSDictionary: string keys; string, int, float, bool or NSObject values. Autoreleased. */

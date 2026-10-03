@@ -38,6 +38,19 @@ ZEND_METHOD(NSDate, dateWithTimeIntervalSinceNow)
 	APPKIT_END
 }
 
+ZEND_METHOD(NSDate, dateWithTimeIntervalSince1970)
+{
+	double secs;
+
+	ZEND_PARSE_PARAMETERS_START(1, 1)
+		Z_PARAM_DOUBLE(secs)
+	ZEND_PARSE_PARAMETERS_END();
+
+	APPKIT_BEGIN
+		appkit_box_objc(return_value, [NSDate dateWithTimeIntervalSince1970:secs]);
+	APPKIT_END
+}
+
 ZEND_METHOD(NSDate, distantPast)
 {
 	ZEND_PARSE_PARAMETERS_NONE();

@@ -50,15 +50,55 @@ it('keeps the native class hierarchy', function (): void {
         ->and(get_parent_class(CFFileDescriptor::class))->toBe(CFType::class)
         ->and(get_parent_class(NSWindow::class))->toBe(NSResponder::class)
         ->and(get_parent_class(NSView::class))->toBe(NSResponder::class)
+        ->and(get_parent_class(NSLayoutAnchor::class))->toBe(NSObject::class)
+        ->and(get_parent_class(NSLayoutConstraint::class))->toBe(NSObject::class)
+        ->and(get_parent_class(NSColor::class))->toBe(NSObject::class)
+        ->and(get_parent_class(NSFont::class))->toBe(NSObject::class)
+        ->and(get_parent_class(NSFontManager::class))->toBe(NSObject::class)
+        ->and(get_parent_class(NSStackView::class))->toBe(NSView::class)
+        ->and(get_parent_class(NSGridView::class))->toBe(NSView::class)
+        ->and(get_parent_class(NSGridCell::class))->toBe(NSObject::class)
+        ->and(get_parent_class(NSGridRow::class))->toBe(NSObject::class)
+        ->and(get_parent_class(NSGridColumn::class))->toBe(NSObject::class)
+        ->and(get_parent_class(NSControl::class))->toBe(NSView::class)
+        ->and(get_parent_class(NSTextField::class))->toBe(NSControl::class)
+        ->and(get_parent_class(NSSecureTextField::class))->toBe(NSTextField::class)
+        ->and(get_parent_class(NSButton::class))->toBe(NSControl::class)
+        ->and(get_parent_class(NSSwitch::class))->toBe(NSControl::class)
+        ->and(get_parent_class(NSSlider::class))->toBe(NSControl::class)
+        ->and(get_parent_class(NSPopUpButton::class))->toBe(NSControl::class)
+        ->and(get_parent_class(NSDatePicker::class))->toBe(NSControl::class)
+        ->and(get_parent_class(NSTimeZone::class))->toBe(NSObject::class)
+        ->and(get_parent_class(NSProgressIndicator::class))->toBe(NSView::class)
+        ->and(get_parent_class(NSImage::class))->toBe(NSObject::class)
+        ->and(get_parent_class(NSImageView::class))->toBe(NSControl::class)
+        ->and(get_parent_class(NSBox::class))->toBe(NSView::class)
+        ->and(get_parent_class(NSScrollView::class))->toBe(NSView::class)
+        ->and(get_parent_class(NSTextView::class))->toBe(NSView::class)
+        ->and(get_parent_class(NSTextContainer::class))->toBe(NSObject::class)
+        ->and(get_parent_class(NSLayoutManager::class))->toBe(NSObject::class)
+        ->and(get_parent_class(NSIndexSet::class))->toBe(NSObject::class)
+        ->and(get_parent_class(NSTableColumn::class))->toBe(NSObject::class)
+        ->and(get_parent_class(NSTableHeaderView::class))->toBe(NSView::class)
+        ->and(get_parent_class(NSTableView::class))->toBe(NSControl::class)
         ->and(get_parent_class(NSMenu::class))->toBe(NSObject::class)
         ->and(get_parent_class(NSMenuItem::class))->toBe(NSObject::class)
         ->and(get_parent_class(ObjCDelegate::class))->toBe(NSObject::class)
+        ->and(get_parent_class(ObjCObserver::class))->toBe(NSObject::class)
+        ->and(get_parent_class(NSNotification::class))->toBe(NSObject::class)
+        ->and(get_parent_class(NSNotificationCenter::class))->toBe(NSObject::class)
+        ->and(get_parent_class(NSOperationQueue::class))->toBe(NSObject::class)
+        ->and(get_parent_class(NSCell::class))->toBe(NSObject::class)
+        ->and(get_parent_class(NSURL::class))->toBe(NSObject::class)
+        ->and(get_parent_class(AVPlayerItem::class))->toBe(NSObject::class)
+        ->and(get_parent_class(AVPlayer::class))->toBe(NSObject::class)
+        ->and(get_parent_class(AVPlayerView::class))->toBe(NSView::class)
         ->and(get_parent_class(AppKitException::class))->toBe(RuntimeException::class);
 });
 
 it('cannot construct native wrappers from PHP', function (string $class): void {
     expect(fn () => new $class())->toThrow(Error::class);
-})->with([NSObject::class, NSApplication::class, NSEvent::class, NSDate::class, CFType::class, CFRunLoop::class, CFFileDescriptor::class, NSWindow::class, NSView::class, NSMenu::class, NSMenuItem::class]);
+})->with([NSObject::class, NSApplication::class, NSEvent::class, NSDate::class, CFType::class, CFRunLoop::class, CFFileDescriptor::class, NSWindow::class, NSView::class, NSMenu::class, NSMenuItem::class, NSLayoutAnchor::class, NSLayoutConstraint::class, NSColor::class, NSFont::class, NSStackView::class, NSGridView::class, NSGridCell::class, NSGridRow::class, NSGridColumn::class, NSControl::class, NSTextField::class, NSButton::class, NSImage::class, NSScrollView::class, NSTextView::class, NSTableView::class, NSTableColumn::class, NSIndexSet::class, NSNotification::class, NSNotificationCenter::class, NSURL::class, AVPlayerItem::class, AVPlayer::class, AVPlayerView::class, NSOperationQueue::class, NSCell::class]);
 
 it('refuses to clone or serialize a native wrapper', function (): void {
     $date = NSDate::date();

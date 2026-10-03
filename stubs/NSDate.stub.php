@@ -11,6 +11,8 @@ class NSDate extends NSObject
 
     public static function dateWithTimeIntervalSinceNow(float $secs): NSDate {}
 
+    public static function dateWithTimeIntervalSince1970(float $secs): NSDate {}
+
     public static function distantPast(): NSDate {}
 
     public static function distantFuture(): NSDate {}

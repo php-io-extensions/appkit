@@ -5,7 +5,7 @@ description: Classes, enums and constants ext-appkit binds, each method one AppK
 resource: stubs/
 tags: [appkit, corefoundation, api]
 status: draft
-generated: { by: claude-opus/5.5, at: 2026-10-01T17:59:05Z }
+generated: { by: claude-opus/5.5, at: 2026-10-02T19:16:05Z }
 sources:
   - id: stubs
     resource: stubs/
@@ -38,14 +38,40 @@ Naming, all fixed:
 | `NSResponder` | hierarchy only |
 | `NSApplication` | sharedApplication, finishLaunching, run, stop:, isRunning, isActive, activationPolicy, setActivationPolicy:, activate, activateIgnoringOtherApps:, deactivate, nextEventMatchingMask:untilDate:inMode:dequeue:, discardEventsMatchingMask:beforeEvent:, sendEvent:, postEvent:atStart:, currentEvent, updateWindows |
 | `NSWindow` | initWithContentRect:styleMask:backing:defer: (alloc+init, static), title/setTitle:, makeKeyAndOrderFront:, orderOut:, close, performClose:, miniaturize:, isVisible, isKeyWindow, isMainWindow, makeKeyWindow, delegate/setDelegate:, isReleasedWhenClosed/setReleasedWhenClosed:, center, contentView, windowNumber, frame, setContentSize:, styleMask |
-| `NSView` | frame, window |
+| `NSView` | initWithFrame: (static, allocates the called class), frame/setFrame:, window, menu, superview, subviews, addSubview:, removeFromSuperview, isHidden/setHidden:, content hugging / compression resistance priority per orientation (+set), fittingSize, intrinsicContentSize, layoutSubtreeIfNeeded, visibleRect, scrollPoint:, translatesAutoresizingMaskIntoConstraints (+set), wantsLayer (+set), layerBackgroundColor (+set: turns the layer on, null clears), layerContents / layerContentsGravity / layerMasksToBounds (+set: layer.contents as an NSImage, kCAGravity*, masksToBounds; each turns the layer on), postsFrameChangedNotifications (+set), width/height/leading/trailing/top/bottom/centerX/centerY anchors |
+| `NSLayoutAnchor` | constraintEqualToAnchor:, constraintEqualToAnchor:constant:, constraintEqualToConstant:, constraintGreaterThanOrEqualToAnchor: / constraintLessThanOrEqualToAnchor: (± constant:), constraintGreaterThanOrEqualToConstant:, constraintLessThanOrEqualToConstant: (constant-only forms: NSLayoutDimension only, else AppKitException); one PHP class for dimension/x-axis/y-axis anchors |
+| `NSLayoutConstraint` | activateConstraints:, deactivateConstraints: (static, arrays type-checked), isActive/setActive:, constant/setConstant:, priority/setPriority: |
+| `NSStackView` | stackViewWithViews:, orientation, spacing, edgeInsets, alignment, distribution (+ setters), addArrangedSubview:, insertArrangedSubview:atIndex:, removeArrangedSubview:, arrangedSubviews, customSpacingAfterView: / visibilityPriorityForView: / huggingPriorityForOrientation: (+ setters) |
+| `NSGridView` | gridViewWithNumberOfColumns:rows:, numberOfRows, numberOfColumns, addRowWithViews:, insertRowAtIndex:withViews:, removeRowAtIndex:, addColumnWithViews:, rowSpacing/columnSpacing (+ setters), cellAtColumnIndex:rowIndex:, mergeCellsInHorizontalRange:verticalRange:, rowAtIndex:, columnAtIndex:; a null view = `NSGridCell.emptyContentView` |
+| `NSGridCell`, `NSGridRow`, `NSGridColumn` | contentView (+set; empty sentinel ↔ null), x/yPlacement (+set); height, topPadding, bottomPadding, yPlacement (+set); width, leadingPadding, trailingPadding, xPlacement (+set) |
+| `NSColor` | colorWithRed:green:blue:alpha:, red/green/blue/alphaComponent (via sRGB colour space) |
+| `NSFont` | systemFontOfSize:weight:, fontWithName:size: (null when unknown), pointSize, familyName (nullable); `WEIGHT_*` = NSFontWeight* |
+| `NSFontManager` | sharedFontManager, fontWithFamily:traits:weight:size: (0–15 weight scale; null when the family is missing), weightOfFont: |
+| `NSControl` | sendAction:to:, isEnabled/setEnabled:, target/setTarget:, action/setAction: (selector name), stringValue/doubleValue/integerValue (+ setters), font/setFont:, alignment/setAlignment:, sizeToFit, performClick: |
+| `NSTextField`, `NSSecureTextField` | labelWithString:, textFieldWithString:, placeholderString, isEditable, isBezeled, drawsBackground, textColor, backgroundColor, lineBreakMode, maximumNumberOfLines, preferredMaxLayoutWidth, delegate (+ setters); initWithFrame: |
+| `NSButton`, `NSSwitch` | buttonWithTitle:target:action:, checkboxWithTitle:target:action:, setButtonType:, title/setTitle:, state/setState:, contentTintColor/setContentTintColor:; initWithFrame:, state/setState: |
+| `NSSlider` | sliderWithValue:minValue:maxValue:target:action:, minValue/maxValue (+ setters), isContinuous/setContinuous: |
+| `NSPopUpButton` | initWithFrame:pullsDown:, addItemWithTitle:, addItemsWithTitles:, removeAllItems, numberOfItems, indexOfSelectedItem, selectItemAtIndex:, titleOfSelectedItem, itemTitles |
+| `NSDatePicker`, `NSTimeZone` | initWithFrame:, dateValue/setDateValue:, timeZone/setTimeZone: (NSTimeZone timeZoneWithName:, name), setDatePickerStyle:, setDatePickerElements: (`ELEMENT_*` ints), setDatePickerMode: |
+| `NSProgressIndicator` | initWithFrame:, setStyle:, minValue/maxValue/doubleValue (+ setters), isIndeterminate/setIndeterminate:, startAnimation:, stopAnimation:, setDisplayedWhenStopped: |
+| `NSImage`, `NSImageView` | initWithContentsOfFile: (null when unreadable), size; imageViewWithImage:, initWithFrame:, image/setImage:, imageScaling/setImageScaling: |
+| `NSBox`, `NSScrollView` | initWithFrame:, boxType/setBoxType:; initWithFrame:, contentView (NSClipView, boxed as NSView), documentView/setDocumentView:, hasVerticalScroller, hasHorizontalScroller, drawsBackground (+ setters), contentSize |
+| `NSTextView` | scrollableTextView (static, returns the NSScrollView), initWithFrame:, string/setString:, isEditable/setEditable:, backgroundColor/drawsBackground (+set), layoutManager, textContainer, textContainerInset (NSLayoutManager ensureLayoutForTextContainer:, usedRectForTextContainer:), font/setFont:, textColor/setTextColor:, delegate/setDelegate: |
+| `NSTableView` | initWithFrame:, addTableColumn:, removeTableColumn:, tableColumns, dataSource/setDataSource:, delegate/setDelegate:, reloadData, numberOfRows, selectedRow, selectRowIndexes:byExtendingSelection:, deselectAll:, setAllowsEmptySelection:, setUsesAlternatingRowBackgroundColors:, backgroundColor/setBackgroundColor:, headerView/setHeaderView:, preparedCellAtColumn:row:, viewAtColumn:row:makeIfNecessary: |
+| `NSTableColumn`, `NSTableHeaderView`, `NSCell`, `NSIndexSet` | initWithIdentifier:, identifier, title/setTitle:, width/setWidth:, setResizingMask: (`RESIZING_MASK_*`); initWithFrame: (inherited); objectValue (Foundation values as PHP scalars); indexSetWithIndex:, firstIndex, count |
+| `NSNotificationCenter`, `NSNotification`, `NSOperationQueue` | defaultCenter, addObserverForName:object:queue:usingBlock: (block = PHP callable, returns the token), removeObserver:, postNotificationName:object:; name, object; mainQueue, init (alloc+init), waitUntilAllOperationsAreFinished |
+| `NSURL` | fileURLWithPath:, path |
+| `AVPlayerItem` | playerItemWithURL:, status, duration, error |
+| `AVPlayer` | playerWithPlayerItem:, actionAtItemEnd/setActionAtItemEnd: (AVPlayerActionAtItemEnd), play, pause, rate/setRate:, currentTime, seekToTime:, isMuted/setMuted:, timeControlStatus, currentItem, replaceCurrentItemWithPlayerItem: |
+| `AVPlayerView` | initWithFrame:, player/setPlayer:, controlsStyle/setControlsStyle: |
 | `NSMenu` | initWithTitle:, title/setTitle:, addItem:, insertItem:atIndex:, removeItem:, removeAllItems, numberOfItems, itemAtIndex:, indexOfItem:, autoenablesItems/setAutoenablesItems:, performActionForItemAtIndex: |
 | `NSMenuItem` | initWithTitle:action:keyEquivalent:, separatorItem, title/setTitle:, isSeparatorItem, hasSubmenu, submenu/setSubmenu:, menu, target/setTarget:, action/setAction: (selector name), state/setState:, isEnabled/setEnabled:, keyEquivalent/setKeyEquivalent:, keyEquivalentModifierMask/setKeyEquivalentModifierMask:, tag/setTag: |
-| `NSRect`, `NSSize` | value classes like `NSPoint` |
+| `NSRect`, `NSSize`, `NSEdgeInsets`, `NSRange`, `CMTime` | value classes like `NSPoint`; `NSRange` must be non-negative; `CMTime` = value, timescale, flags (`FLAG_*`), epoch; `CMTime::withSeconds()` = CMTimeMakeWithSeconds, `seconds()` = CMTimeGetSeconds (NaN invalid/indefinite, ±INF) |
 | `ObjCDelegate` | trampoline: `new ObjCDelegate(protocol)`, `on(selector, callable)`, `off(selector)`; answers the protocol's selectors by calling PHP (see [glue](/architecture/glue.md)) |
 | `ObjCTarget` | trampoline: `new ObjCTarget(callable)`; `ObjCTarget::ACTION` (`action:`) calls PHP with the sender |
+| `ObjCObserver` | KVO trampoline: `new ObjCObserver(callable)`, `observe(object, keyPath, OPTION_*)`, `stop(object, keyPath)`; handler gets (keyPath, object, change['new'/'old'], geometry as NSRect/NSSize/NSPoint); a refused key path throws and is not recorded; observed objects retained until stop()/free, pairs still observed removed at free |
 | `NSEvent` | otherEventWithType:location:modifierFlags:timestamp:windowNumber:context:subtype:data1:data2:, type, subtype, modifierFlags, timestamp, windowNumber, locationInWindow, data1, data2 |
-| `NSDate` | date, dateWithTimeIntervalSinceNow:, distantPast, distantFuture, timeIntervalSinceNow, timeIntervalSince1970 |
+| `NSDate` | date, dateWithTimeIntervalSinceNow:, dateWithTimeIntervalSince1970:, distantPast, distantFuture, timeIntervalSinceNow, timeIntervalSince1970 |
 | `NSPoint` | value class: `float $x`, `float $y` |
 | `CFType` | CFGetTypeID, CFHash, CFCopyDescription; `pointer()` |
 | `CFRunLoop` | GetMain, GetCurrent, Run, RunInMode, Stop, WakeUp, IsWaiting, CopyCurrentMode, AddSource, RemoveSource, ContainsSource |

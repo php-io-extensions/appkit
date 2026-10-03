@@ -19,6 +19,7 @@
 #import <Foundation/Foundation.h>
 #import <CoreFoundation/CoreFoundation.h>
 #import <AppKit/AppKit.h>
+#include <pthread.h>
 
 /* A PHP callable held for native code to call back into. */
 typedef struct appkit_callout {
@@ -26,6 +27,7 @@ typedef struct appkit_callout {
 	uint32_t refcount;             /* native references to this record */
 	CFTypeRef owner;               /* the native object calling back, not retained */
 	void (*detach)(CFTypeRef);     /* stops owner from calling back */
+	pthread_t thread;              /* the PHP thread that made it: the only thread that may enter its callable */
 	struct appkit_callout *prev;
 	struct appkit_callout *next;
 } appkit_callout;
@@ -79,6 +81,67 @@ extern zend_class_entry *appkit_ce_NSMenuItem;
 extern zend_class_entry *appkit_ce_NSControlStateValue;
 extern zend_class_entry *appkit_ce_ObjCDelegate;
 extern zend_class_entry *appkit_ce_ObjCTarget;
+extern zend_class_entry *appkit_ce_ObjCObserver;
+extern zend_class_entry *appkit_ce_NSNotification;
+extern zend_class_entry *appkit_ce_NSNotificationCenter;
+extern zend_class_entry *appkit_ce_NSOperationQueue;
+extern zend_class_entry *appkit_ce_NSCell;
+extern zend_class_entry *appkit_ce_NSURL;
+extern zend_class_entry *appkit_ce_CMTime;
+extern zend_class_entry *appkit_ce_AVPlayerItemStatus;
+extern zend_class_entry *appkit_ce_AVPlayerItem;
+extern zend_class_entry *appkit_ce_AVPlayerTimeControlStatus;
+extern zend_class_entry *appkit_ce_AVPlayer;
+extern zend_class_entry *appkit_ce_AVPlayerActionAtItemEnd;
+extern zend_class_entry *appkit_ce_AVPlayerViewControlsStyle;
+extern zend_class_entry *appkit_ce_AVPlayerView;
+extern zend_class_entry *appkit_ce_NSEdgeInsets;
+extern zend_class_entry *appkit_ce_NSLayoutAnchor;
+extern zend_class_entry *appkit_ce_NSLayoutConstraint;
+extern zend_class_entry *appkit_ce_NSColor;
+extern zend_class_entry *appkit_ce_NSFont;
+extern zend_class_entry *appkit_ce_NSFontManager;
+extern zend_class_entry *appkit_ce_NSUserInterfaceLayoutOrientation;
+extern zend_class_entry *appkit_ce_NSLayoutConstraintOrientation;
+extern zend_class_entry *appkit_ce_NSStackViewGravity;
+extern zend_class_entry *appkit_ce_NSLayoutAttribute;
+extern zend_class_entry *appkit_ce_NSStackViewDistribution;
+extern zend_class_entry *appkit_ce_NSStackView;
+extern zend_class_entry *appkit_ce_NSGridCellPlacement;
+extern zend_class_entry *appkit_ce_NSRange;
+extern zend_class_entry *appkit_ce_NSGridView;
+extern zend_class_entry *appkit_ce_NSGridCell;
+extern zend_class_entry *appkit_ce_NSGridRow;
+extern zend_class_entry *appkit_ce_NSGridColumn;
+extern zend_class_entry *appkit_ce_NSTextAlignment;
+extern zend_class_entry *appkit_ce_NSLineBreakMode;
+extern zend_class_entry *appkit_ce_NSControl;
+extern zend_class_entry *appkit_ce_NSTextField;
+extern zend_class_entry *appkit_ce_NSSecureTextField;
+extern zend_class_entry *appkit_ce_NSButtonType;
+extern zend_class_entry *appkit_ce_NSButton;
+extern zend_class_entry *appkit_ce_NSSwitch;
+extern zend_class_entry *appkit_ce_NSSlider;
+extern zend_class_entry *appkit_ce_NSPopUpButton;
+extern zend_class_entry *appkit_ce_NSDatePickerStyle;
+extern zend_class_entry *appkit_ce_NSDatePickerMode;
+extern zend_class_entry *appkit_ce_NSTimeZone;
+extern zend_class_entry *appkit_ce_NSDatePicker;
+extern zend_class_entry *appkit_ce_NSProgressIndicatorStyle;
+extern zend_class_entry *appkit_ce_NSProgressIndicator;
+extern zend_class_entry *appkit_ce_NSImage;
+extern zend_class_entry *appkit_ce_NSImageScaling;
+extern zend_class_entry *appkit_ce_NSImageView;
+extern zend_class_entry *appkit_ce_NSBoxType;
+extern zend_class_entry *appkit_ce_NSBox;
+extern zend_class_entry *appkit_ce_NSScrollView;
+extern zend_class_entry *appkit_ce_NSTextView;
+extern zend_class_entry *appkit_ce_NSTextContainer;
+extern zend_class_entry *appkit_ce_NSLayoutManager;
+extern zend_class_entry *appkit_ce_NSIndexSet;
+extern zend_class_entry *appkit_ce_NSTableColumn;
+extern zend_class_entry *appkit_ce_NSTableHeaderView;
+extern zend_class_entry *appkit_ce_NSTableView;
 
 /* Class registration, one per stub, called from MINIT in hierarchy order. */
 void appkit_register_NSObject(void);
@@ -91,10 +154,19 @@ void appkit_register_CFType(void);
 void appkit_register_CFRunLoop(void);
 void appkit_register_CFFileDescriptor(void);
 void appkit_register_NSGeometry(void);
-void appkit_register_NSView(void);
+void appkit_register_NSView(int module_number);
 void appkit_register_NSWindow(void);
 void appkit_register_NSMenu(void);
 void appkit_register_ObjCGlue(void);
+void appkit_register_NSLayout(void);
+void appkit_register_NSColor(void);
+void appkit_register_NSFont(void);
+void appkit_register_NSStackView(void);
+void appkit_register_NSGridView(void);
+void appkit_register_NSControls(int module_number);
+void appkit_register_NSTableView(void);
+void appkit_register_NSNotificationCenter(int module_number);
+void appkit_register_AVKit(int module_number);
 
 /* Object model. */
 void appkit_object_setup(zend_class_entry *ce);
@@ -102,6 +174,7 @@ void appkit_map_objc_class(const char *objc_class, zend_class_entry *ce);
 void appkit_box_objc(zval *rv, id obj);
 void appkit_box_cf(zval *rv, CFTypeRef ref);
 void appkit_adopt_objc(zend_object *wrapper, id retained);
+Class appkit_called_class(zend_execute_data *execute_data);
 
 /* Values. */
 NSString *appkit_nsstring(zend_string *str);
@@ -113,10 +186,14 @@ void appkit_return_enum(zval *rv, zend_class_entry *ce, zend_long value, bool in
 bool appkit_fd_from_zval(zval *zfd, uint32_t arg_num, int *fd);
 bool appkit_rect_from(zend_object *rect, uint32_t arg_num, NSRect *out);
 bool appkit_size_from(zend_object *size, uint32_t arg_num, NSSize *out);
+bool appkit_edge_insets_from(zend_object *insets, uint32_t arg_num, NSEdgeInsets *out);
+void appkit_return_edge_insets(zval *rv, NSEdgeInsets insets);
+NSArray *appkit_view_array(HashTable *ht, uint32_t arg_num, id null_placeholder);
 void appkit_return_rect(zval *rv, NSRect rect);
 void appkit_return_size(zval *rv, NSSize size);
 void appkit_return_point(zval *rv, NSPoint point);
 NSDictionary *appkit_nsdictionary(HashTable *ht, uint32_t arg_num);
+void appkit_zval_from_id(zval *out, id value);
 
 /* Errors. */
 void appkit_throw_nsexception(NSException *e);
@@ -126,6 +203,7 @@ bool appkit_on_main_thread(void);
 appkit_callout *appkit_callout_new(zval *callable, void (*detach)(CFTypeRef));
 const void *appkit_callout_retain(const void *info);
 void appkit_callout_release(const void *info);
+bool appkit_callout_can_enter(appkit_callout *callout);
 void appkit_callout_invoke(appkit_callout *callout, uint32_t argc, zval *argv);
 bool appkit_callout_call(appkit_callout *callout, uint32_t argc, zval *argv, zval *retval);
 void appkit_callouts_detach_all(void);
