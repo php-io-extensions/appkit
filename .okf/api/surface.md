@@ -5,7 +5,7 @@ description: Classes, enums and constants ext-appkit binds, each method one AppK
 resource: stubs/
 tags: [appkit, corefoundation, api]
 status: draft
-generated: { by: claude-opus/5.5, at: 2026-10-02T19:16:05Z }
+generated: { by: claude-opus/5.5, at: 2026-10-04T02:54:20Z }
 sources:
   - id: stubs
     resource: stubs/
@@ -37,8 +37,8 @@ Naming, all fixed:
 | `NSObject` | className, isKindOfClass:, respondsToSelector:, isEqual:, hash, description; `pointer()` = address for other exts |
 | `NSResponder` | hierarchy only |
 | `NSApplication` | sharedApplication, finishLaunching, run, stop:, isRunning, isActive, activationPolicy, setActivationPolicy:, activate, activateIgnoringOtherApps:, deactivate, nextEventMatchingMask:untilDate:inMode:dequeue:, discardEventsMatchingMask:beforeEvent:, sendEvent:, postEvent:atStart:, currentEvent, updateWindows |
-| `NSWindow` | initWithContentRect:styleMask:backing:defer: (alloc+init, static), title/setTitle:, makeKeyAndOrderFront:, orderOut:, close, performClose:, miniaturize:, isVisible, isKeyWindow, isMainWindow, makeKeyWindow, delegate/setDelegate:, isReleasedWhenClosed/setReleasedWhenClosed:, center, contentView, windowNumber, frame, setContentSize:, styleMask |
-| `NSView` | initWithFrame: (static, allocates the called class), frame/setFrame:, window, menu, superview, subviews, addSubview:, removeFromSuperview, isHidden/setHidden:, content hugging / compression resistance priority per orientation (+set), fittingSize, intrinsicContentSize, layoutSubtreeIfNeeded, visibleRect, scrollPoint:, translatesAutoresizingMaskIntoConstraints (+set), wantsLayer (+set), layerBackgroundColor (+set: turns the layer on, null clears), layerContents / layerContentsGravity / layerMasksToBounds (+set: layer.contents as an NSImage, kCAGravity*, masksToBounds; each turns the layer on), postsFrameChangedNotifications (+set), width/height/leading/trailing/top/bottom/centerX/centerY anchors |
+| `NSWindow` | initWithContentRect:styleMask:backing:defer: (alloc+init, static), title/setTitle:, makeKeyAndOrderFront:, orderOut:, close, performClose:, miniaturize:, isVisible, isKeyWindow, isMainWindow, makeKeyWindow, delegate/setDelegate:, isReleasedWhenClosed/setReleasedWhenClosed:, center, contentView, windowNumber, frame, setContentSize:, styleMask, backingScaleFactor |
+| `NSView` | initWithFrame: (static, allocates the called class), frame/setFrame:, window, menu, superview, subviews, addSubview:, removeFromSuperview, isHidden/setHidden:, content hugging / compression resistance priority per orientation (+set), fittingSize, intrinsicContentSize, layoutSubtreeIfNeeded, visibleRect, scrollPoint:, translatesAutoresizingMaskIntoConstraints (+set), wantsLayer (+set), layerBackgroundColor (+set: turns the layer on, null clears), layerContents / layerContentsGravity / layerMasksToBounds (+set: layer.contents as an NSImage or a CGImage, kCAGravity*, masksToBounds; each turns the layer on), postsFrameChangedNotifications (+set), width/height/leading/trailing/top/bottom/centerX/centerY anchors |
 | `NSLayoutAnchor` | constraintEqualToAnchor:, constraintEqualToAnchor:constant:, constraintEqualToConstant:, constraintGreaterThanOrEqualToAnchor: / constraintLessThanOrEqualToAnchor: (± constant:), constraintGreaterThanOrEqualToConstant:, constraintLessThanOrEqualToConstant: (constant-only forms: NSLayoutDimension only, else AppKitException); one PHP class for dimension/x-axis/y-axis anchors |
 | `NSLayoutConstraint` | activateConstraints:, deactivateConstraints: (static, arrays type-checked), isActive/setActive:, constant/setConstant:, priority/setPriority: |
 | `NSStackView` | stackViewWithViews:, orientation, spacing, edgeInsets, alignment, distribution (+ setters), addArrangedSubview:, insertArrangedSubview:atIndex:, removeArrangedSubview:, arrangedSubviews, customSpacingAfterView: / visibilityPriorityForView: / huggingPriorityForOrientation: (+ setters) |
@@ -77,13 +77,14 @@ Naming, all fixed:
 | `CFRunLoop` | GetMain, GetCurrent, Run, RunInMode, Stop, WakeUp, IsWaiting, CopyCurrentMode, AddSource, RemoveSource, ContainsSource |
 | `CFRunLoopSource` | GetOrder, Invalidate, IsValid, Signal |
 | `CFFileDescriptor` | Create (fd = int, stream or Socket; callout = PHP callable), GetNativeDescriptor, EnableCallBacks, DisableCallBacks, Invalidate, IsValid, CreateRunLoopSource |
+| `CFData`, `CGDataProvider`, `CGColorSpace`, `CGImage` | CFDataCreate (copies the bytes), GetLength; CGDataProviderCreateWithCFData (null for empty data); CGColorSpaceCreateWithName (null for an unknown name); CGImageCreate (no decode array; refuses a provider shorter than bytesPerRow × height; null when Core Graphics refuses), GetWidth, GetHeight |
 | `AppKitException` | extends RuntimeException |
 
 Enums: `NSApplicationActivationPolicy`, `NSEventType`, `NSEventMask`, `NSEventModifierFlags`, `CFRunLoopRunResult`, `NSWindowStyleMask`, `NSBackingStoreType`, `NSControlStateValue`.
 
 Ownership: `init…` statics return an object the PHP wrapper owns (+1 from alloc/init, kept, not re-retained). `NSWindow` defaults to `releasedWhenClosed = YES`, which releases the window a second time on close; whoever holds the PHP object sets it to `false`. Weak references in AppKit (`delegate`, `target`) do not keep trampolines alive: hold the PHP object.
 
-Constants: `kCFFileDescriptorReadCallBack`, `kCFFileDescriptorWriteCallBack`, `kCFRunLoopDefaultMode`, `kCFRunLoopCommonModes`, `NSDefaultRunLoopMode`, `NSRunLoopCommonModes`, `NSEventTrackingRunLoopMode`, `NSModalPanelRunLoopMode`.
+Constants: `kCGColorSpaceSRGB`, `kCGImageAlpha{None, PremultipliedLast, PremultipliedFirst, Last, First, NoneSkipLast, NoneSkipFirst}`, `kCGBitmapByteOrder{Default, 32Little, 32Big}`, `kCGRenderingIntentDefault`, `kCFFileDescriptorReadCallBack`, `kCFFileDescriptorWriteCallBack`, `kCFRunLoopDefaultMode`, `kCFRunLoopCommonModes`, `NSDefaultRunLoopMode`, `NSRunLoopCommonModes`, `NSEventTrackingRunLoopMode`, `NSModalPanelRunLoopMode`.
 
 # Examples
 

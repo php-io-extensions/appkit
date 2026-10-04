@@ -1,5 +1,5 @@
 /* This is a generated file, edit the .stub.php file instead.
- * Stub hash: 9543b2505b715e0079f31366bdfc6db41fba4414 */
+ * Stub hash: 9c325573f3bf362fd4cee62a689b461320f8ebb2 */
 
 ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_NSView_initWithFrame, 0, 1, IS_STATIC, 0)
 	ZEND_ARG_OBJ_INFO(0, frame, NSRect, 0)
@@ -81,11 +81,11 @@ ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_NSView_setLayerBackgroundC
 	ZEND_ARG_OBJ_INFO(0, color, NSColor, 1)
 ZEND_END_ARG_INFO()
 
-ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(arginfo_class_NSView_layerContents, 0, 0, NSImage, 1)
+ZEND_BEGIN_ARG_WITH_RETURN_OBJ_TYPE_MASK_EX(arginfo_class_NSView_layerContents, 0, 0, NSImage|CGImage, MAY_BE_NULL)
 ZEND_END_ARG_INFO()
 
 ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_NSView_setLayerContents, 0, 1, IS_VOID, 0)
-	ZEND_ARG_OBJ_INFO(0, image, NSImage, 1)
+	ZEND_ARG_OBJ_TYPE_MASK(0, contents, NSImage|CGImage, MAY_BE_NULL, NULL)
 ZEND_END_ARG_INFO()
 
 ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_NSView_layerContentsGravity, 0, 0, IS_STRING, 1)

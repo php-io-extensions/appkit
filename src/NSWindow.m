@@ -47,6 +47,16 @@ ZEND_METHOD(NSWindow, initWithContentRectStyleMaskBackingDefer)
 	APPKIT_END
 }
 
+ZEND_METHOD(NSWindow, backingScaleFactor)
+{
+	ZEND_PARSE_PARAMETERS_NONE();
+	APPKIT_REQUIRE_MAIN_THREAD();
+
+	APPKIT_BEGIN
+		RETURN_DOUBLE((double) [THIS_WINDOW backingScaleFactor]);
+	APPKIT_END
+}
+
 ZEND_METHOD(NSWindow, title)
 {
 	ZEND_PARSE_PARAMETERS_NONE();

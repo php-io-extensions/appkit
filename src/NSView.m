@@ -141,22 +141,32 @@ ZEND_METHOD(NSView, layerContents)
 
 	APPKIT_BEGIN
 		id contents = THIS_VIEW.layer.contents;
-		appkit_box_objc(return_value, [contents isKindOfClass:[NSImage class]] ? contents : nil);
+		if (contents != nil && CFGetTypeID((CFTypeRef) contents) == CGImageGetTypeID()) {
+			appkit_box_cf(return_value, (CFTypeRef) contents);
+		} else {
+			appkit_box_objc(return_value, [contents isKindOfClass:[NSImage class]] ? contents : nil);
+		}
 	APPKIT_END
 }
 
 ZEND_METHOD(NSView, setLayerContents)
 {
-	zend_object *image = NULL;
+	zend_object *contents = NULL;
 
 	ZEND_PARSE_PARAMETERS_START(1, 1)
-		Z_PARAM_OBJ_OF_CLASS_OR_NULL(image, appkit_ce_NSImage)
+		Z_PARAM_OBJ_OR_NULL(contents)
 	ZEND_PARSE_PARAMETERS_END();
 	APPKIT_REQUIRE_MAIN_THREAD();
 
+	if (contents != NULL && !instanceof_function(contents->ce, appkit_ce_NSImage) && !instanceof_function(contents->ce, appkit_ce_CGImage)) {
+		zend_argument_type_error(1, "must be of type NSImage|CGImage|null, %s given", ZSTR_VAL(contents->ce->name));
+		RETURN_THROWS();
+	}
+
+	/* CALayer takes either as its contents: a CGImageRef is toll-free an id here. */
 	APPKIT_BEGIN
 		[THIS_VIEW setWantsLayer:YES];
-		THIS_VIEW.layer.contents = image == NULL ? nil : APPKIT_ID(image);
+		THIS_VIEW.layer.contents = contents == NULL ? nil : APPKIT_ID(contents);
 	APPKIT_END
 }
 

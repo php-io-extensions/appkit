@@ -1,5 +1,5 @@
 /* This is a generated file, edit the .stub.php file instead.
- * Stub hash: 3a02b7f0407e31dc7a17912e751ec91472e2063f */
+ * Stub hash: 79743a2d074f8ce7eb9c3658c63267e6c83cc4c5 */
 
 ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(arginfo_class_NSWindow_initWithContentRectStyleMaskBackingDefer, 0, 4, NSWindow, 0)
 	ZEND_ARG_OBJ_INFO(0, contentRect, NSRect, 0)
@@ -9,6 +9,9 @@ ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(arginfo_class_NSWindow_initWithContentRec
 ZEND_END_ARG_INFO()
 
 ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_NSWindow_title, 0, 0, IS_STRING, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_NSWindow_backingScaleFactor, 0, 0, IS_DOUBLE, 0)
 ZEND_END_ARG_INFO()
 
 ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_NSWindow_setTitle, 0, 1, IS_VOID, 0)
@@ -73,6 +76,7 @@ ZEND_END_ARG_INFO()
 
 ZEND_METHOD(NSWindow, initWithContentRectStyleMaskBackingDefer);
 ZEND_METHOD(NSWindow, title);
+ZEND_METHOD(NSWindow, backingScaleFactor);
 ZEND_METHOD(NSWindow, setTitle);
 ZEND_METHOD(NSWindow, makeKeyAndOrderFront);
 ZEND_METHOD(NSWindow, orderOut);
@@ -98,6 +102,7 @@ ZEND_METHOD(NSWindow, styleMask);
 static const zend_function_entry class_NSWindow_methods[] = {
 	ZEND_ME(NSWindow, initWithContentRectStyleMaskBackingDefer, arginfo_class_NSWindow_initWithContentRectStyleMaskBackingDefer, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
 	ZEND_ME(NSWindow, title, arginfo_class_NSWindow_title, ZEND_ACC_PUBLIC)
+	ZEND_ME(NSWindow, backingScaleFactor, arginfo_class_NSWindow_backingScaleFactor, ZEND_ACC_PUBLIC)
 	ZEND_ME(NSWindow, setTitle, arginfo_class_NSWindow_setTitle, ZEND_ACC_PUBLIC)
 	ZEND_ME(NSWindow, makeKeyAndOrderFront, arginfo_class_NSWindow_makeKeyAndOrderFront, ZEND_ACC_PUBLIC)
 	ZEND_ME(NSWindow, orderOut, arginfo_class_NSWindow_orderOut, ZEND_ACC_PUBLIC)

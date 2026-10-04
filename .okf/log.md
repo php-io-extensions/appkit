@@ -1,5 +1,9 @@
 # Log
 
+## 2026-10-03
+
+* Pixels from bytes: `CFData`, `CGDataProvider`, `CGColorSpace`, `CGImage` and their constants; `NSView::setLayerContents()` takes a `CGImage` as well as an `NSImage`; `NSWindow::backingScaleFactor()`. [surface](api/surface.md)
+
 ## 2026-10-02
 
 * Toolkit primitives slice: view/layout/colour/font, stack and grid, controls, table, KVO + notification observers, AVKit video. [surface](api/surface.md) rows, new [layout](architecture/layout.md) and [video](architecture/video.md); delegate `@` returns now box PHP strings and numbers.

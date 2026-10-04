@@ -29,6 +29,10 @@ zend_class_entry *appkit_ce_CFRunLoop;
 zend_class_entry *appkit_ce_CFRunLoopRunResult;
 zend_class_entry *appkit_ce_CFRunLoopSource;
 zend_class_entry *appkit_ce_CFFileDescriptor;
+zend_class_entry *appkit_ce_CFData;
+zend_class_entry *appkit_ce_CGDataProvider;
+zend_class_entry *appkit_ce_CGColorSpace;
+zend_class_entry *appkit_ce_CGImage;
 zend_class_entry *appkit_ce_NSSize;
 zend_class_entry *appkit_ce_NSRect;
 zend_class_entry *appkit_ce_NSView;
@@ -145,6 +149,7 @@ PHP_MINIT_FUNCTION(appkit)
 	appkit_register_CFType();
 	appkit_register_CFRunLoop();
 	appkit_register_CFFileDescriptor();
+	appkit_register_CoreGraphics(module_number);
 
 	return SUCCESS;
 }

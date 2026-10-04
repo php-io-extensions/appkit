@@ -36,6 +36,9 @@ class NSWindow extends NSResponder
 
     public function title(): string {}
 
+    /** Pixels per point of the screen the window is on: 2.0 on a Retina display. */
+    public function backingScaleFactor(): float {}
+
     public function setTitle(string $title): void {}
 
     public function makeKeyAndOrderFront(?NSObject $sender): void {}

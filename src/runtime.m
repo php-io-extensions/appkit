@@ -175,6 +175,14 @@ void appkit_box_cf(zval *rv, CFTypeRef ref)
 		ce = appkit_ce_CFRunLoopSource;
 	} else if (type == CFFileDescriptorGetTypeID()) {
 		ce = appkit_ce_CFFileDescriptor;
+	} else if (type == CFDataGetTypeID()) {
+		ce = appkit_ce_CFData;
+	} else if (type == CGDataProviderGetTypeID()) {
+		ce = appkit_ce_CGDataProvider;
+	} else if (type == CGColorSpaceGetTypeID()) {
+		ce = appkit_ce_CGColorSpace;
+	} else if (type == CGImageGetTypeID()) {
+		ce = appkit_ce_CGImage;
 	}
 
 	appkit_box_new(rv, ce, (void *) CFRetain(ref), true);

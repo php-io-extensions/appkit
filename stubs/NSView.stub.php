@@ -91,11 +91,11 @@ class NSView extends NSResponder
     /** setWantsLayer:YES, then layer.backgroundColor = color.CGColor; null clears the colour */
     public function setLayerBackgroundColor(?NSColor $color): void {}
 
-    /** layer.contents as an NSImage; null when the view has no layer or the contents are not an image */
-    public function layerContents(): ?NSImage {}
+    /** layer.contents; null when the view has no layer or its contents are neither kind of image */
+    public function layerContents(): NSImage|CGImage|null {}
 
-    /** setWantsLayer:YES, then layer.contents = image; null clears it */
-    public function setLayerContents(?NSImage $image): void {}
+    /** setWantsLayer:YES, then layer.contents = contents; null clears it */
+    public function setLayerContents(NSImage|CGImage|null $contents): void {}
 
     /** layer.contentsGravity; null when the view has no layer */
     public function layerContentsGravity(): ?string {}
