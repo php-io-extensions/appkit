@@ -37,7 +37,7 @@ it('exposes every class, enum and method the stubs declare', function (): void {
 });
 
 it('reports its version', function (): void {
-    expect(phpversion('appkit'))->toBe('0.10.0');
+    expect(phpversion('appkit'))->toBe('0.10.1');
 });
 
 it('keeps the native class hierarchy', function (): void {

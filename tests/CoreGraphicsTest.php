@@ -63,3 +63,21 @@ it('shows an image made from bytes as a view\'s layer contents, and clears it', 
     expect(fn () => $view->setLayerContents(CFData::create('x')))->toThrow(TypeError::class, 'must be of type NSImage|CGImage|null, CFData given')
         ->and($window->backingScaleFactor())->toBeGreaterThanOrEqual(1.0);
 });
+
+it('copies bytes at an address into a CFData', function () {
+    $buffer = new FbBuffer(new FbFormat(FB_LAYOUT_RGBA8888, channelOrder: FB_CHANNELS_RGBA), 4, 2);
+    $buffer->fill(0x11223344);
+
+    $data = CFData::create($buffer->pointer(), $buffer->size());
+
+    expect($data->getLength())->toBe(32)
+        ->and(CFData::create($buffer->bytes())->getLength())->toBe(32);
+})->skip(! class_exists(FbBuffer::class), 'needs ext-fb for a native address');
+
+it('refuses an address without a length, a null address, and a length with a string', function (Closure $call, string $message) {
+    expect($call)->toThrow(ValueError::class, $message);
+})->with([
+    'no length' => [fn () => CFData::create(4096), 'must be the byte count'],
+    'null address' => [fn () => CFData::create(0, 4), 'must not be a null address'],
+    'string with length' => [fn () => CFData::create('abcd', 4), 'must be null when $bytes is a string'],
+]);

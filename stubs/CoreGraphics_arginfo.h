@@ -1,8 +1,9 @@
 /* This is a generated file, edit the .stub.php file instead.
- * Stub hash: 4144391a693f1aceb5cc8b5eef6d6a8ebe5e52af */
+ * Stub hash: 33d997933b8e69a71534b75cf602f822a0d64087 */
 
 ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(arginfo_class_CFData_create, 0, 1, CFData, 0)
-	ZEND_ARG_TYPE_INFO(0, bytes, IS_STRING, 0)
+	ZEND_ARG_TYPE_MASK(0, bytes, MAY_BE_STRING|MAY_BE_LONG, NULL)
+	ZEND_ARG_TYPE_INFO_WITH_DEFAULT_VALUE(0, length, IS_LONG, 1, "null")
 ZEND_END_ARG_INFO()
 
 ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_CFData_getLength, 0, 0, IS_LONG, 0)

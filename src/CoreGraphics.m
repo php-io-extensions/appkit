@@ -26,13 +26,36 @@ static void appkit_return_created(zval *return_value, CFTypeRef created)
 
 ZEND_METHOD(CFData, create)
 {
-	zend_string *bytes;
+	zend_string *bytes = NULL;
+	zend_long address = 0;
+	zend_long length = 0;
+	bool length_null = true;
 
-	ZEND_PARSE_PARAMETERS_START(1, 1)
-		Z_PARAM_STR(bytes)
+	ZEND_PARSE_PARAMETERS_START(1, 2)
+		Z_PARAM_STR_OR_LONG(bytes, address)
+		Z_PARAM_OPTIONAL
+		Z_PARAM_LONG_OR_NULL(length, length_null)
 	ZEND_PARSE_PARAMETERS_END();
 
-	appkit_return_created(return_value, CFDataCreate(kCFAllocatorDefault, (const UInt8 *) ZSTR_VAL(bytes), (CFIndex) ZSTR_LEN(bytes)));
+	if (bytes != NULL) {
+		if (!length_null) {
+			zend_argument_value_error(2, "must be null when $bytes is a string");
+			RETURN_THROWS();
+		}
+		appkit_return_created(return_value, CFDataCreate(kCFAllocatorDefault, (const UInt8 *) ZSTR_VAL(bytes), (CFIndex) ZSTR_LEN(bytes)));
+		return;
+	}
+	if (address == 0) {
+		zend_argument_value_error(1, "must not be a null address");
+		RETURN_THROWS();
+	}
+	if (length_null || length < 0) {
+		zend_argument_value_error(2, "must be the byte count to read at the address $bytes");
+		RETURN_THROWS();
+	}
+
+	/* The address is trusted: an ext-fb buffer's pointer() with its size(). */
+	appkit_return_created(return_value, CFDataCreate(kCFAllocatorDefault, (const UInt8 *) (uintptr_t) address, (CFIndex) length));
 }
 
 ZEND_METHOD(CFData, getLength)

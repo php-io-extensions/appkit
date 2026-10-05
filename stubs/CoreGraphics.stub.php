@@ -79,8 +79,11 @@ const kCGRenderingIntentDefault = UNKNOWN;
  */
 final class CFData extends CFType
 {
-    /** CFDataCreate: a copy of $bytes */
-    public static function create(string $bytes): CFData {}
+    /**
+     * CFDataCreate: a copy of $bytes, or of $length bytes read at the address $bytes
+     * (an ext-fb buffer's pointer()). An address is trusted: it must hold $length readable bytes.
+     */
+    public static function create(string|int $bytes, ?int $length = null): CFData {}
 
     public function getLength(): int {}
 }

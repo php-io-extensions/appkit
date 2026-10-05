@@ -1,5 +1,9 @@
 # Log
 
+## 2026-10-04
+
+* Extension version is 0.10.1. `CFData::create()` also copies `$length` bytes at a trusted address.
+
 ## 2026-10-03
 
 * Pixels from bytes: `CFData`, `CGDataProvider`, `CGColorSpace`, `CGImage` and their constants; `NSView::setLayerContents()` takes a `CGImage` as well as an `NSImage`; `NSWindow::backingScaleFactor()`. [surface](api/surface.md)
