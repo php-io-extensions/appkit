@@ -35,6 +35,7 @@ zend_class_entry *appkit_ce_CGColorSpace;
 zend_class_entry *appkit_ce_CGImage;
 zend_class_entry *appkit_ce_NSSize;
 zend_class_entry *appkit_ce_NSRect;
+zend_class_entry *appkit_ce_CALayer;
 zend_class_entry *appkit_ce_NSView;
 zend_class_entry *appkit_ce_NSWindow;
 zend_class_entry *appkit_ce_NSWindowStyleMask;
@@ -45,6 +46,10 @@ zend_class_entry *appkit_ce_NSControlStateValue;
 zend_class_entry *appkit_ce_ObjCDelegate;
 zend_class_entry *appkit_ce_ObjCTarget;
 zend_class_entry *appkit_ce_ObjCObserver;
+zend_class_entry *appkit_ce_ObjCOpenGLView;
+zend_class_entry *appkit_ce_NSOpenGLPixelFormat;
+zend_class_entry *appkit_ce_NSOpenGLContext;
+zend_class_entry *appkit_ce_NSOpenGLView;
 zend_class_entry *appkit_ce_NSNotification;
 zend_class_entry *appkit_ce_NSNotificationCenter;
 zend_class_entry *appkit_ce_NSOperationQueue;
@@ -126,6 +131,7 @@ PHP_MINIT_FUNCTION(appkit)
 	appkit_ce_AppKitException = register_class_AppKitException(spl_ce_RuntimeException);
 
 	appkit_register_NSObject();
+	appkit_register_CALayer();
 	appkit_register_NSResponder();
 	appkit_register_NSApplication();
 	appkit_register_NSEvent();
@@ -133,6 +139,7 @@ PHP_MINIT_FUNCTION(appkit)
 	appkit_register_NSPoint();
 	appkit_register_NSGeometry();
 	appkit_register_NSView(module_number);
+	appkit_register_NSOpenGL(module_number);
 	appkit_register_NSLayout();
 	appkit_register_NSColor();
 	appkit_register_NSFont();

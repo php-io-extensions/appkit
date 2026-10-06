@@ -68,3 +68,15 @@ final class ObjCObserver extends NSObject
 
     public function stop(NSObject $object, string $keyPath): void {}
 }
+
+/**
+ * An NSOpenGLView whose drawRect: calls PHP, its context current: the trampoline
+ * a PHP painter needs. After the handler returns, the view flushes its context.
+ *
+ * @not-serializable
+ */
+final class ObjCOpenGLView extends NSOpenGLView
+{
+    /** @param callable $draw called as $draw(ObjCOpenGLView $view): void from drawRect: */
+    public static function initWithFramePixelFormatDraw(NSRect $frame, ?NSOpenGLPixelFormat $format, callable $draw): static {}
+}

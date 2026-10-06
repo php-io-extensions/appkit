@@ -52,6 +52,11 @@ class NSView extends NSResponder
 
     public function removeFromSuperview(): void {}
 
+    /** setNeedsDisplay: */
+    public function setNeedsDisplay(bool $flag): void {}
+
+    public function needsDisplay(): bool {}
+
     public function isHidden(): bool {}
 
     public function setHidden(bool $hidden): void {}
@@ -84,6 +89,15 @@ class NSView extends NSResponder
     public function wantsLayer(): bool {}
 
     public function setWantsLayer(bool $flag): void {}
+
+    /** The view's layer; null when it has none. */
+    public function layer(): ?CALayer {}
+
+    /**
+     * setWantsLayer:YES, then the view's layer = $layer (the view hosts it). Null puts a fresh
+     * backing layer of the view's own in place: wantsLayer off and on again.
+     */
+    public function setLayer(?CALayer $layer): void {}
 
     /** NSColor of layer.backgroundColor; null when the view has no layer or the layer no colour */
     public function layerBackgroundColor(): ?NSColor {}

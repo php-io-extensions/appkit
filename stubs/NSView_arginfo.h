@@ -1,5 +1,5 @@
 /* This is a generated file, edit the .stub.php file instead.
- * Stub hash: 9c325573f3bf362fd4cee62a689b461320f8ebb2 */
+ * Stub hash: 3d406e3e122334c66636178f98b8179f2829854c */
 
 ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_NSView_initWithFrame, 0, 1, IS_STATIC, 0)
 	ZEND_ARG_OBJ_INFO(0, frame, NSRect, 0)
@@ -31,8 +31,14 @@ ZEND_END_ARG_INFO()
 ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_NSView_removeFromSuperview, 0, 0, IS_VOID, 0)
 ZEND_END_ARG_INFO()
 
-ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_NSView_isHidden, 0, 0, _IS_BOOL, 0)
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_NSView_setNeedsDisplay, 0, 1, IS_VOID, 0)
+	ZEND_ARG_TYPE_INFO(0, flag, _IS_BOOL, 0)
 ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_NSView_needsDisplay, 0, 0, _IS_BOOL, 0)
+ZEND_END_ARG_INFO()
+
+#define arginfo_class_NSView_isHidden arginfo_class_NSView_needsDisplay
 
 ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_NSView_setHidden, 0, 1, IS_VOID, 0)
 	ZEND_ARG_TYPE_INFO(0, hidden, _IS_BOOL, 0)
@@ -64,15 +70,20 @@ ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_NSView_scrollPoint, 0, 1, 
 	ZEND_ARG_OBJ_INFO(0, point, NSPoint, 0)
 ZEND_END_ARG_INFO()
 
-#define arginfo_class_NSView_translatesAutoresizingMaskIntoConstraints arginfo_class_NSView_isHidden
+#define arginfo_class_NSView_translatesAutoresizingMaskIntoConstraints arginfo_class_NSView_needsDisplay
 
-ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_NSView_setTranslatesAutoresizingMaskIntoConstraints, 0, 1, IS_VOID, 0)
-	ZEND_ARG_TYPE_INFO(0, flag, _IS_BOOL, 0)
+#define arginfo_class_NSView_setTranslatesAutoresizingMaskIntoConstraints arginfo_class_NSView_setNeedsDisplay
+
+#define arginfo_class_NSView_wantsLayer arginfo_class_NSView_needsDisplay
+
+#define arginfo_class_NSView_setWantsLayer arginfo_class_NSView_setNeedsDisplay
+
+ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(arginfo_class_NSView_layer, 0, 0, CALayer, 1)
 ZEND_END_ARG_INFO()
 
-#define arginfo_class_NSView_wantsLayer arginfo_class_NSView_isHidden
-
-#define arginfo_class_NSView_setWantsLayer arginfo_class_NSView_setTranslatesAutoresizingMaskIntoConstraints
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_NSView_setLayer, 0, 1, IS_VOID, 0)
+	ZEND_ARG_OBJ_INFO(0, layer, CALayer, 1)
+ZEND_END_ARG_INFO()
 
 ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(arginfo_class_NSView_layerBackgroundColor, 0, 0, NSColor, 1)
 ZEND_END_ARG_INFO()
@@ -95,13 +106,13 @@ ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_NSView_setLayerContentsGra
 	ZEND_ARG_TYPE_INFO(0, gravity, IS_STRING, 0)
 ZEND_END_ARG_INFO()
 
-#define arginfo_class_NSView_layerMasksToBounds arginfo_class_NSView_isHidden
+#define arginfo_class_NSView_layerMasksToBounds arginfo_class_NSView_needsDisplay
 
-#define arginfo_class_NSView_setLayerMasksToBounds arginfo_class_NSView_setTranslatesAutoresizingMaskIntoConstraints
+#define arginfo_class_NSView_setLayerMasksToBounds arginfo_class_NSView_setNeedsDisplay
 
-#define arginfo_class_NSView_postsFrameChangedNotifications arginfo_class_NSView_isHidden
+#define arginfo_class_NSView_postsFrameChangedNotifications arginfo_class_NSView_needsDisplay
 
-#define arginfo_class_NSView_setPostsFrameChangedNotifications arginfo_class_NSView_setTranslatesAutoresizingMaskIntoConstraints
+#define arginfo_class_NSView_setPostsFrameChangedNotifications arginfo_class_NSView_setNeedsDisplay
 
 ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(arginfo_class_NSView_widthAnchor, 0, 0, NSLayoutAnchor, 0)
 ZEND_END_ARG_INFO()
@@ -129,6 +140,8 @@ ZEND_METHOD(NSView, superview);
 ZEND_METHOD(NSView, subviews);
 ZEND_METHOD(NSView, addSubview);
 ZEND_METHOD(NSView, removeFromSuperview);
+ZEND_METHOD(NSView, setNeedsDisplay);
+ZEND_METHOD(NSView, needsDisplay);
 ZEND_METHOD(NSView, isHidden);
 ZEND_METHOD(NSView, setHidden);
 ZEND_METHOD(NSView, contentHuggingPriorityForOrientation);
@@ -144,6 +157,8 @@ ZEND_METHOD(NSView, translatesAutoresizingMaskIntoConstraints);
 ZEND_METHOD(NSView, setTranslatesAutoresizingMaskIntoConstraints);
 ZEND_METHOD(NSView, wantsLayer);
 ZEND_METHOD(NSView, setWantsLayer);
+ZEND_METHOD(NSView, layer);
+ZEND_METHOD(NSView, setLayer);
 ZEND_METHOD(NSView, layerBackgroundColor);
 ZEND_METHOD(NSView, setLayerBackgroundColor);
 ZEND_METHOD(NSView, layerContents);
@@ -173,6 +188,8 @@ static const zend_function_entry class_NSView_methods[] = {
 	ZEND_ME(NSView, subviews, arginfo_class_NSView_subviews, ZEND_ACC_PUBLIC)
 	ZEND_ME(NSView, addSubview, arginfo_class_NSView_addSubview, ZEND_ACC_PUBLIC)
 	ZEND_ME(NSView, removeFromSuperview, arginfo_class_NSView_removeFromSuperview, ZEND_ACC_PUBLIC)
+	ZEND_ME(NSView, setNeedsDisplay, arginfo_class_NSView_setNeedsDisplay, ZEND_ACC_PUBLIC)
+	ZEND_ME(NSView, needsDisplay, arginfo_class_NSView_needsDisplay, ZEND_ACC_PUBLIC)
 	ZEND_ME(NSView, isHidden, arginfo_class_NSView_isHidden, ZEND_ACC_PUBLIC)
 	ZEND_ME(NSView, setHidden, arginfo_class_NSView_setHidden, ZEND_ACC_PUBLIC)
 	ZEND_ME(NSView, contentHuggingPriorityForOrientation, arginfo_class_NSView_contentHuggingPriorityForOrientation, ZEND_ACC_PUBLIC)
@@ -188,6 +205,8 @@ static const zend_function_entry class_NSView_methods[] = {
 	ZEND_ME(NSView, setTranslatesAutoresizingMaskIntoConstraints, arginfo_class_NSView_setTranslatesAutoresizingMaskIntoConstraints, ZEND_ACC_PUBLIC)
 	ZEND_ME(NSView, wantsLayer, arginfo_class_NSView_wantsLayer, ZEND_ACC_PUBLIC)
 	ZEND_ME(NSView, setWantsLayer, arginfo_class_NSView_setWantsLayer, ZEND_ACC_PUBLIC)
+	ZEND_ME(NSView, layer, arginfo_class_NSView_layer, ZEND_ACC_PUBLIC)
+	ZEND_ME(NSView, setLayer, arginfo_class_NSView_setLayer, ZEND_ACC_PUBLIC)
 	ZEND_ME(NSView, layerBackgroundColor, arginfo_class_NSView_layerBackgroundColor, ZEND_ACC_PUBLIC)
 	ZEND_ME(NSView, setLayerBackgroundColor, arginfo_class_NSView_setLayerBackgroundColor, ZEND_ACC_PUBLIC)
 	ZEND_ME(NSView, layerContents, arginfo_class_NSView_layerContents, ZEND_ACC_PUBLIC)

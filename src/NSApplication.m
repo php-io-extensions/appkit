@@ -238,6 +238,30 @@ ZEND_METHOD(NSApplication, updateWindows)
 	APPKIT_END
 }
 
+ZEND_METHOD(NSApplication, delegate)
+{
+	ZEND_PARSE_PARAMETERS_NONE();
+	APPKIT_REQUIRE_MAIN_THREAD();
+
+	APPKIT_BEGIN
+		appkit_box_objc(return_value, (id) [THIS_APP delegate]);
+	APPKIT_END
+}
+
+ZEND_METHOD(NSApplication, setDelegate)
+{
+	zend_object *delegate = NULL;
+
+	ZEND_PARSE_PARAMETERS_START(1, 1)
+		Z_PARAM_OBJ_OF_CLASS_OR_NULL(delegate, appkit_ce_NSObject)
+	ZEND_PARSE_PARAMETERS_END();
+	APPKIT_REQUIRE_MAIN_THREAD();
+
+	APPKIT_BEGIN
+		[THIS_APP setDelegate:(id<NSApplicationDelegate>) (delegate != NULL ? APPKIT_ID(delegate) : nil)];
+	APPKIT_END
+}
+
 ZEND_METHOD(NSApplication, mainMenu)
 {
 	ZEND_PARSE_PARAMETERS_NONE();

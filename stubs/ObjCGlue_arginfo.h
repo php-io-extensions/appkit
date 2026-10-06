@@ -1,5 +1,5 @@
 /* This is a generated file, edit the .stub.php file instead.
- * Stub hash: bbde54bb9a2872b52fbb5986a9f9acf197e0e00b */
+ * Stub hash: c6a4dc2fd5f71bf515672517ddc1e1520f004212 */
 
 ZEND_BEGIN_ARG_INFO_EX(arginfo_class_ObjCDelegate___construct, 0, 0, 1)
 	ZEND_ARG_TYPE_INFO(0, protocol, IS_STRING, 0)
@@ -34,6 +34,12 @@ ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_ObjCObserver_stop, 0, 2, I
 	ZEND_ARG_TYPE_INFO(0, keyPath, IS_STRING, 0)
 ZEND_END_ARG_INFO()
 
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_ObjCOpenGLView_initWithFramePixelFormatDraw, 0, 3, IS_STATIC, 0)
+	ZEND_ARG_OBJ_INFO(0, frame, NSRect, 0)
+	ZEND_ARG_OBJ_INFO(0, format, NSOpenGLPixelFormat, 1)
+	ZEND_ARG_TYPE_INFO(0, draw, IS_CALLABLE, 0)
+ZEND_END_ARG_INFO()
+
 ZEND_METHOD(ObjCDelegate, __construct);
 ZEND_METHOD(ObjCDelegate, on);
 ZEND_METHOD(ObjCDelegate, off);
@@ -42,6 +48,7 @@ ZEND_METHOD(ObjCTarget, __construct);
 ZEND_METHOD(ObjCObserver, __construct);
 ZEND_METHOD(ObjCObserver, observe);
 ZEND_METHOD(ObjCObserver, stop);
+ZEND_METHOD(ObjCOpenGLView, initWithFramePixelFormatDraw);
 
 static const zend_function_entry class_ObjCDelegate_methods[] = {
 	ZEND_ME(ObjCDelegate, __construct, arginfo_class_ObjCDelegate___construct, ZEND_ACC_PUBLIC)
@@ -60,6 +67,11 @@ static const zend_function_entry class_ObjCObserver_methods[] = {
 	ZEND_ME(ObjCObserver, __construct, arginfo_class_ObjCObserver___construct, ZEND_ACC_PUBLIC)
 	ZEND_ME(ObjCObserver, observe, arginfo_class_ObjCObserver_observe, ZEND_ACC_PUBLIC)
 	ZEND_ME(ObjCObserver, stop, arginfo_class_ObjCObserver_stop, ZEND_ACC_PUBLIC)
+	ZEND_FE_END
+};
+
+static const zend_function_entry class_ObjCOpenGLView_methods[] = {
+	ZEND_ME(ObjCOpenGLView, initWithFramePixelFormatDraw, arginfo_class_ObjCOpenGLView_initWithFramePixelFormatDraw, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
 	ZEND_FE_END
 };
 
@@ -114,6 +126,16 @@ static zend_class_entry *register_class_ObjCObserver(zend_class_entry *class_ent
 	zend_string *const_OPTION_INITIAL_name = zend_string_init_interned("OPTION_INITIAL", sizeof("OPTION_INITIAL") - 1, 1);
 	zend_declare_typed_class_constant(class_entry, const_OPTION_INITIAL_name, &const_OPTION_INITIAL_value, ZEND_ACC_PUBLIC, NULL, (zend_type) ZEND_TYPE_INIT_MASK(MAY_BE_LONG));
 	zend_string_release(const_OPTION_INITIAL_name);
+
+	return class_entry;
+}
+
+static zend_class_entry *register_class_ObjCOpenGLView(zend_class_entry *class_entry_NSOpenGLView)
+{
+	zend_class_entry ce, *class_entry;
+
+	INIT_CLASS_ENTRY(ce, "ObjCOpenGLView", class_ObjCOpenGLView_methods);
+	class_entry = zend_register_internal_class_with_flags(&ce, class_entry_NSOpenGLView, ZEND_ACC_FINAL|ZEND_ACC_NOT_SERIALIZABLE);
 
 	return class_entry;
 }

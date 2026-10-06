@@ -294,6 +294,38 @@ APPKIT_VIEW_BOOL_GET(translatesAutoresizingMaskIntoConstraints, translatesAutore
 APPKIT_VIEW_BOOL_SET(setTranslatesAutoresizingMaskIntoConstraints, setTranslatesAutoresizingMaskIntoConstraints)
 APPKIT_VIEW_BOOL_GET(wantsLayer, wantsLayer)
 APPKIT_VIEW_BOOL_SET(setWantsLayer, setWantsLayer)
+
+ZEND_METHOD(NSView, layer)
+{
+	ZEND_PARSE_PARAMETERS_NONE();
+	APPKIT_REQUIRE_MAIN_THREAD();
+
+	APPKIT_BEGIN
+		appkit_box_objc(return_value, THIS_VIEW.layer);
+	APPKIT_END
+}
+
+ZEND_METHOD(NSView, setLayer)
+{
+	zend_object *layer = NULL;
+
+	ZEND_PARSE_PARAMETERS_START(1, 1)
+		Z_PARAM_OBJ_OF_CLASS_OR_NULL(layer, appkit_ce_CALayer)
+	ZEND_PARSE_PARAMETERS_END();
+	APPKIT_REQUIRE_MAIN_THREAD();
+
+	APPKIT_BEGIN
+		if (layer == NULL) {
+			/* Back to a backing layer of the view's own: AppKit makes one when wantsLayer turns on with no layer set. */
+			THIS_VIEW.layer = nil;
+			[THIS_VIEW setWantsLayer:NO];
+			[THIS_VIEW setWantsLayer:YES];
+		} else {
+			[THIS_VIEW setWantsLayer:YES];
+			THIS_VIEW.layer = (CALayer *) APPKIT_ID(layer);
+		}
+	APPKIT_END
+}
 APPKIT_VIEW_BOOL_GET(postsFrameChangedNotifications, postsFrameChangedNotifications)
 APPKIT_VIEW_BOOL_SET(setPostsFrameChangedNotifications, setPostsFrameChangedNotifications)
 APPKIT_VIEW_ANCHOR(superview, superview)
@@ -306,3 +338,24 @@ APPKIT_VIEW_ANCHOR(topAnchor, topAnchor)
 APPKIT_VIEW_ANCHOR(bottomAnchor, bottomAnchor)
 APPKIT_VIEW_ANCHOR(centerXAnchor, centerXAnchor)
 APPKIT_VIEW_ANCHOR(centerYAnchor, centerYAnchor)
+
+ZEND_METHOD(NSView, setNeedsDisplay)
+{
+	bool flag;
+
+	ZEND_PARSE_PARAMETERS_START(1, 1)
+		Z_PARAM_BOOL(flag)
+	ZEND_PARSE_PARAMETERS_END();
+	APPKIT_REQUIRE_MAIN_THREAD();
+
+	APPKIT_BEGIN
+		[THIS_VIEW setNeedsDisplay:flag];
+	APPKIT_END
+}
+
+ZEND_METHOD(NSView, needsDisplay)
+{
+	ZEND_PARSE_PARAMETERS_NONE();
+
+	RETURN_BOOL([THIS_VIEW needsDisplay]);
+}

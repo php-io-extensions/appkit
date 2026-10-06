@@ -289,6 +289,39 @@ static void appkit_invocation_return(NSInvocation *invocation, zval *value)
 
 @end
 
+/* ---- PHPOpenGLView ------------------------------------------------------- */
+
+@interface PHPOpenGLView : NSOpenGLView {
+@public
+	appkit_callout *draw;
+}
+@end
+
+@implementation PHPOpenGLView
+
+- (void)dealloc
+{
+	if (draw != NULL) {
+		appkit_callout_release(draw);
+	}
+	[super dealloc];
+}
+
+- (void)drawRect:(NSRect)dirty
+{
+	zval argv[1];
+
+	[[self openGLContext] makeCurrentContext];
+	if (draw != NULL && appkit_callout_can_enter(draw)) {
+		appkit_box_objc(&argv[0], self);
+		appkit_callout_invoke(draw, 1, argv);
+		zval_ptr_dtor(&argv[0]);
+	}
+	[[self openGLContext] flushBuffer];
+}
+
+@end
+
 /* ---- PHPAppKitObserver -------------------------------------------------- */
 
 @interface PHPAppKitObserver : NSObject {
@@ -378,6 +411,10 @@ void appkit_register_ObjCGlue(void)
 	appkit_ce_ObjCObserver = register_class_ObjCObserver(appkit_ce_NSObject);
 	appkit_object_setup(appkit_ce_ObjCObserver);
 	appkit_map_objc_class("PHPAppKitObserver", appkit_ce_ObjCObserver);
+
+	appkit_ce_ObjCOpenGLView = register_class_ObjCOpenGLView(appkit_ce_NSOpenGLView);
+	appkit_object_setup(appkit_ce_ObjCOpenGLView);
+	appkit_map_objc_class("PHPOpenGLView", appkit_ce_ObjCOpenGLView);
 }
 
 #define THIS_DELEGATE ((PHPAppKitDelegate *) APPKIT_ID(Z_OBJ_P(ZEND_THIS)))
@@ -574,5 +611,39 @@ ZEND_METHOD(ObjCObserver, stop)
 		}
 		[THIS_OBSERVER->observed removeObjectAtIndex:index];
 		[target removeObserver:THIS_OBSERVER forKeyPath:path];
+	APPKIT_END
+}
+
+ZEND_METHOD(ObjCOpenGLView, initWithFramePixelFormatDraw)
+{
+	zend_object *frame, *format_obj = NULL;
+	zval *handler;
+	NSRect rect;
+
+	ZEND_PARSE_PARAMETERS_START(3, 3)
+		Z_PARAM_OBJ_OF_CLASS(frame, appkit_ce_NSRect)
+		Z_PARAM_OBJ_OF_CLASS_OR_NULL(format_obj, appkit_ce_NSOpenGLPixelFormat)
+		Z_PARAM_ZVAL(handler)
+	ZEND_PARSE_PARAMETERS_END();
+	APPKIT_REQUIRE_MAIN_THREAD();
+	if (!appkit_rect_from(frame, 1, &rect)) {
+		RETURN_THROWS();
+	}
+	if (!zend_is_callable(handler, 0, NULL)) {
+		zend_argument_type_error(3, "must be a valid callback");
+		RETURN_THROWS();
+	}
+
+	APPKIT_BEGIN
+		PHPOpenGLView *view = [[PHPOpenGLView alloc]
+			initWithFrame:rect pixelFormat:format_obj != NULL ? (NSOpenGLPixelFormat *) APPKIT_ID(format_obj) : nil];
+		if (view == nil) {
+			zend_throw_exception(appkit_ce_AppKitException, "NSOpenGLView made no view for that pixel format", 0);
+			RETURN_THROWS();
+		}
+		view->draw = appkit_callout_new(handler, NULL);
+		appkit_callout_retain(view->draw);
+		appkit_box_objc(return_value, view);
+		[view release];
 	APPKIT_END
 }

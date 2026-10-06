@@ -48,6 +48,10 @@ class NSApplication extends NSResponder
 
     public function updateWindows(): void {}
 
+    public function delegate(): ?NSObject {}
+
+    public function setDelegate(?NSObject $delegate): void {}
+
     public function mainMenu(): ?NSMenu {}
 
     public function setMainMenu(?NSMenu $mainMenu): void {}

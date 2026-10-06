@@ -13,7 +13,7 @@ if test "$PHP_APPKIT" != "no"; then
     AC_MSG_ERROR([appkit builds as a shared extension only])
   fi
 
-  APPKIT_SOURCES="src/appkit.m src/runtime.m src/NSObject.m src/NSApplication.m src/NSEvent.m src/NSDate.m src/CFType.m src/CFRunLoop.m src/CFFileDescriptor.m src/CoreGraphics.m src/NSGeometry.m src/NSView.m src/NSWindow.m src/NSMenu.m src/ObjCGlue.m src/NSLayout.m src/NSColor.m src/NSFont.m src/NSStackView.m src/NSGridView.m src/NSControls.m src/NSTableView.m src/NSNotificationCenter.m src/AVKit.m"
+  APPKIT_SOURCES="src/appkit.m src/runtime.m src/NSObject.m src/NSApplication.m src/NSEvent.m src/NSDate.m src/CFType.m src/CFRunLoop.m src/CFFileDescriptor.m src/CoreGraphics.m src/NSGeometry.m src/NSView.m src/NSWindow.m src/NSMenu.m src/ObjCGlue.m src/NSLayout.m src/NSColor.m src/NSFont.m src/NSStackView.m src/NSGridView.m src/NSControls.m src/NSTableView.m src/NSNotificationCenter.m src/AVKit.m src/CALayer.m src/NSOpenGL.m"
 
   dnl No C sources: every translation unit is Objective-C, compiled by the rules below.
   PHP_NEW_EXTENSION([appkit], [], [$ext_shared],, [-DZEND_ENABLE_STATIC_TSRMLS_CACHE=1])
@@ -27,10 +27,10 @@ if test "$PHP_APPKIT" != "no"; then
     cat >>Makefile.objects<<EOF
 -include $appkit_obj.dep
 $appkit_obj.lo: $abs_srcdir/$appkit_src
-	$shared_c_pre -I. -I$abs_srcdir $shared_c_meta -DZEND_COMPILE_DL_EXT=1 -DZEND_ENABLE_STATIC_TSRMLS_CACHE=1 -x objective-c -fno-objc-arc -fobjc-exceptions -Wno-unused-parameter -c $abs_srcdir/$appkit_src -o $appkit_obj.lo $shared_c_post -MMD -MF $appkit_obj.dep -MT $appkit_obj.lo
+	$shared_c_pre -I. -I$abs_srcdir $shared_c_meta -DZEND_COMPILE_DL_EXT=1 -DZEND_ENABLE_STATIC_TSRMLS_CACHE=1 -DGL_SILENCE_DEPRECATION -x objective-c -fno-objc-arc -fobjc-exceptions -Wno-unused-parameter -c $abs_srcdir/$appkit_src -o $appkit_obj.lo $shared_c_post -MMD -MF $appkit_obj.dep -MT $appkit_obj.lo
 EOF
   done
 
-  APPKIT_SHARED_LIBADD="-framework Foundation -framework CoreFoundation -framework AppKit -framework AVKit -framework AVFoundation -framework CoreMedia -framework QuartzCore -framework CoreGraphics -lobjc"
+  APPKIT_SHARED_LIBADD="-framework Foundation -framework CoreFoundation -framework AppKit -framework AVKit -framework AVFoundation -framework CoreMedia -framework QuartzCore -framework CoreGraphics -framework OpenGL -lobjc"
   PHP_SUBST([APPKIT_SHARED_LIBADD])
 fi

@@ -1,5 +1,14 @@
 # Log
 
+## 2026-10-06
+
+* OpenGL views: `NSOpenGLPixelFormat`, `NSOpenGLContext`, `NSOpenGLView`, the `ObjCOpenGLView` trampoline (`drawRect:` calls PHP with the view's context current, then flushes), the `NSOpenGLPFA*` constants, and `NSView::setNeedsDisplay()` / `needsDisplay()`. Built with `GL_SILENCE_DEPRECATION`, linked against `OpenGL.framework`. Suite 159 on Homebrew PHP 8.4 NTS and ZTS. [surface](api/surface.md)
+
+## 2026-10-05
+
+* `CALayer::sublayers()` / `addSublayer()`: a layer a toolkit nests (Qt's container layer holds its `CAMetalLayer`) is reached from the view's layer. [surface](api/surface.md)
+* Extension version is 0.10.2. Layers: `CALayer` (`layer`, `contentsScale`), `NSView::layer()` / `setLayer()`, `NSObject::fromPointer()` checked against the called class. [surface](api/surface.md)
+
 ## 2026-10-04
 
 * Extension version is 0.10.1. `CFData::create()` also copies `$length` bytes at a trusted address.

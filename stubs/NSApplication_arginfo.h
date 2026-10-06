@@ -1,5 +1,5 @@
 /* This is a generated file, edit the .stub.php file instead.
- * Stub hash: 38e0de19a17125adf9ebd9abbc430156dbdadd5b */
+ * Stub hash: 0b3bbb5f5b257a1fbf5e7e38c029ee16e92c48f5 */
 
 ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(arginfo_class_NSApplication_sharedApplication, 0, 0, NSApplication, 0)
 ZEND_END_ARG_INFO()
@@ -59,6 +59,13 @@ ZEND_END_ARG_INFO()
 
 #define arginfo_class_NSApplication_updateWindows arginfo_class_NSApplication_finishLaunching
 
+ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(arginfo_class_NSApplication_delegate, 0, 0, NSObject, 1)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_NSApplication_setDelegate, 0, 1, IS_VOID, 0)
+	ZEND_ARG_OBJ_INFO(0, delegate, NSObject, 1)
+ZEND_END_ARG_INFO()
+
 ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(arginfo_class_NSApplication_mainMenu, 0, 0, NSMenu, 1)
 ZEND_END_ARG_INFO()
 
@@ -97,6 +104,8 @@ ZEND_METHOD(NSApplication, sendEvent);
 ZEND_METHOD(NSApplication, postEventAtStart);
 ZEND_METHOD(NSApplication, currentEvent);
 ZEND_METHOD(NSApplication, updateWindows);
+ZEND_METHOD(NSApplication, delegate);
+ZEND_METHOD(NSApplication, setDelegate);
 ZEND_METHOD(NSApplication, mainMenu);
 ZEND_METHOD(NSApplication, setMainMenu);
 ZEND_METHOD(NSApplication, keyWindow);
@@ -123,6 +132,8 @@ static const zend_function_entry class_NSApplication_methods[] = {
 	ZEND_ME(NSApplication, postEventAtStart, arginfo_class_NSApplication_postEventAtStart, ZEND_ACC_PUBLIC)
 	ZEND_ME(NSApplication, currentEvent, arginfo_class_NSApplication_currentEvent, ZEND_ACC_PUBLIC)
 	ZEND_ME(NSApplication, updateWindows, arginfo_class_NSApplication_updateWindows, ZEND_ACC_PUBLIC)
+	ZEND_ME(NSApplication, delegate, arginfo_class_NSApplication_delegate, ZEND_ACC_PUBLIC)
+	ZEND_ME(NSApplication, setDelegate, arginfo_class_NSApplication_setDelegate, ZEND_ACC_PUBLIC)
 	ZEND_ME(NSApplication, mainMenu, arginfo_class_NSApplication_mainMenu, ZEND_ACC_PUBLIC)
 	ZEND_ME(NSApplication, setMainMenu, arginfo_class_NSApplication_setMainMenu, ZEND_ACC_PUBLIC)
 	ZEND_ME(NSApplication, keyWindow, arginfo_class_NSApplication_keyWindow, ZEND_ACC_PUBLIC)
