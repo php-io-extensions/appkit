@@ -70,6 +70,59 @@ ZEND_METHOD(NSEvent, otherEventWithTypeLocationModifierFlagsTimestampWindowNumbe
 	APPKIT_END
 }
 
+ZEND_METHOD(NSEvent, mouseEventWithTypeLocationModifierFlagsTimestampWindowNumberContextEventNumberClickCountPressure)
+{
+	zend_object *type;
+	zend_object *location;
+	zend_object *flags_case = NULL;
+	zend_long flags_long = 0;
+	double timestamp;
+	zend_long window_number;
+	zend_object *unused_pass_nil = NULL;
+	zend_long event_number;
+	zend_long click_count;
+	double pressure;
+	NSPoint point;
+
+	ZEND_PARSE_PARAMETERS_START(9, 9)
+		Z_PARAM_OBJ_OF_CLASS(type, appkit_ce_NSEventType)
+		Z_PARAM_OBJ_OF_CLASS(location, appkit_ce_NSPoint)
+		Z_PARAM_OBJ_OF_CLASS_OR_LONG(flags_case, appkit_ce_NSEventModifierFlags, flags_long)
+		Z_PARAM_DOUBLE(timestamp)
+		Z_PARAM_LONG(window_number)
+		Z_PARAM_OBJ_OF_CLASS_OR_NULL(unused_pass_nil, appkit_ce_NSObject)
+		Z_PARAM_LONG(event_number)
+		Z_PARAM_LONG(click_count)
+		Z_PARAM_DOUBLE(pressure)
+	ZEND_PARSE_PARAMETERS_END();
+	if (!appkit_point_from(location, 2, &point)) {
+		RETURN_THROWS();
+	}
+
+	APPKIT_BEGIN
+		NSEvent *event = [NSEvent mouseEventWithType:(NSEventType) appkit_enum_value(type, 0)
+			location:point
+			modifierFlags:(NSEventModifierFlags) appkit_enum_value(flags_case, flags_long)
+			timestamp:timestamp
+			windowNumber:(NSInteger) window_number
+			context:(unused_pass_nil != NULL ? APPKIT_ID(unused_pass_nil) : nil)
+			eventNumber:(NSInteger) event_number
+			clickCount:(NSInteger) click_count
+			pressure:(float) pressure];
+
+		appkit_box_objc(return_value, event);
+	APPKIT_END
+}
+
+ZEND_METHOD(NSEvent, buttonNumber)
+{
+	ZEND_PARSE_PARAMETERS_NONE();
+
+	APPKIT_BEGIN
+		RETURN_LONG((zend_long) [THIS_EVENT buttonNumber]);
+	APPKIT_END
+}
+
 ZEND_METHOD(NSEvent, type)
 {
 	ZEND_PARSE_PARAMETERS_NONE();

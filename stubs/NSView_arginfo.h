@@ -1,5 +1,5 @@
 /* This is a generated file, edit the .stub.php file instead.
- * Stub hash: de73a9e6df48785683695bf5250fd493b878c950 */
+ * Stub hash: dfb8b70a784b43cdb380873c6e42dba5c8373dd6 */
 
 ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_NSView_initWithFrame, 0, 1, IS_STATIC, 0)
 	ZEND_ARG_OBJ_INFO(0, frame, NSRect, 0)
@@ -21,6 +21,18 @@ ZEND_END_ARG_INFO()
 ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(arginfo_class_NSView_superview, 0, 0, NSView, 1)
 ZEND_END_ARG_INFO()
 
+ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(arginfo_class_NSView_hitTest, 0, 1, NSView, 1)
+	ZEND_ARG_OBJ_INFO(0, point, NSPoint, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(arginfo_class_NSView_convertPointFromView, 0, 2, NSPoint, 0)
+	ZEND_ARG_OBJ_INFO(0, point, NSPoint, 0)
+	ZEND_ARG_OBJ_INFO(0, view, NSView, 1)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_NSView_isFlipped, 0, 0, _IS_BOOL, 0)
+ZEND_END_ARG_INFO()
+
 ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_NSView_subviews, 0, 0, IS_ARRAY, 0)
 ZEND_END_ARG_INFO()
 
@@ -35,10 +47,9 @@ ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_NSView_setNeedsDisplay, 0,
 	ZEND_ARG_TYPE_INFO(0, flag, _IS_BOOL, 0)
 ZEND_END_ARG_INFO()
 
-ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_NSView_needsDisplay, 0, 0, _IS_BOOL, 0)
-ZEND_END_ARG_INFO()
+#define arginfo_class_NSView_needsDisplay arginfo_class_NSView_isFlipped
 
-#define arginfo_class_NSView_isHidden arginfo_class_NSView_needsDisplay
+#define arginfo_class_NSView_isHidden arginfo_class_NSView_isFlipped
 
 ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_NSView_setHidden, 0, 1, IS_VOID, 0)
 	ZEND_ARG_TYPE_INFO(0, hidden, _IS_BOOL, 0)
@@ -70,19 +81,19 @@ ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_NSView_scrollPoint, 0, 1, 
 	ZEND_ARG_OBJ_INFO(0, point, NSPoint, 0)
 ZEND_END_ARG_INFO()
 
-#define arginfo_class_NSView_translatesAutoresizingMaskIntoConstraints arginfo_class_NSView_needsDisplay
+#define arginfo_class_NSView_translatesAutoresizingMaskIntoConstraints arginfo_class_NSView_isFlipped
 
 #define arginfo_class_NSView_setTranslatesAutoresizingMaskIntoConstraints arginfo_class_NSView_setNeedsDisplay
 
-#define arginfo_class_NSView_wantsLayer arginfo_class_NSView_needsDisplay
+#define arginfo_class_NSView_wantsLayer arginfo_class_NSView_isFlipped
 
 #define arginfo_class_NSView_setWantsLayer arginfo_class_NSView_setNeedsDisplay
 
-#define arginfo_class_NSView_wantsExtendedDynamicRangeOpenGLSurface arginfo_class_NSView_needsDisplay
+#define arginfo_class_NSView_wantsExtendedDynamicRangeOpenGLSurface arginfo_class_NSView_isFlipped
 
 #define arginfo_class_NSView_setWantsExtendedDynamicRangeOpenGLSurface arginfo_class_NSView_setNeedsDisplay
 
-#define arginfo_class_NSView_wantsBestResolutionOpenGLSurface arginfo_class_NSView_needsDisplay
+#define arginfo_class_NSView_wantsBestResolutionOpenGLSurface arginfo_class_NSView_isFlipped
 
 #define arginfo_class_NSView_setWantsBestResolutionOpenGLSurface arginfo_class_NSView_setNeedsDisplay
 
@@ -114,11 +125,11 @@ ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_NSView_setLayerContentsGra
 	ZEND_ARG_TYPE_INFO(0, gravity, IS_STRING, 0)
 ZEND_END_ARG_INFO()
 
-#define arginfo_class_NSView_layerMasksToBounds arginfo_class_NSView_needsDisplay
+#define arginfo_class_NSView_layerMasksToBounds arginfo_class_NSView_isFlipped
 
 #define arginfo_class_NSView_setLayerMasksToBounds arginfo_class_NSView_setNeedsDisplay
 
-#define arginfo_class_NSView_postsFrameChangedNotifications arginfo_class_NSView_needsDisplay
+#define arginfo_class_NSView_postsFrameChangedNotifications arginfo_class_NSView_isFlipped
 
 #define arginfo_class_NSView_setPostsFrameChangedNotifications arginfo_class_NSView_setNeedsDisplay
 
@@ -175,6 +186,9 @@ ZEND_METHOD(NSView, setFrame);
 ZEND_METHOD(NSView, window);
 ZEND_METHOD(NSView, menu);
 ZEND_METHOD(NSView, superview);
+ZEND_METHOD(NSView, hitTest);
+ZEND_METHOD(NSView, convertPointFromView);
+ZEND_METHOD(NSView, isFlipped);
 ZEND_METHOD(NSView, subviews);
 ZEND_METHOD(NSView, addSubview);
 ZEND_METHOD(NSView, removeFromSuperview);
@@ -236,6 +250,9 @@ static const zend_function_entry class_NSView_methods[] = {
 	ZEND_ME(NSView, window, arginfo_class_NSView_window, ZEND_ACC_PUBLIC)
 	ZEND_ME(NSView, menu, arginfo_class_NSView_menu, ZEND_ACC_PUBLIC)
 	ZEND_ME(NSView, superview, arginfo_class_NSView_superview, ZEND_ACC_PUBLIC)
+	ZEND_ME(NSView, hitTest, arginfo_class_NSView_hitTest, ZEND_ACC_PUBLIC)
+	ZEND_ME(NSView, convertPointFromView, arginfo_class_NSView_convertPointFromView, ZEND_ACC_PUBLIC)
+	ZEND_ME(NSView, isFlipped, arginfo_class_NSView_isFlipped, ZEND_ACC_PUBLIC)
 	ZEND_ME(NSView, subviews, arginfo_class_NSView_subviews, ZEND_ACC_PUBLIC)
 	ZEND_ME(NSView, addSubview, arginfo_class_NSView_addSubview, ZEND_ACC_PUBLIC)
 	ZEND_ME(NSView, removeFromSuperview, arginfo_class_NSView_removeFromSuperview, ZEND_ACC_PUBLIC)

@@ -1,7 +1,7 @@
 ---
 type: Module
 title: Glue trampolines
-description: ObjCDelegate, ObjCTarget and the drawRect: trampolines (ObjCOpenGLView, ObjCDrawView), the objects that let a PHP callable stand where AppKit wants a delegate, a target or a painter.
+description: "ObjCDelegate, ObjCTarget and the drawRect: trampolines (ObjCOpenGLView, ObjCDrawView), the objects that let a PHP callable stand where AppKit wants a delegate, a target or a painter."
 resource: src/ObjCGlue.m
 tags: [appkit, callbacks, delegate, target-action]
 status: draft

@@ -1,5 +1,5 @@
 /* This is a generated file, edit the .stub.php file instead.
- * Stub hash: 59e4212e3e3823aecda9eb311eef7c5b3cc0f026 */
+ * Stub hash: 0e1c61c4e995ff886f6aebb3cd4f50773a6a3ac7 */
 
 ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(arginfo_class_NSEvent_otherEventWithTypeLocationModifierFlagsTimestampWindowNumberContextSubtypeData1Data2, 0, 9, NSEvent, 1)
 	ZEND_ARG_OBJ_INFO(0, type, NSEventType, 0)
@@ -13,28 +13,44 @@ ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(arginfo_class_NSEvent_otherEventWithTypeL
 	ZEND_ARG_TYPE_INFO(0, d2, IS_LONG, 0)
 ZEND_END_ARG_INFO()
 
+ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(arginfo_class_NSEvent_mouseEventWithTypeLocationModifierFlagsTimestampWindowNumberContextEventNumberClickCountPressure, 0, 9, NSEvent, 1)
+	ZEND_ARG_OBJ_INFO(0, type, NSEventType, 0)
+	ZEND_ARG_OBJ_INFO(0, location, NSPoint, 0)
+	ZEND_ARG_OBJ_TYPE_MASK(0, flags, NSEventModifierFlags, MAY_BE_LONG, NULL)
+	ZEND_ARG_TYPE_INFO(0, time, IS_DOUBLE, 0)
+	ZEND_ARG_TYPE_INFO(0, wNum, IS_LONG, 0)
+	ZEND_ARG_OBJ_INFO(0, unusedPassNil, NSObject, 1)
+	ZEND_ARG_TYPE_INFO(0, eNum, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, cNum, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, pressure, IS_DOUBLE, 0)
+ZEND_END_ARG_INFO()
+
 ZEND_BEGIN_ARG_WITH_RETURN_OBJ_TYPE_MASK_EX(arginfo_class_NSEvent_type, 0, 0, NSEventType, MAY_BE_LONG)
 ZEND_END_ARG_INFO()
 
-ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_NSEvent_subtype, 0, 0, IS_LONG, 0)
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_NSEvent_buttonNumber, 0, 0, IS_LONG, 0)
 ZEND_END_ARG_INFO()
 
-#define arginfo_class_NSEvent_modifierFlags arginfo_class_NSEvent_subtype
+#define arginfo_class_NSEvent_subtype arginfo_class_NSEvent_buttonNumber
+
+#define arginfo_class_NSEvent_modifierFlags arginfo_class_NSEvent_buttonNumber
 
 ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_NSEvent_timestamp, 0, 0, IS_DOUBLE, 0)
 ZEND_END_ARG_INFO()
 
-#define arginfo_class_NSEvent_windowNumber arginfo_class_NSEvent_subtype
+#define arginfo_class_NSEvent_windowNumber arginfo_class_NSEvent_buttonNumber
 
 ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(arginfo_class_NSEvent_locationInWindow, 0, 0, NSPoint, 0)
 ZEND_END_ARG_INFO()
 
-#define arginfo_class_NSEvent_data1 arginfo_class_NSEvent_subtype
+#define arginfo_class_NSEvent_data1 arginfo_class_NSEvent_buttonNumber
 
-#define arginfo_class_NSEvent_data2 arginfo_class_NSEvent_subtype
+#define arginfo_class_NSEvent_data2 arginfo_class_NSEvent_buttonNumber
 
 ZEND_METHOD(NSEvent, otherEventWithTypeLocationModifierFlagsTimestampWindowNumberContextSubtypeData1Data2);
+ZEND_METHOD(NSEvent, mouseEventWithTypeLocationModifierFlagsTimestampWindowNumberContextEventNumberClickCountPressure);
 ZEND_METHOD(NSEvent, type);
+ZEND_METHOD(NSEvent, buttonNumber);
 ZEND_METHOD(NSEvent, subtype);
 ZEND_METHOD(NSEvent, modifierFlags);
 ZEND_METHOD(NSEvent, timestamp);
@@ -45,7 +61,9 @@ ZEND_METHOD(NSEvent, data2);
 
 static const zend_function_entry class_NSEvent_methods[] = {
 	ZEND_ME(NSEvent, otherEventWithTypeLocationModifierFlagsTimestampWindowNumberContextSubtypeData1Data2, arginfo_class_NSEvent_otherEventWithTypeLocationModifierFlagsTimestampWindowNumberContextSubtypeData1Data2, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	ZEND_ME(NSEvent, mouseEventWithTypeLocationModifierFlagsTimestampWindowNumberContextEventNumberClickCountPressure, arginfo_class_NSEvent_mouseEventWithTypeLocationModifierFlagsTimestampWindowNumberContextEventNumberClickCountPressure, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
 	ZEND_ME(NSEvent, type, arginfo_class_NSEvent_type, ZEND_ACC_PUBLIC)
+	ZEND_ME(NSEvent, buttonNumber, arginfo_class_NSEvent_buttonNumber, ZEND_ACC_PUBLIC)
 	ZEND_ME(NSEvent, subtype, arginfo_class_NSEvent_subtype, ZEND_ACC_PUBLIC)
 	ZEND_ME(NSEvent, modifierFlags, arginfo_class_NSEvent_modifierFlags, ZEND_ACC_PUBLIC)
 	ZEND_ME(NSEvent, timestamp, arginfo_class_NSEvent_timestamp, ZEND_ACC_PUBLIC)

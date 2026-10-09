@@ -54,6 +54,14 @@ class NSView extends NSResponder
 
     public function superview(): ?NSView {}
 
+    /** The farthest descendant (or this view) at $point, given in the superview's coordinates; null outside. */
+    public function hitTest(NSPoint $point): ?NSView {}
+
+    /** $point in $view's coordinates (the window's base coordinates for null), in this view's. */
+    public function convertPointFromView(NSPoint $point, ?NSView $view): NSPoint {}
+
+    public function isFlipped(): bool {}
+
     /** @return NSView[] */
     public function subviews(): array {}
 

@@ -98,7 +98,12 @@ class NSEvent extends NSObject
 {
     public static function otherEventWithTypeLocationModifierFlagsTimestampWindowNumberContextSubtypeData1Data2(NSEventType $type, NSPoint $location, NSEventModifierFlags|int $flags, float $time, int $wNum, ?NSObject $unusedPassNil, int $subtype, int $d1, int $d2): ?NSEvent {}
 
+    public static function mouseEventWithTypeLocationModifierFlagsTimestampWindowNumberContextEventNumberClickCountPressure(NSEventType $type, NSPoint $location, NSEventModifierFlags|int $flags, float $time, int $wNum, ?NSObject $unusedPassNil, int $eNum, int $cNum, float $pressure): ?NSEvent {}
+
     public function type(): NSEventType|int {}
+
+    /** The mouse button: 0 left, 1 right, 2 and up the others. */
+    public function buttonNumber(): int {}
 
     public function subtype(): int {}
 

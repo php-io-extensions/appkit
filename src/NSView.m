@@ -338,6 +338,45 @@ ZEND_METHOD(NSView, setLayer)
 APPKIT_VIEW_BOOL_GET(postsFrameChangedNotifications, postsFrameChangedNotifications)
 APPKIT_VIEW_BOOL_SET(setPostsFrameChangedNotifications, setPostsFrameChangedNotifications)
 APPKIT_VIEW_ANCHOR(superview, superview)
+APPKIT_VIEW_BOOL_GET(isFlipped, isFlipped)
+
+ZEND_METHOD(NSView, hitTest)
+{
+	zend_object *point_obj;
+	NSPoint point;
+
+	ZEND_PARSE_PARAMETERS_START(1, 1)
+		Z_PARAM_OBJ_OF_CLASS(point_obj, appkit_ce_NSPoint)
+	ZEND_PARSE_PARAMETERS_END();
+	APPKIT_REQUIRE_MAIN_THREAD();
+	if (!appkit_point_from(point_obj, 1, &point)) {
+		RETURN_THROWS();
+	}
+
+	APPKIT_BEGIN
+		appkit_box_objc(return_value, [THIS_VIEW hitTest:point]);
+	APPKIT_END
+}
+
+ZEND_METHOD(NSView, convertPointFromView)
+{
+	zend_object *point_obj;
+	zend_object *view = NULL;
+	NSPoint point;
+
+	ZEND_PARSE_PARAMETERS_START(2, 2)
+		Z_PARAM_OBJ_OF_CLASS(point_obj, appkit_ce_NSPoint)
+		Z_PARAM_OBJ_OF_CLASS_OR_NULL(view, appkit_ce_NSView)
+	ZEND_PARSE_PARAMETERS_END();
+	APPKIT_REQUIRE_MAIN_THREAD();
+	if (!appkit_point_from(point_obj, 1, &point)) {
+		RETURN_THROWS();
+	}
+
+	APPKIT_BEGIN
+		appkit_return_point(return_value, [THIS_VIEW convertPoint:point fromView:(view != NULL ? (NSView *) APPKIT_ID(view) : nil)]);
+	APPKIT_END
+}
 APPKIT_VIEW_ANCHOR(menu, menu)
 APPKIT_VIEW_ANCHOR(widthAnchor, widthAnchor)
 APPKIT_VIEW_ANCHOR(heightAnchor, heightAnchor)

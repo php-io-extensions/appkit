@@ -1,5 +1,9 @@
 # Log
 
+## 2026-10-09
+
+* `NSView` hitTest:, convertPoint:fromView:, isFlipped; `NSEvent` mouseEventWithType:…pressure:, buttonNumber. For right-click mail (HumanInput slice 26). [surface](api/surface.md)
+
 ## 2026-10-08
 
 * Staged-window scaffold: everything a game engine's window layer asks of a bare AppKit window, no input (HumanInput comes after). Window modes (min/max/aspect, origin, frame↔content rect, zoom, minimize, native full screen + collection behavior, borderless + level, see-through/shadowless/click-through, occlusion), `NSScreen`, `CGDisplay`/`CGDisplayMode` (modes incl. HiDPI, set, capture/release, shielding level), partial redraw (`ObjCDrawView` + `setNeedsDisplayInRect:` + `NSGraphicsContext`/`CGContext`, `CGDataProvider::createDirect` reading a framebuffer in place, `CGImage::createWithImageInRect`), vsync (`CADisplayLink` + `CAFrameRateRange` + `NSRunLoop`, `NSOpenGLContext` swap interval), `NSProcessInfo` activities + `IOPMAssertion`, Dock icon. Links IOKit. Suite 199 on Homebrew PHP 8.4 NTS and ZTS. [surface](api/surface.md), [glue](architecture/glue.md)
