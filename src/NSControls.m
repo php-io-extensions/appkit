@@ -244,6 +244,26 @@ METHOD(NSImage, initWithContentsOfFile, PARSE_STR,
 	appkit_box_objc(return_value, image);
 	[image release];
 )
+ZEND_METHOD(NSImage, initWithCGImageSize)
+{
+	zend_object *image, *size_obj;
+	NSSize size;
+
+	ZEND_PARSE_PARAMETERS_START(2, 2)
+		Z_PARAM_OBJ_OF_CLASS(image, appkit_ce_CGImage)
+		Z_PARAM_OBJ_OF_CLASS(size_obj, appkit_ce_NSSize)
+	ZEND_PARSE_PARAMETERS_END();
+	if (!appkit_size_from(size_obj, 2, &size)) {
+		RETURN_THROWS();
+	}
+	APPKIT_REQUIRE_MAIN_THREAD();
+
+	APPKIT_BEGIN
+		NSImage *made = [[CALLED alloc] initWithCGImage:(CGImageRef) APPKIT_CF(image) size:size];
+		appkit_box_objc(return_value, made);
+		[made release];
+	APPKIT_END
+}
 SIZE_GET(NSImage, NSImage, size, size)
 
 /* NSImageView */

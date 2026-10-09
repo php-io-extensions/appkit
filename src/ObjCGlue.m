@@ -289,6 +289,62 @@ static void appkit_invocation_return(NSInvocation *invocation, zval *value)
 
 @end
 
+/* ---- PHPStageWindow ------------------------------------------------------ */
+
+@interface PHPStageWindow : NSWindow {
+@public
+	BOOL refusesKey;
+}
+@end
+
+@implementation PHPStageWindow
+
+- (BOOL)canBecomeKeyWindow
+{
+	return !refusesKey;
+}
+
+- (BOOL)canBecomeMainWindow
+{
+	return !refusesKey;
+}
+
+@end
+
+/* ---- PHPDrawView --------------------------------------------------------- */
+
+@interface PHPDrawView : NSView {
+@public
+	appkit_callout *draw;
+}
+@end
+
+@implementation PHPDrawView
+
+- (void)dealloc
+{
+	if (draw != NULL) {
+		appkit_callout_release(draw);
+	}
+	[super dealloc];
+}
+
+- (void)drawRect:(NSRect)dirty
+{
+	zval argv[2];
+
+	if (draw == NULL || !appkit_callout_can_enter(draw)) {
+		return;
+	}
+	appkit_box_objc(&argv[0], self);
+	appkit_return_rect(&argv[1], dirty);
+	appkit_callout_invoke(draw, 2, argv);
+	zval_ptr_dtor(&argv[0]);
+	zval_ptr_dtor(&argv[1]);
+}
+
+@end
+
 /* ---- PHPOpenGLView ------------------------------------------------------- */
 
 @interface PHPOpenGLView : NSOpenGLView {
@@ -415,6 +471,14 @@ void appkit_register_ObjCGlue(void)
 	appkit_ce_ObjCOpenGLView = register_class_ObjCOpenGLView(appkit_ce_NSOpenGLView);
 	appkit_object_setup(appkit_ce_ObjCOpenGLView);
 	appkit_map_objc_class("PHPOpenGLView", appkit_ce_ObjCOpenGLView);
+
+	appkit_ce_ObjCStageWindow = register_class_ObjCStageWindow(appkit_ce_NSWindow);
+	appkit_object_setup(appkit_ce_ObjCStageWindow);
+	appkit_map_objc_class("PHPStageWindow", appkit_ce_ObjCStageWindow);
+
+	appkit_ce_ObjCDrawView = register_class_ObjCDrawView(appkit_ce_NSView);
+	appkit_object_setup(appkit_ce_ObjCDrawView);
+	appkit_map_objc_class("PHPDrawView", appkit_ce_ObjCDrawView);
 }
 
 #define THIS_DELEGATE ((PHPAppKitDelegate *) APPKIT_ID(Z_OBJ_P(ZEND_THIS)))
@@ -647,3 +711,52 @@ ZEND_METHOD(ObjCOpenGLView, initWithFramePixelFormatDraw)
 		[view release];
 	APPKIT_END
 }
+
+ZEND_METHOD(ObjCStageWindow, canBecomeKey)
+{
+	ZEND_PARSE_PARAMETERS_NONE();
+	APPKIT_REQUIRE_MAIN_THREAD();
+
+	RETURN_BOOL(!((PHPStageWindow *) APPKIT_ID(Z_OBJ_P(ZEND_THIS)))->refusesKey);
+}
+
+ZEND_METHOD(ObjCStageWindow, setCanBecomeKey)
+{
+	bool can;
+
+	ZEND_PARSE_PARAMETERS_START(1, 1)
+		Z_PARAM_BOOL(can)
+	ZEND_PARSE_PARAMETERS_END();
+	APPKIT_REQUIRE_MAIN_THREAD();
+
+	((PHPStageWindow *) APPKIT_ID(Z_OBJ_P(ZEND_THIS)))->refusesKey = !can;
+}
+
+ZEND_METHOD(ObjCDrawView, initWithFrameDraw)
+{
+	zend_object *frame;
+	zval *handler;
+	NSRect rect;
+
+	ZEND_PARSE_PARAMETERS_START(2, 2)
+		Z_PARAM_OBJ_OF_CLASS(frame, appkit_ce_NSRect)
+		Z_PARAM_ZVAL(handler)
+	ZEND_PARSE_PARAMETERS_END();
+	APPKIT_REQUIRE_MAIN_THREAD();
+	if (!appkit_rect_from(frame, 1, &rect)) {
+		RETURN_THROWS();
+	}
+	if (!zend_is_callable(handler, 0, NULL)) {
+		zend_argument_type_error(2, "must be a valid callback");
+		RETURN_THROWS();
+	}
+
+	APPKIT_BEGIN
+		PHPDrawView *view = [[PHPDrawView alloc] initWithFrame:rect];
+		view->draw = appkit_callout_new(handler, NULL);
+		appkit_callout_retain(view->draw);
+		appkit_box_objc(return_value, view);
+		[view release];
+	APPKIT_END
+}
+

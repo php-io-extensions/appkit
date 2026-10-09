@@ -17,6 +17,25 @@ class NSOpenGLPixelFormat extends NSObject
     public static function initWithAttributes(array $attribs): ?static {}
 }
 
+enum NSOpenGLContextParameter: int
+{
+    case SWAP_RECTANGLE = 200;
+    case SWAP_RECTANGLE_ENABLE = 201;
+    case RASTERIZATION_ENABLE = 221;
+    case SWAP_INTERVAL = 222;
+    case SURFACE_ORDER = 235;
+    case SURFACE_OPACITY = 236;
+    case STATE_VALIDATION = 301;
+    case SURFACE_BACKING_SIZE = 304;
+    case SURFACE_SURFACE_VOLATILE = 306;
+    case RECLAIM_RESOURCES = 308;
+    case CURRENT_RENDERER_ID = 309;
+    case GPU_VERTEX_PROCESSING = 310;
+    case GPU_FRAGMENT_PROCESSING = 311;
+    case HAS_DRAWABLE = 314;
+    case MP_SWAPS_IN_FLIGHT = 315;
+}
+
 /**
  * @not-serializable
  */
@@ -41,6 +60,18 @@ class NSOpenGLContext extends NSObject
     public function view(): ?NSView {}
 
     public function setView(?NSView $view): void {}
+
+    /**
+     * setValues:forParameter: — $values is a list of as many ints as the parameter takes
+     * (SWAP_INTERVAL: one; 0 = no vsync, 1 = sync to the display).
+     */
+    public function setValuesForParameter(array $values, NSOpenGLContextParameter $parameter): void {}
+
+    /**
+     * getValues:forParameter: — the $count ints the parameter holds.
+     * @return list<int>
+     */
+    public function getValuesForParameter(NSOpenGLContextParameter $parameter, int $count): array {}
 }
 
 /**
@@ -97,6 +128,12 @@ const NSOpenGLPFAAccelerated = UNKNOWN;
  * @cvalue NSOpenGLPFAColorSize
  */
 const NSOpenGLPFAColorSize = UNKNOWN;
+
+/**
+ * @var int
+ * @cvalue NSOpenGLPFAColorFloat
+ */
+const NSOpenGLPFAColorFloat = UNKNOWN;
 
 /**
  * @var int

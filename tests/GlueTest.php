@@ -139,3 +139,27 @@ it('names the text-change notifications a control and a text view tell their del
     expect(NSControlTextDidChangeNotification)->toBe('NSControlTextDidChangeNotification')
         ->and(NSTextDidChangeNotification)->toBe('NSTextDidChangeNotification');
 });
+
+it('lets a borderless stage window become key, and makes any refuse it', function (): void {
+    $app = NSApplication::sharedApplication();
+    $app->finishLaunching();
+    $app->setActivationPolicy(NSApplicationActivationPolicy::REGULAR);
+    $app->activateIgnoringOtherApps(true);
+    $window = ObjCStageWindow::initWithContentRectStyleMaskBackingDefer(new NSRect(200.0, 200.0, 160.0, 120.0), NSWindowStyleMask::BORDERLESS, NSBackingStoreType::BUFFERED, false);
+    $window->setReleasedWhenClosed(false);
+
+    $window->makeKeyAndOrderFront(null);
+    pumpUntil($app, fn (): bool => $window->isKeyWindow(), 2.0);
+    expect($window)->toBeInstanceOf(NSWindow::class)
+        ->and($window->canBecomeKey())->toBeTrue()
+        ->and($window->isKeyWindow())->toBeTrue();
+
+    $window->orderOut(null);
+    $window->setCanBecomeKey(false);
+    $window->makeKeyAndOrderFront(null);
+    pumpFor($app, 0.2);
+    expect($window->canBecomeKey())->toBeFalse()
+        ->and($window->isKeyWindow())->toBeFalse();
+
+    $window->close();
+});

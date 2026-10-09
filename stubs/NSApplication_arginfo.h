@@ -1,5 +1,5 @@
 /* This is a generated file, edit the .stub.php file instead.
- * Stub hash: 0b3bbb5f5b257a1fbf5e7e38c029ee16e92c48f5 */
+ * Stub hash: a85a508d492427acae470375957b6df902a06315 */
 
 ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(arginfo_class_NSApplication_sharedApplication, 0, 0, NSApplication, 0)
 ZEND_END_ARG_INFO()
@@ -87,6 +87,21 @@ ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_NSApplication_orderFrontSt
 	ZEND_ARG_TYPE_INFO(0, optionsDictionary, IS_ARRAY, 0)
 ZEND_END_ARG_INFO()
 
+ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(arginfo_class_NSApplication_applicationIconImage, 0, 0, NSImage, 1)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_NSApplication_requestUserAttention, 0, 1, IS_LONG, 0)
+	ZEND_ARG_OBJ_INFO(0, requestType, NSRequestUserAttentionType, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_NSApplication_cancelUserAttentionRequest, 0, 1, IS_VOID, 0)
+	ZEND_ARG_TYPE_INFO(0, request, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_NSApplication_setApplicationIconImage, 0, 1, IS_VOID, 0)
+	ZEND_ARG_OBJ_INFO(0, image, NSImage, 1)
+ZEND_END_ARG_INFO()
+
 ZEND_METHOD(NSApplication, sharedApplication);
 ZEND_METHOD(NSApplication, finishLaunching);
 ZEND_METHOD(NSApplication, run);
@@ -113,6 +128,10 @@ ZEND_METHOD(NSApplication, mainWindow);
 ZEND_METHOD(NSApplication, windows);
 ZEND_METHOD(NSApplication, orderFrontStandardAboutPanel);
 ZEND_METHOD(NSApplication, orderFrontStandardAboutPanelWithOptions);
+ZEND_METHOD(NSApplication, applicationIconImage);
+ZEND_METHOD(NSApplication, requestUserAttention);
+ZEND_METHOD(NSApplication, cancelUserAttentionRequest);
+ZEND_METHOD(NSApplication, setApplicationIconImage);
 
 static const zend_function_entry class_NSApplication_methods[] = {
 	ZEND_ME(NSApplication, sharedApplication, arginfo_class_NSApplication_sharedApplication, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
@@ -141,8 +160,27 @@ static const zend_function_entry class_NSApplication_methods[] = {
 	ZEND_ME(NSApplication, windows, arginfo_class_NSApplication_windows, ZEND_ACC_PUBLIC)
 	ZEND_ME(NSApplication, orderFrontStandardAboutPanel, arginfo_class_NSApplication_orderFrontStandardAboutPanel, ZEND_ACC_PUBLIC)
 	ZEND_ME(NSApplication, orderFrontStandardAboutPanelWithOptions, arginfo_class_NSApplication_orderFrontStandardAboutPanelWithOptions, ZEND_ACC_PUBLIC)
+	ZEND_ME(NSApplication, applicationIconImage, arginfo_class_NSApplication_applicationIconImage, ZEND_ACC_PUBLIC)
+	ZEND_ME(NSApplication, requestUserAttention, arginfo_class_NSApplication_requestUserAttention, ZEND_ACC_PUBLIC)
+	ZEND_ME(NSApplication, cancelUserAttentionRequest, arginfo_class_NSApplication_cancelUserAttentionRequest, ZEND_ACC_PUBLIC)
+	ZEND_ME(NSApplication, setApplicationIconImage, arginfo_class_NSApplication_setApplicationIconImage, ZEND_ACC_PUBLIC)
 	ZEND_FE_END
 };
+
+static zend_class_entry *register_class_NSRequestUserAttentionType(void)
+{
+	zend_class_entry *class_entry = zend_register_internal_enum("NSRequestUserAttentionType", IS_LONG, NULL);
+
+	zval enum_case_CRITICAL_value;
+	ZVAL_LONG(&enum_case_CRITICAL_value, 0);
+	zend_enum_add_case_cstr(class_entry, "CRITICAL", &enum_case_CRITICAL_value);
+
+	zval enum_case_INFORMATIONAL_value;
+	ZVAL_LONG(&enum_case_INFORMATIONAL_value, 10);
+	zend_enum_add_case_cstr(class_entry, "INFORMATIONAL", &enum_case_INFORMATIONAL_value);
+
+	return class_entry;
+}
 
 static zend_class_entry *register_class_NSApplicationActivationPolicy(void)
 {

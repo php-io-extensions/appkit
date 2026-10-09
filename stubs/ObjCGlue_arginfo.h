@@ -1,5 +1,5 @@
 /* This is a generated file, edit the .stub.php file instead.
- * Stub hash: c6a4dc2fd5f71bf515672517ddc1e1520f004212 */
+ * Stub hash: 0dc795f0b0e806c4e6f41eb81af1f94fe7905772 */
 
 ZEND_BEGIN_ARG_INFO_EX(arginfo_class_ObjCDelegate___construct, 0, 0, 1)
 	ZEND_ARG_TYPE_INFO(0, protocol, IS_STRING, 0)
@@ -40,6 +40,18 @@ ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_ObjCOpenGLView_initWithFra
 	ZEND_ARG_TYPE_INFO(0, draw, IS_CALLABLE, 0)
 ZEND_END_ARG_INFO()
 
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_ObjCStageWindow_canBecomeKey, 0, 0, _IS_BOOL, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_ObjCStageWindow_setCanBecomeKey, 0, 1, IS_VOID, 0)
+	ZEND_ARG_TYPE_INFO(0, canBecomeKey, _IS_BOOL, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_ObjCDrawView_initWithFrameDraw, 0, 2, IS_STATIC, 0)
+	ZEND_ARG_OBJ_INFO(0, frame, NSRect, 0)
+	ZEND_ARG_TYPE_INFO(0, draw, IS_CALLABLE, 0)
+ZEND_END_ARG_INFO()
+
 ZEND_METHOD(ObjCDelegate, __construct);
 ZEND_METHOD(ObjCDelegate, on);
 ZEND_METHOD(ObjCDelegate, off);
@@ -49,6 +61,9 @@ ZEND_METHOD(ObjCObserver, __construct);
 ZEND_METHOD(ObjCObserver, observe);
 ZEND_METHOD(ObjCObserver, stop);
 ZEND_METHOD(ObjCOpenGLView, initWithFramePixelFormatDraw);
+ZEND_METHOD(ObjCStageWindow, canBecomeKey);
+ZEND_METHOD(ObjCStageWindow, setCanBecomeKey);
+ZEND_METHOD(ObjCDrawView, initWithFrameDraw);
 
 static const zend_function_entry class_ObjCDelegate_methods[] = {
 	ZEND_ME(ObjCDelegate, __construct, arginfo_class_ObjCDelegate___construct, ZEND_ACC_PUBLIC)
@@ -72,6 +87,17 @@ static const zend_function_entry class_ObjCObserver_methods[] = {
 
 static const zend_function_entry class_ObjCOpenGLView_methods[] = {
 	ZEND_ME(ObjCOpenGLView, initWithFramePixelFormatDraw, arginfo_class_ObjCOpenGLView_initWithFramePixelFormatDraw, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	ZEND_FE_END
+};
+
+static const zend_function_entry class_ObjCStageWindow_methods[] = {
+	ZEND_ME(ObjCStageWindow, canBecomeKey, arginfo_class_ObjCStageWindow_canBecomeKey, ZEND_ACC_PUBLIC)
+	ZEND_ME(ObjCStageWindow, setCanBecomeKey, arginfo_class_ObjCStageWindow_setCanBecomeKey, ZEND_ACC_PUBLIC)
+	ZEND_FE_END
+};
+
+static const zend_function_entry class_ObjCDrawView_methods[] = {
+	ZEND_ME(ObjCDrawView, initWithFrameDraw, arginfo_class_ObjCDrawView_initWithFrameDraw, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
 	ZEND_FE_END
 };
 
@@ -136,6 +162,26 @@ static zend_class_entry *register_class_ObjCOpenGLView(zend_class_entry *class_e
 
 	INIT_CLASS_ENTRY(ce, "ObjCOpenGLView", class_ObjCOpenGLView_methods);
 	class_entry = zend_register_internal_class_with_flags(&ce, class_entry_NSOpenGLView, ZEND_ACC_FINAL|ZEND_ACC_NOT_SERIALIZABLE);
+
+	return class_entry;
+}
+
+static zend_class_entry *register_class_ObjCStageWindow(zend_class_entry *class_entry_NSWindow)
+{
+	zend_class_entry ce, *class_entry;
+
+	INIT_CLASS_ENTRY(ce, "ObjCStageWindow", class_ObjCStageWindow_methods);
+	class_entry = zend_register_internal_class_with_flags(&ce, class_entry_NSWindow, ZEND_ACC_FINAL|ZEND_ACC_NOT_SERIALIZABLE);
+
+	return class_entry;
+}
+
+static zend_class_entry *register_class_ObjCDrawView(zend_class_entry *class_entry_NSView)
+{
+	zend_class_entry ce, *class_entry;
+
+	INIT_CLASS_ENTRY(ce, "ObjCDrawView", class_ObjCDrawView_methods);
+	class_entry = zend_register_internal_class_with_flags(&ce, class_entry_NSView, ZEND_ACC_FINAL|ZEND_ACC_NOT_SERIALIZABLE);
 
 	return class_entry;
 }

@@ -72,3 +72,21 @@ it('refuses a window rect with an unset property', function (): void {
 
     expect(fn () => NSWindow::initWithContentRectStyleMaskBackingDefer($rect, 0, NSBackingStoreType::BUFFERED, false))->toThrow(ValueError::class);
 });
+
+it('takes a colour space from Core Graphics and gives a window its own', function (): void {
+    $window = NSWindow::initWithContentRectStyleMaskBackingDefer(new NSRect(0.0, 0.0, 64.0, 64.0), NSWindowStyleMask::TITLED->value, NSBackingStoreType::BUFFERED, false);
+    $window->setReleasedWhenClosed(false);
+    $extended = NSColorSpace::initWithCGColorSpace(CGColorSpace::createWithName('kCGColorSpaceExtendedLinearSRGB'));
+
+    $window->setColorSpace($extended);
+    $named = $window->colorSpace()?->localizedName();
+    $window->setColorSpace(NSColorSpace::displayP3ColorSpace());
+    $p3 = $window->colorSpace()?->localizedName();
+    $window->setColorSpace(null);
+
+    expect($extended)->toBeInstanceOf(NSColorSpace::class)
+        ->and($named)->toBe($extended->localizedName())
+        ->and($p3)->toBe(NSColorSpace::displayP3ColorSpace()->localizedName())
+        ->and(NSColorSpace::sRGBColorSpace()->localizedName())->not->toBe($p3);
+    $window->close();
+});

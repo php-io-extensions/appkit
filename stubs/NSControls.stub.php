@@ -348,6 +348,9 @@ class NSImage extends NSObject
     /** null when the file cannot be read as an image */
     public static function initWithContentsOfFile(string $path): ?static {}
 
+    /** initWithCGImage:size:, $size in points. */
+    public static function initWithCGImageSize(CGImage $image, NSSize $size): static {}
+
     public function size(): NSSize {}
 }
 

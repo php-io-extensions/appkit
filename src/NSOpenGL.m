@@ -3,9 +3,27 @@
 #import <AppKit/NSOpenGLView.h>
 #include "../stubs/NSOpenGL_arginfo.h"
 
+/* The whole NSOpenGLContextParameter enum is deprecated; checking its values is not a use of it. */
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+_Static_assert(NSOpenGLContextParameterSwapRectangle == 200 && NSOpenGLContextParameterSwapRectangleEnable == 201
+	&& NSOpenGLContextParameterRasterizationEnable == 221 && NSOpenGLContextParameterSwapInterval == 222
+	&& NSOpenGLContextParameterSurfaceOrder == 235 && NSOpenGLContextParameterSurfaceOpacity == 236
+	&& NSOpenGLContextParameterStateValidation == 301 && NSOpenGLContextParameterSurfaceBackingSize == 304
+	&& NSOpenGLContextParameterSurfaceSurfaceVolatile == 306 && NSOpenGLContextParameterReclaimResources == 308
+	&& NSOpenGLContextParameterCurrentRendererID == 309 && NSOpenGLContextParameterGPUVertexProcessing == 310
+	&& NSOpenGLContextParameterGPUFragmentProcessing == 311 && NSOpenGLContextParameterHasDrawable == 314
+	&& NSOpenGLContextParameterMPSwapsInFlight == 315, "NSOpenGLContextParameter values moved");
+#pragma clang diagnostic pop
+
+/* The most ints any NSOpenGLContextParameter takes: SWAP_RECTANGLE's four. */
+#define APPKIT_GL_PARAMETER_MAX 4
+
 void appkit_register_NSOpenGL(int module_number)
 {
 	register_NSOpenGL_symbols(module_number);
+
+	appkit_ce_NSOpenGLContextParameter = register_class_NSOpenGLContextParameter();
 
 	appkit_ce_NSOpenGLPixelFormat = register_class_NSOpenGLPixelFormat(appkit_ce_NSObject);
 	appkit_object_setup(appkit_ce_NSOpenGLPixelFormat);
@@ -244,3 +262,61 @@ ZEND_METHOD(NSOpenGLView, setWantsBestResolutionOpenGLSurface)
 		[THIS_GL_VIEW setWantsBestResolutionOpenGLSurface:flag];
 	APPKIT_END
 }
+
+ZEND_METHOD(NSOpenGLContext, setValuesForParameter)
+{
+	HashTable *values;
+	zend_object *parameter;
+	GLint native[APPKIT_GL_PARAMETER_MAX] = { 0 };
+	uint32_t count = 0;
+	zval *value;
+
+	ZEND_PARSE_PARAMETERS_START(2, 2)
+		Z_PARAM_ARRAY_HT(values)
+		Z_PARAM_OBJ_OF_CLASS(parameter, appkit_ce_NSOpenGLContextParameter)
+	ZEND_PARSE_PARAMETERS_END();
+	APPKIT_REQUIRE_MAIN_THREAD();
+
+	if (zend_hash_num_elements(values) > APPKIT_GL_PARAMETER_MAX) {
+		zend_argument_value_error(1, "must hold at most %d ints", APPKIT_GL_PARAMETER_MAX);
+		RETURN_THROWS();
+	}
+	ZEND_HASH_FOREACH_VAL(values, value) {
+		if (Z_TYPE_P(value) != IS_LONG || Z_LVAL_P(value) < INT32_MIN || Z_LVAL_P(value) > INT32_MAX) {
+			zend_argument_type_error(1, "must be a list of 32-bit ints");
+			RETURN_THROWS();
+		}
+		native[count++] = (GLint) Z_LVAL_P(value);
+	} ZEND_HASH_FOREACH_END();
+
+	APPKIT_BEGIN
+		[THIS_CONTEXT setValues:native forParameter:(NSOpenGLContextParameter) appkit_enum_value(parameter, 0)];
+	APPKIT_END
+}
+
+ZEND_METHOD(NSOpenGLContext, getValuesForParameter)
+{
+	zend_object *parameter;
+	zend_long count;
+	GLint native[APPKIT_GL_PARAMETER_MAX] = { 0 };
+
+	ZEND_PARSE_PARAMETERS_START(2, 2)
+		Z_PARAM_OBJ_OF_CLASS(parameter, appkit_ce_NSOpenGLContextParameter)
+		Z_PARAM_LONG(count)
+	ZEND_PARSE_PARAMETERS_END();
+	APPKIT_REQUIRE_MAIN_THREAD();
+
+	if (count < 1 || count > APPKIT_GL_PARAMETER_MAX) {
+		zend_argument_value_error(2, "must be between 1 and %d", APPKIT_GL_PARAMETER_MAX);
+		RETURN_THROWS();
+	}
+
+	APPKIT_BEGIN
+		[THIS_CONTEXT getValues:native forParameter:(NSOpenGLContextParameter) appkit_enum_value(parameter, 0)];
+		array_init_size(return_value, (uint32_t) count);
+		for (zend_long i = 0; i < count; i++) {
+			add_next_index_long(return_value, (zend_long) native[i]);
+		}
+	APPKIT_END
+}
+

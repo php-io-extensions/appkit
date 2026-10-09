@@ -1,5 +1,11 @@
 # Log
 
+## 2026-10-08
+
+* Staged-window scaffold: everything a game engine's window layer asks of a bare AppKit window, no input (HumanInput comes after). Window modes (min/max/aspect, origin, frame↔content rect, zoom, minimize, native full screen + collection behavior, borderless + level, see-through/shadowless/click-through, occlusion), `NSScreen`, `CGDisplay`/`CGDisplayMode` (modes incl. HiDPI, set, capture/release, shielding level), partial redraw (`ObjCDrawView` + `setNeedsDisplayInRect:` + `NSGraphicsContext`/`CGContext`, `CGDataProvider::createDirect` reading a framebuffer in place, `CGImage::createWithImageInRect`), vsync (`CADisplayLink` + `CAFrameRateRange` + `NSRunLoop`, `NSOpenGLContext` swap interval), `NSProcessInfo` activities + `IOPMAssertion`, Dock icon. Links IOKit. Suite 199 on Homebrew PHP 8.4 NTS and ZTS. [surface](api/surface.md), [glue](architecture/glue.md)
+* For the staged-window stager: `NSWindow` alphaValue (+set), `NSView` safeAreaRect, `NSApplication` requestUserAttention: / cancelUserAttentionRequest: with `NSRequestUserAttentionType`, `NSImage::initWithCGImageSize`. `ObjCStageWindow` (key status as a flag; borderless windows take focus); `NSWindow` init allocates the called class. Suite 204.
+* `CGImage::create` measures a `createDirect` provider by its recorded size, not a copy; its short-provider error reads "must provide N bytes for that description, it holds M".
+
 ## 2026-10-06
 
 * OpenGL views: `NSOpenGLPixelFormat`, `NSOpenGLContext`, `NSOpenGLView`, the `ObjCOpenGLView` trampoline (`drawRect:` calls PHP with the view's context current, then flushes), the `NSOpenGLPFA*` constants, and `NSView::setNeedsDisplay()` / `needsDisplay()`. Built with `GL_SILENCE_DEPRECATION`, linked against `OpenGL.framework`. Suite 159 on Homebrew PHP 8.4 NTS and ZTS. [surface](api/surface.md)

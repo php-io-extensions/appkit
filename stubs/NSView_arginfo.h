@@ -1,5 +1,5 @@
 /* This is a generated file, edit the .stub.php file instead.
- * Stub hash: 3d406e3e122334c66636178f98b8179f2829854c */
+ * Stub hash: de73a9e6df48785683695bf5250fd493b878c950 */
 
 ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_NSView_initWithFrame, 0, 1, IS_STATIC, 0)
 	ZEND_ARG_OBJ_INFO(0, frame, NSRect, 0)
@@ -78,6 +78,14 @@ ZEND_END_ARG_INFO()
 
 #define arginfo_class_NSView_setWantsLayer arginfo_class_NSView_setNeedsDisplay
 
+#define arginfo_class_NSView_wantsExtendedDynamicRangeOpenGLSurface arginfo_class_NSView_needsDisplay
+
+#define arginfo_class_NSView_setWantsExtendedDynamicRangeOpenGLSurface arginfo_class_NSView_setNeedsDisplay
+
+#define arginfo_class_NSView_wantsBestResolutionOpenGLSurface arginfo_class_NSView_needsDisplay
+
+#define arginfo_class_NSView_setWantsBestResolutionOpenGLSurface arginfo_class_NSView_setNeedsDisplay
+
 ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(arginfo_class_NSView_layer, 0, 0, CALayer, 1)
 ZEND_END_ARG_INFO()
 
@@ -131,6 +139,36 @@ ZEND_END_ARG_INFO()
 
 #define arginfo_class_NSView_centerYAnchor arginfo_class_NSView_widthAnchor
 
+#define arginfo_class_NSView_bounds arginfo_class_NSView_frame
+
+ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(arginfo_class_NSView_convertRectToBacking, 0, 1, NSRect, 0)
+	ZEND_ARG_OBJ_INFO(0, rect, NSRect, 0)
+ZEND_END_ARG_INFO()
+
+#define arginfo_class_NSView_safeAreaRect arginfo_class_NSView_frame
+
+ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(arginfo_class_NSView_convertSizeToBacking, 0, 1, NSSize, 0)
+	ZEND_ARG_OBJ_INFO(0, size, NSSize, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_NSView_setNeedsDisplayInRect, 0, 1, IS_VOID, 0)
+	ZEND_ARG_OBJ_INFO(0, rect, NSRect, 0)
+ZEND_END_ARG_INFO()
+
+#define arginfo_class_NSView_displayIfNeeded arginfo_class_NSView_removeFromSuperview
+
+ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(arginfo_class_NSView_layerContentsRedrawPolicy, 0, 0, NSViewLayerContentsRedrawPolicy, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_NSView_setLayerContentsRedrawPolicy, 0, 1, IS_VOID, 0)
+	ZEND_ARG_OBJ_INFO(0, policy, NSViewLayerContentsRedrawPolicy, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(arginfo_class_NSView_displayLinkWithTargetSelector, 0, 2, CADisplayLink, 0)
+	ZEND_ARG_OBJ_INFO(0, target, NSObject, 0)
+	ZEND_ARG_TYPE_INFO(0, selector, IS_STRING, 0)
+ZEND_END_ARG_INFO()
+
 ZEND_METHOD(NSView, initWithFrame);
 ZEND_METHOD(NSView, frame);
 ZEND_METHOD(NSView, setFrame);
@@ -157,6 +195,10 @@ ZEND_METHOD(NSView, translatesAutoresizingMaskIntoConstraints);
 ZEND_METHOD(NSView, setTranslatesAutoresizingMaskIntoConstraints);
 ZEND_METHOD(NSView, wantsLayer);
 ZEND_METHOD(NSView, setWantsLayer);
+ZEND_METHOD(NSView, wantsExtendedDynamicRangeOpenGLSurface);
+ZEND_METHOD(NSView, setWantsExtendedDynamicRangeOpenGLSurface);
+ZEND_METHOD(NSView, wantsBestResolutionOpenGLSurface);
+ZEND_METHOD(NSView, setWantsBestResolutionOpenGLSurface);
 ZEND_METHOD(NSView, layer);
 ZEND_METHOD(NSView, setLayer);
 ZEND_METHOD(NSView, layerBackgroundColor);
@@ -177,6 +219,15 @@ ZEND_METHOD(NSView, topAnchor);
 ZEND_METHOD(NSView, bottomAnchor);
 ZEND_METHOD(NSView, centerXAnchor);
 ZEND_METHOD(NSView, centerYAnchor);
+ZEND_METHOD(NSView, bounds);
+ZEND_METHOD(NSView, convertRectToBacking);
+ZEND_METHOD(NSView, safeAreaRect);
+ZEND_METHOD(NSView, convertSizeToBacking);
+ZEND_METHOD(NSView, setNeedsDisplayInRect);
+ZEND_METHOD(NSView, displayIfNeeded);
+ZEND_METHOD(NSView, layerContentsRedrawPolicy);
+ZEND_METHOD(NSView, setLayerContentsRedrawPolicy);
+ZEND_METHOD(NSView, displayLinkWithTargetSelector);
 
 static const zend_function_entry class_NSView_methods[] = {
 	ZEND_ME(NSView, initWithFrame, arginfo_class_NSView_initWithFrame, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
@@ -205,6 +256,10 @@ static const zend_function_entry class_NSView_methods[] = {
 	ZEND_ME(NSView, setTranslatesAutoresizingMaskIntoConstraints, arginfo_class_NSView_setTranslatesAutoresizingMaskIntoConstraints, ZEND_ACC_PUBLIC)
 	ZEND_ME(NSView, wantsLayer, arginfo_class_NSView_wantsLayer, ZEND_ACC_PUBLIC)
 	ZEND_ME(NSView, setWantsLayer, arginfo_class_NSView_setWantsLayer, ZEND_ACC_PUBLIC)
+	ZEND_ME(NSView, wantsExtendedDynamicRangeOpenGLSurface, arginfo_class_NSView_wantsExtendedDynamicRangeOpenGLSurface, ZEND_ACC_PUBLIC)
+	ZEND_ME(NSView, setWantsExtendedDynamicRangeOpenGLSurface, arginfo_class_NSView_setWantsExtendedDynamicRangeOpenGLSurface, ZEND_ACC_PUBLIC)
+	ZEND_ME(NSView, wantsBestResolutionOpenGLSurface, arginfo_class_NSView_wantsBestResolutionOpenGLSurface, ZEND_ACC_PUBLIC)
+	ZEND_ME(NSView, setWantsBestResolutionOpenGLSurface, arginfo_class_NSView_setWantsBestResolutionOpenGLSurface, ZEND_ACC_PUBLIC)
 	ZEND_ME(NSView, layer, arginfo_class_NSView_layer, ZEND_ACC_PUBLIC)
 	ZEND_ME(NSView, setLayer, arginfo_class_NSView_setLayer, ZEND_ACC_PUBLIC)
 	ZEND_ME(NSView, layerBackgroundColor, arginfo_class_NSView_layerBackgroundColor, ZEND_ACC_PUBLIC)
@@ -225,6 +280,15 @@ static const zend_function_entry class_NSView_methods[] = {
 	ZEND_ME(NSView, bottomAnchor, arginfo_class_NSView_bottomAnchor, ZEND_ACC_PUBLIC)
 	ZEND_ME(NSView, centerXAnchor, arginfo_class_NSView_centerXAnchor, ZEND_ACC_PUBLIC)
 	ZEND_ME(NSView, centerYAnchor, arginfo_class_NSView_centerYAnchor, ZEND_ACC_PUBLIC)
+	ZEND_ME(NSView, bounds, arginfo_class_NSView_bounds, ZEND_ACC_PUBLIC)
+	ZEND_ME(NSView, convertRectToBacking, arginfo_class_NSView_convertRectToBacking, ZEND_ACC_PUBLIC)
+	ZEND_ME(NSView, safeAreaRect, arginfo_class_NSView_safeAreaRect, ZEND_ACC_PUBLIC)
+	ZEND_ME(NSView, convertSizeToBacking, arginfo_class_NSView_convertSizeToBacking, ZEND_ACC_PUBLIC)
+	ZEND_ME(NSView, setNeedsDisplayInRect, arginfo_class_NSView_setNeedsDisplayInRect, ZEND_ACC_PUBLIC)
+	ZEND_ME(NSView, displayIfNeeded, arginfo_class_NSView_displayIfNeeded, ZEND_ACC_PUBLIC)
+	ZEND_ME(NSView, layerContentsRedrawPolicy, arginfo_class_NSView_layerContentsRedrawPolicy, ZEND_ACC_PUBLIC)
+	ZEND_ME(NSView, setLayerContentsRedrawPolicy, arginfo_class_NSView_setLayerContentsRedrawPolicy, ZEND_ACC_PUBLIC)
+	ZEND_ME(NSView, displayLinkWithTargetSelector, arginfo_class_NSView_displayLinkWithTargetSelector, ZEND_ACC_PUBLIC)
 	ZEND_FE_END
 };
 
@@ -234,6 +298,33 @@ static void register_NSView_symbols(int module_number)
 	REGISTER_STRING_CONSTANT("kCAGravityResizeAspect", appkit_cfstring_constant((CFStringRef) kCAGravityResizeAspect), CONST_PERSISTENT);
 	REGISTER_STRING_CONSTANT("kCAGravityResizeAspectFill", appkit_cfstring_constant((CFStringRef) kCAGravityResizeAspectFill), CONST_PERSISTENT);
 	REGISTER_STRING_CONSTANT("kCAGravityCenter", appkit_cfstring_constant((CFStringRef) kCAGravityCenter), CONST_PERSISTENT);
+}
+
+static zend_class_entry *register_class_NSViewLayerContentsRedrawPolicy(void)
+{
+	zend_class_entry *class_entry = zend_register_internal_enum("NSViewLayerContentsRedrawPolicy", IS_LONG, NULL);
+
+	zval enum_case_NEVER_value;
+	ZVAL_LONG(&enum_case_NEVER_value, 0);
+	zend_enum_add_case_cstr(class_entry, "NEVER", &enum_case_NEVER_value);
+
+	zval enum_case_ON_SET_NEEDS_DISPLAY_value;
+	ZVAL_LONG(&enum_case_ON_SET_NEEDS_DISPLAY_value, 1);
+	zend_enum_add_case_cstr(class_entry, "ON_SET_NEEDS_DISPLAY", &enum_case_ON_SET_NEEDS_DISPLAY_value);
+
+	zval enum_case_DURING_VIEW_RESIZE_value;
+	ZVAL_LONG(&enum_case_DURING_VIEW_RESIZE_value, 2);
+	zend_enum_add_case_cstr(class_entry, "DURING_VIEW_RESIZE", &enum_case_DURING_VIEW_RESIZE_value);
+
+	zval enum_case_BEFORE_VIEW_RESIZE_value;
+	ZVAL_LONG(&enum_case_BEFORE_VIEW_RESIZE_value, 3);
+	zend_enum_add_case_cstr(class_entry, "BEFORE_VIEW_RESIZE", &enum_case_BEFORE_VIEW_RESIZE_value);
+
+	zval enum_case_CROSSFADE_value;
+	ZVAL_LONG(&enum_case_CROSSFADE_value, 4);
+	zend_enum_add_case_cstr(class_entry, "CROSSFADE", &enum_case_CROSSFADE_value);
+
+	return class_entry;
 }
 
 static zend_class_entry *register_class_NSView(zend_class_entry *class_entry_NSResponder)

@@ -17,3 +17,18 @@ class NSColor extends NSObject
 
     public function alphaComponent(): float {}
 }
+
+/**
+ * @not-serializable
+ */
+class NSColorSpace extends NSObject
+{
+    /** initWithCGColorSpace:; null when AppKit takes none. */
+    public static function initWithCGColorSpace(CGColorSpace $space): ?NSColorSpace {}
+
+    public static function sRGBColorSpace(): NSColorSpace {}
+
+    public static function displayP3ColorSpace(): NSColorSpace {}
+
+    public function localizedName(): ?string {}
+}

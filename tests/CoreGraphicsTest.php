@@ -42,7 +42,7 @@ it('carries the Core Graphics values of its constants', function (): void {
 it('refuses a description its provider cannot back', function (Closure $create, string $message): void {
     expect($create)->toThrow(ValueError::class, $message);
 })->with([
-    'too few bytes' => [fn () => rgbx(3, 2, str_repeat('x', 23)), 'must provide bytesPerRow x height (24) bytes, it holds 23'],
+    'too few bytes' => [fn () => rgbx(3, 2, str_repeat('x', 23)), 'must provide 24 bytes for that description, it holds 23'],
     'no width' => [fn () => rgbx(0, 2, 'abcd'), 'must be between 1 and'],
     'a row shorter than its pixels' => [fn () => CGImage::create(3, 2, 8, 32, 11, CGColorSpace::createWithName(kCGColorSpaceSRGB), kCGImageAlphaNoneSkipLast, CGDataProvider::createWithCFData(CFData::create(str_repeat('x', 24))), false, 0), 'must hold a row: at least 12 bytes'],
     'more bits a component than a pixel' => [fn () => CGImage::create(3, 2, 8, 4, 12, CGColorSpace::createWithName(kCGColorSpaceSRGB), kCGImageAlphaNoneSkipLast, CGDataProvider::createWithCFData(CFData::create(str_repeat('x', 24))), false, 0), 'must be between bitsPerComponent and 128'],

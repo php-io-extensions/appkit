@@ -137,6 +137,19 @@ Class appkit_called_class(zend_execute_data *execute_data)
 	for (zend_class_entry *ce = zend_get_called_scope(execute_data); ce != NULL; ce = ce->parent) {
 		Class cls = objc_getClass(ZSTR_VAL(ce->name));
 
+		/* A glue class stands for a runtime class of another name (ObjCStageWindow → PHPStageWindow). */
+		if (cls == Nil && appkit_objc_classes_ready) {
+			zend_string *objc_name;
+			zend_class_entry *mapped;
+
+			ZEND_HASH_FOREACH_STR_KEY_PTR(&appkit_objc_classes, objc_name, mapped) {
+				if (mapped == ce) {
+					cls = objc_getClass(ZSTR_VAL(objc_name));
+					break;
+				}
+			} ZEND_HASH_FOREACH_END();
+		}
+
 		if (cls != Nil) {
 			return cls;
 		}
@@ -183,6 +196,10 @@ void appkit_box_cf(zval *rv, CFTypeRef ref)
 		ce = appkit_ce_CGColorSpace;
 	} else if (type == CGImageGetTypeID()) {
 		ce = appkit_ce_CGImage;
+	} else if (type == CGContextGetTypeID()) {
+		ce = appkit_ce_CGContext;
+	} else if (type == CGDisplayModeGetTypeID()) {
+		ce = appkit_ce_CGDisplayMode;
 	}
 
 	appkit_box_new(rv, ce, (void *) CFRetain(ref), true);
@@ -499,6 +516,17 @@ bool appkit_rect_from(zend_object *rect, uint32_t arg_num, NSRect *out)
 		return false;
 	}
 	*out = NSMakeRect(v[0], v[1], v[2], v[3]);
+	return true;
+}
+
+bool appkit_point_from(zend_object *point, uint32_t arg_num, NSPoint *out)
+{
+	double v[2];
+
+	if (!appkit_double_props(point, arg_num, 2, v)) {
+		return false;
+	}
+	*out = NSMakePoint(v[0], v[1]);
 	return true;
 }
 

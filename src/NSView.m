@@ -1,10 +1,15 @@
 #include "runtime.h"
+#include "controls.h"
 #import <QuartzCore/QuartzCore.h>
 #include "../stubs/NSView_arginfo.h"
+
+_Static_assert(NSViewLayerContentsRedrawNever == 0 && NSViewLayerContentsRedrawOnSetNeedsDisplay == 1 && NSViewLayerContentsRedrawDuringViewResize == 2
+	&& NSViewLayerContentsRedrawBeforeViewResize == 3 && NSViewLayerContentsRedrawCrossfade == 4, "NSViewLayerContentsRedrawPolicy values moved");
 
 void appkit_register_NSView(int module_number)
 {
 	register_NSView_symbols(module_number);
+	appkit_ce_NSViewLayerContentsRedrawPolicy = register_class_NSViewLayerContentsRedrawPolicy();
 	appkit_ce_NSView = register_class_NSView(appkit_ce_NSResponder);
 	appkit_object_setup(appkit_ce_NSView);
 	appkit_map_objc_class("NSView", appkit_ce_NSView);
@@ -294,6 +299,10 @@ APPKIT_VIEW_BOOL_GET(translatesAutoresizingMaskIntoConstraints, translatesAutore
 APPKIT_VIEW_BOOL_SET(setTranslatesAutoresizingMaskIntoConstraints, setTranslatesAutoresizingMaskIntoConstraints)
 APPKIT_VIEW_BOOL_GET(wantsLayer, wantsLayer)
 APPKIT_VIEW_BOOL_SET(setWantsLayer, setWantsLayer)
+APPKIT_VIEW_BOOL_GET(wantsExtendedDynamicRangeOpenGLSurface, wantsExtendedDynamicRangeOpenGLSurface)
+APPKIT_VIEW_BOOL_SET(setWantsExtendedDynamicRangeOpenGLSurface, setWantsExtendedDynamicRangeOpenGLSurface)
+APPKIT_VIEW_BOOL_GET(wantsBestResolutionOpenGLSurface, wantsBestResolutionOpenGLSurface)
+APPKIT_VIEW_BOOL_SET(setWantsBestResolutionOpenGLSurface, setWantsBestResolutionOpenGLSurface)
 
 ZEND_METHOD(NSView, layer)
 {
@@ -359,3 +368,37 @@ ZEND_METHOD(NSView, needsDisplay)
 
 	RETURN_BOOL([THIS_VIEW needsDisplay]);
 }
+
+#define PARSE_RECT NSRect v; zend_object *v_obj; ZEND_PARSE_PARAMETERS_START(1, 1) Z_PARAM_OBJ_OF_CLASS(v_obj, appkit_ce_NSRect) ZEND_PARSE_PARAMETERS_END(); if (!appkit_rect_from(v_obj, 1, &v)) { RETURN_THROWS(); }
+#define PARSE_SIZE NSSize v; zend_object *v_obj; ZEND_PARSE_PARAMETERS_START(1, 1) Z_PARAM_OBJ_OF_CLASS(v_obj, appkit_ce_NSSize) ZEND_PARSE_PARAMETERS_END(); if (!appkit_size_from(v_obj, 1, &v)) { RETURN_THROWS(); }
+
+METHOD(NSView, bounds, PARSE_NONE, appkit_return_rect(return_value, [THIS_VIEW bounds]);)
+METHOD(NSView, safeAreaRect, PARSE_NONE, appkit_return_rect(return_value, [THIS_VIEW safeAreaRect]);)
+METHOD(NSView, convertRectToBacking, PARSE_RECT, appkit_return_rect(return_value, [THIS_VIEW convertRectToBacking:v]);)
+METHOD(NSView, convertSizeToBacking, PARSE_SIZE, appkit_return_size(return_value, [THIS_VIEW convertSizeToBacking:v]);)
+METHOD(NSView, setNeedsDisplayInRect, PARSE_RECT, [THIS_VIEW setNeedsDisplayInRect:v];)
+VOID_METHOD(NSView, NSView, displayIfNeeded, displayIfNeeded)
+ENUM_GET(NSView, NSView, layerContentsRedrawPolicy, layerContentsRedrawPolicy, appkit_ce_NSViewLayerContentsRedrawPolicy, false)
+ENUM_SET(NSView, NSView, setLayerContentsRedrawPolicy, setLayerContentsRedrawPolicy, appkit_ce_NSViewLayerContentsRedrawPolicy, NSViewLayerContentsRedrawPolicy)
+
+ZEND_METHOD(NSView, displayLinkWithTargetSelector)
+{
+	zend_object *target;
+	zend_string *selector;
+
+	ZEND_PARSE_PARAMETERS_START(2, 2)
+		Z_PARAM_OBJ_OF_CLASS(target, appkit_ce_NSObject)
+		Z_PARAM_STR(selector)
+	ZEND_PARSE_PARAMETERS_END();
+	APPKIT_REQUIRE_MAIN_THREAD();
+
+	APPKIT_BEGIN
+		if (@available(macOS 14.0, *)) {
+			appkit_box_objc(return_value, [THIS_VIEW displayLinkWithTarget:APPKIT_ID(target) selector:sel_registerName(ZSTR_VAL(selector))]);
+		} else {
+			zend_throw_exception(appkit_ce_AppKitException, "NSView::displayLinkWithTargetSelector() needs macOS 14", 0);
+			RETURN_THROWS();
+		}
+	APPKIT_END
+}
+

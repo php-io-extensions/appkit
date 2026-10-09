@@ -2,6 +2,12 @@
 
 /** @generate-class-entries */
 
+enum NSRequestUserAttentionType: int
+{
+    case CRITICAL = 0;
+    case INFORMATIONAL = 10;
+}
+
 enum NSApplicationActivationPolicy: int
 {
     case REGULAR = 0;
@@ -67,4 +73,14 @@ class NSApplication extends NSResponder
 
     /** @param array $optionsDictionary string keys; string, int, float or bool values; marshalled to an NSDictionary */
     public function orderFrontStandardAboutPanelWithOptions(array $optionsDictionary): void {}
+
+    public function applicationIconImage(): ?NSImage {}
+
+    /** Bounce the Dock icon; answers the request number. 0 when the app is already active. */
+    public function requestUserAttention(NSRequestUserAttentionType $requestType): int {}
+
+    public function cancelUserAttentionRequest(int $request): void {}
+
+    /** setApplicationIconImage:; null restores the bundle's icon. */
+    public function setApplicationIconImage(?NSImage $image): void {}
 }

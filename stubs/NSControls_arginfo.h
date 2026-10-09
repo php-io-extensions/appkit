@@ -1,5 +1,5 @@
 /* This is a generated file, edit the .stub.php file instead.
- * Stub hash: e492eca208f49d81bc3476ea13c0f6f5c4c7822a */
+ * Stub hash: 1d762ced3f50a1a46adedec1c6f79a685f3fcc50 */
 
 ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_NSControl_isEnabled, 0, 0, _IS_BOOL, 0)
 ZEND_END_ARG_INFO()
@@ -282,6 +282,11 @@ ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_NSImage_initWithContentsOf
 	ZEND_ARG_TYPE_INFO(0, path, IS_STRING, 0)
 ZEND_END_ARG_INFO()
 
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_NSImage_initWithCGImageSize, 0, 2, IS_STATIC, 0)
+	ZEND_ARG_OBJ_INFO(0, image, CGImage, 0)
+	ZEND_ARG_OBJ_INFO(0, size, NSSize, 0)
+ZEND_END_ARG_INFO()
+
 ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(arginfo_class_NSImage_size, 0, 0, NSSize, 0)
 ZEND_END_ARG_INFO()
 
@@ -478,6 +483,7 @@ ZEND_METHOD(NSProgressIndicator, startAnimation);
 ZEND_METHOD(NSProgressIndicator, stopAnimation);
 ZEND_METHOD(NSProgressIndicator, setDisplayedWhenStopped);
 ZEND_METHOD(NSImage, initWithContentsOfFile);
+ZEND_METHOD(NSImage, initWithCGImageSize);
 ZEND_METHOD(NSImage, size);
 ZEND_METHOD(NSImageView, imageViewWithImage);
 ZEND_METHOD(NSImageView, image);
@@ -644,6 +650,7 @@ static const zend_function_entry class_NSProgressIndicator_methods[] = {
 
 static const zend_function_entry class_NSImage_methods[] = {
 	ZEND_ME(NSImage, initWithContentsOfFile, arginfo_class_NSImage_initWithContentsOfFile, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	ZEND_ME(NSImage, initWithCGImageSize, arginfo_class_NSImage_initWithCGImageSize, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
 	ZEND_ME(NSImage, size, arginfo_class_NSImage_size, ZEND_ACC_PUBLIC)
 	ZEND_FE_END
 };

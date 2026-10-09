@@ -18,6 +18,7 @@ zend_class_entry *appkit_ce_NSObject;
 zend_class_entry *appkit_ce_NSResponder;
 zend_class_entry *appkit_ce_NSApplication;
 zend_class_entry *appkit_ce_NSApplicationActivationPolicy;
+zend_class_entry *appkit_ce_NSRequestUserAttentionType;
 zend_class_entry *appkit_ce_NSEvent;
 zend_class_entry *appkit_ce_NSEventType;
 zend_class_entry *appkit_ce_NSEventMask;
@@ -67,6 +68,7 @@ zend_class_entry *appkit_ce_NSEdgeInsets;
 zend_class_entry *appkit_ce_NSLayoutAnchor;
 zend_class_entry *appkit_ce_NSLayoutConstraint;
 zend_class_entry *appkit_ce_NSColor;
+zend_class_entry *appkit_ce_NSColorSpace;
 zend_class_entry *appkit_ce_NSFont;
 zend_class_entry *appkit_ce_NSFontManager;
 zend_class_entry *appkit_ce_NSUserInterfaceLayoutOrientation;
@@ -110,6 +112,25 @@ zend_class_entry *appkit_ce_NSIndexSet;
 zend_class_entry *appkit_ce_NSTableColumn;
 zend_class_entry *appkit_ce_NSTableHeaderView;
 zend_class_entry *appkit_ce_NSTableView;
+zend_class_entry *appkit_ce_NSWindowCollectionBehavior;
+zend_class_entry *appkit_ce_NSWindowTitleVisibility;
+zend_class_entry *appkit_ce_NSWindowOcclusionState;
+zend_class_entry *appkit_ce_NSViewLayerContentsRedrawPolicy;
+zend_class_entry *appkit_ce_NSScreen;
+zend_class_entry *appkit_ce_CGDisplayMode;
+zend_class_entry *appkit_ce_CGDisplay;
+zend_class_entry *appkit_ce_CGInterpolationQuality;
+zend_class_entry *appkit_ce_CGContext;
+zend_class_entry *appkit_ce_NSGraphicsContext;
+zend_class_entry *appkit_ce_CAFrameRateRange;
+zend_class_entry *appkit_ce_CADisplayLink;
+zend_class_entry *appkit_ce_NSRunLoop;
+zend_class_entry *appkit_ce_NSActivityOptions;
+zend_class_entry *appkit_ce_NSProcessInfo;
+zend_class_entry *appkit_ce_IOPMAssertion;
+zend_class_entry *appkit_ce_NSOpenGLContextParameter;
+zend_class_entry *appkit_ce_ObjCDrawView;
+zend_class_entry *appkit_ce_ObjCStageWindow;
 
 static PHP_GINIT_FUNCTION(appkit)
 {
@@ -149,7 +170,13 @@ PHP_MINIT_FUNCTION(appkit)
 	appkit_register_NSTableView();
 	appkit_register_NSNotificationCenter(module_number);
 	appkit_register_AVKit(module_number);
-	appkit_register_NSWindow();
+	appkit_register_NSWindow(module_number);
+	appkit_register_NSScreen();
+	appkit_register_NSGraphicsContext();
+	appkit_register_CADisplayLink();
+	appkit_register_NSRunLoop();
+	appkit_register_NSProcessInfo();
+	appkit_register_IOPMLib(module_number);
 	appkit_register_NSMenu();
 	appkit_register_ObjCGlue();
 
@@ -157,6 +184,7 @@ PHP_MINIT_FUNCTION(appkit)
 	appkit_register_CFRunLoop();
 	appkit_register_CFFileDescriptor();
 	appkit_register_CoreGraphics(module_number);
+	appkit_register_CGDirectDisplay(module_number);
 
 	return SUCCESS;
 }

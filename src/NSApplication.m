@@ -3,8 +3,11 @@
 
 #import <AppKit/AppKit.h>
 
+_Static_assert(NSCriticalRequest == 0 && NSInformationalRequest == 10, "NSRequestUserAttentionType values moved");
+
 void appkit_register_NSApplication(void)
 {
+	appkit_ce_NSRequestUserAttentionType = register_class_NSRequestUserAttentionType();
 	appkit_ce_NSApplicationActivationPolicy = register_class_NSApplicationActivationPolicy();
 	appkit_ce_NSApplication = register_class_NSApplication(appkit_ce_NSResponder);
 	appkit_object_setup(appkit_ce_NSApplication);
@@ -355,3 +358,56 @@ ZEND_METHOD(NSApplication, orderFrontStandardAboutPanelWithOptions)
 		[THIS_APP orderFrontStandardAboutPanelWithOptions:dictionary];
 	APPKIT_END
 }
+
+ZEND_METHOD(NSApplication, applicationIconImage)
+{
+	ZEND_PARSE_PARAMETERS_NONE();
+	APPKIT_REQUIRE_MAIN_THREAD();
+
+	APPKIT_BEGIN
+		appkit_box_objc(return_value, [THIS_APP applicationIconImage]);
+	APPKIT_END
+}
+
+ZEND_METHOD(NSApplication, requestUserAttention)
+{
+	zend_object *type;
+
+	ZEND_PARSE_PARAMETERS_START(1, 1)
+		Z_PARAM_OBJ_OF_CLASS(type, appkit_ce_NSRequestUserAttentionType)
+	ZEND_PARSE_PARAMETERS_END();
+	APPKIT_REQUIRE_MAIN_THREAD();
+
+	APPKIT_BEGIN
+		RETURN_LONG((zend_long) [THIS_APP requestUserAttention:(NSRequestUserAttentionType) appkit_enum_value(type, 0)]);
+	APPKIT_END
+}
+
+ZEND_METHOD(NSApplication, cancelUserAttentionRequest)
+{
+	zend_long request;
+
+	ZEND_PARSE_PARAMETERS_START(1, 1)
+		Z_PARAM_LONG(request)
+	ZEND_PARSE_PARAMETERS_END();
+	APPKIT_REQUIRE_MAIN_THREAD();
+
+	APPKIT_BEGIN
+		[THIS_APP cancelUserAttentionRequest:(NSInteger) request];
+	APPKIT_END
+}
+
+ZEND_METHOD(NSApplication, setApplicationIconImage)
+{
+	zend_object *image = NULL;
+
+	ZEND_PARSE_PARAMETERS_START(1, 1)
+		Z_PARAM_OBJ_OF_CLASS_OR_NULL(image, appkit_ce_NSImage)
+	ZEND_PARSE_PARAMETERS_END();
+	APPKIT_REQUIRE_MAIN_THREAD();
+
+	APPKIT_BEGIN
+		[THIS_APP setApplicationIconImage:image != NULL ? (NSImage *) APPKIT_ID(image) : nil];
+	APPKIT_END
+}
+

@@ -80,3 +80,30 @@ final class ObjCOpenGLView extends NSOpenGLView
     /** @param callable $draw called as $draw(ObjCOpenGLView $view): void from drawRect: */
     public static function initWithFramePixelFormatDraw(NSRect $frame, ?NSOpenGLPixelFormat $format, callable $draw): static {}
 }
+
+/**
+ * An NSWindow whose key and main status is a flag: a borderless window can take
+ * focus, and any window can refuse it. Made with initWithContentRectStyleMaskBackingDefer().
+ *
+ * @not-serializable
+ */
+final class ObjCStageWindow extends NSWindow
+{
+    /** Whether the window may become key and main; YES by default, a borderless one included (a plain borderless NSWindow never can). */
+    public function canBecomeKey(): bool {}
+
+    public function setCanBecomeKey(bool $canBecomeKey): void {}
+}
+
+/**
+ * An NSView whose drawRect: calls PHP with the dirty rect, inside the view's graphics context:
+ * the trampoline a partial redraw needs. Mark rects with setNeedsDisplayInRect(); AppKit asks
+ * for only those.
+ *
+ * @not-serializable
+ */
+final class ObjCDrawView extends NSView
+{
+    /** @param callable $draw called as $draw(ObjCDrawView $view, NSRect $dirty): void from drawRect: */
+    public static function initWithFrameDraw(NSRect $frame, callable $draw): static {}
+}

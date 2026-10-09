@@ -26,6 +26,15 @@ const kCAGravityResizeAspectFill = UNKNOWN;
  */
 const kCAGravityCenter = UNKNOWN;
 
+enum NSViewLayerContentsRedrawPolicy: int
+{
+    case NEVER = 0;
+    case ON_SET_NEEDS_DISPLAY = 1;
+    case DURING_VIEW_RESIZE = 2;
+    case BEFORE_VIEW_RESIZE = 3;
+    case CROSSFADE = 4;
+}
+
 /**
  * @not-serializable
  */
@@ -90,6 +99,16 @@ class NSView extends NSResponder
 
     public function setWantsLayer(bool $flag): void {}
 
+    /** wantsExtendedDynamicRangeOpenGLSurface: an OpenGL surface on this view shows values past 1.0 on an EDR display. */
+    public function wantsExtendedDynamicRangeOpenGLSurface(): bool {}
+
+    public function setWantsExtendedDynamicRangeOpenGLSurface(bool $flag): void {}
+
+    /** wantsBestResolutionOpenGLSurface: an OpenGL surface on this view at the backing's pixel size (Retina). */
+    public function wantsBestResolutionOpenGLSurface(): bool {}
+
+    public function setWantsBestResolutionOpenGLSurface(bool $flag): void {}
+
     /** The view's layer; null when it has none. */
     public function layer(): ?CALayer {}
 
@@ -141,4 +160,28 @@ class NSView extends NSResponder
     public function centerXAnchor(): NSLayoutAnchor {}
 
     public function centerYAnchor(): NSLayoutAnchor {}
+
+    public function bounds(): NSRect {}
+
+    public function convertRectToBacking(NSRect $rect): NSRect {}
+
+    /** The bounds less the safe-area insets: what no title bar, notch or rounded corner covers (macOS 11). */
+    public function safeAreaRect(): NSRect {}
+
+    public function convertSizeToBacking(NSSize $size): NSSize {}
+
+    /** Marks a rect dirty: drawRect: is asked for that rect only. */
+    public function setNeedsDisplayInRect(NSRect $rect): void {}
+
+    public function displayIfNeeded(): void {}
+
+    public function layerContentsRedrawPolicy(): NSViewLayerContentsRedrawPolicy {}
+
+    public function setLayerContentsRedrawPolicy(NSViewLayerContentsRedrawPolicy $policy): void {}
+
+    /**
+     * displayLinkWithTarget:selector: (macOS 14+): a CADisplayLink following the display this
+     * view is on, sending $selector to $target each frame. Not yet added to a run loop.
+     */
+    public function displayLinkWithTargetSelector(NSObject $target, string $selector): CADisplayLink {}
 }

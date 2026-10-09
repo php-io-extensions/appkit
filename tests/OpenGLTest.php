@@ -118,3 +118,38 @@ it('leaves no context current after it draws when none was', function (): void {
         ->and(NSOpenGLContext::currentContext())->toBeNull();
     $window->close();
 });
+
+it('turns vsync off and on through the swap interval, and reads it back', function (): void {
+    $format = NSOpenGLPixelFormat::initWithAttributes([NSOpenGLPFAOpenGLProfile, NSOpenGLProfileVersion4_1Core, NSOpenGLPFAAccelerated, NSOpenGLPFADoubleBuffer, 0]);
+    $context = NSOpenGLContext::initWithFormatShareContext($format, null);
+
+    $context->setValuesForParameter([0], NSOpenGLContextParameter::SWAP_INTERVAL);
+    expect($context->getValuesForParameter(NSOpenGLContextParameter::SWAP_INTERVAL, 1))->toBe([0]);
+
+    $context->setValuesForParameter([1], NSOpenGLContextParameter::SWAP_INTERVAL);
+    expect($context->getValuesForParameter(NSOpenGLContextParameter::SWAP_INTERVAL, 1))->toBe([1])
+        ->and(NSOpenGLContextParameter::SWAP_INTERVAL->value)->toBe(222);
+});
+
+it('refuses a parameter list it cannot pass', function (): void {
+    $format = NSOpenGLPixelFormat::initWithAttributes([NSOpenGLPFAOpenGLProfile, NSOpenGLProfileVersion4_1Core, 0]);
+    $context = NSOpenGLContext::initWithFormatShareContext($format, null);
+
+    expect(fn () => $context->setValuesForParameter([1, 2, 3, 4, 5], NSOpenGLContextParameter::SWAP_RECTANGLE))->toThrow(ValueError::class, 'must hold at most 4 ints')
+        ->and(fn () => $context->setValuesForParameter(['1'], NSOpenGLContextParameter::SWAP_INTERVAL))->toThrow(TypeError::class, 'must be a list of 32-bit ints')
+        ->and(fn () => $context->getValuesForParameter(NSOpenGLContextParameter::SWAP_INTERVAL, 0))->toThrow(ValueError::class, 'must be between 1 and 4');
+});
+
+it('makes a half-float context and puts a view in extended dynamic range', function (): void {
+    $format = NSOpenGLPixelFormat::initWithAttributes([NSOpenGLPFAOpenGLProfile, NSOpenGLProfileVersion4_1Core, NSOpenGLPFAAccelerated, NSOpenGLPFADoubleBuffer, NSOpenGLPFAColorFloat, NSOpenGLPFAColorSize, 64, NSOpenGLPFAAlphaSize, 16, 0]);
+    $view = NSView::initWithFrame(new NSRect(0.0, 0.0, 32.0, 32.0));
+
+    $before = $view->wantsExtendedDynamicRangeOpenGLSurface();
+    $view->setWantsExtendedDynamicRangeOpenGLSurface(true);
+    $view->setWantsBestResolutionOpenGLSurface(true);
+
+    expect($format)->not->toBeNull()
+        ->and(NSOpenGLContext::initWithFormatShareContext($format, null))->not->toBeNull()
+        ->and([$before, $view->wantsExtendedDynamicRangeOpenGLSurface()])->toBe([false, true])
+        ->and($view->wantsBestResolutionOpenGLSurface())->toBeTrue();
+});

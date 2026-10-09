@@ -1,7 +1,7 @@
 ---
 type: Module
 title: Glue trampolines
-description: ObjCDelegate and ObjCTarget, the objects that let a PHP callable stand where AppKit wants a delegate or a target.
+description: ObjCDelegate, ObjCTarget and the drawRect: trampolines (ObjCOpenGLView, ObjCDrawView), the objects that let a PHP callable stand where AppKit wants a delegate, a target or a painter.
 resource: src/ObjCGlue.m
 tags: [appkit, callbacks, delegate, target-action]
 status: draft
@@ -27,3 +27,11 @@ AppKit asks objects, not functions: a window's delegate answers `windowWillClose
 Handlers are [callouts](/architecture/callouts.md) without a detach: each Objective-C object holds its records and releases them in `dealloc`; at request end the callables are freed and the records go inert. AppKit holds delegates and targets weakly, so the PHP object must stay referenced for as long as the window or item should call back.
 
 [^glue]: PHPAppKitDelegate, PHPAppKitTarget
+
+# ObjCStageWindow
+NSWindow subclass `PHPStageWindow`; `canBecomeKeyWindow` / `canBecomeMainWindow` answer one flag (`setCanBecomeKey`, YES by default). A borderless window takes focus; any window can refuse it. Made through the inherited `initWithContentRectStyleMaskBackingDefer()`: `appkit_called_class` maps a glue class to its runtime class through the class map when no ObjC class carries the PHP name.
+
+# ObjCDrawView
+
+NSView subclass `PHPDrawView`; `drawRect:` boxes `(view, dirty NSRect)` → PHP callout, inside the view's graphics context (`NSGraphicsContext::currentContext()->CGContext()`). Partial redraw: `setNeedsDisplayInRect:` per damaged rect, AppKit asks once per dirty region; with `NSViewLayerContentsRedrawPolicy::ON_SET_NEEDS_DISPLAY` the layer keeps the rest. Callout lifetime = view's (released in `dealloc`), like `ObjCOpenGLView`.
+
