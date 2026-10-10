@@ -15,6 +15,14 @@ const NSViewFrameDidChangeNotification = UNKNOWN;
 const NSWindowDidResizeNotification = UNKNOWN;
 
 /**
+ * Posted when the application stops being the active app: Cmd-Tab, a click on another app.
+ *
+ * @var string
+ * @cvalue appkit_cfstring_constant((CFStringRef) NSApplicationDidResignActiveNotification)
+ */
+const NSApplicationDidResignActiveNotification = UNKNOWN;
+
+/**
  * Posted by an NSControl as its text changes; the control's delegate hears it as controlTextDidChange:.
  *
  * @var string

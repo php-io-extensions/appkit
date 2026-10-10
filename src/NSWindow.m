@@ -238,6 +238,51 @@ ZEND_METHOD(NSWindow, windowNumber)
 	APPKIT_END
 }
 
+ZEND_METHOD(NSWindow, acceptsMouseMovedEvents)
+{
+	ZEND_PARSE_PARAMETERS_NONE();
+	APPKIT_REQUIRE_MAIN_THREAD();
+
+	APPKIT_BEGIN
+		RETURN_BOOL([THIS_WINDOW acceptsMouseMovedEvents]);
+	APPKIT_END
+}
+
+ZEND_METHOD(NSWindow, setAcceptsMouseMovedEvents)
+{
+	bool accepts;
+
+	ZEND_PARSE_PARAMETERS_START(1, 1)
+		Z_PARAM_BOOL(accepts)
+	ZEND_PARSE_PARAMETERS_END();
+	APPKIT_REQUIRE_MAIN_THREAD();
+
+	APPKIT_BEGIN
+		[THIS_WINDOW setAcceptsMouseMovedEvents:accepts];
+	APPKIT_END
+}
+
+ZEND_METHOD(NSWindow, windowNumberAtPointBelowWindowWithWindowNumber)
+{
+	zend_object *point_obj;
+	zend_long below;
+	NSPoint point;
+
+	ZEND_PARSE_PARAMETERS_START(2, 2)
+		Z_PARAM_OBJ_OF_CLASS(point_obj, appkit_ce_NSPoint)
+		Z_PARAM_LONG(below)
+	ZEND_PARSE_PARAMETERS_END();
+	APPKIT_REQUIRE_MAIN_THREAD();
+
+	if (!appkit_point_from(point_obj, 1, &point)) {
+		RETURN_THROWS();
+	}
+
+	APPKIT_BEGIN
+		RETURN_LONG((zend_long) [NSWindow windowNumberAtPoint:point belowWindowWithWindowNumber:(NSInteger) below]);
+	APPKIT_END
+}
+
 ZEND_METHOD(NSWindow, frame)
 {
 	ZEND_PARSE_PARAMETERS_NONE();

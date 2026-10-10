@@ -92,3 +92,26 @@ it('lets an exception thrown by a target surface', function (): void {
 
     expect(fn () => $menu->performActionForItemAtIndex(0))->toThrow(LogicException::class, 'from the target');
 });
+
+it('pops a menu up at a point, tracks it until cancelled, and reports no item chosen', function (): void {
+    $menu = NSMenu::initWithTitle('Context');
+    $menu->addItem(NSMenuItem::initWithTitleActionKeyEquivalent('Download', null, ''));
+    // The menu tracks in its own run loop mode: a source in the common modes runs inside it.
+    [$read, $write] = stream_socket_pair(STREAM_PF_UNIX, STREAM_SOCK_STREAM, STREAM_IPPROTO_IP);
+    $cancelled = 0;
+    $descriptor = CFFileDescriptor::create($read, false, function () use ($menu, &$cancelled): void {
+        $cancelled++;
+        $menu->cancelTracking();
+    });
+    $source = $descriptor->createRunLoopSource(0);
+    CFRunLoop::getMain()->addSource($source, kCFRunLoopCommonModes);
+    $descriptor->enableCallBacks(kCFFileDescriptorReadCallBack);
+    fwrite($write, 'x');
+
+    $chosen = $menu->popUpMenuPositioningItemAtLocationInView(null, new NSPoint(200.0, 300.0), null);
+    CFRunLoop::getMain()->removeSource($source, kCFRunLoopCommonModes);
+    $descriptor->invalidate();
+
+    expect($chosen)->toBeFalse()
+        ->and($cancelled)->toBe(1);
+});

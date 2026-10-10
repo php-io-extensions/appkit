@@ -2,6 +2,9 @@
 
 ## 2026-10-09
 
+* `NSEvent::pressedMouseButtons` and `CGEventSource::keyState` (`CGEventSourceKeyState`, `CGEventSourceStateID`): the button and key state AppKit's own tracking loops (controls, menus) keep the release events of. [surface](api/surface.md)
+* Input for HumanInput's appkit engine and the macOS pad source (slice 19): key `NSEvent`s and the key, wheel and delta accessors, `eventWithCGEvent:` over a new `CGEvent` binding (scroll wheels, other buttons, motion deltas), `mouseLocation`, moved-event tracking and the window at a point on `NSWindow`, `NSApplicationDidResignActiveNotification`, and GameController.framework (`GCController` with wireless discovery, background events and player index; extended and micro gamepads; elements). `PHPAppKitBlockCallout` is declared in `runtime.h` for every block-taking selector. Measured on macOS 15.4.1: GameController input reaches the active app only; 15.4.x reads `shouldMonitorBackgroundEvents` back false; discovery's completion handler is never called; a `CGEvent` scroll or mouse event has window number 0 and a screen location. Linking GameController costs no measurable launch time. [surface](api/surface.md)
+* `NSMenu` popUpMenuPositioningItem:atLocation:inView: and cancelTracking. For context menus (HumanInput slice 27). [surface](api/surface.md)
 * `NSView` hitTest:, convertPoint:fromView:, isFlipped; `NSEvent` mouseEventWithType:…pressure:, buttonNumber. For right-click mail (HumanInput slice 26). [surface](api/surface.md)
 
 ## 2026-10-08

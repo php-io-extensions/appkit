@@ -190,6 +190,40 @@ ZEND_METHOD(NSMenu, performActionForItemAtIndex)
 	APPKIT_END
 }
 
+ZEND_METHOD(NSMenu, popUpMenuPositioningItemAtLocationInView)
+{
+	zend_object *item = NULL;
+	zend_object *location_obj;
+	zend_object *view = NULL;
+	NSPoint location;
+
+	ZEND_PARSE_PARAMETERS_START(3, 3)
+		Z_PARAM_OBJ_OF_CLASS_OR_NULL(item, appkit_ce_NSMenuItem)
+		Z_PARAM_OBJ_OF_CLASS(location_obj, appkit_ce_NSPoint)
+		Z_PARAM_OBJ_OF_CLASS_OR_NULL(view, appkit_ce_NSView)
+	ZEND_PARSE_PARAMETERS_END();
+	APPKIT_REQUIRE_MAIN_THREAD();
+	if (!appkit_point_from(location_obj, 2, &location)) {
+		RETURN_THROWS();
+	}
+
+	APPKIT_BEGIN
+		RETVAL_BOOL([THIS_MENU popUpMenuPositioningItem:(item == NULL ? nil : (NSMenuItem *) APPKIT_ID(item))
+		                                     atLocation:location
+		                                         inView:(view == NULL ? nil : (NSView *) APPKIT_ID(view))]);
+	APPKIT_END
+}
+
+ZEND_METHOD(NSMenu, cancelTracking)
+{
+	ZEND_PARSE_PARAMETERS_NONE();
+	APPKIT_REQUIRE_MAIN_THREAD();
+
+	APPKIT_BEGIN
+		[THIS_MENU cancelTracking];
+	APPKIT_END
+}
+
 /* ---- NSMenuItem -------------------------------------------------------- */
 
 ZEND_METHOD(NSMenuItem, initWithTitleActionKeyEquivalent)

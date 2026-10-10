@@ -100,6 +100,18 @@ class NSEvent extends NSObject
 
     public static function mouseEventWithTypeLocationModifierFlagsTimestampWindowNumberContextEventNumberClickCountPressure(NSEventType $type, NSPoint $location, NSEventModifierFlags|int $flags, float $time, int $wNum, ?NSObject $unusedPassNil, int $eNum, int $cNum, float $pressure): ?NSEvent {}
 
+    /** A KeyDown, KeyUp or FlagsChanged event; AppKit raises for any other type. */
+    public static function keyEventWithTypeLocationModifierFlagsTimestampWindowNumberContextCharactersCharactersIgnoringModifiersIsARepeatKeyCode(NSEventType $type, NSPoint $location, NSEventModifierFlags|int $flags, float $time, int $wNum, ?NSObject $unusedPassNil, string $keys, string $ukeys, bool $flag, int $code): ?NSEvent {}
+
+    /** The NSEvent for a Quartz event: the only way to make a scroll-wheel or other-button event. */
+    public static function eventWithCGEvent(CGEvent $cgEvent): ?NSEvent {}
+
+    /** The pointer on screen: origin at the bottom left of the main screen. */
+    public static function mouseLocation(): NSPoint {}
+
+    /** The mouse buttons down now, whatever event reported them: bit 0 left, 1 right, 2 and up the others. */
+    public static function pressedMouseButtons(): int {}
+
     public function type(): NSEventType|int {}
 
     /** The mouse button: 0 left, 1 right, 2 and up the others. */
@@ -118,4 +130,30 @@ class NSEvent extends NSObject
     public function data1(): int {}
 
     public function data2(): int {}
+
+    public function keyCode(): int {}
+
+    /** Key events only: AppKit raises for any other type. */
+    public function characters(): ?string {}
+
+    /** Key events only: AppKit raises for any other type. */
+    public function charactersIgnoringModifiers(): ?string {}
+
+    public function isARepeat(): bool {}
+
+    public function clickCount(): int {}
+
+    public function deltaX(): float {}
+
+    public function deltaY(): float {}
+
+    public function scrollingDeltaX(): float {}
+
+    public function scrollingDeltaY(): float {}
+
+    public function hasPreciseScrollingDeltas(): bool {}
+
+    public function isDirectionInvertedFromDevice(): bool {}
+
+    public function window(): ?NSWindow {}
 }

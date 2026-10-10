@@ -166,6 +166,17 @@ class NSWindow extends NSResponder
 
     public function windowNumber(): int {}
 
+    public function acceptsMouseMovedEvents(): bool {}
+
+    public function setAcceptsMouseMovedEvents(bool $acceptsMouseMovedEvents): void {}
+
+    /**
+     * The number of the frontmost window, of any app, at $point (screen coordinates, origin at the
+     * bottom left of the main screen) below the window numbered $windowNumber (0: from the top).
+     * A window not yet on screen is not found.
+     */
+    public static function windowNumberAtPointBelowWindowWithWindowNumber(NSPoint $point, int $windowNumber): int {}
+
     public function frame(): NSRect {}
 
     public function setContentSize(NSSize $size): void {}

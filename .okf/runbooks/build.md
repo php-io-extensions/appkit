@@ -22,7 +22,7 @@ sources:
 
 `bash install-macos.sh` builds in a temp copy (repo stays clean) for Homebrew php@8.4 (NTS, `php84`) and php@8.4-zts (`zhp`), installs `appkit.so` into each extension_dir, ad-hoc signs it, writes `30-appkit.ini`. Other PHPs: pass binaries as args. Clean build of both ≈ 13 s; incremental `make` recompiles only the touched `.m`.[^installer]
 
-`config.m4`: `PHP_ADD_SOURCES` knows only .c/.s/.S/.cpp, so it writes each `.m` rule itself (`-x objective-c -fno-objc-arc -fobjc-exceptions`) and appends to `shared_objects_appkit`. Links Foundation, CoreFoundation, AppKit, objc.[^config]
+`config.m4`: `PHP_ADD_SOURCES` knows only .c/.s/.S/.cpp, so it writes each `.m` rule itself (`-x objective-c -fno-objc-arc -fobjc-exceptions`) and appends to `shared_objects_appkit`. Links the frameworks in `APPKIT_FRAMEWORKS` (Foundation, CoreFoundation, AppKit, AVKit, AVFoundation, CoreMedia, QuartzCore, CoreGraphics, OpenGL, IOKit, GameController) and objc.[^config]
 
 Verify:
 

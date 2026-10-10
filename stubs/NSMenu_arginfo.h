@@ -1,5 +1,5 @@
 /* This is a generated file, edit the .stub.php file instead.
- * Stub hash: f546b185d34065a2892f6ce2d185c27cf5d82df0 */
+ * Stub hash: 6e0dff8b055b1956d70ff9f75d7bb015867983da */
 
 ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(arginfo_class_NSMenu_initWithTitle, 0, 1, NSMenu, 0)
 	ZEND_ARG_TYPE_INFO(0, title, IS_STRING, 0)
@@ -49,6 +49,14 @@ ZEND_END_ARG_INFO()
 ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_NSMenu_performActionForItemAtIndex, 0, 1, IS_VOID, 0)
 	ZEND_ARG_TYPE_INFO(0, index, IS_LONG, 0)
 ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_NSMenu_popUpMenuPositioningItemAtLocationInView, 0, 3, _IS_BOOL, 0)
+	ZEND_ARG_OBJ_INFO(0, item, NSMenuItem, 1)
+	ZEND_ARG_OBJ_INFO(0, location, NSPoint, 0)
+	ZEND_ARG_OBJ_INFO(0, view, NSView, 1)
+ZEND_END_ARG_INFO()
+
+#define arginfo_class_NSMenu_cancelTracking arginfo_class_NSMenu_removeAllItems
 
 ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(arginfo_class_NSMenuItem_initWithTitleActionKeyEquivalent, 0, 3, NSMenuItem, 0)
 	ZEND_ARG_TYPE_INFO(0, string, IS_STRING, 0)
@@ -134,6 +142,8 @@ ZEND_METHOD(NSMenu, indexOfItem);
 ZEND_METHOD(NSMenu, autoenablesItems);
 ZEND_METHOD(NSMenu, setAutoenablesItems);
 ZEND_METHOD(NSMenu, performActionForItemAtIndex);
+ZEND_METHOD(NSMenu, popUpMenuPositioningItemAtLocationInView);
+ZEND_METHOD(NSMenu, cancelTracking);
 ZEND_METHOD(NSMenuItem, initWithTitleActionKeyEquivalent);
 ZEND_METHOD(NSMenuItem, separatorItem);
 ZEND_METHOD(NSMenuItem, title);
@@ -172,6 +182,8 @@ static const zend_function_entry class_NSMenu_methods[] = {
 	ZEND_ME(NSMenu, autoenablesItems, arginfo_class_NSMenu_autoenablesItems, ZEND_ACC_PUBLIC)
 	ZEND_ME(NSMenu, setAutoenablesItems, arginfo_class_NSMenu_setAutoenablesItems, ZEND_ACC_PUBLIC)
 	ZEND_ME(NSMenu, performActionForItemAtIndex, arginfo_class_NSMenu_performActionForItemAtIndex, ZEND_ACC_PUBLIC)
+	ZEND_ME(NSMenu, popUpMenuPositioningItemAtLocationInView, arginfo_class_NSMenu_popUpMenuPositioningItemAtLocationInView, ZEND_ACC_PUBLIC)
+	ZEND_ME(NSMenu, cancelTracking, arginfo_class_NSMenu_cancelTracking, ZEND_ACC_PUBLIC)
 	ZEND_FE_END
 };
 

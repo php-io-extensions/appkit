@@ -2,13 +2,6 @@
 #include "controls.h"
 #include "../stubs/NSNotificationCenter_arginfo.h"
 
-/* Owns the callout a notification block calls, so the block's lifetime is the callout's. */
-@interface PHPAppKitBlockCallout : NSObject {
-@public
-	appkit_callout *callout;
-}
-@end
-
 @implementation PHPAppKitBlockCallout
 - (void)dealloc
 {

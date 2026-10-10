@@ -90,3 +90,35 @@ it('takes a colour space from Core Graphics and gives a window its own', functio
         ->and(NSColorSpace::sRGBColorSpace()->localizedName())->not->toBe($p3);
     $window->close();
 });
+
+it('switches moved events on and off', function (): void {
+    $window = newWindow();
+
+    $window->setAcceptsMouseMovedEvents(true);
+    $on = $window->acceptsMouseMovedEvents();
+    $window->setAcceptsMouseMovedEvents(false);
+
+    expect([$on, $window->acceptsMouseMovedEvents()])->toBe([true, false]);
+
+    $window->close();
+});
+
+it('finds the window at a screen point once it is on screen', function (): void {
+    // Another app's window over ours would answer instead: the test app comes to the front first.
+    $app = NSApplication::sharedApplication();
+    $app->setActivationPolicy(NSApplicationActivationPolicy::REGULAR);
+    $app->activateIgnoringOtherApps(true);
+    $window = newWindow();
+    $window->setFrameOrigin(new NSPoint(240.0, 240.0));
+    $window->makeKeyAndOrderFront(null);
+    $content = $window->contentRectForFrameRect($window->frame());
+    $centre = new NSPoint($content->x + $content->width / 2, $content->y + $content->height / 2);
+
+    $found = pumpUntil($app, fn (): bool => NSWindow::windowNumberAtPointBelowWindowWithWindowNumber($centre, 0) === $window->windowNumber(), 3.0);
+    $below = NSWindow::windowNumberAtPointBelowWindowWithWindowNumber($centre, $window->windowNumber());
+
+    expect($found)->toBeTrue()
+        ->and($below)->not->toBe($window->windowNumber());
+
+    $window->close();
+});

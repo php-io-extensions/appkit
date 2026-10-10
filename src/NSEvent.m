@@ -1,4 +1,5 @@
 #include "runtime.h"
+#include "controls.h"
 #include "../stubs/NSEvent_arginfo.h"
 
 #import <AppKit/AppKit.h>
@@ -198,3 +199,69 @@ ZEND_METHOD(NSEvent, data2)
 		RETURN_LONG((zend_long) [THIS_EVENT data2]);
 	APPKIT_END
 }
+
+ZEND_METHOD(NSEvent, keyEventWithTypeLocationModifierFlagsTimestampWindowNumberContextCharactersCharactersIgnoringModifiersIsARepeatKeyCode)
+{
+	zend_object *type;
+	zend_object *location;
+	zend_object *flags_case = NULL;
+	zend_long flags_long = 0;
+	double timestamp;
+	zend_long window_number;
+	zend_object *unused_pass_nil = NULL;
+	zend_string *keys;
+	zend_string *ukeys;
+	bool repeat;
+	zend_long key_code;
+	NSPoint point;
+
+	ZEND_PARSE_PARAMETERS_START(10, 10)
+		Z_PARAM_OBJ_OF_CLASS(type, appkit_ce_NSEventType)
+		Z_PARAM_OBJ_OF_CLASS(location, appkit_ce_NSPoint)
+		Z_PARAM_OBJ_OF_CLASS_OR_LONG(flags_case, appkit_ce_NSEventModifierFlags, flags_long)
+		Z_PARAM_DOUBLE(timestamp)
+		Z_PARAM_LONG(window_number)
+		Z_PARAM_OBJ_OF_CLASS_OR_NULL(unused_pass_nil, appkit_ce_NSObject)
+		Z_PARAM_STR(keys)
+		Z_PARAM_STR(ukeys)
+		Z_PARAM_BOOL(repeat)
+		Z_PARAM_LONG(key_code)
+	ZEND_PARSE_PARAMETERS_END();
+
+	if (key_code < 0 || key_code > USHRT_MAX) {
+		zend_argument_value_error(10, "must be between 0 and %d", USHRT_MAX);
+		RETURN_THROWS();
+	}
+	if (!appkit_point_from(location, 2, &point)) {
+		RETURN_THROWS();
+	}
+
+	APPKIT_BEGIN
+		appkit_box_objc(return_value, [NSEvent keyEventWithType:(NSEventType) appkit_enum_value(type, 0)
+			location:point
+			modifierFlags:(NSEventModifierFlags) appkit_enum_value(flags_case, flags_long)
+			timestamp:timestamp
+			windowNumber:(NSInteger) window_number
+			context:(unused_pass_nil != NULL ? APPKIT_ID(unused_pass_nil) : nil)
+			characters:appkit_nsstring(keys)
+			charactersIgnoringModifiers:appkit_nsstring(ukeys)
+			isARepeat:repeat
+			keyCode:(unsigned short) key_code]);
+	APPKIT_END
+}
+
+METHOD(NSEvent, eventWithCGEvent, PARSE_OBJ(appkit_ce_CGEvent), appkit_box_objc(return_value, [NSEvent eventWithCGEvent:(CGEventRef) APPKIT_CF(v)]);)
+METHOD(NSEvent, mouseLocation, PARSE_NONE, appkit_return_point(return_value, [NSEvent mouseLocation]);)
+METHOD(NSEvent, pressedMouseButtons, PARSE_NONE, RETURN_LONG((zend_long) [NSEvent pressedMouseButtons]);)
+LONG_GET(NSEvent, NSEvent, keyCode, keyCode)
+STR_GET_OR_NULL(NSEvent, NSEvent, characters, characters)
+STR_GET_OR_NULL(NSEvent, NSEvent, charactersIgnoringModifiers, charactersIgnoringModifiers)
+BOOL_GET(NSEvent, NSEvent, isARepeat, isARepeat)
+LONG_GET(NSEvent, NSEvent, clickCount, clickCount)
+DOUBLE_GET(NSEvent, NSEvent, deltaX, deltaX)
+DOUBLE_GET(NSEvent, NSEvent, deltaY, deltaY)
+DOUBLE_GET(NSEvent, NSEvent, scrollingDeltaX, scrollingDeltaX)
+DOUBLE_GET(NSEvent, NSEvent, scrollingDeltaY, scrollingDeltaY)
+BOOL_GET(NSEvent, NSEvent, hasPreciseScrollingDeltas, hasPreciseScrollingDeltas)
+BOOL_GET(NSEvent, NSEvent, isDirectionInvertedFromDevice, isDirectionInvertedFromDevice)
+OBJ_GET(NSEvent, NSEvent, window, window)

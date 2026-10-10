@@ -131,6 +131,21 @@ zend_class_entry *appkit_ce_IOPMAssertion;
 zend_class_entry *appkit_ce_NSOpenGLContextParameter;
 zend_class_entry *appkit_ce_ObjCDrawView;
 zend_class_entry *appkit_ce_ObjCStageWindow;
+zend_class_entry *appkit_ce_CGEventType;
+zend_class_entry *appkit_ce_CGMouseButton;
+zend_class_entry *appkit_ce_CGScrollEventUnit;
+zend_class_entry *appkit_ce_CGEvent;
+zend_class_entry *appkit_ce_CGEventSourceStateID;
+zend_class_entry *appkit_ce_CGEventSource;
+zend_class_entry *appkit_ce_GCControllerPlayerIndex;
+zend_class_entry *appkit_ce_GCController;
+zend_class_entry *appkit_ce_GCPhysicalInputProfile;
+zend_class_entry *appkit_ce_GCExtendedGamepad;
+zend_class_entry *appkit_ce_GCMicroGamepad;
+zend_class_entry *appkit_ce_GCControllerElement;
+zend_class_entry *appkit_ce_GCControllerButtonInput;
+zend_class_entry *appkit_ce_GCControllerAxisInput;
+zend_class_entry *appkit_ce_GCControllerDirectionPad;
 
 static PHP_GINIT_FUNCTION(appkit)
 {
@@ -169,6 +184,7 @@ PHP_MINIT_FUNCTION(appkit)
 	appkit_register_NSControls(module_number);
 	appkit_register_NSTableView();
 	appkit_register_NSNotificationCenter(module_number);
+	appkit_register_GameController(module_number);
 	appkit_register_AVKit(module_number);
 	appkit_register_NSWindow(module_number);
 	appkit_register_NSScreen();
@@ -185,6 +201,7 @@ PHP_MINIT_FUNCTION(appkit)
 	appkit_register_CFFileDescriptor();
 	appkit_register_CoreGraphics(module_number);
 	appkit_register_CGDirectDisplay(module_number);
+	appkit_register_CGEvent(module_number);
 
 	return SUCCESS;
 }

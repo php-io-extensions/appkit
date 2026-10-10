@@ -172,6 +172,21 @@ extern zend_class_entry *appkit_ce_IOPMAssertion;
 extern zend_class_entry *appkit_ce_NSOpenGLContextParameter;
 extern zend_class_entry *appkit_ce_ObjCDrawView;
 extern zend_class_entry *appkit_ce_ObjCStageWindow;
+extern zend_class_entry *appkit_ce_CGEventType;
+extern zend_class_entry *appkit_ce_CGMouseButton;
+extern zend_class_entry *appkit_ce_CGScrollEventUnit;
+extern zend_class_entry *appkit_ce_CGEvent;
+extern zend_class_entry *appkit_ce_CGEventSourceStateID;
+extern zend_class_entry *appkit_ce_CGEventSource;
+extern zend_class_entry *appkit_ce_GCControllerPlayerIndex;
+extern zend_class_entry *appkit_ce_GCController;
+extern zend_class_entry *appkit_ce_GCPhysicalInputProfile;
+extern zend_class_entry *appkit_ce_GCExtendedGamepad;
+extern zend_class_entry *appkit_ce_GCMicroGamepad;
+extern zend_class_entry *appkit_ce_GCControllerElement;
+extern zend_class_entry *appkit_ce_GCControllerButtonInput;
+extern zend_class_entry *appkit_ce_GCControllerAxisInput;
+extern zend_class_entry *appkit_ce_GCControllerDirectionPad;
 
 /* Class registration, one per stub, called from MINIT in hierarchy order. */
 void appkit_register_NSObject(void);
@@ -195,6 +210,8 @@ void appkit_register_NSRunLoop(void);
 void appkit_register_NSProcessInfo(void);
 void appkit_register_IOPMLib(int module_number);
 void appkit_register_CGDirectDisplay(int module_number);
+void appkit_register_CGEvent(int module_number);
+void appkit_register_GameController(int module_number);
 void appkit_register_NSMenu(void);
 void appkit_register_ObjCGlue(void);
 void appkit_register_NSOpenGL(int module_number);
@@ -266,5 +283,12 @@ void appkit_callouts_detach_all(void);
 		RETURN_THROWS(); \
 	} \
 } while (0)
+
+/* Owns the callout a notification block calls, so the block's lifetime is the callout's. */
+@interface PHPAppKitBlockCallout : NSObject {
+@public
+	appkit_callout *callout;
+}
+@end
 
 #endif

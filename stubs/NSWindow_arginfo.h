@@ -1,5 +1,5 @@
 /* This is a generated file, edit the .stub.php file instead.
- * Stub hash: 1c9c2ff9f25a1d827176cc583e1b1f24c322fbfb */
+ * Stub hash: ea5fd102575a986dfc396245abe8b154e9b64119 */
 
 ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(arginfo_class_NSWindow_initWithContentRectStyleMaskBackingDefer, 0, 4, NSWindow, 0)
 	ZEND_ARG_OBJ_INFO(0, contentRect, NSRect, 0)
@@ -70,6 +70,17 @@ ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_NSWindow_setContentView, 0
 ZEND_END_ARG_INFO()
 
 ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_NSWindow_windowNumber, 0, 0, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+#define arginfo_class_NSWindow_acceptsMouseMovedEvents arginfo_class_NSWindow_isVisible
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_NSWindow_setAcceptsMouseMovedEvents, 0, 1, IS_VOID, 0)
+	ZEND_ARG_TYPE_INFO(0, acceptsMouseMovedEvents, _IS_BOOL, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_NSWindow_windowNumberAtPointBelowWindowWithWindowNumber, 0, 2, IS_LONG, 0)
+	ZEND_ARG_OBJ_INFO(0, point, NSPoint, 0)
+	ZEND_ARG_TYPE_INFO(0, windowNumber, IS_LONG, 0)
 ZEND_END_ARG_INFO()
 
 ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(arginfo_class_NSWindow_frame, 0, 0, NSRect, 0)
@@ -223,6 +234,9 @@ ZEND_METHOD(NSWindow, colorSpace);
 ZEND_METHOD(NSWindow, setColorSpace);
 ZEND_METHOD(NSWindow, setContentView);
 ZEND_METHOD(NSWindow, windowNumber);
+ZEND_METHOD(NSWindow, acceptsMouseMovedEvents);
+ZEND_METHOD(NSWindow, setAcceptsMouseMovedEvents);
+ZEND_METHOD(NSWindow, windowNumberAtPointBelowWindowWithWindowNumber);
 ZEND_METHOD(NSWindow, frame);
 ZEND_METHOD(NSWindow, setContentSize);
 ZEND_METHOD(NSWindow, styleMask);
@@ -291,6 +305,9 @@ static const zend_function_entry class_NSWindow_methods[] = {
 	ZEND_ME(NSWindow, setColorSpace, arginfo_class_NSWindow_setColorSpace, ZEND_ACC_PUBLIC)
 	ZEND_ME(NSWindow, setContentView, arginfo_class_NSWindow_setContentView, ZEND_ACC_PUBLIC)
 	ZEND_ME(NSWindow, windowNumber, arginfo_class_NSWindow_windowNumber, ZEND_ACC_PUBLIC)
+	ZEND_ME(NSWindow, acceptsMouseMovedEvents, arginfo_class_NSWindow_acceptsMouseMovedEvents, ZEND_ACC_PUBLIC)
+	ZEND_ME(NSWindow, setAcceptsMouseMovedEvents, arginfo_class_NSWindow_setAcceptsMouseMovedEvents, ZEND_ACC_PUBLIC)
+	ZEND_ME(NSWindow, windowNumberAtPointBelowWindowWithWindowNumber, arginfo_class_NSWindow_windowNumberAtPointBelowWindowWithWindowNumber, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
 	ZEND_ME(NSWindow, frame, arginfo_class_NSWindow_frame, ZEND_ACC_PUBLIC)
 	ZEND_ME(NSWindow, setContentSize, arginfo_class_NSWindow_setContentSize, ZEND_ACC_PUBLIC)
 	ZEND_ME(NSWindow, styleMask, arginfo_class_NSWindow_styleMask, ZEND_ACC_PUBLIC)
