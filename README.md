@@ -1,5 +1,7 @@
 # ext-appkit
 
+[![CI](https://img.shields.io/github/actions/workflow/status/php-io-extensions/appkit/ci.yml?style=flat-square&label=CI)](https://github.com/php-io-extensions/appkit/actions/workflows/ci.yml)
+
 1:1 PHP bindings of AppKit and the CoreFoundation run loop it runs on, written
 directly in Objective-C against the Zend API. Each PHP class is its native
 counterpart (`NSApplication`, `NSEvent`, `CFRunLoop`, …) and each method is one
