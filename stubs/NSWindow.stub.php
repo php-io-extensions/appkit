@@ -170,6 +170,11 @@ class NSWindow extends NSResponder
 
     public function setAcceptsMouseMovedEvents(bool $acceptsMouseMovedEvents): void {}
 
+    /** Null makes the window itself the first responder. False when the responder refused. */
+    public function makeFirstResponder(?NSResponder $responder): bool {}
+
+    public function firstResponder(): ?NSResponder {}
+
     /**
      * The number of the frontmost window, of any app, at $point (screen coordinates, origin at the
      * bottom left of the main screen) below the window numbered $windowNumber (0: from the top).

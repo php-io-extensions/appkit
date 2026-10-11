@@ -283,6 +283,30 @@ ZEND_METHOD(NSWindow, windowNumberAtPointBelowWindowWithWindowNumber)
 	APPKIT_END
 }
 
+ZEND_METHOD(NSWindow, makeFirstResponder)
+{
+	zend_object *responder = NULL;
+
+	ZEND_PARSE_PARAMETERS_START(1, 1)
+		Z_PARAM_OBJ_OF_CLASS_OR_NULL(responder, appkit_ce_NSResponder)
+	ZEND_PARSE_PARAMETERS_END();
+	APPKIT_REQUIRE_MAIN_THREAD();
+
+	APPKIT_BEGIN
+		RETURN_BOOL([THIS_WINDOW makeFirstResponder:(responder != NULL ? (NSResponder *) APPKIT_ID(responder) : nil)]);
+	APPKIT_END
+}
+
+ZEND_METHOD(NSWindow, firstResponder)
+{
+	ZEND_PARSE_PARAMETERS_NONE();
+	APPKIT_REQUIRE_MAIN_THREAD();
+
+	APPKIT_BEGIN
+		appkit_box_objc(return_value, [THIS_WINDOW firstResponder]);
+	APPKIT_END
+}
+
 ZEND_METHOD(NSWindow, frame)
 {
 	ZEND_PARSE_PARAMETERS_NONE();

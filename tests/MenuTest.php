@@ -115,3 +115,14 @@ it('pops a menu up at a point, tracks it until cancelled, and reports no item ch
     expect($chosen)->toBeFalse()
         ->and($cancelled)->toBe(1);
 });
+
+it('validates an autoenabling menu on update: an item no responder takes greys out', function (): void {
+    $menu = NSMenu::initWithTitle('Edit');
+    $menu->setAutoenablesItems(true);
+    $copy = NSMenuItem::initWithTitleActionKeyEquivalent('Copy', 'copy:', 'c');
+    $menu->addItem($copy);
+
+    $menu->update();
+
+    expect($copy->isEnabled())->toBeFalse();
+});

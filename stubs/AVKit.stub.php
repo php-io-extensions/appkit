@@ -16,6 +16,11 @@ class NSURL extends NSObject
     public static function fileURLWithPath(string $path): NSURL {}
 
     public function path(): ?string {}
+
+    /** null when the string is not a URL NSURL accepts */
+    public static function URLWithString(string $string): ?NSURL {}
+
+    public function absoluteString(): ?string {}
 }
 
 /**

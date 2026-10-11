@@ -176,6 +176,16 @@ ZEND_METHOD(NSMenu, setAutoenablesItems)
 	APPKIT_END
 }
 
+ZEND_METHOD(NSMenu, update)
+{
+	ZEND_PARSE_PARAMETERS_NONE();
+	APPKIT_REQUIRE_MAIN_THREAD();
+
+	APPKIT_BEGIN
+		[THIS_MENU update];
+	APPKIT_END
+}
+
 ZEND_METHOD(NSMenu, performActionForItemAtIndex)
 {
 	zend_long index;

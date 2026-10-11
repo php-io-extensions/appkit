@@ -35,6 +35,24 @@ const NSTextAlignmentJustified = UNKNOWN;
  */
 const NSTextAlignmentNatural = UNKNOWN;
 
+/**
+ * @var string
+ * @cvalue appkit_cfstring_constant((CFStringRef) NSLinkAttributeName)
+ */
+const NSLinkAttributeName = UNKNOWN;
+
+/**
+ * @var string
+ * @cvalue appkit_cfstring_constant((CFStringRef) NSFontAttributeName)
+ */
+const NSFontAttributeName = UNKNOWN;
+
+/**
+ * @var string
+ * @cvalue appkit_cfstring_constant((CFStringRef) NSParagraphStyleAttributeName)
+ */
+const NSParagraphStyleAttributeName = UNKNOWN;
+
 enum NSTextAlignment: int
 {
     case LEFT = NSTextAlignmentLeft;
@@ -106,6 +124,21 @@ class NSControl extends NSView
 class NSTextField extends NSControl
 {
     public static function labelWithString(string $string): static {}
+
+    public static function labelWithAttributedString(NSAttributedString $attributedStringValue): static {}
+
+    public function attributedStringValue(): NSAttributedString {}
+
+    public function setAttributedStringValue(NSAttributedString $attributedStringValue): void {}
+
+    /** With isSelectable, AppKit draws link attributes as links and opens them on a click. */
+    public function allowsEditingTextAttributes(): bool {}
+
+    public function setAllowsEditingTextAttributes(bool $allows): void {}
+
+    public function isSelectable(): bool {}
+
+    public function setSelectable(bool $selectable): void {}
 
     public static function textFieldWithString(string $string): static {}
 
@@ -352,6 +385,55 @@ class NSImage extends NSObject
     public static function initWithCGImageSize(CGImage $image, NSSize $size): static {}
 
     public function size(): NSSize {}
+}
+
+/**
+ * @not-serializable
+ */
+class NSAttributedString extends NSObject
+{
+    /**
+     * initWithString:attributes:. Keys are attribute names (NSLinkAttributeName, NSFontAttributeName);
+     * values are strings, numbers, booleans or ext objects (an NSURL, an NSFont).
+     */
+    public static function initWithStringAttributes(string $string, array $attributes): static {}
+
+    public function string(): string {}
+
+    public function length(): int {}
+
+    /** attribute:atIndex:effectiveRange: (no range): the value boxed, a string or number, or null when absent there. */
+    public function attributeAtIndex(string $name, int $index): mixed {}
+}
+
+/**
+ * @not-serializable
+ */
+class NSParagraphStyle extends NSObject
+{
+    public function alignment(): NSTextAlignment {}
+}
+
+/**
+ * @not-serializable
+ */
+class NSMutableParagraphStyle extends NSParagraphStyle
+{
+    /** [[NSMutableParagraphStyle alloc] init]: the default style, to change and set as NSParagraphStyleAttributeName. */
+    public static function init(): static {}
+
+    public function setAlignment(NSTextAlignment $alignment): void {}
+}
+
+/**
+ * @not-serializable
+ */
+class NSWorkspace extends NSObject
+{
+    public static function sharedWorkspace(): NSWorkspace {}
+
+    /** The URL in its handler (the browser for http and https). */
+    public function openURL(NSURL $url): bool {}
 }
 
 enum NSImageScaling: int

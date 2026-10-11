@@ -1,5 +1,5 @@
 /* This is a generated file, edit the .stub.php file instead.
- * Stub hash: 6e0dff8b055b1956d70ff9f75d7bb015867983da */
+ * Stub hash: 9cb012c23fde277d377a73b1b71e7db4defec80d */
 
 ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(arginfo_class_NSMenu_initWithTitle, 0, 1, NSMenu, 0)
 	ZEND_ARG_TYPE_INFO(0, title, IS_STRING, 0)
@@ -45,6 +45,8 @@ ZEND_END_ARG_INFO()
 ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_NSMenu_setAutoenablesItems, 0, 1, IS_VOID, 0)
 	ZEND_ARG_TYPE_INFO(0, autoenablesItems, _IS_BOOL, 0)
 ZEND_END_ARG_INFO()
+
+#define arginfo_class_NSMenu_update arginfo_class_NSMenu_removeAllItems
 
 ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_NSMenu_performActionForItemAtIndex, 0, 1, IS_VOID, 0)
 	ZEND_ARG_TYPE_INFO(0, index, IS_LONG, 0)
@@ -141,6 +143,7 @@ ZEND_METHOD(NSMenu, itemAtIndex);
 ZEND_METHOD(NSMenu, indexOfItem);
 ZEND_METHOD(NSMenu, autoenablesItems);
 ZEND_METHOD(NSMenu, setAutoenablesItems);
+ZEND_METHOD(NSMenu, update);
 ZEND_METHOD(NSMenu, performActionForItemAtIndex);
 ZEND_METHOD(NSMenu, popUpMenuPositioningItemAtLocationInView);
 ZEND_METHOD(NSMenu, cancelTracking);
@@ -181,6 +184,7 @@ static const zend_function_entry class_NSMenu_methods[] = {
 	ZEND_ME(NSMenu, indexOfItem, arginfo_class_NSMenu_indexOfItem, ZEND_ACC_PUBLIC)
 	ZEND_ME(NSMenu, autoenablesItems, arginfo_class_NSMenu_autoenablesItems, ZEND_ACC_PUBLIC)
 	ZEND_ME(NSMenu, setAutoenablesItems, arginfo_class_NSMenu_setAutoenablesItems, ZEND_ACC_PUBLIC)
+	ZEND_ME(NSMenu, update, arginfo_class_NSMenu_update, ZEND_ACC_PUBLIC)
 	ZEND_ME(NSMenu, performActionForItemAtIndex, arginfo_class_NSMenu_performActionForItemAtIndex, ZEND_ACC_PUBLIC)
 	ZEND_ME(NSMenu, popUpMenuPositioningItemAtLocationInView, arginfo_class_NSMenu_popUpMenuPositioningItemAtLocationInView, ZEND_ACC_PUBLIC)
 	ZEND_ME(NSMenu, cancelTracking, arginfo_class_NSMenu_cancelTracking, ZEND_ACC_PUBLIC)

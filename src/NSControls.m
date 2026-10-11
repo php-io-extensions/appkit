@@ -44,6 +44,10 @@ void appkit_register_NSControls(int module_number)
 	APPKIT_MAP(NSDatePicker, appkit_ce_NSControl);
 	APPKIT_MAP(NSProgressIndicator, appkit_ce_NSView);
 	APPKIT_MAP(NSImage, appkit_ce_NSObject);
+	APPKIT_MAP(NSAttributedString, appkit_ce_NSObject);
+	APPKIT_MAP(NSParagraphStyle, appkit_ce_NSObject);
+	APPKIT_MAP(NSMutableParagraphStyle, appkit_ce_NSParagraphStyle);
+	APPKIT_MAP(NSWorkspace, appkit_ce_NSObject);
 	APPKIT_MAP(NSImageView, appkit_ce_NSControl);
 	APPKIT_MAP(NSBox, appkit_ce_NSView);
 	APPKIT_MAP(NSScrollView, appkit_ce_NSView);
@@ -110,6 +114,13 @@ DOUBLE_GET(NSTextField, NSTextField, preferredMaxLayoutWidth, preferredMaxLayout
 DOUBLE_SET(NSTextField, NSTextField, setPreferredMaxLayoutWidth, setPreferredMaxLayoutWidth)
 OBJ_GET(NSTextField, NSTextField, delegate, delegate)
 OBJ_SET_OR_NULL(NSTextField, NSTextField, setDelegate, setDelegate, appkit_ce_NSObject, id<NSTextFieldDelegate>)
+METHOD(NSTextField, labelWithAttributedString, PARSE_OBJ(appkit_ce_NSAttributedString), appkit_box_objc(return_value, [CALLED labelWithAttributedString:(NSAttributedString *) APPKIT_ID(v)]);)
+OBJ_GET(NSTextField, NSTextField, attributedStringValue, attributedStringValue)
+OBJ_SET(NSTextField, NSTextField, setAttributedStringValue, setAttributedStringValue, appkit_ce_NSAttributedString, NSAttributedString *)
+BOOL_GET(NSTextField, NSTextField, allowsEditingTextAttributes, allowsEditingTextAttributes)
+BOOL_SET(NSTextField, NSTextField, setAllowsEditingTextAttributes, setAllowsEditingTextAttributes)
+BOOL_GET(NSTextField, NSTextField, isSelectable, isSelectable)
+BOOL_SET(NSTextField, NSTextField, setSelectable, setSelectable)
 
 /* NSButton */
 TITLE_TARGET_ACTION(NSButton, NSButton, buttonWithTitleTargetAction, buttonWithTitle)
@@ -265,6 +276,68 @@ ZEND_METHOD(NSImage, initWithCGImageSize)
 	APPKIT_END
 }
 SIZE_GET(NSImage, NSImage, size, size)
+
+/* NSAttributedString */
+ZEND_METHOD(NSAttributedString, initWithStringAttributes)
+{
+	zend_string *string;
+	HashTable *attributes;
+
+	ZEND_PARSE_PARAMETERS_START(2, 2)
+		Z_PARAM_STR(string)
+		Z_PARAM_ARRAY_HT(attributes)
+	ZEND_PARSE_PARAMETERS_END();
+	APPKIT_REQUIRE_MAIN_THREAD();
+
+	APPKIT_BEGIN
+		NSDictionary *dictionary = appkit_nsdictionary(attributes, 2);
+		if (dictionary == nil) {
+			RETURN_THROWS();
+		}
+		NSAttributedString *attributed = [[CALLED alloc] initWithString:appkit_nsstring(string) attributes:dictionary];
+		appkit_box_objc(return_value, attributed);
+		[attributed release];
+	APPKIT_END
+}
+
+STR_GET(NSAttributedString, NSAttributedString, string, string)
+LONG_GET(NSAttributedString, NSAttributedString, length, length)
+
+ZEND_METHOD(NSAttributedString, attributeAtIndex)
+{
+	zend_string *name;
+	zend_long index;
+
+	ZEND_PARSE_PARAMETERS_START(2, 2)
+		Z_PARAM_STR(name)
+		Z_PARAM_LONG(index)
+	ZEND_PARSE_PARAMETERS_END();
+	APPKIT_REQUIRE_MAIN_THREAD();
+
+	if (index < 0) {
+		zend_argument_value_error(2, "must be greater than or equal to 0");
+		RETURN_THROWS();
+	}
+
+	APPKIT_BEGIN
+		appkit_zval_from_id(return_value, [SELF(NSAttributedString) attribute:appkit_nsstring(name) atIndex:(NSUInteger) index effectiveRange:NULL]);
+	APPKIT_END
+}
+
+/* NSParagraphStyle */
+ENUM_GET(NSParagraphStyle, NSParagraphStyle, alignment, alignment, appkit_ce_NSTextAlignment, false)
+
+/* NSMutableParagraphStyle */
+METHOD(NSMutableParagraphStyle, init, PARSE_NONE,
+	NSMutableParagraphStyle *style = [[CALLED alloc] init];
+	appkit_box_objc(return_value, style);
+	[style release];
+)
+ENUM_SET(NSMutableParagraphStyle, NSMutableParagraphStyle, setAlignment, setAlignment, appkit_ce_NSTextAlignment, NSTextAlignment)
+
+/* NSWorkspace */
+METHOD(NSWorkspace, sharedWorkspace, PARSE_NONE, appkit_box_objc(return_value, [NSWorkspace sharedWorkspace]);)
+METHOD(NSWorkspace, openURL, PARSE_OBJ(appkit_ce_NSURL), RETURN_BOOL([SELF(NSWorkspace) openURL:(NSURL *) APPKIT_ID(v)]);)
 
 /* NSImageView */
 METHOD(NSImageView, imageViewWithImage, PARSE_OBJ(appkit_ce_NSImage), appkit_box_objc(return_value, [CALLED imageViewWithImage:(NSImage *) APPKIT_ID(v)]);)

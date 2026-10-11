@@ -1,5 +1,5 @@
 /* This is a generated file, edit the .stub.php file instead.
- * Stub hash: a5c634fff290cad564ce995beb9bbbd24a0dc640 */
+ * Stub hash: eddc47e5774ab9522e5c1c35836d1175239c07a9 */
 
 ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(arginfo_class_NSURL_fileURLWithPath, 0, 1, NSURL, 0)
 	ZEND_ARG_TYPE_INFO(0, path, IS_STRING, 0)
@@ -7,6 +7,12 @@ ZEND_END_ARG_INFO()
 
 ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_NSURL_path, 0, 0, IS_STRING, 1)
 ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(arginfo_class_NSURL_URLWithString, 0, 1, NSURL, 1)
+	ZEND_ARG_TYPE_INFO(0, string, IS_STRING, 0)
+ZEND_END_ARG_INFO()
+
+#define arginfo_class_NSURL_absoluteString arginfo_class_NSURL_path
 
 ZEND_BEGIN_ARG_INFO_EX(arginfo_class_CMTime___construct, 0, 0, 0)
 	ZEND_ARG_TYPE_INFO_WITH_DEFAULT_VALUE(0, value, IS_LONG, 0, "0")
@@ -97,6 +103,8 @@ ZEND_END_ARG_INFO()
 
 ZEND_METHOD(NSURL, fileURLWithPath);
 ZEND_METHOD(NSURL, path);
+ZEND_METHOD(NSURL, URLWithString);
+ZEND_METHOD(NSURL, absoluteString);
 ZEND_METHOD(CMTime, __construct);
 ZEND_METHOD(CMTime, withSeconds);
 ZEND_METHOD(CMTime, seconds);
@@ -126,6 +134,8 @@ ZEND_METHOD(AVPlayerView, setControlsStyle);
 static const zend_function_entry class_NSURL_methods[] = {
 	ZEND_ME(NSURL, fileURLWithPath, arginfo_class_NSURL_fileURLWithPath, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
 	ZEND_ME(NSURL, path, arginfo_class_NSURL_path, ZEND_ACC_PUBLIC)
+	ZEND_ME(NSURL, URLWithString, arginfo_class_NSURL_URLWithString, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	ZEND_ME(NSURL, absoluteString, arginfo_class_NSURL_absoluteString, ZEND_ACC_PUBLIC)
 	ZEND_FE_END
 };
 

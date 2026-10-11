@@ -1,5 +1,11 @@
 # Log
 
+## 2026-10-10
+
+* `NSParagraphStyle` alignment, `NSMutableParagraphStyle` init / setAlignment:, `NSParagraphStyleAttributeName`: attributed text draws by its paragraph style, not the field's alignment, so a centred link needs one. [surface](api/surface.md)
+* NSAttributedString, NSLinkAttributeName and NSFontAttributeName, NSTextField attributed text, selectable and editing-attributes, NSURL URLWithString / absoluteString, NSWorkspace openURL (toolkit links). [surface](api/surface.md)
+* `NSWindow` makeFirstResponder: / firstResponder, `NSMenu` update: for the Edit menu (HumanInput slice 29). [surface](api/surface.md)
+
 ## 2026-10-09
 
 * `NSEvent::pressedMouseButtons` and `CGEventSource::keyState` (`CGEventSourceKeyState`, `CGEventSourceStateID`): the button and key state AppKit's own tracking loops (controls, menus) keep the release events of. [surface](api/surface.md)

@@ -1,5 +1,5 @@
 /* This is a generated file, edit the .stub.php file instead.
- * Stub hash: ea5fd102575a986dfc396245abe8b154e9b64119 */
+ * Stub hash: 566ce1cc91e4e9390b135e68987e472c358c7257 */
 
 ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(arginfo_class_NSWindow_initWithContentRectStyleMaskBackingDefer, 0, 4, NSWindow, 0)
 	ZEND_ARG_OBJ_INFO(0, contentRect, NSRect, 0)
@@ -76,6 +76,13 @@ ZEND_END_ARG_INFO()
 
 ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_NSWindow_setAcceptsMouseMovedEvents, 0, 1, IS_VOID, 0)
 	ZEND_ARG_TYPE_INFO(0, acceptsMouseMovedEvents, _IS_BOOL, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_NSWindow_makeFirstResponder, 0, 1, _IS_BOOL, 0)
+	ZEND_ARG_OBJ_INFO(0, responder, NSResponder, 1)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(arginfo_class_NSWindow_firstResponder, 0, 0, NSResponder, 1)
 ZEND_END_ARG_INFO()
 
 ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_NSWindow_windowNumberAtPointBelowWindowWithWindowNumber, 0, 2, IS_LONG, 0)
@@ -236,6 +243,8 @@ ZEND_METHOD(NSWindow, setContentView);
 ZEND_METHOD(NSWindow, windowNumber);
 ZEND_METHOD(NSWindow, acceptsMouseMovedEvents);
 ZEND_METHOD(NSWindow, setAcceptsMouseMovedEvents);
+ZEND_METHOD(NSWindow, makeFirstResponder);
+ZEND_METHOD(NSWindow, firstResponder);
 ZEND_METHOD(NSWindow, windowNumberAtPointBelowWindowWithWindowNumber);
 ZEND_METHOD(NSWindow, frame);
 ZEND_METHOD(NSWindow, setContentSize);
@@ -307,6 +316,8 @@ static const zend_function_entry class_NSWindow_methods[] = {
 	ZEND_ME(NSWindow, windowNumber, arginfo_class_NSWindow_windowNumber, ZEND_ACC_PUBLIC)
 	ZEND_ME(NSWindow, acceptsMouseMovedEvents, arginfo_class_NSWindow_acceptsMouseMovedEvents, ZEND_ACC_PUBLIC)
 	ZEND_ME(NSWindow, setAcceptsMouseMovedEvents, arginfo_class_NSWindow_setAcceptsMouseMovedEvents, ZEND_ACC_PUBLIC)
+	ZEND_ME(NSWindow, makeFirstResponder, arginfo_class_NSWindow_makeFirstResponder, ZEND_ACC_PUBLIC)
+	ZEND_ME(NSWindow, firstResponder, arginfo_class_NSWindow_firstResponder, ZEND_ACC_PUBLIC)
 	ZEND_ME(NSWindow, windowNumberAtPointBelowWindowWithWindowNumber, arginfo_class_NSWindow_windowNumberAtPointBelowWindowWithWindowNumber, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
 	ZEND_ME(NSWindow, frame, arginfo_class_NSWindow_frame, ZEND_ACC_PUBLIC)
 	ZEND_ME(NSWindow, setContentSize, arginfo_class_NSWindow_setContentSize, ZEND_ACC_PUBLIC)

@@ -111,6 +111,8 @@ ZEND_METHOD(CMTime, seconds)
 /* NSURL */
 METHOD(NSURL, fileURLWithPath, PARSE_STR, appkit_box_objc(return_value, [NSURL fileURLWithPath:appkit_nsstring(v)]);)
 STR_GET_OR_NULL(NSURL, NSURL, path, path)
+METHOD(NSURL, URLWithString, PARSE_STR, appkit_box_objc(return_value, [NSURL URLWithString:appkit_nsstring(v)]);)
+STR_GET_OR_NULL(NSURL, NSURL, absoluteString, absoluteString)
 
 /* AVPlayerItem */
 METHOD(AVPlayerItem, playerItemWithURL, PARSE_OBJ(appkit_ce_NSURL), appkit_box_objc(return_value, [CALLED playerItemWithURL:(NSURL *) APPKIT_ID(v)]);)

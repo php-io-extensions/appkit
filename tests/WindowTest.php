@@ -122,3 +122,21 @@ it('finds the window at a screen point once it is on screen', function (): void 
 
     $window->close();
 });
+
+it('makes a view the first responder, and the window itself again', function (): void {
+    $window = newWindow();
+    $field = NSTextField::textFieldWithString('hello');
+    $window->contentView()->addSubview($field);
+
+    $made = $window->makeFirstResponder($field);
+    $responder = $window->firstResponder();
+    $back = $window->makeFirstResponder(null);
+
+    expect($made)->toBeTrue()
+        ->and($responder)->toBeInstanceOf(NSResponder::class)
+        ->and($responder)->not->toBe($window)
+        ->and($back)->toBeTrue()
+        ->and($window->firstResponder())->toBe($window);
+
+    $window->close();
+});

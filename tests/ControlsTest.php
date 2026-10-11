@@ -265,3 +265,51 @@ it('measures laid-out text through the layout manager', function (): void {
         ->and($manager->usedRectForTextContainer($container)->height)->toBeGreaterThan(30.0)
         ->and($text->textContainerInset()->height)->toBeGreaterThanOrEqual(0.0);
 });
+
+it('carries a link and a font in an attributed string that a selectable label shows', function (): void {
+    $url = NSURL::URLWithString('https://example.com/docs');
+    $font = NSFont::systemFontOfSizeWeight(15.0, NSFont::WEIGHT_REGULAR);
+    $text = NSAttributedString::initWithStringAttributes('the docs', [NSLinkAttributeName => $url, NSFontAttributeName => $font]);
+    $label = NSTextField::labelWithAttributedString($text);
+    $before = [$label->isSelectable(), $label->allowsEditingTextAttributes()];
+    $label->setSelectable(true);
+    $label->setAllowsEditingTextAttributes(true);
+    $label->setAttributedStringValue(NSAttributedString::initWithStringAttributes('docs', [NSLinkAttributeName => 'https://example.com/a b']));
+    $shown = $label->attributedStringValue();
+
+    expect([NSLinkAttributeName, NSFontAttributeName])->toBe(['NSLink', 'NSFont'])
+        ->and($url->absoluteString())->toBe('https://example.com/docs')
+        ->and([$text->string(), $text->length()])->toBe(['the docs', 8])
+        ->and($text->attributeAtIndex(NSLinkAttributeName, 0)->absoluteString())->toBe('https://example.com/docs')
+        ->and($text->attributeAtIndex(NSFontAttributeName, 7)->pointSize())->toBe(15.0)
+        ->and($text->attributeAtIndex('NSVenusianAbsent', 0))->toBeNull()
+        ->and($before)->toBe([false, false])
+        ->and([$label->isSelectable(), $label->allowsEditingTextAttributes(), $label->isEditable()])->toBe([true, true, false])
+        ->and($shown->string())->toBe('docs')
+        ->and($shown->attributeAtIndex(NSLinkAttributeName, 0))->toBe('https://example.com/a b')
+        ->and(fn () => $text->attributeAtIndex(NSLinkAttributeName, 99))->toThrow(AppKitException::class)
+        ->and(fn () => NSAttributedString::initWithStringAttributes('x', ['NSLink' => []]))->toThrow(TypeError::class);
+});
+
+it('aligns attributed text through a paragraph style', function (): void {
+    $style = NSMutableParagraphStyle::init();
+    $natural = $style->alignment();
+    $style->setAlignment(NSTextAlignment::CENTER);
+    $label = NSTextField::labelWithAttributedString(NSAttributedString::initWithStringAttributes('docs', [NSParagraphStyleAttributeName => $style]));
+    $label->setSelectable(true);
+    $label->setAllowsEditingTextAttributes(true);
+    $shown = $label->attributedStringValue()->attributeAtIndex(NSParagraphStyleAttributeName, 0);
+
+    expect(NSParagraphStyleAttributeName)->toBe('NSParagraphStyle')
+        ->and($natural)->toBe(NSTextAlignment::NATURAL)
+        ->and($style)->toBeInstanceOf(NSParagraphStyle::class)
+        ->and($style->alignment())->toBe(NSTextAlignment::CENTER)
+        ->and($shown)->toBeInstanceOf(NSParagraphStyle::class)
+        ->and($shown->alignment())->toBe(NSTextAlignment::CENTER);
+});
+
+it('has the shared workspace, which opens URLs', function (): void {
+    expect(NSWorkspace::sharedWorkspace())->toBeInstanceOf(NSWorkspace::class)
+        ->and(NSWorkspace::sharedWorkspace())->toBe(NSWorkspace::sharedWorkspace())
+        ->and(method_exists(NSWorkspace::class, 'openURL'))->toBeTrue();
+});

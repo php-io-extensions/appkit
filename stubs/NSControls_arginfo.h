@@ -1,5 +1,5 @@
 /* This is a generated file, edit the .stub.php file instead.
- * Stub hash: 1d762ced3f50a1a46adedec1c6f79a685f3fcc50 */
+ * Stub hash: 702178e004a793b71f7ee3998b7e967c86795b60 */
 
 ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_NSControl_isEnabled, 0, 0, _IS_BOOL, 0)
 ZEND_END_ARG_INFO()
@@ -71,6 +71,29 @@ ZEND_END_ARG_INFO()
 
 ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_NSTextField_labelWithString, 0, 1, IS_STATIC, 0)
 	ZEND_ARG_TYPE_INFO(0, string, IS_STRING, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_NSTextField_labelWithAttributedString, 0, 1, IS_STATIC, 0)
+	ZEND_ARG_OBJ_INFO(0, attributedStringValue, NSAttributedString, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(arginfo_class_NSTextField_attributedStringValue, 0, 0, NSAttributedString, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_NSTextField_setAttributedStringValue, 0, 1, IS_VOID, 0)
+	ZEND_ARG_OBJ_INFO(0, attributedStringValue, NSAttributedString, 0)
+ZEND_END_ARG_INFO()
+
+#define arginfo_class_NSTextField_allowsEditingTextAttributes arginfo_class_NSControl_isEnabled
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_NSTextField_setAllowsEditingTextAttributes, 0, 1, IS_VOID, 0)
+	ZEND_ARG_TYPE_INFO(0, allows, _IS_BOOL, 0)
+ZEND_END_ARG_INFO()
+
+#define arginfo_class_NSTextField_isSelectable arginfo_class_NSControl_isEnabled
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_NSTextField_setSelectable, 0, 1, IS_VOID, 0)
+	ZEND_ARG_TYPE_INFO(0, selectable, _IS_BOOL, 0)
 ZEND_END_ARG_INFO()
 
 #define arginfo_class_NSTextField_textFieldWithString arginfo_class_NSTextField_labelWithString
@@ -290,6 +313,34 @@ ZEND_END_ARG_INFO()
 ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(arginfo_class_NSImage_size, 0, 0, NSSize, 0)
 ZEND_END_ARG_INFO()
 
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_NSAttributedString_initWithStringAttributes, 0, 2, IS_STATIC, 0)
+	ZEND_ARG_TYPE_INFO(0, string, IS_STRING, 0)
+	ZEND_ARG_TYPE_INFO(0, attributes, IS_ARRAY, 0)
+ZEND_END_ARG_INFO()
+
+#define arginfo_class_NSAttributedString_string arginfo_class_NSControl_stringValue
+
+#define arginfo_class_NSAttributedString_length arginfo_class_NSControl_integerValue
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_NSAttributedString_attributeAtIndex, 0, 2, IS_MIXED, 0)
+	ZEND_ARG_TYPE_INFO(0, name, IS_STRING, 0)
+	ZEND_ARG_TYPE_INFO(0, index, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+#define arginfo_class_NSParagraphStyle_alignment arginfo_class_NSControl_alignment
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_NSMutableParagraphStyle_init, 0, 0, IS_STATIC, 0)
+ZEND_END_ARG_INFO()
+
+#define arginfo_class_NSMutableParagraphStyle_setAlignment arginfo_class_NSControl_setAlignment
+
+ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(arginfo_class_NSWorkspace_sharedWorkspace, 0, 0, NSWorkspace, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_NSWorkspace_openURL, 0, 1, _IS_BOOL, 0)
+	ZEND_ARG_OBJ_INFO(0, url, NSURL, 0)
+ZEND_END_ARG_INFO()
+
 ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_NSImageView_imageViewWithImage, 0, 1, IS_STATIC, 0)
 	ZEND_ARG_OBJ_INFO(0, image, NSImage, 0)
 ZEND_END_ARG_INFO()
@@ -413,6 +464,13 @@ ZEND_METHOD(NSControl, sizeToFit);
 ZEND_METHOD(NSControl, performClick);
 ZEND_METHOD(NSControl, sendActionTo);
 ZEND_METHOD(NSTextField, labelWithString);
+ZEND_METHOD(NSTextField, labelWithAttributedString);
+ZEND_METHOD(NSTextField, attributedStringValue);
+ZEND_METHOD(NSTextField, setAttributedStringValue);
+ZEND_METHOD(NSTextField, allowsEditingTextAttributes);
+ZEND_METHOD(NSTextField, setAllowsEditingTextAttributes);
+ZEND_METHOD(NSTextField, isSelectable);
+ZEND_METHOD(NSTextField, setSelectable);
 ZEND_METHOD(NSTextField, textFieldWithString);
 ZEND_METHOD(NSTextField, placeholderString);
 ZEND_METHOD(NSTextField, setPlaceholderString);
@@ -485,6 +543,15 @@ ZEND_METHOD(NSProgressIndicator, setDisplayedWhenStopped);
 ZEND_METHOD(NSImage, initWithContentsOfFile);
 ZEND_METHOD(NSImage, initWithCGImageSize);
 ZEND_METHOD(NSImage, size);
+ZEND_METHOD(NSAttributedString, initWithStringAttributes);
+ZEND_METHOD(NSAttributedString, string);
+ZEND_METHOD(NSAttributedString, length);
+ZEND_METHOD(NSAttributedString, attributeAtIndex);
+ZEND_METHOD(NSParagraphStyle, alignment);
+ZEND_METHOD(NSMutableParagraphStyle, init);
+ZEND_METHOD(NSMutableParagraphStyle, setAlignment);
+ZEND_METHOD(NSWorkspace, sharedWorkspace);
+ZEND_METHOD(NSWorkspace, openURL);
 ZEND_METHOD(NSImageView, imageViewWithImage);
 ZEND_METHOD(NSImageView, image);
 ZEND_METHOD(NSImageView, setImage);
@@ -548,6 +615,13 @@ static const zend_function_entry class_NSControl_methods[] = {
 
 static const zend_function_entry class_NSTextField_methods[] = {
 	ZEND_ME(NSTextField, labelWithString, arginfo_class_NSTextField_labelWithString, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	ZEND_ME(NSTextField, labelWithAttributedString, arginfo_class_NSTextField_labelWithAttributedString, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	ZEND_ME(NSTextField, attributedStringValue, arginfo_class_NSTextField_attributedStringValue, ZEND_ACC_PUBLIC)
+	ZEND_ME(NSTextField, setAttributedStringValue, arginfo_class_NSTextField_setAttributedStringValue, ZEND_ACC_PUBLIC)
+	ZEND_ME(NSTextField, allowsEditingTextAttributes, arginfo_class_NSTextField_allowsEditingTextAttributes, ZEND_ACC_PUBLIC)
+	ZEND_ME(NSTextField, setAllowsEditingTextAttributes, arginfo_class_NSTextField_setAllowsEditingTextAttributes, ZEND_ACC_PUBLIC)
+	ZEND_ME(NSTextField, isSelectable, arginfo_class_NSTextField_isSelectable, ZEND_ACC_PUBLIC)
+	ZEND_ME(NSTextField, setSelectable, arginfo_class_NSTextField_setSelectable, ZEND_ACC_PUBLIC)
 	ZEND_ME(NSTextField, textFieldWithString, arginfo_class_NSTextField_textFieldWithString, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
 	ZEND_ME(NSTextField, placeholderString, arginfo_class_NSTextField_placeholderString, ZEND_ACC_PUBLIC)
 	ZEND_ME(NSTextField, setPlaceholderString, arginfo_class_NSTextField_setPlaceholderString, ZEND_ACC_PUBLIC)
@@ -655,6 +729,31 @@ static const zend_function_entry class_NSImage_methods[] = {
 	ZEND_FE_END
 };
 
+static const zend_function_entry class_NSAttributedString_methods[] = {
+	ZEND_ME(NSAttributedString, initWithStringAttributes, arginfo_class_NSAttributedString_initWithStringAttributes, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	ZEND_ME(NSAttributedString, string, arginfo_class_NSAttributedString_string, ZEND_ACC_PUBLIC)
+	ZEND_ME(NSAttributedString, length, arginfo_class_NSAttributedString_length, ZEND_ACC_PUBLIC)
+	ZEND_ME(NSAttributedString, attributeAtIndex, arginfo_class_NSAttributedString_attributeAtIndex, ZEND_ACC_PUBLIC)
+	ZEND_FE_END
+};
+
+static const zend_function_entry class_NSParagraphStyle_methods[] = {
+	ZEND_ME(NSParagraphStyle, alignment, arginfo_class_NSParagraphStyle_alignment, ZEND_ACC_PUBLIC)
+	ZEND_FE_END
+};
+
+static const zend_function_entry class_NSMutableParagraphStyle_methods[] = {
+	ZEND_ME(NSMutableParagraphStyle, init, arginfo_class_NSMutableParagraphStyle_init, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	ZEND_ME(NSMutableParagraphStyle, setAlignment, arginfo_class_NSMutableParagraphStyle_setAlignment, ZEND_ACC_PUBLIC)
+	ZEND_FE_END
+};
+
+static const zend_function_entry class_NSWorkspace_methods[] = {
+	ZEND_ME(NSWorkspace, sharedWorkspace, arginfo_class_NSWorkspace_sharedWorkspace, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	ZEND_ME(NSWorkspace, openURL, arginfo_class_NSWorkspace_openURL, ZEND_ACC_PUBLIC)
+	ZEND_FE_END
+};
+
 static const zend_function_entry class_NSImageView_methods[] = {
 	ZEND_ME(NSImageView, imageViewWithImage, arginfo_class_NSImageView_imageViewWithImage, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
 	ZEND_ME(NSImageView, image, arginfo_class_NSImageView_image, ZEND_ACC_PUBLIC)
@@ -719,6 +818,9 @@ static void register_NSControls_symbols(int module_number)
 	REGISTER_LONG_CONSTANT("NSTextAlignmentCenter", NSTextAlignmentCenter, CONST_PERSISTENT);
 	REGISTER_LONG_CONSTANT("NSTextAlignmentJustified", NSTextAlignmentJustified, CONST_PERSISTENT);
 	REGISTER_LONG_CONSTANT("NSTextAlignmentNatural", NSTextAlignmentNatural, CONST_PERSISTENT);
+	REGISTER_STRING_CONSTANT("NSLinkAttributeName", appkit_cfstring_constant((CFStringRef) NSLinkAttributeName), CONST_PERSISTENT);
+	REGISTER_STRING_CONSTANT("NSFontAttributeName", appkit_cfstring_constant((CFStringRef) NSFontAttributeName), CONST_PERSISTENT);
+	REGISTER_STRING_CONSTANT("NSParagraphStyleAttributeName", appkit_cfstring_constant((CFStringRef) NSParagraphStyleAttributeName), CONST_PERSISTENT);
 }
 
 static zend_class_entry *register_class_NSTextAlignment(void)
@@ -1016,6 +1118,46 @@ static zend_class_entry *register_class_NSImage(zend_class_entry *class_entry_NS
 	zend_class_entry ce, *class_entry;
 
 	INIT_CLASS_ENTRY(ce, "NSImage", class_NSImage_methods);
+	class_entry = zend_register_internal_class_with_flags(&ce, class_entry_NSObject, ZEND_ACC_NOT_SERIALIZABLE);
+
+	return class_entry;
+}
+
+static zend_class_entry *register_class_NSAttributedString(zend_class_entry *class_entry_NSObject)
+{
+	zend_class_entry ce, *class_entry;
+
+	INIT_CLASS_ENTRY(ce, "NSAttributedString", class_NSAttributedString_methods);
+	class_entry = zend_register_internal_class_with_flags(&ce, class_entry_NSObject, ZEND_ACC_NOT_SERIALIZABLE);
+
+	return class_entry;
+}
+
+static zend_class_entry *register_class_NSParagraphStyle(zend_class_entry *class_entry_NSObject)
+{
+	zend_class_entry ce, *class_entry;
+
+	INIT_CLASS_ENTRY(ce, "NSParagraphStyle", class_NSParagraphStyle_methods);
+	class_entry = zend_register_internal_class_with_flags(&ce, class_entry_NSObject, ZEND_ACC_NOT_SERIALIZABLE);
+
+	return class_entry;
+}
+
+static zend_class_entry *register_class_NSMutableParagraphStyle(zend_class_entry *class_entry_NSParagraphStyle)
+{
+	zend_class_entry ce, *class_entry;
+
+	INIT_CLASS_ENTRY(ce, "NSMutableParagraphStyle", class_NSMutableParagraphStyle_methods);
+	class_entry = zend_register_internal_class_with_flags(&ce, class_entry_NSParagraphStyle, ZEND_ACC_NOT_SERIALIZABLE);
+
+	return class_entry;
+}
+
+static zend_class_entry *register_class_NSWorkspace(zend_class_entry *class_entry_NSObject)
+{
+	zend_class_entry ce, *class_entry;
+
+	INIT_CLASS_ENTRY(ce, "NSWorkspace", class_NSWorkspace_methods);
 	class_entry = zend_register_internal_class_with_flags(&ce, class_entry_NSObject, ZEND_ACC_NOT_SERIALIZABLE);
 
 	return class_entry;

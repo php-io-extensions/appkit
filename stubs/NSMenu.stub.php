@@ -39,6 +39,9 @@ class NSMenu extends NSObject
 
     public function setAutoenablesItems(bool $autoenablesItems): void {}
 
+    /** Validate the items now (autoenabling menus enable or grey them out). */
+    public function update(): void {}
+
     public function performActionForItemAtIndex(int $index): void {}
 
     /** popUpMenuPositioningItem:atLocation:inView: tracks the menu until it closes; true when an item was chosen. $location is in $view, or on screen when $view is null. */
