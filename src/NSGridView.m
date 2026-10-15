@@ -42,24 +42,6 @@ ZEND_METHOD(NSRange, __construct)
 	ZVAL_LONG(OBJ_PROP_NUM(Z_OBJ_P(ZEND_THIS), 1), length);
 }
 
-/* NSRange from the value class; false (ValueError raised) for an unset or negative property. */
-static bool appkit_range_from(zend_object *range, uint32_t arg_num, NSRange *out)
-{
-	zval *location = OBJ_PROP_NUM(range, 0);
-	zval *length = OBJ_PROP_NUM(range, 1);
-
-	if (Z_TYPE_P(location) != IS_LONG || Z_TYPE_P(length) != IS_LONG) {
-		zend_argument_value_error(arg_num, "must have every property initialized");
-		return false;
-	}
-	if (Z_LVAL_P(location) < 0 || Z_LVAL_P(length) < 0) {
-		zend_argument_value_error(arg_num, "must have a non-negative location and length");
-		return false;
-	}
-	*out = NSMakeRange((NSUInteger) Z_LVAL_P(location), (NSUInteger) Z_LVAL_P(length));
-	return true;
-}
-
 #define THIS_GRID ((NSGridView *) APPKIT_ID(Z_OBJ_P(ZEND_THIS)))
 #define THIS_CELL ((NSGridCell *) APPKIT_ID(Z_OBJ_P(ZEND_THIS)))
 #define THIS_ROW ((NSGridRow *) APPKIT_ID(Z_OBJ_P(ZEND_THIS)))

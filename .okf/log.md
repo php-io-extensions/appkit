@@ -1,5 +1,10 @@
 # Log
 
+## 2026-10-14
+
+* Text storage attributes (NSMutableAttributedString, NSTextStorage, foreground and background colour names), NSTextBlock and paragraph text blocks, NSClipView scrolling and bounds notifications, NSTextView selection, resizing and max size, NSTextContainer size and width tracking, NSLayoutManager glyph ranges and rects, the monospaced system font; NSRange returned (compare-app text panes, C1). 0.10.3. [surface](api/surface.md)
+* attribute:atIndex:effectiveRange:; colour, paragraph-style, font and link attribute values of the wrong class refused with TypeError instead of failing at draw time (C1 final review). [surface](api/surface.md)
+
 ## 2026-10-10
 
 * `NSParagraphStyle` alignment, `NSMutableParagraphStyle` init / setAlignment:, `NSParagraphStyleAttributeName`: attributed text draws by its paragraph style, not the field's alignment, so a centred link needs one. [surface](api/surface.md)

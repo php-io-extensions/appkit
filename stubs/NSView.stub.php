@@ -153,6 +153,10 @@ class NSView extends NSResponder
 
     public function setPostsFrameChangedNotifications(bool $flag): void {}
 
+    public function postsBoundsChangedNotifications(): bool {}
+
+    public function setPostsBoundsChangedNotifications(bool $flag): void {}
+
     public function widthAnchor(): NSLayoutAnchor {}
 
     public function heightAnchor(): NSLayoutAnchor {}

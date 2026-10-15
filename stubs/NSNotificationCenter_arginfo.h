@@ -1,5 +1,5 @@
 /* This is a generated file, edit the .stub.php file instead.
- * Stub hash: 6f4921b4f3f161580223d52c244217c9cc8430bb */
+ * Stub hash: ad460913914f966bce25dd8406b425c2793ad1dd */
 
 ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_NSNotification_name, 0, 0, IS_STRING, 0)
 ZEND_END_ARG_INFO()
@@ -69,6 +69,7 @@ static const zend_function_entry class_NSOperationQueue_methods[] = {
 static void register_NSNotificationCenter_symbols(int module_number)
 {
 	REGISTER_STRING_CONSTANT("NSViewFrameDidChangeNotification", appkit_cfstring_constant((CFStringRef) NSViewFrameDidChangeNotification), CONST_PERSISTENT);
+	REGISTER_STRING_CONSTANT("NSViewBoundsDidChangeNotification", appkit_cfstring_constant((CFStringRef) NSViewBoundsDidChangeNotification), CONST_PERSISTENT);
 	REGISTER_STRING_CONSTANT("NSWindowDidResizeNotification", appkit_cfstring_constant((CFStringRef) NSWindowDidResizeNotification), CONST_PERSISTENT);
 	REGISTER_STRING_CONSTANT("NSApplicationDidResignActiveNotification", appkit_cfstring_constant((CFStringRef) NSApplicationDidResignActiveNotification), CONST_PERSISTENT);
 	REGISTER_STRING_CONSTANT("NSControlTextDidChangeNotification", appkit_cfstring_constant((CFStringRef) NSControlTextDidChangeNotification), CONST_PERSISTENT);

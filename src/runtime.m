@@ -535,6 +535,24 @@ bool appkit_point_from(zend_object *point, uint32_t arg_num, NSPoint *out)
 	return true;
 }
 
+/* NSRange from the value class; false (ValueError raised) for an unset or negative property. */
+bool appkit_range_from(zend_object *range, uint32_t arg_num, NSRange *out)
+{
+	zval *location = OBJ_PROP_NUM(range, 0);
+	zval *length = OBJ_PROP_NUM(range, 1);
+
+	if (Z_TYPE_P(location) != IS_LONG || Z_TYPE_P(length) != IS_LONG) {
+		zend_argument_value_error(arg_num, "must have every property initialized");
+		return false;
+	}
+	if (Z_LVAL_P(location) < 0 || Z_LVAL_P(length) < 0) {
+		zend_argument_value_error(arg_num, "must have a non-negative location and length");
+		return false;
+	}
+	*out = NSMakeRange((NSUInteger) Z_LVAL_P(location), (NSUInteger) Z_LVAL_P(length));
+	return true;
+}
+
 bool appkit_size_from(zend_object *size, uint32_t arg_num, NSSize *out)
 {
 	double v[2];
@@ -572,6 +590,13 @@ void appkit_return_point(zval *rv, NSPoint point)
 	appkit_return_doubles(rv, appkit_ce_NSPoint, 2, v);
 }
 
+void appkit_return_range(zval *rv, NSRange range)
+{
+	object_init_ex(rv, appkit_ce_NSRange);
+	ZVAL_LONG(OBJ_PROP_NUM(Z_OBJ_P(rv), 0), (zend_long) range.location);
+	ZVAL_LONG(OBJ_PROP_NUM(Z_OBJ_P(rv), 1), (zend_long) range.length);
+}
+
 /*
  * A Foundation value as PHP: NSNull → null, NSString → string, NSNumber → bool/int/float
  * by its type, an NSValue holding a rect/size/point → NSRect/NSSize/NSPoint, anything else boxed.
@@ -601,6 +626,51 @@ void appkit_zval_from_id(zval *out, id value)
 	} else {
 		appkit_box_objc(out, value);
 	}
+}
+
+/*
+ * Whether a value suits a text attribute AppKit types: a colour, paragraph style, font or link
+ * of another class only fails when the text is laid out or drawn, outside any PHP call. Names
+ * AppKit gives no type pass. $given names the PHP value in the TypeError.
+ */
+bool appkit_attribute_value_fits(NSString *name, id value, uint32_t arg_num, const char *given)
+{
+	static const struct {
+		const char *name;
+		const char *wants;
+	} typed[] = {
+		{"NSForegroundColorAttributeName", "NSColor"},
+		{"NSBackgroundColorAttributeName", "NSColor"},
+		{"NSParagraphStyleAttributeName", "NSParagraphStyle"},
+		{"NSFontAttributeName", "NSFont"},
+		{"NSLinkAttributeName", "NSURL or NSString"},
+	};
+	NSString *names[] = {
+		NSForegroundColorAttributeName,
+		NSBackgroundColorAttributeName,
+		NSParagraphStyleAttributeName,
+		NSFontAttributeName,
+		NSLinkAttributeName,
+	};
+	bool fits[] = {
+		[value isKindOfClass:[NSColor class]],
+		[value isKindOfClass:[NSColor class]],
+		[value isKindOfClass:[NSParagraphStyle class]],
+		[value isKindOfClass:[NSFont class]],
+		[value isKindOfClass:[NSURL class]] || [value isKindOfClass:[NSString class]],
+	};
+
+	for (size_t i = 0; i < sizeof(typed) / sizeof(typed[0]); i++) {
+		if ([name isEqualToString:names[i]]) {
+			if (fits[i]) {
+				return true;
+			}
+			zend_argument_type_error(arg_num, "value for %s must be an %s, %s given", typed[i].name, typed[i].wants, given);
+			return false;
+		}
+	}
+
+	return true;
 }
 
 /* A PHP array as an NSDictionary: string keys; string, int, float, bool or NSObject values. Autoreleased. */

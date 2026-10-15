@@ -1,5 +1,5 @@
 /* This is a generated file, edit the .stub.php file instead.
- * Stub hash: dfb8b70a784b43cdb380873c6e42dba5c8373dd6 */
+ * Stub hash: d8a16bff3344381ee7d2c51cb4e764884e8f8c96 */
 
 ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_NSView_initWithFrame, 0, 1, IS_STATIC, 0)
 	ZEND_ARG_OBJ_INFO(0, frame, NSRect, 0)
@@ -133,6 +133,10 @@ ZEND_END_ARG_INFO()
 
 #define arginfo_class_NSView_setPostsFrameChangedNotifications arginfo_class_NSView_setNeedsDisplay
 
+#define arginfo_class_NSView_postsBoundsChangedNotifications arginfo_class_NSView_isFlipped
+
+#define arginfo_class_NSView_setPostsBoundsChangedNotifications arginfo_class_NSView_setNeedsDisplay
+
 ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(arginfo_class_NSView_widthAnchor, 0, 0, NSLayoutAnchor, 0)
 ZEND_END_ARG_INFO()
 
@@ -225,6 +229,8 @@ ZEND_METHOD(NSView, layerMasksToBounds);
 ZEND_METHOD(NSView, setLayerMasksToBounds);
 ZEND_METHOD(NSView, postsFrameChangedNotifications);
 ZEND_METHOD(NSView, setPostsFrameChangedNotifications);
+ZEND_METHOD(NSView, postsBoundsChangedNotifications);
+ZEND_METHOD(NSView, setPostsBoundsChangedNotifications);
 ZEND_METHOD(NSView, widthAnchor);
 ZEND_METHOD(NSView, heightAnchor);
 ZEND_METHOD(NSView, leadingAnchor);
@@ -289,6 +295,8 @@ static const zend_function_entry class_NSView_methods[] = {
 	ZEND_ME(NSView, setLayerMasksToBounds, arginfo_class_NSView_setLayerMasksToBounds, ZEND_ACC_PUBLIC)
 	ZEND_ME(NSView, postsFrameChangedNotifications, arginfo_class_NSView_postsFrameChangedNotifications, ZEND_ACC_PUBLIC)
 	ZEND_ME(NSView, setPostsFrameChangedNotifications, arginfo_class_NSView_setPostsFrameChangedNotifications, ZEND_ACC_PUBLIC)
+	ZEND_ME(NSView, postsBoundsChangedNotifications, arginfo_class_NSView_postsBoundsChangedNotifications, ZEND_ACC_PUBLIC)
+	ZEND_ME(NSView, setPostsBoundsChangedNotifications, arginfo_class_NSView_setPostsBoundsChangedNotifications, ZEND_ACC_PUBLIC)
 	ZEND_ME(NSView, widthAnchor, arginfo_class_NSView_widthAnchor, ZEND_ACC_PUBLIC)
 	ZEND_ME(NSView, heightAnchor, arginfo_class_NSView_heightAnchor, ZEND_ACC_PUBLIC)
 	ZEND_ME(NSView, leadingAnchor, arginfo_class_NSView_leadingAnchor, ZEND_ACC_PUBLIC)

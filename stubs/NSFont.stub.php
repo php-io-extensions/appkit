@@ -37,6 +37,9 @@ class NSFont extends NSObject
 
     public static function systemFontOfSizeWeight(float $size, float $weight): NSFont {}
 
+    /** The system's fixed-pitch face (SF Mono). */
+    public static function monospacedSystemFontOfSizeWeight(float $size, float $weight): NSFont {}
+
     public static function fontWithNameSize(string $name, float $size): ?NSFont {}
 
     public function pointSize(): float {}

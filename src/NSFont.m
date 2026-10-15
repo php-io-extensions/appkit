@@ -28,6 +28,20 @@ ZEND_METHOD(NSFont, systemFontOfSizeWeight)
 	APPKIT_END
 }
 
+ZEND_METHOD(NSFont, monospacedSystemFontOfSizeWeight)
+{
+	double size, weight;
+
+	ZEND_PARSE_PARAMETERS_START(2, 2)
+		Z_PARAM_DOUBLE(size)
+		Z_PARAM_DOUBLE(weight)
+	ZEND_PARSE_PARAMETERS_END();
+
+	APPKIT_BEGIN
+		appkit_box_objc(return_value, [NSFont monospacedSystemFontOfSize:size weight:weight]);
+	APPKIT_END
+}
+
 ZEND_METHOD(NSFont, fontWithNameSize)
 {
 	zend_string *name;

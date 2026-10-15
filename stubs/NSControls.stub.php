@@ -53,6 +53,34 @@ const NSFontAttributeName = UNKNOWN;
  */
 const NSParagraphStyleAttributeName = UNKNOWN;
 
+/**
+ * @var string
+ * @cvalue appkit_cfstring_constant((CFStringRef) NSForegroundColorAttributeName)
+ */
+const NSForegroundColorAttributeName = UNKNOWN;
+
+/**
+ * @var string
+ * @cvalue appkit_cfstring_constant((CFStringRef) NSBackgroundColorAttributeName)
+ */
+const NSBackgroundColorAttributeName = UNKNOWN;
+
+enum NSTextBlockValueType: int
+{
+    case ABSOLUTE = 0;
+    case PERCENTAGE = 1;
+}
+
+enum NSTextBlockDimension: int
+{
+    case WIDTH = 0;
+    case MINIMUM_WIDTH = 1;
+    case MAXIMUM_WIDTH = 2;
+    case HEIGHT = 4;
+    case MINIMUM_HEIGHT = 5;
+    case MAXIMUM_HEIGHT = 6;
+}
+
 enum NSTextAlignment: int
 {
     case LEFT = NSTextAlignmentLeft;
@@ -394,7 +422,9 @@ class NSAttributedString extends NSObject
 {
     /**
      * initWithString:attributes:. Keys are attribute names (NSLinkAttributeName, NSFontAttributeName);
-     * values are strings, numbers, booleans or ext objects (an NSURL, an NSFont).
+     * values are strings, numbers, booleans or ext objects (an NSURL, an NSFont). A value of the
+     * wrong class for a colour, paragraph style, font or link name is a TypeError: AppKit would
+     * only fail on it when the text is drawn.
      */
     public static function initWithStringAttributes(string $string, array $attributes): static {}
 
@@ -404,6 +434,69 @@ class NSAttributedString extends NSObject
 
     /** attribute:atIndex:effectiveRange: (no range): the value boxed, a string or number, or null when absent there. */
     public function attributeAtIndex(string $name, int $index): mixed {}
+
+    /**
+     * attribute:atIndex:effectiveRange:: [the value (as attributeAtIndex returns it), the NSRange
+     * that value runs over]. The index must be within the string (ValueError otherwise).
+     *
+     * @return array{0: mixed, 1: NSRange}
+     */
+    public function attributeAtIndexEffectiveRange(string $name, int $index): array {}
+}
+
+/**
+ * @not-serializable
+ */
+class NSMutableAttributedString extends NSAttributedString
+{
+    /**
+     * addAttribute:value:range:. The range must end within the string (ValueError otherwise). A
+     * value of the wrong class for a colour, paragraph style, font or link name is a TypeError:
+     * AppKit would only fail on it when the text is drawn.
+     */
+    public function addAttributeValueRange(string $name, NSObject $value, NSRange $range): void {}
+
+    /** removeAttribute:range:. The range must end within the string. */
+    public function removeAttributeRange(string $name, NSRange $range): void {}
+
+    /** setAttributedString:: the characters and attributes replaced by another string's. */
+    public function setAttributedString(NSAttributedString $string): void {}
+
+    public function beginEditing(): void {}
+
+    public function endEditing(): void {}
+}
+
+/**
+ * A text view's storage (textStorage); its edits are the view's.
+ *
+ * @not-serializable
+ */
+class NSTextStorage extends NSMutableAttributedString
+{
+}
+
+/**
+ * A block a paragraph is laid out in (NSParagraphStyle textBlocks); its background fills the
+ * block, which spans the container at 100 % width. Drawn by TextKit 1 only.
+ *
+ * @not-serializable
+ */
+class NSTextBlock extends NSObject
+{
+    /** [[NSTextBlock alloc] init] */
+    public static function init(): static {}
+
+    public function backgroundColor(): ?NSColor {}
+
+    public function setBackgroundColor(?NSColor $color): void {}
+
+    /** setValue:type:forDimension: */
+    public function setValueTypeForDimension(float $value, NSTextBlockValueType $type, NSTextBlockDimension $dimension): void {}
+
+    public function valueForDimension(NSTextBlockDimension $dimension): float {}
+
+    public function valueTypeForDimension(NSTextBlockDimension $dimension): NSTextBlockValueType {}
 }
 
 /**
@@ -412,6 +505,9 @@ class NSAttributedString extends NSObject
 class NSParagraphStyle extends NSObject
 {
     public function alignment(): NSTextAlignment {}
+
+    /** The blocks the paragraph is laid out in, outermost first. */
+    public function textBlocks(): array {}
 }
 
 /**
@@ -423,6 +519,9 @@ class NSMutableParagraphStyle extends NSParagraphStyle
     public static function init(): static {}
 
     public function setAlignment(NSTextAlignment $alignment): void {}
+
+    /** @param NSTextBlock[] $blocks */
+    public function setTextBlocks(array $blocks): void {}
 }
 
 /**
@@ -482,8 +581,8 @@ class NSBox extends NSView
  */
 class NSScrollView extends NSView
 {
-    /** The NSClipView showing the document view. */
-    public function contentView(): NSView {}
+    /** The clip view showing the document view. */
+    public function contentView(): NSClipView {}
 
     public function documentView(): ?NSView {}
 
@@ -502,6 +601,19 @@ class NSScrollView extends NSView
     public function setDrawsBackground(bool $draws): void {}
 
     public function contentSize(): NSSize {}
+
+    public function reflectScrolledClipView(NSClipView $clipView): void {}
+
+    public function documentVisibleRect(): NSRect {}
+}
+
+/**
+ * @not-serializable
+ */
+class NSClipView extends NSView
+{
+    /** scrollToPoint:: the bounds origin, in the document view's coordinates. */
+    public function scrollToPoint(NSPoint $point): void {}
 }
 
 /**
@@ -545,6 +657,24 @@ class NSTextView extends NSView
     public function delegate(): ?NSObject {}
 
     public function setDelegate(?NSObject $delegate): void {}
+
+    public function textStorage(): ?NSTextStorage {}
+
+    /** The selection in UTF-16 units; length 0 is the insertion point. */
+    public function selectedRange(): NSRange {}
+
+    /** The range must end within the text (ValueError otherwise). */
+    public function setSelectedRange(NSRange $range): void {}
+
+    public function scrollRangeToVisible(NSRange $range): void {}
+
+    public function isHorizontallyResizable(): bool {}
+
+    public function setHorizontallyResizable(bool $resizable): void {}
+
+    public function maxSize(): NSSize {}
+
+    public function setMaxSize(NSSize $size): void {}
 }
 
 /**
@@ -552,6 +682,13 @@ class NSTextView extends NSView
  */
 class NSTextContainer extends NSObject
 {
+    public function widthTracksTextView(): bool {}
+
+    public function setWidthTracksTextView(bool $tracks): void {}
+
+    public function size(): NSSize {}
+
+    public function setSize(NSSize $size): void {}
 }
 
 /**
@@ -563,4 +700,15 @@ class NSLayoutManager extends NSObject
 
     /** The rect the laid-out glyphs occupy in the container. */
     public function usedRectForTextContainer(NSTextContainer $container): NSRect {}
+
+    /** glyphRangeForCharacterRange:actualCharacterRange: (no actual range). */
+    public function glyphRangeForCharacterRange(NSRange $range): NSRange {}
+
+    /** The glyphs' bounding rect in the container's coordinates. */
+    public function boundingRectForGlyphRangeInTextContainer(NSRange $glyphRange, NSTextContainer $container): NSRect {}
+
+    public function allowsNonContiguousLayout(): bool {}
+
+    /** Lay out only what is shown or asked for, not the whole text first. */
+    public function setAllowsNonContiguousLayout(bool $allows): void {}
 }

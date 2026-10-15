@@ -337,6 +337,8 @@ ZEND_METHOD(NSView, setLayer)
 }
 APPKIT_VIEW_BOOL_GET(postsFrameChangedNotifications, postsFrameChangedNotifications)
 APPKIT_VIEW_BOOL_SET(setPostsFrameChangedNotifications, setPostsFrameChangedNotifications)
+APPKIT_VIEW_BOOL_GET(postsBoundsChangedNotifications, postsBoundsChangedNotifications)
+APPKIT_VIEW_BOOL_SET(setPostsBoundsChangedNotifications, setPostsBoundsChangedNotifications)
 APPKIT_VIEW_ANCHOR(superview, superview)
 APPKIT_VIEW_BOOL_GET(isFlipped, isFlipped)
 

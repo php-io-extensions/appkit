@@ -1,5 +1,5 @@
 /* This is a generated file, edit the .stub.php file instead.
- * Stub hash: 702178e004a793b71f7ee3998b7e967c86795b60 */
+ * Stub hash: 9b49ee176e3c046dc9ef865fefd5bb5287b4881b */
 
 ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_NSControl_isEnabled, 0, 0, _IS_BOOL, 0)
 ZEND_END_ARG_INFO()
@@ -327,12 +327,62 @@ ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_NSAttributedString_attribu
 	ZEND_ARG_TYPE_INFO(0, index, IS_LONG, 0)
 ZEND_END_ARG_INFO()
 
-#define arginfo_class_NSParagraphStyle_alignment arginfo_class_NSControl_alignment
-
-ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_NSMutableParagraphStyle_init, 0, 0, IS_STATIC, 0)
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_NSAttributedString_attributeAtIndexEffectiveRange, 0, 2, IS_ARRAY, 0)
+	ZEND_ARG_TYPE_INFO(0, name, IS_STRING, 0)
+	ZEND_ARG_TYPE_INFO(0, index, IS_LONG, 0)
 ZEND_END_ARG_INFO()
 
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_NSMutableAttributedString_addAttributeValueRange, 0, 3, IS_VOID, 0)
+	ZEND_ARG_TYPE_INFO(0, name, IS_STRING, 0)
+	ZEND_ARG_OBJ_INFO(0, value, NSObject, 0)
+	ZEND_ARG_OBJ_INFO(0, range, NSRange, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_NSMutableAttributedString_removeAttributeRange, 0, 2, IS_VOID, 0)
+	ZEND_ARG_TYPE_INFO(0, name, IS_STRING, 0)
+	ZEND_ARG_OBJ_INFO(0, range, NSRange, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_NSMutableAttributedString_setAttributedString, 0, 1, IS_VOID, 0)
+	ZEND_ARG_OBJ_INFO(0, string, NSAttributedString, 0)
+ZEND_END_ARG_INFO()
+
+#define arginfo_class_NSMutableAttributedString_beginEditing arginfo_class_NSControl_sizeToFit
+
+#define arginfo_class_NSMutableAttributedString_endEditing arginfo_class_NSControl_sizeToFit
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_NSTextBlock_init, 0, 0, IS_STATIC, 0)
+ZEND_END_ARG_INFO()
+
+#define arginfo_class_NSTextBlock_backgroundColor arginfo_class_NSTextField_textColor
+
+#define arginfo_class_NSTextBlock_setBackgroundColor arginfo_class_NSTextField_setTextColor
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_NSTextBlock_setValueTypeForDimension, 0, 3, IS_VOID, 0)
+	ZEND_ARG_TYPE_INFO(0, value, IS_DOUBLE, 0)
+	ZEND_ARG_OBJ_INFO(0, type, NSTextBlockValueType, 0)
+	ZEND_ARG_OBJ_INFO(0, dimension, NSTextBlockDimension, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_NSTextBlock_valueForDimension, 0, 1, IS_DOUBLE, 0)
+	ZEND_ARG_OBJ_INFO(0, dimension, NSTextBlockDimension, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(arginfo_class_NSTextBlock_valueTypeForDimension, 0, 1, NSTextBlockValueType, 0)
+	ZEND_ARG_OBJ_INFO(0, dimension, NSTextBlockDimension, 0)
+ZEND_END_ARG_INFO()
+
+#define arginfo_class_NSParagraphStyle_alignment arginfo_class_NSControl_alignment
+
+#define arginfo_class_NSParagraphStyle_textBlocks arginfo_class_NSPopUpButton_itemTitles
+
+#define arginfo_class_NSMutableParagraphStyle_init arginfo_class_NSTextBlock_init
+
 #define arginfo_class_NSMutableParagraphStyle_setAlignment arginfo_class_NSControl_setAlignment
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_NSMutableParagraphStyle_setTextBlocks, 0, 1, IS_VOID, 0)
+	ZEND_ARG_TYPE_INFO(0, blocks, IS_ARRAY, 0)
+ZEND_END_ARG_INFO()
 
 ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(arginfo_class_NSWorkspace_sharedWorkspace, 0, 0, NSWorkspace, 0)
 ZEND_END_ARG_INFO()
@@ -366,7 +416,7 @@ ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_NSBox_setBoxType, 0, 1, IS
 	ZEND_ARG_OBJ_INFO(0, type, NSBoxType, 0)
 ZEND_END_ARG_INFO()
 
-ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(arginfo_class_NSScrollView_contentView, 0, 0, NSView, 0)
+ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(arginfo_class_NSScrollView_contentView, 0, 0, NSClipView, 0)
 ZEND_END_ARG_INFO()
 
 ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(arginfo_class_NSScrollView_documentView, 0, 0, NSView, 1)
@@ -391,6 +441,17 @@ ZEND_END_ARG_INFO()
 #define arginfo_class_NSScrollView_setDrawsBackground arginfo_class_NSTextField_setDrawsBackground
 
 #define arginfo_class_NSScrollView_contentSize arginfo_class_NSImage_size
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_NSScrollView_reflectScrolledClipView, 0, 1, IS_VOID, 0)
+	ZEND_ARG_OBJ_INFO(0, clipView, NSClipView, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(arginfo_class_NSScrollView_documentVisibleRect, 0, 0, NSRect, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_NSClipView_scrollToPoint, 0, 1, IS_VOID, 0)
+	ZEND_ARG_OBJ_INFO(0, point, NSPoint, 0)
+ZEND_END_ARG_INFO()
 
 ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(arginfo_class_NSTextView_scrollableTextView, 0, 0, NSScrollView, 0)
 ZEND_END_ARG_INFO()
@@ -436,6 +497,40 @@ ZEND_END_ARG_INFO()
 
 #define arginfo_class_NSTextView_setDelegate arginfo_class_NSTextField_setDelegate
 
+ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(arginfo_class_NSTextView_textStorage, 0, 0, NSTextStorage, 1)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(arginfo_class_NSTextView_selectedRange, 0, 0, NSRange, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_NSTextView_setSelectedRange, 0, 1, IS_VOID, 0)
+	ZEND_ARG_OBJ_INFO(0, range, NSRange, 0)
+ZEND_END_ARG_INFO()
+
+#define arginfo_class_NSTextView_scrollRangeToVisible arginfo_class_NSTextView_setSelectedRange
+
+#define arginfo_class_NSTextView_isHorizontallyResizable arginfo_class_NSControl_isEnabled
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_NSTextView_setHorizontallyResizable, 0, 1, IS_VOID, 0)
+	ZEND_ARG_TYPE_INFO(0, resizable, _IS_BOOL, 0)
+ZEND_END_ARG_INFO()
+
+#define arginfo_class_NSTextView_maxSize arginfo_class_NSImage_size
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_NSTextView_setMaxSize, 0, 1, IS_VOID, 0)
+	ZEND_ARG_OBJ_INFO(0, size, NSSize, 0)
+ZEND_END_ARG_INFO()
+
+#define arginfo_class_NSTextContainer_widthTracksTextView arginfo_class_NSControl_isEnabled
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_NSTextContainer_setWidthTracksTextView, 0, 1, IS_VOID, 0)
+	ZEND_ARG_TYPE_INFO(0, tracks, _IS_BOOL, 0)
+ZEND_END_ARG_INFO()
+
+#define arginfo_class_NSTextContainer_size arginfo_class_NSImage_size
+
+#define arginfo_class_NSTextContainer_setSize arginfo_class_NSTextView_setMaxSize
+
 ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_NSLayoutManager_ensureLayoutForTextContainer, 0, 1, IS_VOID, 0)
 	ZEND_ARG_OBJ_INFO(0, container, NSTextContainer, 0)
 ZEND_END_ARG_INFO()
@@ -443,6 +538,19 @@ ZEND_END_ARG_INFO()
 ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(arginfo_class_NSLayoutManager_usedRectForTextContainer, 0, 1, NSRect, 0)
 	ZEND_ARG_OBJ_INFO(0, container, NSTextContainer, 0)
 ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(arginfo_class_NSLayoutManager_glyphRangeForCharacterRange, 0, 1, NSRange, 0)
+	ZEND_ARG_OBJ_INFO(0, range, NSRange, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(arginfo_class_NSLayoutManager_boundingRectForGlyphRangeInTextContainer, 0, 2, NSRect, 0)
+	ZEND_ARG_OBJ_INFO(0, glyphRange, NSRange, 0)
+	ZEND_ARG_OBJ_INFO(0, container, NSTextContainer, 0)
+ZEND_END_ARG_INFO()
+
+#define arginfo_class_NSLayoutManager_allowsNonContiguousLayout arginfo_class_NSControl_isEnabled
+
+#define arginfo_class_NSLayoutManager_setAllowsNonContiguousLayout arginfo_class_NSTextField_setAllowsEditingTextAttributes
 
 ZEND_METHOD(NSControl, isEnabled);
 ZEND_METHOD(NSControl, setEnabled);
@@ -547,9 +655,23 @@ ZEND_METHOD(NSAttributedString, initWithStringAttributes);
 ZEND_METHOD(NSAttributedString, string);
 ZEND_METHOD(NSAttributedString, length);
 ZEND_METHOD(NSAttributedString, attributeAtIndex);
+ZEND_METHOD(NSAttributedString, attributeAtIndexEffectiveRange);
+ZEND_METHOD(NSMutableAttributedString, addAttributeValueRange);
+ZEND_METHOD(NSMutableAttributedString, removeAttributeRange);
+ZEND_METHOD(NSMutableAttributedString, setAttributedString);
+ZEND_METHOD(NSMutableAttributedString, beginEditing);
+ZEND_METHOD(NSMutableAttributedString, endEditing);
+ZEND_METHOD(NSTextBlock, init);
+ZEND_METHOD(NSTextBlock, backgroundColor);
+ZEND_METHOD(NSTextBlock, setBackgroundColor);
+ZEND_METHOD(NSTextBlock, setValueTypeForDimension);
+ZEND_METHOD(NSTextBlock, valueForDimension);
+ZEND_METHOD(NSTextBlock, valueTypeForDimension);
 ZEND_METHOD(NSParagraphStyle, alignment);
+ZEND_METHOD(NSParagraphStyle, textBlocks);
 ZEND_METHOD(NSMutableParagraphStyle, init);
 ZEND_METHOD(NSMutableParagraphStyle, setAlignment);
+ZEND_METHOD(NSMutableParagraphStyle, setTextBlocks);
 ZEND_METHOD(NSWorkspace, sharedWorkspace);
 ZEND_METHOD(NSWorkspace, openURL);
 ZEND_METHOD(NSImageView, imageViewWithImage);
@@ -569,6 +691,9 @@ ZEND_METHOD(NSScrollView, setHasHorizontalScroller);
 ZEND_METHOD(NSScrollView, drawsBackground);
 ZEND_METHOD(NSScrollView, setDrawsBackground);
 ZEND_METHOD(NSScrollView, contentSize);
+ZEND_METHOD(NSScrollView, reflectScrolledClipView);
+ZEND_METHOD(NSScrollView, documentVisibleRect);
+ZEND_METHOD(NSClipView, scrollToPoint);
 ZEND_METHOD(NSTextView, scrollableTextView);
 ZEND_METHOD(NSTextView, string);
 ZEND_METHOD(NSTextView, setString);
@@ -587,8 +712,24 @@ ZEND_METHOD(NSTextView, textContainer);
 ZEND_METHOD(NSTextView, textContainerInset);
 ZEND_METHOD(NSTextView, delegate);
 ZEND_METHOD(NSTextView, setDelegate);
+ZEND_METHOD(NSTextView, textStorage);
+ZEND_METHOD(NSTextView, selectedRange);
+ZEND_METHOD(NSTextView, setSelectedRange);
+ZEND_METHOD(NSTextView, scrollRangeToVisible);
+ZEND_METHOD(NSTextView, isHorizontallyResizable);
+ZEND_METHOD(NSTextView, setHorizontallyResizable);
+ZEND_METHOD(NSTextView, maxSize);
+ZEND_METHOD(NSTextView, setMaxSize);
+ZEND_METHOD(NSTextContainer, widthTracksTextView);
+ZEND_METHOD(NSTextContainer, setWidthTracksTextView);
+ZEND_METHOD(NSTextContainer, size);
+ZEND_METHOD(NSTextContainer, setSize);
 ZEND_METHOD(NSLayoutManager, ensureLayoutForTextContainer);
 ZEND_METHOD(NSLayoutManager, usedRectForTextContainer);
+ZEND_METHOD(NSLayoutManager, glyphRangeForCharacterRange);
+ZEND_METHOD(NSLayoutManager, boundingRectForGlyphRangeInTextContainer);
+ZEND_METHOD(NSLayoutManager, allowsNonContiguousLayout);
+ZEND_METHOD(NSLayoutManager, setAllowsNonContiguousLayout);
 
 static const zend_function_entry class_NSControl_methods[] = {
 	ZEND_ME(NSControl, isEnabled, arginfo_class_NSControl_isEnabled, ZEND_ACC_PUBLIC)
@@ -734,17 +875,39 @@ static const zend_function_entry class_NSAttributedString_methods[] = {
 	ZEND_ME(NSAttributedString, string, arginfo_class_NSAttributedString_string, ZEND_ACC_PUBLIC)
 	ZEND_ME(NSAttributedString, length, arginfo_class_NSAttributedString_length, ZEND_ACC_PUBLIC)
 	ZEND_ME(NSAttributedString, attributeAtIndex, arginfo_class_NSAttributedString_attributeAtIndex, ZEND_ACC_PUBLIC)
+	ZEND_ME(NSAttributedString, attributeAtIndexEffectiveRange, arginfo_class_NSAttributedString_attributeAtIndexEffectiveRange, ZEND_ACC_PUBLIC)
+	ZEND_FE_END
+};
+
+static const zend_function_entry class_NSMutableAttributedString_methods[] = {
+	ZEND_ME(NSMutableAttributedString, addAttributeValueRange, arginfo_class_NSMutableAttributedString_addAttributeValueRange, ZEND_ACC_PUBLIC)
+	ZEND_ME(NSMutableAttributedString, removeAttributeRange, arginfo_class_NSMutableAttributedString_removeAttributeRange, ZEND_ACC_PUBLIC)
+	ZEND_ME(NSMutableAttributedString, setAttributedString, arginfo_class_NSMutableAttributedString_setAttributedString, ZEND_ACC_PUBLIC)
+	ZEND_ME(NSMutableAttributedString, beginEditing, arginfo_class_NSMutableAttributedString_beginEditing, ZEND_ACC_PUBLIC)
+	ZEND_ME(NSMutableAttributedString, endEditing, arginfo_class_NSMutableAttributedString_endEditing, ZEND_ACC_PUBLIC)
+	ZEND_FE_END
+};
+
+static const zend_function_entry class_NSTextBlock_methods[] = {
+	ZEND_ME(NSTextBlock, init, arginfo_class_NSTextBlock_init, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	ZEND_ME(NSTextBlock, backgroundColor, arginfo_class_NSTextBlock_backgroundColor, ZEND_ACC_PUBLIC)
+	ZEND_ME(NSTextBlock, setBackgroundColor, arginfo_class_NSTextBlock_setBackgroundColor, ZEND_ACC_PUBLIC)
+	ZEND_ME(NSTextBlock, setValueTypeForDimension, arginfo_class_NSTextBlock_setValueTypeForDimension, ZEND_ACC_PUBLIC)
+	ZEND_ME(NSTextBlock, valueForDimension, arginfo_class_NSTextBlock_valueForDimension, ZEND_ACC_PUBLIC)
+	ZEND_ME(NSTextBlock, valueTypeForDimension, arginfo_class_NSTextBlock_valueTypeForDimension, ZEND_ACC_PUBLIC)
 	ZEND_FE_END
 };
 
 static const zend_function_entry class_NSParagraphStyle_methods[] = {
 	ZEND_ME(NSParagraphStyle, alignment, arginfo_class_NSParagraphStyle_alignment, ZEND_ACC_PUBLIC)
+	ZEND_ME(NSParagraphStyle, textBlocks, arginfo_class_NSParagraphStyle_textBlocks, ZEND_ACC_PUBLIC)
 	ZEND_FE_END
 };
 
 static const zend_function_entry class_NSMutableParagraphStyle_methods[] = {
 	ZEND_ME(NSMutableParagraphStyle, init, arginfo_class_NSMutableParagraphStyle_init, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
 	ZEND_ME(NSMutableParagraphStyle, setAlignment, arginfo_class_NSMutableParagraphStyle_setAlignment, ZEND_ACC_PUBLIC)
+	ZEND_ME(NSMutableParagraphStyle, setTextBlocks, arginfo_class_NSMutableParagraphStyle_setTextBlocks, ZEND_ACC_PUBLIC)
 	ZEND_FE_END
 };
 
@@ -780,6 +943,13 @@ static const zend_function_entry class_NSScrollView_methods[] = {
 	ZEND_ME(NSScrollView, drawsBackground, arginfo_class_NSScrollView_drawsBackground, ZEND_ACC_PUBLIC)
 	ZEND_ME(NSScrollView, setDrawsBackground, arginfo_class_NSScrollView_setDrawsBackground, ZEND_ACC_PUBLIC)
 	ZEND_ME(NSScrollView, contentSize, arginfo_class_NSScrollView_contentSize, ZEND_ACC_PUBLIC)
+	ZEND_ME(NSScrollView, reflectScrolledClipView, arginfo_class_NSScrollView_reflectScrolledClipView, ZEND_ACC_PUBLIC)
+	ZEND_ME(NSScrollView, documentVisibleRect, arginfo_class_NSScrollView_documentVisibleRect, ZEND_ACC_PUBLIC)
+	ZEND_FE_END
+};
+
+static const zend_function_entry class_NSClipView_methods[] = {
+	ZEND_ME(NSClipView, scrollToPoint, arginfo_class_NSClipView_scrollToPoint, ZEND_ACC_PUBLIC)
 	ZEND_FE_END
 };
 
@@ -802,12 +972,32 @@ static const zend_function_entry class_NSTextView_methods[] = {
 	ZEND_ME(NSTextView, textContainerInset, arginfo_class_NSTextView_textContainerInset, ZEND_ACC_PUBLIC)
 	ZEND_ME(NSTextView, delegate, arginfo_class_NSTextView_delegate, ZEND_ACC_PUBLIC)
 	ZEND_ME(NSTextView, setDelegate, arginfo_class_NSTextView_setDelegate, ZEND_ACC_PUBLIC)
+	ZEND_ME(NSTextView, textStorage, arginfo_class_NSTextView_textStorage, ZEND_ACC_PUBLIC)
+	ZEND_ME(NSTextView, selectedRange, arginfo_class_NSTextView_selectedRange, ZEND_ACC_PUBLIC)
+	ZEND_ME(NSTextView, setSelectedRange, arginfo_class_NSTextView_setSelectedRange, ZEND_ACC_PUBLIC)
+	ZEND_ME(NSTextView, scrollRangeToVisible, arginfo_class_NSTextView_scrollRangeToVisible, ZEND_ACC_PUBLIC)
+	ZEND_ME(NSTextView, isHorizontallyResizable, arginfo_class_NSTextView_isHorizontallyResizable, ZEND_ACC_PUBLIC)
+	ZEND_ME(NSTextView, setHorizontallyResizable, arginfo_class_NSTextView_setHorizontallyResizable, ZEND_ACC_PUBLIC)
+	ZEND_ME(NSTextView, maxSize, arginfo_class_NSTextView_maxSize, ZEND_ACC_PUBLIC)
+	ZEND_ME(NSTextView, setMaxSize, arginfo_class_NSTextView_setMaxSize, ZEND_ACC_PUBLIC)
+	ZEND_FE_END
+};
+
+static const zend_function_entry class_NSTextContainer_methods[] = {
+	ZEND_ME(NSTextContainer, widthTracksTextView, arginfo_class_NSTextContainer_widthTracksTextView, ZEND_ACC_PUBLIC)
+	ZEND_ME(NSTextContainer, setWidthTracksTextView, arginfo_class_NSTextContainer_setWidthTracksTextView, ZEND_ACC_PUBLIC)
+	ZEND_ME(NSTextContainer, size, arginfo_class_NSTextContainer_size, ZEND_ACC_PUBLIC)
+	ZEND_ME(NSTextContainer, setSize, arginfo_class_NSTextContainer_setSize, ZEND_ACC_PUBLIC)
 	ZEND_FE_END
 };
 
 static const zend_function_entry class_NSLayoutManager_methods[] = {
 	ZEND_ME(NSLayoutManager, ensureLayoutForTextContainer, arginfo_class_NSLayoutManager_ensureLayoutForTextContainer, ZEND_ACC_PUBLIC)
 	ZEND_ME(NSLayoutManager, usedRectForTextContainer, arginfo_class_NSLayoutManager_usedRectForTextContainer, ZEND_ACC_PUBLIC)
+	ZEND_ME(NSLayoutManager, glyphRangeForCharacterRange, arginfo_class_NSLayoutManager_glyphRangeForCharacterRange, ZEND_ACC_PUBLIC)
+	ZEND_ME(NSLayoutManager, boundingRectForGlyphRangeInTextContainer, arginfo_class_NSLayoutManager_boundingRectForGlyphRangeInTextContainer, ZEND_ACC_PUBLIC)
+	ZEND_ME(NSLayoutManager, allowsNonContiguousLayout, arginfo_class_NSLayoutManager_allowsNonContiguousLayout, ZEND_ACC_PUBLIC)
+	ZEND_ME(NSLayoutManager, setAllowsNonContiguousLayout, arginfo_class_NSLayoutManager_setAllowsNonContiguousLayout, ZEND_ACC_PUBLIC)
 	ZEND_FE_END
 };
 
@@ -821,6 +1011,54 @@ static void register_NSControls_symbols(int module_number)
 	REGISTER_STRING_CONSTANT("NSLinkAttributeName", appkit_cfstring_constant((CFStringRef) NSLinkAttributeName), CONST_PERSISTENT);
 	REGISTER_STRING_CONSTANT("NSFontAttributeName", appkit_cfstring_constant((CFStringRef) NSFontAttributeName), CONST_PERSISTENT);
 	REGISTER_STRING_CONSTANT("NSParagraphStyleAttributeName", appkit_cfstring_constant((CFStringRef) NSParagraphStyleAttributeName), CONST_PERSISTENT);
+	REGISTER_STRING_CONSTANT("NSForegroundColorAttributeName", appkit_cfstring_constant((CFStringRef) NSForegroundColorAttributeName), CONST_PERSISTENT);
+	REGISTER_STRING_CONSTANT("NSBackgroundColorAttributeName", appkit_cfstring_constant((CFStringRef) NSBackgroundColorAttributeName), CONST_PERSISTENT);
+}
+
+static zend_class_entry *register_class_NSTextBlockValueType(void)
+{
+	zend_class_entry *class_entry = zend_register_internal_enum("NSTextBlockValueType", IS_LONG, NULL);
+
+	zval enum_case_ABSOLUTE_value;
+	ZVAL_LONG(&enum_case_ABSOLUTE_value, 0);
+	zend_enum_add_case_cstr(class_entry, "ABSOLUTE", &enum_case_ABSOLUTE_value);
+
+	zval enum_case_PERCENTAGE_value;
+	ZVAL_LONG(&enum_case_PERCENTAGE_value, 1);
+	zend_enum_add_case_cstr(class_entry, "PERCENTAGE", &enum_case_PERCENTAGE_value);
+
+	return class_entry;
+}
+
+static zend_class_entry *register_class_NSTextBlockDimension(void)
+{
+	zend_class_entry *class_entry = zend_register_internal_enum("NSTextBlockDimension", IS_LONG, NULL);
+
+	zval enum_case_WIDTH_value;
+	ZVAL_LONG(&enum_case_WIDTH_value, 0);
+	zend_enum_add_case_cstr(class_entry, "WIDTH", &enum_case_WIDTH_value);
+
+	zval enum_case_MINIMUM_WIDTH_value;
+	ZVAL_LONG(&enum_case_MINIMUM_WIDTH_value, 1);
+	zend_enum_add_case_cstr(class_entry, "MINIMUM_WIDTH", &enum_case_MINIMUM_WIDTH_value);
+
+	zval enum_case_MAXIMUM_WIDTH_value;
+	ZVAL_LONG(&enum_case_MAXIMUM_WIDTH_value, 2);
+	zend_enum_add_case_cstr(class_entry, "MAXIMUM_WIDTH", &enum_case_MAXIMUM_WIDTH_value);
+
+	zval enum_case_HEIGHT_value;
+	ZVAL_LONG(&enum_case_HEIGHT_value, 4);
+	zend_enum_add_case_cstr(class_entry, "HEIGHT", &enum_case_HEIGHT_value);
+
+	zval enum_case_MINIMUM_HEIGHT_value;
+	ZVAL_LONG(&enum_case_MINIMUM_HEIGHT_value, 5);
+	zend_enum_add_case_cstr(class_entry, "MINIMUM_HEIGHT", &enum_case_MINIMUM_HEIGHT_value);
+
+	zval enum_case_MAXIMUM_HEIGHT_value;
+	ZVAL_LONG(&enum_case_MAXIMUM_HEIGHT_value, 6);
+	zend_enum_add_case_cstr(class_entry, "MAXIMUM_HEIGHT", &enum_case_MAXIMUM_HEIGHT_value);
+
+	return class_entry;
 }
 
 static zend_class_entry *register_class_NSTextAlignment(void)
@@ -1133,6 +1371,36 @@ static zend_class_entry *register_class_NSAttributedString(zend_class_entry *cla
 	return class_entry;
 }
 
+static zend_class_entry *register_class_NSMutableAttributedString(zend_class_entry *class_entry_NSAttributedString)
+{
+	zend_class_entry ce, *class_entry;
+
+	INIT_CLASS_ENTRY(ce, "NSMutableAttributedString", class_NSMutableAttributedString_methods);
+	class_entry = zend_register_internal_class_with_flags(&ce, class_entry_NSAttributedString, ZEND_ACC_NOT_SERIALIZABLE);
+
+	return class_entry;
+}
+
+static zend_class_entry *register_class_NSTextStorage(zend_class_entry *class_entry_NSMutableAttributedString)
+{
+	zend_class_entry ce, *class_entry;
+
+	INIT_CLASS_ENTRY(ce, "NSTextStorage", NULL);
+	class_entry = zend_register_internal_class_with_flags(&ce, class_entry_NSMutableAttributedString, ZEND_ACC_NOT_SERIALIZABLE);
+
+	return class_entry;
+}
+
+static zend_class_entry *register_class_NSTextBlock(zend_class_entry *class_entry_NSObject)
+{
+	zend_class_entry ce, *class_entry;
+
+	INIT_CLASS_ENTRY(ce, "NSTextBlock", class_NSTextBlock_methods);
+	class_entry = zend_register_internal_class_with_flags(&ce, class_entry_NSObject, ZEND_ACC_NOT_SERIALIZABLE);
+
+	return class_entry;
+}
+
 static zend_class_entry *register_class_NSParagraphStyle(zend_class_entry *class_entry_NSObject)
 {
 	zend_class_entry ce, *class_entry;
@@ -1235,6 +1503,16 @@ static zend_class_entry *register_class_NSScrollView(zend_class_entry *class_ent
 	return class_entry;
 }
 
+static zend_class_entry *register_class_NSClipView(zend_class_entry *class_entry_NSView)
+{
+	zend_class_entry ce, *class_entry;
+
+	INIT_CLASS_ENTRY(ce, "NSClipView", class_NSClipView_methods);
+	class_entry = zend_register_internal_class_with_flags(&ce, class_entry_NSView, ZEND_ACC_NOT_SERIALIZABLE);
+
+	return class_entry;
+}
+
 static zend_class_entry *register_class_NSTextView(zend_class_entry *class_entry_NSView)
 {
 	zend_class_entry ce, *class_entry;
@@ -1249,7 +1527,7 @@ static zend_class_entry *register_class_NSTextContainer(zend_class_entry *class_
 {
 	zend_class_entry ce, *class_entry;
 
-	INIT_CLASS_ENTRY(ce, "NSTextContainer", NULL);
+	INIT_CLASS_ENTRY(ce, "NSTextContainer", class_NSTextContainer_methods);
 	class_entry = zend_register_internal_class_with_flags(&ce, class_entry_NSObject, ZEND_ACC_NOT_SERIALIZABLE);
 
 	return class_entry;

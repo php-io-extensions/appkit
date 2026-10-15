@@ -37,7 +37,7 @@ it('exposes every class, enum and method the stubs declare', function (): void {
 });
 
 it('reports its version', function (): void {
-    expect(phpversion('appkit'))->toBe('0.10.2');
+    expect(phpversion('appkit'))->toBe('0.10.3');
 });
 
 it('keeps the native class hierarchy', function (): void {
@@ -75,6 +75,10 @@ it('keeps the native class hierarchy', function (): void {
         ->and(get_parent_class(NSBox::class))->toBe(NSView::class)
         ->and(get_parent_class(NSScrollView::class))->toBe(NSView::class)
         ->and(get_parent_class(NSTextView::class))->toBe(NSView::class)
+        ->and(get_parent_class(NSMutableAttributedString::class))->toBe(NSAttributedString::class)
+        ->and(get_parent_class(NSTextStorage::class))->toBe(NSMutableAttributedString::class)
+        ->and(get_parent_class(NSTextBlock::class))->toBe(NSObject::class)
+        ->and(get_parent_class(NSClipView::class))->toBe(NSView::class)
         ->and(get_parent_class(NSTextContainer::class))->toBe(NSObject::class)
         ->and(get_parent_class(NSLayoutManager::class))->toBe(NSObject::class)
         ->and(get_parent_class(NSIndexSet::class))->toBe(NSObject::class)
@@ -99,7 +103,7 @@ it('keeps the native class hierarchy', function (): void {
 
 it('cannot construct native wrappers from PHP', function (string $class): void {
     expect(fn () => new $class())->toThrow(Error::class);
-})->with([NSObject::class, NSApplication::class, NSEvent::class, NSDate::class, CFType::class, CFRunLoop::class, CFFileDescriptor::class, NSWindow::class, NSView::class, NSMenu::class, NSMenuItem::class, NSLayoutAnchor::class, NSLayoutConstraint::class, NSColor::class, NSFont::class, NSStackView::class, NSGridView::class, NSGridCell::class, NSGridRow::class, NSGridColumn::class, NSControl::class, NSTextField::class, NSButton::class, NSImage::class, NSScrollView::class, NSTextView::class, NSTableView::class, NSTableColumn::class, NSIndexSet::class, NSNotification::class, NSNotificationCenter::class, NSURL::class, AVPlayerItem::class, AVPlayer::class, AVPlayerView::class, NSOperationQueue::class, NSCell::class, CALayer::class]);
+})->with([NSObject::class, NSApplication::class, NSEvent::class, NSDate::class, CFType::class, CFRunLoop::class, CFFileDescriptor::class, NSWindow::class, NSView::class, NSMenu::class, NSMenuItem::class, NSLayoutAnchor::class, NSLayoutConstraint::class, NSColor::class, NSFont::class, NSStackView::class, NSGridView::class, NSGridCell::class, NSGridRow::class, NSGridColumn::class, NSControl::class, NSTextField::class, NSButton::class, NSImage::class, NSScrollView::class, NSTextView::class, NSTableView::class, NSTableColumn::class, NSIndexSet::class, NSNotification::class, NSNotificationCenter::class, NSURL::class, AVPlayerItem::class, AVPlayer::class, AVPlayerView::class, NSOperationQueue::class, NSCell::class, CALayer::class, NSMutableAttributedString::class, NSTextStorage::class, NSTextBlock::class, NSClipView::class]);
 
 it('refuses to clone or serialize a native wrapper', function (): void {
     $date = NSDate::date();

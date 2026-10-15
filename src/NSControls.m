@@ -18,6 +18,9 @@ _Static_assert(NSDatePickerElementFlagHourMinute == 0x000c && NSDatePickerElemen
 	&& NSDatePickerElementFlagYearMonth == 0x00c0 && NSDatePickerElementFlagYearMonthDay == 0x00e0 && NSDatePickerElementFlagEra == 0x0100, "NSDatePickerElementFlags values moved");
 _Static_assert(NSProgressIndicatorStyleBar == 0 && NSProgressIndicatorStyleSpinning == 1, "NSProgressIndicatorStyle values moved");
 _Static_assert(NSImageScaleProportionallyDown == 0 && NSImageScaleAxesIndependently == 1 && NSImageScaleNone == 2 && NSImageScaleProportionallyUpOrDown == 3, "NSImageScaling values moved");
+_Static_assert(NSTextBlockAbsoluteValueType == 0 && NSTextBlockPercentageValueType == 1, "NSTextBlockValueType values moved");
+_Static_assert(NSTextBlockWidth == 0 && NSTextBlockMinimumWidth == 1 && NSTextBlockMaximumWidth == 2
+	&& NSTextBlockHeight == 4 && NSTextBlockMinimumHeight == 5 && NSTextBlockMaximumHeight == 6, "NSTextBlockDimension values moved");
 _Static_assert(NSBoxPrimary == 0 && NSBoxSeparator == 2 && NSBoxCustom == 4, "NSBoxType values moved");
 
 void appkit_register_NSControls(int module_number)
@@ -32,6 +35,8 @@ void appkit_register_NSControls(int module_number)
 	appkit_ce_NSProgressIndicatorStyle = register_class_NSProgressIndicatorStyle();
 	appkit_ce_NSImageScaling = register_class_NSImageScaling();
 	appkit_ce_NSBoxType = register_class_NSBoxType();
+	appkit_ce_NSTextBlockValueType = register_class_NSTextBlockValueType();
+	appkit_ce_NSTextBlockDimension = register_class_NSTextBlockDimension();
 
 	APPKIT_MAP(NSControl, appkit_ce_NSView);
 	APPKIT_MAP(NSTextField, appkit_ce_NSControl);
@@ -45,12 +50,16 @@ void appkit_register_NSControls(int module_number)
 	APPKIT_MAP(NSProgressIndicator, appkit_ce_NSView);
 	APPKIT_MAP(NSImage, appkit_ce_NSObject);
 	APPKIT_MAP(NSAttributedString, appkit_ce_NSObject);
+	APPKIT_MAP(NSMutableAttributedString, appkit_ce_NSAttributedString);
+	APPKIT_MAP(NSTextStorage, appkit_ce_NSMutableAttributedString);
 	APPKIT_MAP(NSParagraphStyle, appkit_ce_NSObject);
 	APPKIT_MAP(NSMutableParagraphStyle, appkit_ce_NSParagraphStyle);
+	APPKIT_MAP(NSTextBlock, appkit_ce_NSObject);
 	APPKIT_MAP(NSWorkspace, appkit_ce_NSObject);
 	APPKIT_MAP(NSImageView, appkit_ce_NSControl);
 	APPKIT_MAP(NSBox, appkit_ce_NSView);
 	APPKIT_MAP(NSScrollView, appkit_ce_NSView);
+	APPKIT_MAP(NSClipView, appkit_ce_NSView);
 	APPKIT_MAP(NSTextView, appkit_ce_NSView);
 	APPKIT_MAP(NSTextContainer, appkit_ce_NSObject);
 	APPKIT_MAP(NSLayoutManager, appkit_ce_NSObject);
@@ -294,6 +303,14 @@ ZEND_METHOD(NSAttributedString, initWithStringAttributes)
 		if (dictionary == nil) {
 			RETURN_THROWS();
 		}
+		zend_string *key;
+		zval *entry;
+		ZEND_HASH_FOREACH_STR_KEY_VAL(attributes, key, entry) {
+			NSString *name = appkit_nsstring(key);
+			if (!appkit_attribute_value_fits(name, dictionary[name], 2, zend_zval_value_name(entry))) {
+				RETURN_THROWS();
+			}
+		} ZEND_HASH_FOREACH_END();
 		NSAttributedString *attributed = [[CALLED alloc] initWithString:appkit_nsstring(string) attributes:dictionary];
 		appkit_box_objc(return_value, attributed);
 		[attributed release];
@@ -324,8 +341,145 @@ ZEND_METHOD(NSAttributedString, attributeAtIndex)
 	APPKIT_END
 }
 
+ZEND_METHOD(NSAttributedString, attributeAtIndexEffectiveRange)
+{
+	zend_string *name;
+	zend_long index;
+	NSRange effective;
+	zval value, range;
+
+	ZEND_PARSE_PARAMETERS_START(2, 2)
+		Z_PARAM_STR(name)
+		Z_PARAM_LONG(index)
+	ZEND_PARSE_PARAMETERS_END();
+	APPKIT_REQUIRE_MAIN_THREAD();
+
+	APPKIT_BEGIN
+		NSUInteger length = [SELF(NSAttributedString) length];
+		if (index < 0 || (NSUInteger) index >= length) {
+			zend_argument_value_error(2, "must be within the text's %lu characters", (unsigned long) length);
+			RETURN_THROWS();
+		}
+		appkit_zval_from_id(&value, [SELF(NSAttributedString) attribute:appkit_nsstring(name) atIndex:(NSUInteger) index effectiveRange:&effective]);
+		appkit_return_range(&range, effective);
+		array_init_size(return_value, 2);
+		add_next_index_zval(return_value, &value);
+		add_next_index_zval(return_value, &range);
+	APPKIT_END
+}
+
+/* A range argument that must end within a string of $length UTF-16 units. */
+static bool appkit_range_within(zend_object *range_obj, NSUInteger length, uint32_t arg_num, NSRange *out)
+{
+	if (!appkit_range_from(range_obj, arg_num, out)) {
+		return false;
+	}
+	if (NSMaxRange(*out) > length) {
+		zend_argument_value_error(arg_num, "must end within the text's %lu characters", (unsigned long) length);
+		return false;
+	}
+	return true;
+}
+
+/* NSMutableAttributedString */
+ZEND_METHOD(NSMutableAttributedString, addAttributeValueRange)
+{
+	zend_string *name;
+	zend_object *value, *range_obj;
+	NSRange range;
+
+	ZEND_PARSE_PARAMETERS_START(3, 3)
+		Z_PARAM_STR(name)
+		Z_PARAM_OBJ_OF_CLASS(value, appkit_ce_NSObject)
+		Z_PARAM_OBJ_OF_CLASS(range_obj, appkit_ce_NSRange)
+	ZEND_PARSE_PARAMETERS_END();
+	APPKIT_REQUIRE_MAIN_THREAD();
+
+	APPKIT_BEGIN
+		if (!appkit_attribute_value_fits(appkit_nsstring(name), APPKIT_ID(value), 2, ZSTR_VAL(value->ce->name))) {
+			RETURN_THROWS();
+		}
+		if (!appkit_range_within(range_obj, [SELF(NSAttributedString) length], 3, &range)) {
+			RETURN_THROWS();
+		}
+		[SELF(NSMutableAttributedString) addAttribute:appkit_nsstring(name) value:APPKIT_ID(value) range:range];
+	APPKIT_END
+}
+
+ZEND_METHOD(NSMutableAttributedString, removeAttributeRange)
+{
+	zend_string *name;
+	zend_object *range_obj;
+	NSRange range;
+
+	ZEND_PARSE_PARAMETERS_START(2, 2)
+		Z_PARAM_STR(name)
+		Z_PARAM_OBJ_OF_CLASS(range_obj, appkit_ce_NSRange)
+	ZEND_PARSE_PARAMETERS_END();
+	APPKIT_REQUIRE_MAIN_THREAD();
+
+	APPKIT_BEGIN
+		if (!appkit_range_within(range_obj, [SELF(NSAttributedString) length], 2, &range)) {
+			RETURN_THROWS();
+		}
+		[SELF(NSMutableAttributedString) removeAttribute:appkit_nsstring(name) range:range];
+	APPKIT_END
+}
+
+METHOD(NSMutableAttributedString, setAttributedString, PARSE_OBJ(appkit_ce_NSAttributedString),
+	[SELF(NSMutableAttributedString) setAttributedString:(NSAttributedString *) APPKIT_ID(v)];)
+VOID_METHOD(NSMutableAttributedString, NSMutableAttributedString, beginEditing, beginEditing)
+VOID_METHOD(NSMutableAttributedString, NSMutableAttributedString, endEditing, endEditing)
+
+/* NSTextBlock */
+METHOD(NSTextBlock, init, PARSE_NONE,
+	NSTextBlock *block = [[CALLED alloc] init];
+	appkit_box_objc(return_value, block);
+	[block release];
+)
+OBJ_GET(NSTextBlock, NSTextBlock, backgroundColor, backgroundColor)
+OBJ_SET_OR_NULL(NSTextBlock, NSTextBlock, setBackgroundColor, setBackgroundColor, appkit_ce_NSColor, NSColor *)
+
+ZEND_METHOD(NSTextBlock, setValueTypeForDimension)
+{
+	double value;
+	zend_object *type, *dimension;
+
+	ZEND_PARSE_PARAMETERS_START(3, 3)
+		Z_PARAM_DOUBLE(value)
+		Z_PARAM_OBJ_OF_CLASS(type, appkit_ce_NSTextBlockValueType)
+		Z_PARAM_OBJ_OF_CLASS(dimension, appkit_ce_NSTextBlockDimension)
+	ZEND_PARSE_PARAMETERS_END();
+	APPKIT_REQUIRE_MAIN_THREAD();
+
+	APPKIT_BEGIN
+		[SELF(NSTextBlock) setValue:value type:(NSTextBlockValueType) appkit_enum_value(type, 0) forDimension:(NSTextBlockDimension) appkit_enum_value(dimension, 0)];
+	APPKIT_END
+}
+
+METHOD(NSTextBlock, valueForDimension, PARSE_OBJ(appkit_ce_NSTextBlockDimension),
+	RETURN_DOUBLE([SELF(NSTextBlock) valueForDimension:(NSTextBlockDimension) appkit_enum_value(v, 0)]);)
+METHOD(NSTextBlock, valueTypeForDimension, PARSE_OBJ(appkit_ce_NSTextBlockDimension),
+	appkit_return_enum(return_value, appkit_ce_NSTextBlockValueType, (zend_long) [SELF(NSTextBlock) valueTypeForDimension:(NSTextBlockDimension) appkit_enum_value(v, 0)], false);)
+
 /* NSParagraphStyle */
 ENUM_GET(NSParagraphStyle, NSParagraphStyle, alignment, alignment, appkit_ce_NSTextAlignment, false)
+
+ZEND_METHOD(NSParagraphStyle, textBlocks)
+{
+	ZEND_PARSE_PARAMETERS_NONE();
+	APPKIT_REQUIRE_MAIN_THREAD();
+
+	APPKIT_BEGIN
+		NSArray *blocks = [SELF(NSParagraphStyle) textBlocks];
+		array_init_size(return_value, (uint32_t) [blocks count]);
+		for (NSTextBlock *block in blocks) {
+			zval boxed;
+			appkit_box_objc(&boxed, block);
+			add_next_index_zval(return_value, &boxed);
+		}
+	APPKIT_END
+}
 
 /* NSMutableParagraphStyle */
 METHOD(NSMutableParagraphStyle, init, PARSE_NONE,
@@ -334,6 +488,30 @@ METHOD(NSMutableParagraphStyle, init, PARSE_NONE,
 	[style release];
 )
 ENUM_SET(NSMutableParagraphStyle, NSMutableParagraphStyle, setAlignment, setAlignment, appkit_ce_NSTextAlignment, NSTextAlignment)
+
+ZEND_METHOD(NSMutableParagraphStyle, setTextBlocks)
+{
+	HashTable *blocks;
+	zval *entry;
+
+	ZEND_PARSE_PARAMETERS_START(1, 1)
+		Z_PARAM_ARRAY_HT(blocks)
+	ZEND_PARSE_PARAMETERS_END();
+	APPKIT_REQUIRE_MAIN_THREAD();
+
+	APPKIT_BEGIN
+		NSMutableArray *list = [NSMutableArray arrayWithCapacity:zend_hash_num_elements(blocks)];
+		ZEND_HASH_FOREACH_VAL(blocks, entry) {
+			ZVAL_DEREF(entry);
+			if (Z_TYPE_P(entry) != IS_OBJECT || !instanceof_function(Z_OBJCE_P(entry), appkit_ce_NSTextBlock)) {
+				zend_argument_type_error(1, "must contain only NSTextBlock, %s given", zend_zval_value_name(entry));
+				RETURN_THROWS();
+			}
+			[list addObject:APPKIT_ID(Z_OBJ_P(entry))];
+		} ZEND_HASH_FOREACH_END();
+		[SELF(NSMutableParagraphStyle) setTextBlocks:list];
+	APPKIT_END
+}
 
 /* NSWorkspace */
 METHOD(NSWorkspace, sharedWorkspace, PARSE_NONE, appkit_box_objc(return_value, [NSWorkspace sharedWorkspace]);)
@@ -361,6 +539,27 @@ BOOL_SET(NSScrollView, NSScrollView, setHasHorizontalScroller, setHasHorizontalS
 BOOL_GET(NSScrollView, NSScrollView, drawsBackground, drawsBackground)
 BOOL_SET(NSScrollView, NSScrollView, setDrawsBackground, setDrawsBackground)
 SIZE_GET(NSScrollView, NSScrollView, contentSize, contentSize)
+METHOD(NSScrollView, reflectScrolledClipView, PARSE_OBJ(appkit_ce_NSClipView), [SELF(NSScrollView) reflectScrolledClipView:(NSClipView *) APPKIT_ID(v)];)
+METHOD(NSScrollView, documentVisibleRect, PARSE_NONE, appkit_return_rect(return_value, [SELF(NSScrollView) documentVisibleRect]);)
+
+/* NSClipView */
+ZEND_METHOD(NSClipView, scrollToPoint)
+{
+	zend_object *point_obj;
+	NSPoint point;
+
+	ZEND_PARSE_PARAMETERS_START(1, 1)
+		Z_PARAM_OBJ_OF_CLASS(point_obj, appkit_ce_NSPoint)
+	ZEND_PARSE_PARAMETERS_END();
+	APPKIT_REQUIRE_MAIN_THREAD();
+	if (!appkit_point_from(point_obj, 1, &point)) {
+		RETURN_THROWS();
+	}
+
+	APPKIT_BEGIN
+		[SELF(NSClipView) scrollToPoint:point];
+	APPKIT_END
+}
 
 /* NSTextView */
 METHOD(NSTextView, scrollableTextView, PARSE_NONE, appkit_box_objc(return_value, [NSTextView scrollableTextView]);)
@@ -380,8 +579,114 @@ OBJ_GET(NSTextView, NSTextView, layoutManager, layoutManager)
 OBJ_GET(NSTextView, NSTextView, textContainer, textContainer)
 SIZE_GET(NSTextView, NSTextView, textContainerInset, textContainerInset)
 OBJ_GET(NSTextView, NSTextView, delegate, delegate)
+OBJ_GET(NSTextView, NSTextView, textStorage, textStorage)
+METHOD(NSTextView, selectedRange, PARSE_NONE, appkit_return_range(return_value, [SELF(NSTextView) selectedRange]);)
+
+#define APPKIT_TEXT_RANGE_METHOD(name, sel) \
+ZEND_METHOD(NSTextView, name) \
+{ \
+	zend_object *range_obj; \
+	NSRange range; \
+	ZEND_PARSE_PARAMETERS_START(1, 1) \
+		Z_PARAM_OBJ_OF_CLASS(range_obj, appkit_ce_NSRange) \
+	ZEND_PARSE_PARAMETERS_END(); \
+	APPKIT_REQUIRE_MAIN_THREAD(); \
+	APPKIT_BEGIN \
+		if (!appkit_range_within(range_obj, [[SELF(NSTextView) string] length], 1, &range)) { \
+			RETURN_THROWS(); \
+		} \
+		[SELF(NSTextView) sel:range]; \
+	APPKIT_END \
+}
+
+APPKIT_TEXT_RANGE_METHOD(setSelectedRange, setSelectedRange)
+APPKIT_TEXT_RANGE_METHOD(scrollRangeToVisible, scrollRangeToVisible)
+BOOL_GET(NSTextView, NSTextView, isHorizontallyResizable, isHorizontallyResizable)
+BOOL_SET(NSTextView, NSTextView, setHorizontallyResizable, setHorizontallyResizable)
+SIZE_GET(NSTextView, NSTextView, maxSize, maxSize)
+
+ZEND_METHOD(NSTextView, setMaxSize)
+{
+	zend_object *size_obj;
+	NSSize size;
+
+	ZEND_PARSE_PARAMETERS_START(1, 1)
+		Z_PARAM_OBJ_OF_CLASS(size_obj, appkit_ce_NSSize)
+	ZEND_PARSE_PARAMETERS_END();
+	APPKIT_REQUIRE_MAIN_THREAD();
+	if (!appkit_size_from(size_obj, 1, &size)) {
+		RETURN_THROWS();
+	}
+
+	APPKIT_BEGIN
+		[SELF(NSTextView) setMaxSize:size];
+	APPKIT_END
+}
+
+/* NSTextContainer */
+BOOL_GET(NSTextContainer, NSTextContainer, widthTracksTextView, widthTracksTextView)
+BOOL_SET(NSTextContainer, NSTextContainer, setWidthTracksTextView, setWidthTracksTextView)
+SIZE_GET(NSTextContainer, NSTextContainer, size, size)
+
+ZEND_METHOD(NSTextContainer, setSize)
+{
+	zend_object *size_obj;
+	NSSize size;
+
+	ZEND_PARSE_PARAMETERS_START(1, 1)
+		Z_PARAM_OBJ_OF_CLASS(size_obj, appkit_ce_NSSize)
+	ZEND_PARSE_PARAMETERS_END();
+	APPKIT_REQUIRE_MAIN_THREAD();
+	if (!appkit_size_from(size_obj, 1, &size)) {
+		RETURN_THROWS();
+	}
+
+	APPKIT_BEGIN
+		[SELF(NSTextContainer) setSize:size];
+	APPKIT_END
+}
 
 /* NSLayoutManager */
 METHOD(NSLayoutManager, ensureLayoutForTextContainer, PARSE_OBJ(appkit_ce_NSTextContainer), [SELF(NSLayoutManager) ensureLayoutForTextContainer:(NSTextContainer *) APPKIT_ID(v)];)
 METHOD(NSLayoutManager, usedRectForTextContainer, PARSE_OBJ(appkit_ce_NSTextContainer), appkit_return_rect(return_value, [SELF(NSLayoutManager) usedRectForTextContainer:(NSTextContainer *) APPKIT_ID(v)]);)
+
+BOOL_GET(NSLayoutManager, NSLayoutManager, allowsNonContiguousLayout, allowsNonContiguousLayout)
+BOOL_SET(NSLayoutManager, NSLayoutManager, setAllowsNonContiguousLayout, setAllowsNonContiguousLayout)
+
+ZEND_METHOD(NSLayoutManager, glyphRangeForCharacterRange)
+{
+	zend_object *range_obj;
+	NSRange range;
+
+	ZEND_PARSE_PARAMETERS_START(1, 1)
+		Z_PARAM_OBJ_OF_CLASS(range_obj, appkit_ce_NSRange)
+	ZEND_PARSE_PARAMETERS_END();
+	APPKIT_REQUIRE_MAIN_THREAD();
+
+	APPKIT_BEGIN
+		if (!appkit_range_within(range_obj, [[SELF(NSLayoutManager) textStorage] length], 1, &range)) {
+			RETURN_THROWS();
+		}
+		appkit_return_range(return_value, [SELF(NSLayoutManager) glyphRangeForCharacterRange:range actualCharacterRange:NULL]);
+	APPKIT_END
+}
+
+ZEND_METHOD(NSLayoutManager, boundingRectForGlyphRangeInTextContainer)
+{
+	zend_object *range_obj, *container;
+	NSRange range;
+
+	ZEND_PARSE_PARAMETERS_START(2, 2)
+		Z_PARAM_OBJ_OF_CLASS(range_obj, appkit_ce_NSRange)
+		Z_PARAM_OBJ_OF_CLASS(container, appkit_ce_NSTextContainer)
+	ZEND_PARSE_PARAMETERS_END();
+	APPKIT_REQUIRE_MAIN_THREAD();
+
+	APPKIT_BEGIN
+		if (!appkit_range_within(range_obj, [SELF(NSLayoutManager) numberOfGlyphs], 1, &range)) {
+			RETURN_THROWS();
+		}
+		appkit_return_rect(return_value, [SELF(NSLayoutManager) boundingRectForGlyphRange:range inTextContainer:(NSTextContainer *) APPKIT_ID(container)]);
+	APPKIT_END
+}
 OBJ_SET_OR_NULL(NSTextView, NSTextView, setDelegate, setDelegate, appkit_ce_NSObject, id<NSTextViewDelegate>)

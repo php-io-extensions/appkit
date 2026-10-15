@@ -10,6 +10,12 @@ const NSViewFrameDidChangeNotification = UNKNOWN;
 
 /**
  * @var string
+ * @cvalue appkit_cfstring_constant((CFStringRef) NSViewBoundsDidChangeNotification)
+ */
+const NSViewBoundsDidChangeNotification = UNKNOWN;
+
+/**
+ * @var string
  * @cvalue appkit_cfstring_constant((CFStringRef) NSWindowDidResizeNotification)
  */
 const NSWindowDidResizeNotification = UNKNOWN;

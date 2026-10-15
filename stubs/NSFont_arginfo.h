@@ -1,10 +1,12 @@
 /* This is a generated file, edit the .stub.php file instead.
- * Stub hash: 3067bb6e445658dfbbd46fd8dfe84f8b664b3d51 */
+ * Stub hash: d20060b953056ce01966d4c66b1074577910b397 */
 
 ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(arginfo_class_NSFont_systemFontOfSizeWeight, 0, 2, NSFont, 0)
 	ZEND_ARG_TYPE_INFO(0, size, IS_DOUBLE, 0)
 	ZEND_ARG_TYPE_INFO(0, weight, IS_DOUBLE, 0)
 ZEND_END_ARG_INFO()
+
+#define arginfo_class_NSFont_monospacedSystemFontOfSizeWeight arginfo_class_NSFont_systemFontOfSizeWeight
 
 ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(arginfo_class_NSFont_fontWithNameSize, 0, 2, NSFont, 1)
 	ZEND_ARG_TYPE_INFO(0, name, IS_STRING, 0)
@@ -32,6 +34,7 @@ ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_NSFontManager_weightOfFont
 ZEND_END_ARG_INFO()
 
 ZEND_METHOD(NSFont, systemFontOfSizeWeight);
+ZEND_METHOD(NSFont, monospacedSystemFontOfSizeWeight);
 ZEND_METHOD(NSFont, fontWithNameSize);
 ZEND_METHOD(NSFont, pointSize);
 ZEND_METHOD(NSFont, familyName);
@@ -41,6 +44,7 @@ ZEND_METHOD(NSFontManager, weightOfFont);
 
 static const zend_function_entry class_NSFont_methods[] = {
 	ZEND_ME(NSFont, systemFontOfSizeWeight, arginfo_class_NSFont_systemFontOfSizeWeight, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	ZEND_ME(NSFont, monospacedSystemFontOfSizeWeight, arginfo_class_NSFont_monospacedSystemFontOfSizeWeight, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
 	ZEND_ME(NSFont, fontWithNameSize, arginfo_class_NSFont_fontWithNameSize, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
 	ZEND_ME(NSFont, pointSize, arginfo_class_NSFont_pointSize, ZEND_ACC_PUBLIC)
 	ZEND_ME(NSFont, familyName, arginfo_class_NSFont_familyName, ZEND_ACC_PUBLIC)
