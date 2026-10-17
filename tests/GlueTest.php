@@ -22,12 +22,58 @@ it('answers only the selectors it was given handlers for', function (): void {
     expect($delegate->respondsToSelector('windowWillClose:'))->toBeFalse();
 });
 
-it('rejects selectors outside the protocol and non-callables', function (): void {
+it('accepts a selector outside the protocol, which nothing sends, and rejects non-callables', function (): void {
     $delegate = new ObjCDelegate('NSWindowDelegate');
+    $delegate->on('noSuchSelector:', fn () => null);
 
-    expect(fn () => $delegate->on('noSuchSelector:', fn () => null))->toThrow(ValueError::class)
+    expect($delegate->protocolName())->toBe('NSWindowDelegate')
         ->and(fn () => $delegate->on('windowWillClose:', 'no_such_function'))->toThrow(TypeError::class)
         ->and(fn () => new ObjCTarget('no_such_function'))->toThrow(TypeError::class);
+});
+
+it('hands a delegate a struct argument and writes its struct answer back (windowWillResize:toSize:)', function (): void {
+    NSApplication::sharedApplication();
+    $window = newWindow(200, 100);
+    $delegate = new ObjCDelegate('NSWindowDelegate');
+    $seen = [];
+    $delegate->on('windowWillResize:toSize:', function (NSWindow $sender, NSSize $size) use (&$seen): NSSize {
+        $seen[] = [$sender, $size->width, $size->height];
+
+        return new NSSize($size->width / 2, $size->height / 4);
+    });
+    // AppKit sends windowWillResize:toSize: only while the user drags an edge: send it as AppKit would, through objc_msgSend.
+    $ffi = FFI::cdef('typedef struct { double width; double height; } CGSize; void *sel_registerName(const char *name); CGSize objc_msgSend(void *self, void *op, void *sender, CGSize size);', '/usr/lib/libobjc.A.dylib');
+    $size = $ffi->new('CGSize');
+    $size->width = 300.0;
+    $size->height = 200.0;
+    $answer = $ffi->objc_msgSend($ffi->cast('void *', $delegate->pointer()), $ffi->sel_registerName('windowWillResize:toSize:'), $ffi->cast('void *', $window->pointer()), $size);
+
+    expect($seen)->toHaveCount(1)
+        ->and($seen[0][0])->toBe($window)
+        ->and([$seen[0][1], $seen[0][2]])->toBe([300.0, 200.0])
+        ->and([$answer->width, $answer->height])->toBe([150.0, 50.0]);
+    $window->close();
+})->skip(! extension_loaded('ffi'), 'needs ext-ffi to send the selector as AppKit would');
+
+it('hands a delegate NSRange arguments and writes its NSRange answer back', function (): void {
+    $scroll = NSTextView::scrollableTextView();
+    $text = $scroll->documentView();
+    $text->setString('selectable text');
+    $delegate = new ObjCDelegate('NSTextViewDelegate');
+    $seen = [];
+    $delegate->on('textView:willChangeSelectionFromCharacterRange:toCharacterRange:', function (NSTextView $view, NSRange $old, NSRange $new) use (&$seen): NSRange {
+        $seen[] = [$old->location, $old->length, $new->location, $new->length];
+
+        return new NSRange($new->location, 1);
+    });
+    $text->setDelegate($delegate);
+    $text->setSelectedRange(new NSRange(2, 5));
+
+    expect($seen)->not->toBeEmpty()
+        // setString: left the selection at the end of the 15 characters.
+        ->and(end($seen))->toBe([15, 0, 2, 5])
+        ->and([$text->selectedRange()->location, $text->selectedRange()->length])->toBe([2, 1]);
+    $text->setDelegate(null);
 });
 
 it('marshals About options to an NSDictionary and rejects other values', function (): void {
@@ -42,12 +88,12 @@ it('observes a key path and a notification', function (): void {
     $window = NSWindow::initWithContentRectStyleMaskBackingDefer(new NSRect(0, 0, 200, 100), NSWindowStyleMask::TITLED->value, NSBackingStoreType::BUFFERED, false);
     $window->setReleasedWhenClosed(false);
     $seen = [];
-    $observer = new ObjCObserver(function (string $path, NSObject $object, array $change) use (&$seen): void {
-        $seen[] = [$path, $change['new'] ?? null, $change['old'] ?? null];
+    $observer = new ObjCObserver(function (string $path, NSObject $object, array $change, int $context) use (&$seen): void {
+        $seen[] = [$path, $change, $context];
     });
-    $observer->observe($window, 'title', ObjCObserver::OPTION_NEW | ObjCObserver::OPTION_OLD);
+    $observer->observe($window, 'title', ObjCObserver::OPTION_NEW | ObjCObserver::OPTION_OLD, 7);
     $window->setTitle('Changed');
-    $observer->stop($window, 'title');
+    $observer->stop($window, 'title', 7);
     $window->setTitle('Unseen');
 
     $resized = 0;
@@ -61,23 +107,51 @@ it('observes a key path and a notification', function (): void {
     $center->removeObserver($token);
     $window->setContentSize(new NSSize(310.0, 150.0));
 
-    expect($seen)->toBe([['title', 'Changed', '']])
+    // KVO's whole change dictionary: the kind (NSKeyValueChangeSetting = 1) beside new and old, and the registered context.
+    expect($seen)->toHaveCount(1)
+        ->and($seen[0][0])->toBe('title')
+        ->and($seen[0][1])->toEqualCanonicalizing(['kind' => 1, 'new' => 'Changed', 'old' => ''])
+        ->and($seen[0][2])->toBe(7)
         ->and($resized)->toBe(1)
         ->and(NSViewFrameDidChangeNotification)->toBe('NSViewFrameDidChangeNotification');
     $window->close();
 });
 
-it('removes what a freed observer still observed and refuses to stop twice', function (): void {
+it('hands PHP the prior notification as well when asked', function (): void {
+    $window = NSWindow::initWithContentRectStyleMaskBackingDefer(new NSRect(0, 0, 200, 100), NSWindowStyleMask::TITLED->value, NSBackingStoreType::BUFFERED, false);
+    $window->setReleasedWhenClosed(false);
+    $window->setTitle('Before');
+    $seen = [];
+    $observer = new ObjCObserver(function (string $path, NSObject $object, array $change) use (&$seen): void {
+        $seen[] = [$change['new'] ?? null, $change['old'] ?? null];
+    });
+    $observer->observe($window, 'title', ObjCObserver::OPTION_PRIOR | ObjCObserver::OPTION_NEW | ObjCObserver::OPTION_OLD, 0);
+    $window->setTitle('After');
+    $observer->stop($window, 'title', 0);
+
+    expect(ObjCObserver::OPTION_PRIOR)->toBe(8)
+        ->and([ObjCObserver::OPTION_NEW, ObjCObserver::OPTION_OLD, ObjCObserver::OPTION_INITIAL])->toBe([1, 2, 4])
+        ->and($seen)->toBe([[null, 'Before'], ['After', 'Before']]);
+    $window->close();
+});
+
+it('registers a pair as often as observed, removes what a freed observer still observed, and lets KVO refuse a stop', function (): void {
     NSApplication::sharedApplication();
     $window = newWindow();
-    $observer = new ObjCObserver(fn () => null);
-    $observer->observe($window, 'title', ObjCObserver::OPTION_NEW);
+    $calls = 0;
+    $observer = new ObjCObserver(function () use (&$calls): void {
+        $calls++;
+    });
+    $observer->observe($window, 'title', ObjCObserver::OPTION_NEW, 0);
+    $observer->observe($window, 'title', ObjCObserver::OPTION_NEW, 0);
+    $window->setTitle('twice');
 
-    expect(fn () => $observer->observe($window, 'title', ObjCObserver::OPTION_NEW))->toThrow(AppKitException::class, 'already observes');
-    $observer->stop($window, 'title');
-    expect(fn () => $observer->stop($window, 'title'))->toThrow(AppKitException::class, 'does not observe');
+    expect($calls)->toBe(2);
+    $observer->stop($window, 'title', 0);
+    $observer->stop($window, 'title', 0);
+    expect(fn () => $observer->stop($window, 'title', 0))->toThrow(AppKitException::class, 'NSRangeException');
 
-    $observer->observe($window, 'title', ObjCObserver::OPTION_NEW);
+    $observer->observe($window, 'title', ObjCObserver::OPTION_NEW, 0);
     unset($observer);
     gc_collect_cycles();
     $window->setTitle('nobody listening');
@@ -91,8 +165,8 @@ it('forgets a key path AppKit refused to observe', function (): void {
     $view = NSView::initWithFrame(new NSRect(0, 0, 10, 10));
     $observer = new ObjCObserver(fn () => null);
 
-    expect(fn () => $observer->observe($view, 'titel', ObjCObserver::OPTION_NEW | ObjCObserver::OPTION_INITIAL))->toThrow(AppKitException::class)
-        ->and(fn () => $observer->stop($view, 'titel'))->toThrow(AppKitException::class, 'does not observe');
+    expect(fn () => $observer->observe($view, 'titel', ObjCObserver::OPTION_NEW | ObjCObserver::OPTION_INITIAL, 0))->toThrow(AppKitException::class)
+        ->and(fn () => $observer->stop($view, 'titel', 0))->toThrow(AppKitException::class, 'NSRangeException');
 
     unset($observer);
     gc_collect_cycles();
@@ -106,9 +180,9 @@ it('hands geometry changes to PHP as value classes', function (): void {
     $observer = new ObjCObserver(function (string $path, NSObject $object, array $change) use (&$changes): void {
         $changes[] = $change['new'];
     });
-    $observer->observe($view, 'frame', ObjCObserver::OPTION_NEW);
+    $observer->observe($view, 'frame', ObjCObserver::OPTION_NEW, 0);
     $view->setFrame(new NSRect(1.0, 2.0, 3.0, 4.0));
-    $observer->stop($view, 'frame');
+    $observer->stop($view, 'frame', 0);
 
     expect($changes[0])->toBeInstanceOf(NSRect::class)
         ->and([$changes[0]->x, $changes[0]->y, $changes[0]->width, $changes[0]->height])->toBe([1.0, 2.0, 3.0, 4.0]);
@@ -140,7 +214,7 @@ it('names the text-change notifications a control and a text view tell their del
         ->and(NSTextDidChangeNotification)->toBe('NSTextDidChangeNotification');
 });
 
-it('lets a borderless stage window become key, and makes any refuse it', function (): void {
+it('answers NSWindow\'s own key and main status until a handler answers instead', function (): void {
     $app = NSApplication::sharedApplication();
     $app->finishLaunching();
     $app->setActivationPolicy(NSApplicationActivationPolicy::REGULAR);
@@ -148,18 +222,30 @@ it('lets a borderless stage window become key, and makes any refuse it', functio
     $window = ObjCStageWindow::initWithContentRectStyleMaskBackingDefer(new NSRect(200.0, 200.0, 160.0, 120.0), NSWindowStyleMask::BORDERLESS, NSBackingStoreType::BUFFERED, false);
     $window->setReleasedWhenClosed(false);
 
+    // No handler: a borderless window answers NO, as NSWindow does.
+    expect($window)->toBeInstanceOf(NSWindow::class)
+        ->and([$window->canBecomeKeyWindow(), $window->canBecomeMainWindow()])->toBe([false, false]);
+
+    $asked = [];
+    $window->on('canBecomeKeyWindow', function () use (&$asked): bool {
+        $asked[] = 'key';
+
+        return true;
+    });
+    $window->on('canBecomeMainWindow', fn (): bool => false);
     $window->makeKeyAndOrderFront(null);
     pumpUntil($app, fn (): bool => $window->isKeyWindow(), 2.0);
-    expect($window)->toBeInstanceOf(NSWindow::class)
-        ->and($window->canBecomeKey())->toBeTrue()
-        ->and($window->isKeyWindow())->toBeTrue();
+    expect([$window->canBecomeKeyWindow(), $window->canBecomeMainWindow()])->toBe([true, false])
+        ->and($window->isKeyWindow())->toBeTrue()
+        ->and($asked)->toContain('key');
 
     $window->orderOut(null);
-    $window->setCanBecomeKey(false);
+    $window->off('canBecomeKeyWindow');
     $window->makeKeyAndOrderFront(null);
     pumpFor($app, 0.2);
-    expect($window->canBecomeKey())->toBeFalse()
-        ->and($window->isKeyWindow())->toBeFalse();
+    expect($window->canBecomeKeyWindow())->toBeFalse()
+        ->and($window->isKeyWindow())->toBeFalse()
+        ->and(method_exists($window, 'setCanBecomeKey'))->toBeFalse();
 
     $window->close();
 });

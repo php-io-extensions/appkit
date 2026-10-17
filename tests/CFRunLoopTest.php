@@ -19,8 +19,8 @@ it('times out a run with nothing to do', function (): void {
 
 it('adds a source to the common modes, not to a mode named after them', function (): void {
     [$read] = stream_socket_pair(STREAM_PF_UNIX, STREAM_SOCK_STREAM, 0);
-    $fd = CFFileDescriptor::create($read, false, fn () => null);
-    $source = $fd->createRunLoopSource(0);
+    $fd = CFFileDescriptor::create(null, streamDescriptor($read), false, fn () => null);
+    $source = $fd->createRunLoopSource(null, 0);
     $loop = CFRunLoop::getMain();
 
     $loop->addSource($source, kCFRunLoopCommonModes);
@@ -35,15 +35,15 @@ it('adds a source to the common modes, not to a mode named after them', function
     $fd->invalidate();
 });
 
-it('calls back when the descriptor turns readable and ends the run', function (string $as): void {
+it('calls back when the descriptor turns readable and ends the run', function (): void {
     [$read, $write] = stream_socket_pair(STREAM_PF_UNIX, STREAM_SOCK_STREAM, 0);
     $calls = [];
 
-    $fd = CFFileDescriptor::create($as === 'Socket' ? socket_import_stream($read) : $read, false, function (CFFileDescriptor $f, int $types) use (&$calls): void {
+    $fd = CFFileDescriptor::create(null, streamDescriptor($read), false, function (CFFileDescriptor $f, int $types) use (&$calls): void {
         $calls[] = [$f, $types];
     });
     $fd->enableCallBacks(kCFFileDescriptorReadCallBack);
-    $source = $fd->createRunLoopSource(0);
+    $source = $fd->createRunLoopSource(null, 0);
     CFRunLoop::getMain()->addSource($source, kCFRunLoopDefaultMode);
 
     fwrite($write, 'x');
@@ -65,24 +65,35 @@ it('calls back when the descriptor turns readable and ends the run', function (s
     $fd->invalidate();
     expect($fd->isValid())->toBeFalse()
         ->and($source->isValid())->toBeFalse();
-})->with(['stream', 'Socket']);
+});
 
 it('reports the descriptor it watches', function (): void {
     [$read] = stream_socket_pair(STREAM_PF_UNIX, STREAM_SOCK_STREAM, 0);
-    $fd = CFFileDescriptor::create($read, false, fn () => null);
-    $native = $fd->getNativeDescriptor();
+    $native = streamDescriptor($read);
+    $fd = CFFileDescriptor::create(CFAllocator::getDefault(), $native, false, fn () => null);
 
     expect($native)->toBeGreaterThan(2)
-        ->and(CFFileDescriptor::create($native, false, fn () => null)?->getNativeDescriptor())->toBe($native);
+        ->and($fd->getNativeDescriptor())->toBe($native)
+        ->and($fd->createRunLoopSource(CFAllocator::getDefault(), 0))->toBeInstanceOf(CFRunLoopSource::class);
+});
+
+it('takes the native CFFileDescriptor parameters', function (): void {
+    $create = new ReflectionMethod(CFFileDescriptor::class, 'create');
+    $source = new ReflectionMethod(CFFileDescriptor::class, 'createRunLoopSource');
+
+    expect(array_map(fn (ReflectionParameter $p) => $p->getType().' $'.$p->getName(), $create->getParameters()))
+        ->toBe(['?CFAllocator $allocator', 'int $fd', 'bool $closeOnInvalidate', 'callable $callout'])
+        ->and(array_map(fn (ReflectionParameter $p) => $p->getType().' $'.$p->getName(), $source->getParameters()))
+        ->toBe(['?CFAllocator $allocator', 'int $order']);
 });
 
 it('lets an exception thrown by the callout surface from the run', function (): void {
     [$read, $write] = stream_socket_pair(STREAM_PF_UNIX, STREAM_SOCK_STREAM, 0);
-    $fd = CFFileDescriptor::create($read, false, function (): never {
+    $fd = CFFileDescriptor::create(null, streamDescriptor($read), false, function (): never {
         throw new LogicException('from the callout');
     });
     $fd->enableCallBacks(kCFFileDescriptorReadCallBack);
-    CFRunLoop::getMain()->addSource($fd->createRunLoopSource(0), kCFRunLoopDefaultMode);
+    CFRunLoop::getMain()->addSource($fd->createRunLoopSource(null, 0), kCFRunLoopDefaultMode);
     fwrite($write, 'x');
 
     try {
@@ -97,11 +108,11 @@ it('keeps calling back after PHP drops its handles while the run loop holds the 
     $calls = 0;
 
     (function () use ($read, &$calls): void {
-        $fd = CFFileDescriptor::create($read, false, function () use (&$calls): void {
+        $fd = CFFileDescriptor::create(null, streamDescriptor($read), false, function () use (&$calls): void {
             $calls++;
         });
         $fd->enableCallBacks(kCFFileDescriptorReadCallBack);
-        CFRunLoop::getMain()->addSource($fd->createRunLoopSource(0), kCFRunLoopDefaultMode);
+        CFRunLoop::getMain()->addSource($fd->createRunLoopSource(null, 0), kCFRunLoopDefaultMode);
     })();
 
     fwrite($write, 'x');
@@ -112,16 +123,20 @@ it('keeps calling back after PHP drops its handles while the run loop holds the 
     fread($read, 1);
 });
 
-it('rejects what is not a descriptor', function (mixed $fd, string $error): void {
-    expect(fn () => CFFileDescriptor::create($fd, false, fn () => null))->toThrow($error);
+it('passes a negative descriptor to Core Foundation, which makes nothing', function (): void {
+    expect(CFFileDescriptor::create(null, -1, false, fn () => null))->toBeNull();
+});
+
+it('takes the descriptor as an int only', function (mixed $fd): void {
+    expect(fn () => CFFileDescriptor::create(null, $fd, false, fn () => null))->toThrow(TypeError::class);
 })->with([
-    'negative int' => [-1, ValueError::class],
-    'string' => ['3', TypeError::class],
-    'object' => [new stdClass(), TypeError::class],
+    'string' => ['3'],
+    'stream' => [fn () => stream_socket_pair(STREAM_PF_UNIX, STREAM_SOCK_STREAM, 0)[0]],
+    'object' => [new stdClass()],
 ]);
 
 it('rejects a callout that is not callable', function (): void {
     [$read] = stream_socket_pair(STREAM_PF_UNIX, STREAM_SOCK_STREAM, 0);
 
-    expect(fn () => CFFileDescriptor::create($read, false, 'no_such_function'))->toThrow(TypeError::class);
+    expect(fn () => CFFileDescriptor::create(null, streamDescriptor($read), false, 'no_such_function'))->toThrow(TypeError::class);
 });

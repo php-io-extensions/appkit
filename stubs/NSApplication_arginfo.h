@@ -1,5 +1,5 @@
 /* This is a generated file, edit the .stub.php file instead.
- * Stub hash: a85a508d492427acae470375957b6df902a06315 */
+ * Stub hash: cbf9bd7fc92eeebc9be65f0e616ff12cb1445811 */
 
 ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(arginfo_class_NSApplication_sharedApplication, 0, 0, NSApplication, 0)
 ZEND_END_ARG_INFO()
@@ -171,13 +171,13 @@ static zend_class_entry *register_class_NSRequestUserAttentionType(void)
 {
 	zend_class_entry *class_entry = zend_register_internal_enum("NSRequestUserAttentionType", IS_LONG, NULL);
 
-	zval enum_case_CRITICAL_value;
-	ZVAL_LONG(&enum_case_CRITICAL_value, 0);
-	zend_enum_add_case_cstr(class_entry, "CRITICAL", &enum_case_CRITICAL_value);
+	zval enum_case_CRITICAL_REQUEST_value;
+	ZVAL_LONG(&enum_case_CRITICAL_REQUEST_value, 0);
+	zend_enum_add_case_cstr(class_entry, "CRITICAL_REQUEST", &enum_case_CRITICAL_REQUEST_value);
 
-	zval enum_case_INFORMATIONAL_value;
-	ZVAL_LONG(&enum_case_INFORMATIONAL_value, 10);
-	zend_enum_add_case_cstr(class_entry, "INFORMATIONAL", &enum_case_INFORMATIONAL_value);
+	zval enum_case_INFORMATIONAL_REQUEST_value;
+	ZVAL_LONG(&enum_case_INFORMATIONAL_REQUEST_value, 10);
+	zend_enum_add_case_cstr(class_entry, "INFORMATIONAL_REQUEST", &enum_case_INFORMATIONAL_REQUEST_value);
 
 	return class_entry;
 }

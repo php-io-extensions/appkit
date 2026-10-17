@@ -67,8 +67,8 @@ const NSBackgroundColorAttributeName = UNKNOWN;
 
 enum NSTextBlockValueType: int
 {
-    case ABSOLUTE = 0;
-    case PERCENTAGE = 1;
+    case ABSOLUTE_VALUE_TYPE = 0;
+    case PERCENTAGE_VALUE_TYPE = 1;
 }
 
 enum NSTextBlockDimension: int
@@ -341,13 +341,18 @@ class NSTimeZone extends NSObject
  */
 class NSDatePicker extends NSControl
 {
-    /** NSDatePickerElementFlags, combined with | */
-    public const int ELEMENT_HOUR_MINUTE = 0x000c;
-    public const int ELEMENT_HOUR_MINUTE_SECOND = 0x000e;
-    public const int ELEMENT_TIME_ZONE = 0x0010;
-    public const int ELEMENT_YEAR_MONTH = 0x00c0;
-    public const int ELEMENT_YEAR_MONTH_DAY = 0x00e0;
-    public const int ELEMENT_ERA = 0x0100;
+    /** @cvalue NSDatePickerElementFlagHourMinute */
+    public const int ELEMENT_HOUR_MINUTE = UNKNOWN;
+    /** @cvalue NSDatePickerElementFlagHourMinuteSecond */
+    public const int ELEMENT_HOUR_MINUTE_SECOND = UNKNOWN;
+    /** @cvalue NSDatePickerElementFlagTimeZone */
+    public const int ELEMENT_TIME_ZONE = UNKNOWN;
+    /** @cvalue NSDatePickerElementFlagYearMonth */
+    public const int ELEMENT_YEAR_MONTH = UNKNOWN;
+    /** @cvalue NSDatePickerElementFlagYearMonthDay */
+    public const int ELEMENT_YEAR_MONTH_DAY = UNKNOWN;
+    /** @cvalue NSDatePickerElementFlagEra */
+    public const int ELEMENT_ERA = UNKNOWN;
 
     public function dateValue(): NSDate {}
 
@@ -422,9 +427,8 @@ class NSAttributedString extends NSObject
 {
     /**
      * initWithString:attributes:. Keys are attribute names (NSLinkAttributeName, NSFontAttributeName);
-     * values are strings, numbers, booleans or ext objects (an NSURL, an NSFont). A value of the
-     * wrong class for a colour, paragraph style, font or link name is a TypeError: AppKit would
-     * only fail on it when the text is drawn.
+     * values are strings, numbers, booleans or ext objects (an NSURL, an NSFont). A foreground or
+     * background colour that is no NSColor is a TypeError: AppKit kills the process drawing it.
      */
     public static function initWithStringAttributes(string $string, array $attributes): static {}
 
@@ -432,12 +436,10 @@ class NSAttributedString extends NSObject
 
     public function length(): int {}
 
-    /** attribute:atIndex:effectiveRange: (no range): the value boxed, a string or number, or null when absent there. */
-    public function attributeAtIndex(string $name, int $index): mixed {}
-
     /**
-     * attribute:atIndex:effectiveRange:: [the value (as attributeAtIndex returns it), the NSRange
-     * that value runs over]. The index must be within the string (ValueError otherwise).
+     * attribute:atIndex:effectiveRange:: [the value boxed (a string or number, or null when absent
+     * there), the NSRange that value runs over]. The index converts to NSUInteger; one past the
+     * string's end (a negative one included) raises AppKitException (NSRangeException).
      *
      * @return array{0: mixed, 1: NSRange}
      */
@@ -450,13 +452,13 @@ class NSAttributedString extends NSObject
 class NSMutableAttributedString extends NSAttributedString
 {
     /**
-     * addAttribute:value:range:. The range must end within the string (ValueError otherwise). A
-     * value of the wrong class for a colour, paragraph style, font or link name is a TypeError:
-     * AppKit would only fail on it when the text is drawn.
+     * addAttribute:value:range:. A range past the string's end raises AppKitException (NSRangeException). A
+     * foreground or background colour that is no NSColor is a TypeError: AppKit kills the process
+     * drawing it.
      */
     public function addAttributeValueRange(string $name, NSObject $value, NSRange $range): void {}
 
-    /** removeAttribute:range:. The range must end within the string. */
+    /** removeAttribute:range:. A range past the string's end raises AppKitException (NSRangeException). */
     public function removeAttributeRange(string $name, NSRange $range): void {}
 
     /** setAttributedString:: the characters and attributes replaced by another string's. */
@@ -663,7 +665,7 @@ class NSTextView extends NSView
     /** The selection in UTF-16 units; length 0 is the insertion point. */
     public function selectedRange(): NSRange {}
 
-    /** The range must end within the text (ValueError otherwise). */
+    /** setSelectedRange:; AppKit clamps a range past the text's end. */
     public function setSelectedRange(NSRange $range): void {}
 
     public function scrollRangeToVisible(NSRange $range): void {}
@@ -701,8 +703,12 @@ class NSLayoutManager extends NSObject
     /** The rect the laid-out glyphs occupy in the container. */
     public function usedRectForTextContainer(NSTextContainer $container): NSRect {}
 
-    /** glyphRangeForCharacterRange:actualCharacterRange: (no actual range). */
-    public function glyphRangeForCharacterRange(NSRange $range): NSRange {}
+    /**
+     * glyphRangeForCharacterRange:actualCharacterRange:: the glyph range and the actual character range.
+     *
+     * @return array{0: NSRange, 1: NSRange}
+     */
+    public function glyphRangeForCharacterRangeActualCharacterRange(NSRange $charRange): array {}
 
     /** The glyphs' bounding rect in the container's coordinates. */
     public function boundingRectForGlyphRangeInTextContainer(NSRange $glyphRange, NSTextContainer $container): NSRect {}

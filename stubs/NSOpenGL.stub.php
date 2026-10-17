@@ -9,8 +9,9 @@ class NSOpenGLPixelFormat extends NSObject
 {
     /**
      * initWithAttributes:; null when no renderer matches. $attribs holds
-     * NSOpenGLPixelFormatAttribute values ending in 0; a list not ending in 0
-     * is a ValueError.
+     * NSOpenGLPixelFormatAttribute values, each value-taking attribute followed
+     * by its value; the terminating 0 is appended. A last attribute that takes
+     * a value with none after it is a ValueError (binding:pixel-format-value).
      *
      * @param array $attribs
      */
@@ -79,8 +80,8 @@ class NSOpenGLContext extends NSObject
  */
 class NSOpenGLView extends NSView
 {
-    /** initWithFrame:pixelFormat:; a null format is AppKit's default. */
-    public static function initWithFramePixelFormat(NSRect $frame, ?NSOpenGLPixelFormat $format): static {}
+    /** initWithFrame:pixelFormat:; a null format is AppKit's default. null when AppKit makes no view. */
+    public static function initWithFramePixelFormat(NSRect $frame, ?NSOpenGLPixelFormat $format): ?static {}
 
     public function openGLContext(): ?NSOpenGLContext {}
 

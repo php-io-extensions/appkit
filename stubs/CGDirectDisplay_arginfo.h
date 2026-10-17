@@ -1,5 +1,5 @@
 /* This is a generated file, edit the .stub.php file instead.
- * Stub hash: 7b34e4549d7b53c6c44bca08300045c23a166eb9 */
+ * Stub hash: bd5b0d3fb32097fa11b8a79dd8cb3e5a9fd23510 */
 
 ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_CGDisplayMode_getWidth, 0, 0, IS_LONG, 0)
 ZEND_END_ARG_INFO()
@@ -21,7 +21,10 @@ ZEND_END_ARG_INFO()
 
 #define arginfo_class_CGDisplay_mainDisplayID arginfo_class_CGDisplayMode_getWidth
 
-ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_CGDisplay_getActiveDisplayList, 0, 0, IS_ARRAY, 0)
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_CGDisplay_getActiveDisplayList, 0, 1, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, maxDisplays, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO_WITH_DEFAULT_VALUE(1, activeDisplays, IS_ARRAY, 1, "null")
+	ZEND_ARG_TYPE_INFO_WITH_DEFAULT_VALUE(1, displayCount, IS_LONG, 1, "null")
 ZEND_END_ARG_INFO()
 
 ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(arginfo_class_CGDisplay_bounds, 0, 1, NSRect, 0)
@@ -37,12 +40,13 @@ ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_CGDisplay_copyAllDisplayMo
 	ZEND_ARG_TYPE_INFO_WITH_DEFAULT_VALUE(0, options, IS_ARRAY, 1, "null")
 ZEND_END_ARG_INFO()
 
-ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_CGDisplay_setDisplayMode, 0, 2, IS_VOID, 0)
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_CGDisplay_setDisplayMode, 0, 3, IS_LONG, 0)
 	ZEND_ARG_TYPE_INFO(0, display, IS_LONG, 0)
-	ZEND_ARG_OBJ_INFO(0, mode, CGDisplayMode, 0)
+	ZEND_ARG_OBJ_INFO(0, mode, CGDisplayMode, 1)
+	ZEND_ARG_TYPE_INFO(0, options, IS_ARRAY, 1)
 ZEND_END_ARG_INFO()
 
-ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_CGDisplay_capture, 0, 1, IS_VOID, 0)
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_CGDisplay_capture, 0, 1, IS_LONG, 0)
 	ZEND_ARG_TYPE_INFO(0, display, IS_LONG, 0)
 ZEND_END_ARG_INFO()
 

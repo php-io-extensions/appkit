@@ -1,5 +1,5 @@
 /* This is a generated file, edit the .stub.php file instead.
- * Stub hash: 966e3ef4ce2368d6b911e771d2c8ed8ad28f1968 */
+ * Stub hash: 2b89475dd4c4770994b81e4e36d7c208c28b663c */
 
 ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_GCController_controllers, 0, 0, IS_ARRAY, 0)
 ZEND_END_ARG_INFO()

@@ -24,7 +24,6 @@ void appkit_register_GameController(int module_number)
 ZEND_METHOD(GCController, controllers)
 {
 	ZEND_PARSE_PARAMETERS_NONE();
-	APPKIT_REQUIRE_MAIN_THREAD();
 
 	APPKIT_BEGIN
 		array_init(return_value);
@@ -44,7 +43,6 @@ ZEND_METHOD(GCController, startWirelessControllerDiscoveryWithCompletionHandler)
 	ZEND_PARSE_PARAMETERS_START(1, 1)
 		Z_PARAM_OBJ_OF_CLASS_OR_NULL(handler, zend_ce_closure)
 	ZEND_PARSE_PARAMETERS_END();
-	APPKIT_REQUIRE_MAIN_THREAD();
 
 	APPKIT_BEGIN
 		if (handler == NULL) {
@@ -65,49 +63,48 @@ ZEND_METHOD(GCController, startWirelessControllerDiscoveryWithCompletionHandler)
 	APPKIT_END
 }
 
-METHOD(GCController, stopWirelessControllerDiscovery, PARSE_NONE, [GCController stopWirelessControllerDiscovery];)
-METHOD(GCController, shouldMonitorBackgroundEvents, PARSE_NONE,
-	if (@available(macOS 11.3, *)) { RETURN_BOOL(GCController.shouldMonitorBackgroundEvents); }
-	RETURN_FALSE;)
-METHOD(GCController, setShouldMonitorBackgroundEvents, PARSE_BOOL,
-	if (@available(macOS 11.3, *)) { GCController.shouldMonitorBackgroundEvents = v; })
-STR_GET_OR_NULL(GCController, GCController, vendorName, vendorName)
-OBJ_GET(GCController, GCController, extendedGamepad, extendedGamepad)
-OBJ_GET(GCController, GCController, microGamepad, microGamepad)
-METHOD(GCController, playerIndex, PARSE_NONE,
+ANY_METHOD(GCController, stopWirelessControllerDiscovery, PARSE_NONE, [GCController stopWirelessControllerDiscovery];)
+ANY_METHOD(GCController, shouldMonitorBackgroundEvents, PARSE_NONE,
+	RETURN_BOOL(GCController.shouldMonitorBackgroundEvents);)
+ANY_METHOD(GCController, setShouldMonitorBackgroundEvents, PARSE_BOOL,
+	GCController.shouldMonitorBackgroundEvents = v;)
+ANY_STR_GET_OR_NULL(GCController, GCController, vendorName, vendorName)
+ANY_OBJ_GET(GCController, GCController, extendedGamepad, extendedGamepad)
+ANY_OBJ_GET(GCController, GCController, microGamepad, microGamepad)
+ANY_METHOD(GCController, playerIndex, PARSE_NONE,
 	appkit_return_enum(return_value, appkit_ce_GCControllerPlayerIndex, (zend_long) [SELF(GCController) playerIndex], false);)
-METHOD(GCController, setPlayerIndex, PARSE_OBJ(appkit_ce_GCControllerPlayerIndex),
+ANY_METHOD(GCController, setPlayerIndex, PARSE_OBJ(appkit_ce_GCControllerPlayerIndex),
 	[SELF(GCController) setPlayerIndex:(GCControllerPlayerIndex) appkit_enum_value(v, GCControllerPlayerIndexUnset)];)
 
-OBJ_GET(GCExtendedGamepad, GCExtendedGamepad, dpad, dpad)
-OBJ_GET(GCExtendedGamepad, GCExtendedGamepad, buttonA, buttonA)
-OBJ_GET(GCExtendedGamepad, GCExtendedGamepad, buttonB, buttonB)
-OBJ_GET(GCExtendedGamepad, GCExtendedGamepad, buttonX, buttonX)
-OBJ_GET(GCExtendedGamepad, GCExtendedGamepad, buttonY, buttonY)
-OBJ_GET(GCExtendedGamepad, GCExtendedGamepad, leftThumbstick, leftThumbstick)
-OBJ_GET(GCExtendedGamepad, GCExtendedGamepad, rightThumbstick, rightThumbstick)
-OBJ_GET(GCExtendedGamepad, GCExtendedGamepad, leftShoulder, leftShoulder)
-OBJ_GET(GCExtendedGamepad, GCExtendedGamepad, rightShoulder, rightShoulder)
-OBJ_GET(GCExtendedGamepad, GCExtendedGamepad, leftTrigger, leftTrigger)
-OBJ_GET(GCExtendedGamepad, GCExtendedGamepad, rightTrigger, rightTrigger)
-OBJ_GET(GCExtendedGamepad, GCExtendedGamepad, buttonMenu, buttonMenu)
-OBJ_GET(GCExtendedGamepad, GCExtendedGamepad, buttonOptions, buttonOptions)
-OBJ_GET(GCExtendedGamepad, GCExtendedGamepad, buttonHome, buttonHome)
-OBJ_GET(GCExtendedGamepad, GCExtendedGamepad, leftThumbstickButton, leftThumbstickButton)
-OBJ_GET(GCExtendedGamepad, GCExtendedGamepad, rightThumbstickButton, rightThumbstickButton)
+ANY_OBJ_GET(GCExtendedGamepad, GCExtendedGamepad, dpad, dpad)
+ANY_OBJ_GET(GCExtendedGamepad, GCExtendedGamepad, buttonA, buttonA)
+ANY_OBJ_GET(GCExtendedGamepad, GCExtendedGamepad, buttonB, buttonB)
+ANY_OBJ_GET(GCExtendedGamepad, GCExtendedGamepad, buttonX, buttonX)
+ANY_OBJ_GET(GCExtendedGamepad, GCExtendedGamepad, buttonY, buttonY)
+ANY_OBJ_GET(GCExtendedGamepad, GCExtendedGamepad, leftThumbstick, leftThumbstick)
+ANY_OBJ_GET(GCExtendedGamepad, GCExtendedGamepad, rightThumbstick, rightThumbstick)
+ANY_OBJ_GET(GCExtendedGamepad, GCExtendedGamepad, leftShoulder, leftShoulder)
+ANY_OBJ_GET(GCExtendedGamepad, GCExtendedGamepad, rightShoulder, rightShoulder)
+ANY_OBJ_GET(GCExtendedGamepad, GCExtendedGamepad, leftTrigger, leftTrigger)
+ANY_OBJ_GET(GCExtendedGamepad, GCExtendedGamepad, rightTrigger, rightTrigger)
+ANY_OBJ_GET(GCExtendedGamepad, GCExtendedGamepad, buttonMenu, buttonMenu)
+ANY_OBJ_GET(GCExtendedGamepad, GCExtendedGamepad, buttonOptions, buttonOptions)
+ANY_OBJ_GET(GCExtendedGamepad, GCExtendedGamepad, buttonHome, buttonHome)
+ANY_OBJ_GET(GCExtendedGamepad, GCExtendedGamepad, leftThumbstickButton, leftThumbstickButton)
+ANY_OBJ_GET(GCExtendedGamepad, GCExtendedGamepad, rightThumbstickButton, rightThumbstickButton)
 
-OBJ_GET(GCMicroGamepad, GCMicroGamepad, dpad, dpad)
-OBJ_GET(GCMicroGamepad, GCMicroGamepad, buttonA, buttonA)
-OBJ_GET(GCMicroGamepad, GCMicroGamepad, buttonX, buttonX)
-OBJ_GET(GCMicroGamepad, GCMicroGamepad, buttonMenu, buttonMenu)
+ANY_OBJ_GET(GCMicroGamepad, GCMicroGamepad, dpad, dpad)
+ANY_OBJ_GET(GCMicroGamepad, GCMicroGamepad, buttonA, buttonA)
+ANY_OBJ_GET(GCMicroGamepad, GCMicroGamepad, buttonX, buttonX)
+ANY_OBJ_GET(GCMicroGamepad, GCMicroGamepad, buttonMenu, buttonMenu)
 
-BOOL_GET(GCControllerButtonInput, GCControllerButtonInput, isPressed, isPressed)
-DOUBLE_GET(GCControllerButtonInput, GCControllerButtonInput, value, value)
-DOUBLE_GET(GCControllerAxisInput, GCControllerAxisInput, value, value)
+ANY_BOOL_GET(GCControllerButtonInput, GCControllerButtonInput, isPressed, isPressed)
+ANY_DOUBLE_GET(GCControllerButtonInput, GCControllerButtonInput, value, value)
+ANY_DOUBLE_GET(GCControllerAxisInput, GCControllerAxisInput, value, value)
 
-OBJ_GET(GCControllerDirectionPad, GCControllerDirectionPad, xAxis, xAxis)
-OBJ_GET(GCControllerDirectionPad, GCControllerDirectionPad, yAxis, yAxis)
-OBJ_GET(GCControllerDirectionPad, GCControllerDirectionPad, up, up)
-OBJ_GET(GCControllerDirectionPad, GCControllerDirectionPad, down, down)
-OBJ_GET(GCControllerDirectionPad, GCControllerDirectionPad, left, left)
-OBJ_GET(GCControllerDirectionPad, GCControllerDirectionPad, right, right)
+ANY_OBJ_GET(GCControllerDirectionPad, GCControllerDirectionPad, xAxis, xAxis)
+ANY_OBJ_GET(GCControllerDirectionPad, GCControllerDirectionPad, yAxis, yAxis)
+ANY_OBJ_GET(GCControllerDirectionPad, GCControllerDirectionPad, up, up)
+ANY_OBJ_GET(GCControllerDirectionPad, GCControllerDirectionPad, down, down)
+ANY_OBJ_GET(GCControllerDirectionPad, GCControllerDirectionPad, left, left)
+ANY_OBJ_GET(GCControllerDirectionPad, GCControllerDirectionPad, right, right)

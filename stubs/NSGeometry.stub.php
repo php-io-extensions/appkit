@@ -4,22 +4,22 @@
 
 final class NSSize
 {
-    public float $width = 0.0;
+    public float $width;
 
-    public float $height = 0.0;
+    public float $height;
 
-    public function __construct(float $width = 0.0, float $height = 0.0) {}
+    public function __construct(float $width, float $height) {}
 }
 
 final class NSRect
 {
-    public float $x = 0.0;
+    public float $x;
 
-    public float $y = 0.0;
+    public float $y;
 
-    public float $width = 0.0;
+    public float $width;
 
-    public float $height = 0.0;
+    public float $height;
 
-    public function __construct(float $x = 0.0, float $y = 0.0, float $width = 0.0, float $height = 0.0) {}
+    public function __construct(float $x, float $y, float $width, float $height) {}
 }

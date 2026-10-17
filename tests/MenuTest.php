@@ -99,11 +99,11 @@ it('pops a menu up at a point, tracks it until cancelled, and reports no item ch
     // The menu tracks in its own run loop mode: a source in the common modes runs inside it.
     [$read, $write] = stream_socket_pair(STREAM_PF_UNIX, STREAM_SOCK_STREAM, STREAM_IPPROTO_IP);
     $cancelled = 0;
-    $descriptor = CFFileDescriptor::create($read, false, function () use ($menu, &$cancelled): void {
+    $descriptor = CFFileDescriptor::create(null, streamDescriptor($read), false, function () use ($menu, &$cancelled): void {
         $cancelled++;
         $menu->cancelTracking();
     });
-    $source = $descriptor->createRunLoopSource(0);
+    $source = $descriptor->createRunLoopSource(null, 0);
     CFRunLoop::getMain()->addSource($source, kCFRunLoopCommonModes);
     $descriptor->enableCallBacks(kCFFileDescriptorReadCallBack);
     fwrite($write, 'x');

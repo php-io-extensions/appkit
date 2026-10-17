@@ -143,6 +143,24 @@ APPKIT_BOOL_GETTER(isKeyWindow, isKeyWindow)
 APPKIT_BOOL_GETTER(isMainWindow, isMainWindow)
 APPKIT_BOOL_GETTER(isReleasedWhenClosed, isReleasedWhenClosed)
 
+ZEND_METHOD(NSWindow, canBecomeKeyWindow)
+{
+	ZEND_PARSE_PARAMETERS_NONE();
+
+	APPKIT_BEGIN
+		RETURN_BOOL([THIS_WINDOW canBecomeKeyWindow]);
+	APPKIT_END
+}
+
+ZEND_METHOD(NSWindow, canBecomeMainWindow)
+{
+	ZEND_PARSE_PARAMETERS_NONE();
+
+	APPKIT_BEGIN
+		RETURN_BOOL([THIS_WINDOW canBecomeMainWindow]);
+	APPKIT_END
+}
+
 ZEND_METHOD(NSWindow, delegate)
 {
 	ZEND_PARSE_PARAMETERS_NONE();

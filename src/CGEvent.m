@@ -19,16 +19,7 @@ void appkit_register_CGEvent(int module_number)
 
 #define THIS_CG_EVENT ((CGEventRef) APPKIT_CF(Z_OBJ_P(ZEND_THIS)))
 
-/* No CGEventSource is bound: a source argument must be null. */
-static bool appkit_event_source_is_null(zend_object *source)
-{
-	if (source != NULL) {
-		zend_argument_value_error(1, "must be null: no CGEventSource is bound");
-		return false;
-	}
-
-	return true;
-}
+#define CG_EVENT_SOURCE(obj) ((obj) ? (CGEventSourceRef) APPKIT_CF(obj) : NULL)
 
 /* Box a +1 event a Create function answered, then drop that reference: the wrapper holds its own. */
 static void appkit_return_created_event(zval *return_value, CGEventRef created)
@@ -48,17 +39,17 @@ ZEND_METHOD(CGEvent, createMouseEvent)
 	NSPoint point;
 
 	ZEND_PARSE_PARAMETERS_START(4, 4)
-		Z_PARAM_OBJ_OF_CLASS_OR_NULL(source, appkit_ce_CFType)
+		Z_PARAM_OBJ_OF_CLASS_OR_NULL(source, appkit_ce_CGEventSource)
 		Z_PARAM_OBJ_OF_CLASS(type, appkit_ce_CGEventType)
 		Z_PARAM_OBJ_OF_CLASS(position, appkit_ce_NSPoint)
 		Z_PARAM_OBJ_OF_CLASS(button, appkit_ce_CGMouseButton)
 	ZEND_PARSE_PARAMETERS_END();
 
-	if (!appkit_event_source_is_null(source) || !appkit_point_from(position, 3, &point)) {
+	if (!appkit_point_from(position, 3, &point)) {
 		RETURN_THROWS();
 	}
 
-	appkit_return_created_event(return_value, CGEventCreateMouseEvent(NULL,
+	appkit_return_created_event(return_value, CGEventCreateMouseEvent(CG_EVENT_SOURCE(source),
 		(CGEventType) appkit_enum_value(type, 0), NSPointToCGPoint(point), (CGMouseButton) appkit_enum_value(button, 0)));
 }
 
@@ -69,7 +60,7 @@ ZEND_METHOD(CGEvent, createScrollWheelEvent2)
 	zend_long count, wheel1, wheel2, wheel3;
 
 	ZEND_PARSE_PARAMETERS_START(6, 6)
-		Z_PARAM_OBJ_OF_CLASS_OR_NULL(source, appkit_ce_CFType)
+		Z_PARAM_OBJ_OF_CLASS_OR_NULL(source, appkit_ce_CGEventSource)
 		Z_PARAM_OBJ_OF_CLASS(units, appkit_ce_CGScrollEventUnit)
 		Z_PARAM_LONG(count)
 		Z_PARAM_LONG(wheel1)
@@ -77,15 +68,7 @@ ZEND_METHOD(CGEvent, createScrollWheelEvent2)
 		Z_PARAM_LONG(wheel3)
 	ZEND_PARSE_PARAMETERS_END();
 
-	if (!appkit_event_source_is_null(source)) {
-		RETURN_THROWS();
-	}
-	if (count < 1 || count > 3) {
-		zend_argument_value_error(3, "must be between 1 and 3");
-		RETURN_THROWS();
-	}
-
-	appkit_return_created_event(return_value, CGEventCreateScrollWheelEvent2(NULL,
+	appkit_return_created_event(return_value, CGEventCreateScrollWheelEvent2(CG_EVENT_SOURCE(source),
 		(CGScrollEventUnit) appkit_enum_value(units, 0), (uint32_t) count, (int32_t) wheel1, (int32_t) wheel2, (int32_t) wheel3));
 }
 
@@ -133,6 +116,22 @@ ZEND_METHOD(CGEvent, setLocation)
 	}
 
 	CGEventSetLocation(THIS_CG_EVENT, NSPointToCGPoint(point));
+}
+
+ZEND_METHOD(CGEventSource, create)
+{
+	zend_object *state;
+
+	ZEND_PARSE_PARAMETERS_START(1, 1)
+		Z_PARAM_OBJ_OF_CLASS(state, appkit_ce_CGEventSourceStateID)
+	ZEND_PARSE_PARAMETERS_END();
+
+	CGEventSourceRef created = CGEventSourceCreate((CGEventSourceStateID) appkit_enum_value(state, 0));
+
+	appkit_box_cf(return_value, created);
+	if (created != NULL) {
+		CFRelease(created);
+	}
 }
 
 ZEND_METHOD(CGEventSource, keyState)

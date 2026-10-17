@@ -2,20 +2,41 @@
 
 /** @generate-class-entries */
 
-/** @var string */
-const kIOPMAssertionTypePreventUserIdleSystemSleep = "PreventUserIdleSystemSleep";
+/**
+ * @var string
+ * @cvalue appkit_cfstring_constant(kIOPMAssertionTypePreventUserIdleSystemSleep)
+ */
+const kIOPMAssertionTypePreventUserIdleSystemSleep = UNKNOWN;
 
-/** @var string */
-const kIOPMAssertionTypePreventUserIdleDisplaySleep = "PreventUserIdleDisplaySleep";
+/**
+ * @var string
+ * @cvalue appkit_cfstring_constant(kIOPMAssertionTypePreventUserIdleDisplaySleep)
+ */
+const kIOPMAssertionTypePreventUserIdleDisplaySleep = UNKNOWN;
 
-/** @var string */
-const kIOPMAssertionTypePreventSystemSleep = "PreventSystemSleep";
+/**
+ * @var string
+ * @cvalue appkit_cfstring_constant(kIOPMAssertionTypePreventSystemSleep)
+ */
+const kIOPMAssertionTypePreventSystemSleep = UNKNOWN;
 
-/** @var int */
-const kIOPMAssertionLevelOff = 0;
+/**
+ * @var int
+ * @cvalue kIOPMAssertionLevelOff
+ */
+const kIOPMAssertionLevelOff = UNKNOWN;
 
-/** @var int */
-const kIOPMAssertionLevelOn = 255;
+/**
+ * @var int
+ * @cvalue kIOPMAssertionLevelOn
+ */
+const kIOPMAssertionLevelOn = UNKNOWN;
+
+/**
+ * @var int
+ * @cvalue kIOReturnSuccess
+ */
+const kIOReturnSuccess = UNKNOWN;
 
 /**
  * The IOPMAssertion functions: power assertions named by their IOPMAssertionID (an int).
@@ -27,11 +48,11 @@ final class IOPMAssertion
     private function __construct() {}
 
     /**
-     * IOPMAssertionCreateWithName: a kIOPMAssertionType* string, kIOPMAssertionLevelOn or Off, and
-     * the name Activity Monitor shows. Answers the IOPMAssertionID; throws on an IOReturn error.
+     * IOPMAssertionCreateWithName: a kIOPMAssertionType* string, an IOPMAssertionLevel and the name
+     * Activity Monitor shows. Answers the IOReturn; $assertionID receives the IOPMAssertionID.
      */
-    public static function createWithName(string $type, int $level, string $name): int {}
+    public static function createWithName(string $type, int $level, string $name, ?int &$assertionID = null): int {}
 
-    /** IOPMAssertionRelease. Throws on an IOReturn error. */
-    public static function release(int $assertion): void {}
+    /** IOPMAssertionRelease: the IOReturn. */
+    public static function release(int $assertion): int {}
 }

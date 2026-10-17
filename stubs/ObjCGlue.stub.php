@@ -45,54 +45,74 @@ final class ObjCTarget extends NSObject
  * observer is freed is removed then, so a freed observer never receives a change. An
  * observed object is retained until stop() or the observer's free, so the removal never
  * messages a freed object. A key path AppKit refuses raises AppKitException and is not
- * recorded. Changes made on another thread do not reach PHP: the handler runs only on
+ * recorded. Each observe() is one KVO registration, so observing a pair twice calls the
+ * handler twice per change; stop() of a pair KVO does not hold raises AppKitException
+ * (NSRangeException). Changes made on another thread do not reach PHP: the handler runs only on
  * the thread that constructed the observer.
  *
  * @not-serializable
  */
 final class ObjCObserver extends NSObject
 {
-    /** NSKeyValueObservingOptions */
-    public const int OPTION_NEW = 1;
-    public const int OPTION_OLD = 2;
-    public const int OPTION_INITIAL = 4;
+    /** @cvalue NSKeyValueObservingOptionNew */
+    public const int OPTION_NEW = UNKNOWN;
+    /** @cvalue NSKeyValueObservingOptionOld */
+    public const int OPTION_OLD = UNKNOWN;
+    /** @cvalue NSKeyValueObservingOptionInitial */
+    public const int OPTION_INITIAL = UNKNOWN;
+    /** @cvalue NSKeyValueObservingOptionPrior */
+    public const int OPTION_PRIOR = UNKNOWN;
 
     /**
-     * @param callable $handler called as $handler(string $keyPath, NSObject $object, array $change) where
-     *                          $change holds 'new' and/or 'old' as a string, int, float, bool, null,
-     *                          NSRect/NSSize/NSPoint for geometry, or NSObject
+     * @param callable $handler called as $handler(string $keyPath, ?NSObject $object, array $change, int $context):
+     *                          $change holds every entry of KVO's change dictionary under its own key
+     *                          ('kind', 'new', 'old', 'indexes', 'notificationIsPrior') as a string, int,
+     *                          float, bool, null, NSRect/NSSize/NSPoint for geometry, or NSObject (an
+     *                          NSIndexSet for 'indexes'); $context is the context observe() registered
      */
     public function __construct(callable $handler) {}
 
-    public function observe(NSObject $object, string $keyPath, int $options): void {}
+    /** addObserver:forKeyPath:options:context: with this observer; $options is OPTION_* combined with |. */
+    public function observe(NSObject $object, string $keyPath, int $options, int $context): void {}
 
-    public function stop(NSObject $object, string $keyPath): void {}
+    /** removeObserver:forKeyPath:context: with this observer. */
+    public function stop(NSObject $object, string $keyPath, int $context): void {}
 }
 
 /**
- * An NSOpenGLView whose drawRect: calls PHP, its context current: the trampoline
- * a PHP painter needs. After the handler returns, the view flushes its context.
+ * An NSOpenGLView whose drawRect: calls PHP with the dirty rect, nothing more: the handler makes
+ * the view's openGLContext() current and flushes it itself.
  *
  * @not-serializable
  */
 final class ObjCOpenGLView extends NSOpenGLView
 {
-    /** @param callable $draw called as $draw(ObjCOpenGLView $view): void from drawRect: */
-    public static function initWithFramePixelFormatDraw(NSRect $frame, ?NSOpenGLPixelFormat $format, callable $draw): static {}
+    /**
+     * null when AppKit makes no view.
+     *
+     * @param callable $draw called as $draw(ObjCOpenGLView $view, NSRect $dirty): void from drawRect:
+     */
+    public static function initWithFramePixelFormatDraw(NSRect $frame, ?NSOpenGLPixelFormat $format, callable $draw): ?static {}
 }
 
 /**
- * An NSWindow whose key and main status is a flag: a borderless window can take
- * focus, and any window can refuse it. Made with initWithContentRectStyleMaskBackingDefer().
+ * An NSWindow whose canBecomeKeyWindow and canBecomeMainWindow overrides each ask a PHP handler,
+ * and answer NSWindow's own (NO for a borderless window) while none is set or it did not run.
+ * Made with initWithContentRectStyleMaskBackingDefer().
  *
  * @not-serializable
  */
 final class ObjCStageWindow extends NSWindow
 {
-    /** Whether the window may become key and main; YES by default, a borderless one included (a plain borderless NSWindow never can). */
-    public function canBecomeKey(): bool {}
+    /**
+     * Sets the handler for 'canBecomeKeyWindow' or 'canBecomeMainWindow', replacing one set before.
+     * The overrides ask only those two names; a handler under any other name is kept and never called.
+     *
+     * @param callable $handler called as $handler(): bool
+     */
+    public function on(string $selector, callable $handler): void {}
 
-    public function setCanBecomeKey(bool $canBecomeKey): void {}
+    public function off(string $selector): void {}
 }
 
 /**

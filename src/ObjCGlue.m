@@ -54,7 +54,8 @@ static void appkit_invocation_arg(zval *out, NSInvocation *invocation, NSUIntege
 			return;
 		}
 		case 'B': { bool value; [invocation getArgument:&value atIndex:index]; ZVAL_BOOL(out, value); return; }
-		case 'c': { signed char value; [invocation getArgument:&value atIndex:index]; ZVAL_BOOL(out, value != 0); return; }
+		/* A real signed char on arm64, where BOOL encodes as 'B'. */
+		case 'c': { signed char value; [invocation getArgument:&value atIndex:index]; ZVAL_LONG(out, value); return; }
 		case 'C': { unsigned char value; [invocation getArgument:&value atIndex:index]; ZVAL_LONG(out, value); return; }
 		case 's': { short value; [invocation getArgument:&value atIndex:index]; ZVAL_LONG(out, value); return; }
 		case 'S': { unsigned short value; [invocation getArgument:&value atIndex:index]; ZVAL_LONG(out, value); return; }
@@ -96,10 +97,80 @@ static void appkit_invocation_arg(zval *out, NSInvocation *invocation, NSUIntege
 				appkit_return_point(out, value);
 				return;
 			}
+			if (strncmp(type, "{_NSRange=", 10) == 0) {
+				NSRange value;
+				[invocation getArgument:&value atIndex:index];
+				appkit_return_range(out, value);
+				return;
+			}
+			if (strncmp(type, "{NSEdgeInsets=", 14) == 0) {
+				NSEdgeInsets value;
+				[invocation getArgument:&value atIndex:index];
+				appkit_return_edge_insets(out, value);
+				return;
+			}
 			break;
 	}
 
+	/* A type with no PHP form (a struct without a value class, a union, a bit field). */
 	ZVAL_NULL(out);
+}
+
+/* The struct value class a return slot of this encoding takes, or NULL. */
+static zend_class_entry *appkit_struct_class(const char *type)
+{
+	if (strncmp(type, "{CGRect=", 8) == 0) {
+		return appkit_ce_NSRect;
+	}
+	if (strncmp(type, "{CGSize=", 8) == 0) {
+		return appkit_ce_NSSize;
+	}
+	if (strncmp(type, "{CGPoint=", 9) == 0) {
+		return appkit_ce_NSPoint;
+	}
+	if (strncmp(type, "{_NSRange=", 10) == 0) {
+		return appkit_ce_NSRange;
+	}
+	if (strncmp(type, "{NSEdgeInsets=", 14) == 0) {
+		return appkit_ce_NSEdgeInsets;
+	}
+	return NULL;
+}
+
+/* A struct return: the value class's fields written into the slot. A value of another class leaves the zeroed slot. */
+static void appkit_invocation_struct_return(NSInvocation *invocation, const char *type, zval *value)
+{
+	zend_class_entry *ce = appkit_struct_class(type);
+
+	if (ce == NULL || Z_TYPE_P(value) != IS_OBJECT || !instanceof_function(Z_OBJCE_P(value), ce)) {
+		return;
+	}
+	if (ce == appkit_ce_NSRect) {
+		NSRect out;
+		if (appkit_rect_from(Z_OBJ_P(value), 0, &out)) {
+			[invocation setReturnValue:&out];
+		}
+	} else if (ce == appkit_ce_NSSize) {
+		NSSize out;
+		if (appkit_size_from(Z_OBJ_P(value), 0, &out)) {
+			[invocation setReturnValue:&out];
+		}
+	} else if (ce == appkit_ce_NSPoint) {
+		NSPoint out;
+		if (appkit_point_from(Z_OBJ_P(value), 0, &out)) {
+			[invocation setReturnValue:&out];
+		}
+	} else if (ce == appkit_ce_NSRange) {
+		NSRange out;
+		if (appkit_range_from(Z_OBJ_P(value), 0, &out)) {
+			[invocation setReturnValue:&out];
+		}
+	} else {
+		NSEdgeInsets out;
+		if (appkit_edge_insets_from(Z_OBJ_P(value), 0, &out)) {
+			[invocation setReturnValue:&out];
+		}
+	}
 }
 
 /* The PHP return value written into the invocation's return slot, typed by the selector's signature. */
@@ -110,7 +181,7 @@ static void appkit_invocation_return(NSInvocation *invocation, zval *value)
 	switch (type[0]) {
 		case 'v': return;
 		case 'B': { bool out = zend_is_true(value); [invocation setReturnValue:&out]; return; }
-		case 'c': { signed char out = zend_is_true(value) ? 1 : 0; [invocation setReturnValue:&out]; return; }
+		case 'c': { signed char out = (signed char) zval_get_long(value); [invocation setReturnValue:&out]; return; }
 		case 'C': { unsigned char out = (unsigned char) zval_get_long(value); [invocation setReturnValue:&out]; return; }
 		case 's': { short out = (short) zval_get_long(value); [invocation setReturnValue:&out]; return; }
 		case 'S': { unsigned short out = (unsigned short) zval_get_long(value); [invocation setReturnValue:&out]; return; }
@@ -140,6 +211,25 @@ static void appkit_invocation_return(NSInvocation *invocation, zval *value)
 			[invocation setReturnValue:&out];
 			return;
 		}
+		case ':': {
+			SEL out = Z_TYPE_P(value) == IS_STRING ? sel_registerName(Z_STRVAL_P(value)) : NULL;
+			[invocation setReturnValue:&out];
+			return;
+		}
+		case '#': {
+			Class out = Z_TYPE_P(value) == IS_STRING ? objc_getClass(Z_STRVAL_P(value)) : Nil;
+			[invocation setReturnValue:&out];
+			return;
+		}
+		case '^':
+		case '*': {
+			void *out = (void *) (uintptr_t) zval_get_long(value);
+			[invocation setReturnValue:&out];
+			return;
+		}
+		case '{':
+			appkit_invocation_struct_return(invocation, type, value);
+			return;
 	}
 }
 
@@ -293,20 +383,52 @@ static void appkit_invocation_return(NSInvocation *invocation, zval *value)
 
 @interface PHPStageWindow : NSWindow {
 @public
-	BOOL refusesKey;
+	NSMutableDictionary<NSString *, NSValue *> *handlers;  /* selector name => appkit_callout*, made by the first on() */
 }
 @end
 
 @implementation PHPStageWindow
 
+- (void)dealloc
+{
+	for (NSValue *value in [handlers allValues]) {
+		appkit_callout_release([value pointerValue]);
+	}
+	[handlers release];
+	[super dealloc];
+}
+
+/* The handler's answer for $name, or false when there is none or it did not run. */
+- (BOOL)answer:(NSString *)name into:(BOOL *)answer
+{
+	NSValue *handler = handlers[name];
+	zval retval;
+	bool called;
+
+	if (handler == nil) {
+		return NO;
+	}
+	called = appkit_callout_call([handler pointerValue], 0, NULL, &retval);
+	if (called) {
+		*answer = zend_is_true(&retval) ? YES : NO;
+	}
+	zval_ptr_dtor(&retval);
+
+	return called ? YES : NO;
+}
+
 - (BOOL)canBecomeKeyWindow
 {
-	return !refusesKey;
+	BOOL answer;
+
+	return [self answer:@"canBecomeKeyWindow" into:&answer] ? answer : [super canBecomeKeyWindow];
 }
 
 - (BOOL)canBecomeMainWindow
 {
-	return !refusesKey;
+	BOOL answer;
+
+	return [self answer:@"canBecomeMainWindow" into:&answer] ? answer : [super canBecomeMainWindow];
 }
 
 @end
@@ -365,15 +487,16 @@ static void appkit_invocation_return(NSInvocation *invocation, zval *value)
 
 - (void)drawRect:(NSRect)dirty
 {
-	zval argv[1];
+	zval argv[2];
 
-	[[self openGLContext] makeCurrentContext];
-	if (draw != NULL && appkit_callout_can_enter(draw)) {
-		appkit_box_objc(&argv[0], self);
-		appkit_callout_invoke(draw, 1, argv);
-		zval_ptr_dtor(&argv[0]);
+	if (draw == NULL || !appkit_callout_can_enter(draw)) {
+		return;
 	}
-	[[self openGLContext] flushBuffer];
+	appkit_box_objc(&argv[0], self);
+	appkit_return_rect(&argv[1], dirty);
+	appkit_callout_invoke(draw, 2, argv);
+	zval_ptr_dtor(&argv[0]);
+	zval_ptr_dtor(&argv[1]);
 }
 
 @end
@@ -383,7 +506,7 @@ static void appkit_invocation_return(NSInvocation *invocation, zval *value)
 @interface PHPAppKitObserver : NSObject {
 @public
 	appkit_callout *callout;
-	NSMutableArray<NSArray *> *observed;  /* (object, keyPath) pairs still registered */
+	NSMutableArray<NSArray *> *observed;  /* (object, keyPath, context) registrations still held, one entry each */
 }
 @end
 
@@ -401,9 +524,9 @@ static void appkit_invocation_return(NSInvocation *invocation, zval *value)
 - (void)dealloc
 {
 	/* Every recorded pair was registered; the guard keeps a dealloc from ever raising out of PHP's object free. */
-	for (NSArray *pair in observed) {
+	for (NSArray *registration in observed) {
 		@try {
-			[pair[0] removeObserver:self forKeyPath:pair[1]];
+			[registration[0] removeObserver:self forKeyPath:registration[1] context:(void *) (uintptr_t) [registration[2] unsignedLongLongValue]];
 		} @catch (NSException *ignored) {
 		}
 	}
@@ -414,38 +537,38 @@ static void appkit_invocation_return(NSInvocation *invocation, zval *value)
 	[super dealloc];
 }
 
-- (NSUInteger)indexOfObject:(id)object keyPath:(NSString *)keyPath
+- (NSUInteger)indexOfObject:(id)object keyPath:(NSString *)keyPath context:(uintptr_t)context
 {
-	return [observed indexOfObjectPassingTest:^BOOL(NSArray *pair, NSUInteger idx, BOOL *stop) {
-		return pair[0] == object && [pair[1] isEqualToString:keyPath];
+	return [observed indexOfObjectPassingTest:^BOOL(NSArray *registration, NSUInteger idx, BOOL *stop) {
+		return registration[0] == object && [registration[1] isEqualToString:keyPath]
+			&& (uintptr_t) [registration[2] unsignedLongLongValue] == context;
 	}];
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
-	zval argv[3];
-	id value;
+	zval argv[4];
 
 	if (!appkit_callout_can_enter(callout)) {
 		return;
 	}
 	ZVAL_STR(&argv[0], appkit_zend_string((CFStringRef) keyPath));
 	appkit_box_objc(&argv[1], object);
-	array_init(&argv[2]);
-	if ((value = change[NSKeyValueChangeNewKey]) != nil) {
+	/* Every entry KVO sent, under its own key: kind, new, old, indexes, notificationIsPrior. */
+	array_init_size(&argv[2], (uint32_t) [change count]);
+	for (NSString *key in change) {
 		zval zv;
-		appkit_zval_from_id(&zv, value);
-		add_assoc_zval(&argv[2], "new", &zv);
-	}
-	if ((value = change[NSKeyValueChangeOldKey]) != nil) {
-		zval zv;
-		appkit_zval_from_id(&zv, value);
-		add_assoc_zval(&argv[2], "old", &zv);
-	}
+		zend_string *name = appkit_zend_string((CFStringRef) key);
 
-	appkit_callout_invoke(callout, 3, argv);
+		appkit_zval_from_id(&zv, change[key]);
+		zend_symtable_update(Z_ARRVAL(argv[2]), name, &zv);
+		zend_string_release(name);
+	}
+	ZVAL_LONG(&argv[3], (zend_long) (uintptr_t) context);
 
-	for (int i = 0; i < 3; i++) {
+	appkit_callout_invoke(callout, 4, argv);
+
+	for (int i = 0; i < 4; i++) {
 		zval_ptr_dtor(&argv[i]);
 	}
 }
@@ -485,8 +608,8 @@ void appkit_register_ObjCGlue(void)
 
 static bool appkit_require_unconstructed(zval *this_zv)
 {
-	if (appkit_object_from(Z_OBJ_P(this_zv))->ptr != NULL) {
-		zend_throw_error(NULL, "%s::__construct() called twice", ZSTR_VAL(Z_OBJCE_P(this_zv)->name));
+	if (!APPKIT_PROBE_OFF("glue-construct-once") && (appkit_object_from(Z_OBJ_P(this_zv))->ptr != NULL)) {
+		zend_throw_error(NULL, "%s::__construct() called twice", ZSTR_VAL(Z_OBJCE_P(this_zv)->name)); /* binding:glue-construct-once */
 		return false;
 	}
 
@@ -532,13 +655,6 @@ ZEND_METHOD(ObjCDelegate, on)
 	}
 
 	PHPAppKitDelegate *delegate = THIS_DELEGATE;
-	SEL selector = sel_registerName(ZSTR_VAL(selector_name));
-
-	if (protocol_getMethodDescription(delegate->protocol, selector, NO, YES).types == NULL
-			&& protocol_getMethodDescription(delegate->protocol, selector, YES, YES).types == NULL) {
-		zend_argument_value_error(1, "is not an instance selector of %s", protocol_getName(delegate->protocol));
-		RETURN_THROWS();
-	}
 
 	APPKIT_BEGIN
 		/* No detach: a callout whose callable is freed at request end goes inert, and dealloc frees the record. */
@@ -624,30 +740,26 @@ ZEND_METHOD(ObjCObserver, observe)
 {
 	zend_object *object;
 	zend_string *key_path;
-	zend_long options;
+	zend_long options, context;
 
-	ZEND_PARSE_PARAMETERS_START(3, 3)
+	ZEND_PARSE_PARAMETERS_START(4, 4)
 		Z_PARAM_OBJ_OF_CLASS(object, appkit_ce_NSObject)
 		Z_PARAM_STR(key_path)
 		Z_PARAM_LONG(options)
+		Z_PARAM_LONG(context)
 	ZEND_PARSE_PARAMETERS_END();
-	APPKIT_REQUIRE_MAIN_THREAD();
 
 	APPKIT_BEGIN
 		id target = APPKIT_ID(object);
 		NSString *path = appkit_nsstring(key_path);
 
-		if ([THIS_OBSERVER indexOfObject:target keyPath:path] != NSNotFound) {
-			zend_throw_exception_ex(appkit_ce_AppKitException, 0, "ObjCObserver already observes \"%s\" on this object; stop() it first", ZSTR_VAL(key_path));
-			RETURN_THROWS();
-		}
-		/* Recorded first so an OPTION_INITIAL handler can stop() it; dropped again when AppKit refuses the key path. */
-		NSArray *pair = @[target, path];
-		[THIS_OBSERVER->observed addObject:pair];
+		/* One record per registration, duplicates included, as KVO counts them. Recorded first so an OPTION_INITIAL handler can stop() it; dropped again when AppKit refuses the key path. */
+		NSArray *registration = @[target, path, @((unsigned long long) (uintptr_t) context)];
+		[THIS_OBSERVER->observed addObject:registration];
 		@try {
-			[target addObserver:THIS_OBSERVER forKeyPath:path options:(NSKeyValueObservingOptions) options context:NULL];
+			[target addObserver:THIS_OBSERVER forKeyPath:path options:(NSKeyValueObservingOptions) options context:(void *) (uintptr_t) context];
 		} @catch (NSException *refused) {
-			[THIS_OBSERVER->observed removeObjectIdenticalTo:pair];
+			[THIS_OBSERVER->observed removeObjectIdenticalTo:registration];
 			@throw;
 		}
 	APPKIT_END
@@ -657,24 +769,23 @@ ZEND_METHOD(ObjCObserver, stop)
 {
 	zend_object *object;
 	zend_string *key_path;
+	zend_long context;
 
-	ZEND_PARSE_PARAMETERS_START(2, 2)
+	ZEND_PARSE_PARAMETERS_START(3, 3)
 		Z_PARAM_OBJ_OF_CLASS(object, appkit_ce_NSObject)
 		Z_PARAM_STR(key_path)
+		Z_PARAM_LONG(context)
 	ZEND_PARSE_PARAMETERS_END();
-	APPKIT_REQUIRE_MAIN_THREAD();
 
 	APPKIT_BEGIN
 		id target = APPKIT_ID(object);
 		NSString *path = appkit_nsstring(key_path);
-		NSUInteger index = [THIS_OBSERVER indexOfObject:target keyPath:path];
-
-		if (index == NSNotFound) {
-			zend_throw_exception_ex(appkit_ce_AppKitException, 0, "ObjCObserver does not observe \"%s\" on this object", ZSTR_VAL(key_path));
-			RETURN_THROWS();
+		/* KVO answers a registration it does not hold (NSRangeException); the record drops one entry once KVO removed one. */
+		[target removeObserver:THIS_OBSERVER forKeyPath:path context:(void *) (uintptr_t) context];
+		NSUInteger index = [THIS_OBSERVER indexOfObject:target keyPath:path context:(uintptr_t) context];
+		if (index != NSNotFound) {
+			[THIS_OBSERVER->observed removeObjectAtIndex:index];
 		}
-		[THIS_OBSERVER->observed removeObjectAtIndex:index];
-		[target removeObserver:THIS_OBSERVER forKeyPath:path];
 	APPKIT_END
 }
 
@@ -702,8 +813,7 @@ ZEND_METHOD(ObjCOpenGLView, initWithFramePixelFormatDraw)
 		PHPOpenGLView *view = [[PHPOpenGLView alloc]
 			initWithFrame:rect pixelFormat:format_obj != NULL ? (NSOpenGLPixelFormat *) APPKIT_ID(format_obj) : nil];
 		if (view == nil) {
-			zend_throw_exception(appkit_ce_AppKitException, "NSOpenGLView made no view for that pixel format", 0);
-			RETURN_THROWS();
+			RETURN_NULL();
 		}
 		view->draw = appkit_callout_new(handler, NULL);
 		appkit_callout_retain(view->draw);
@@ -712,24 +822,58 @@ ZEND_METHOD(ObjCOpenGLView, initWithFramePixelFormatDraw)
 	APPKIT_END
 }
 
-ZEND_METHOD(ObjCStageWindow, canBecomeKey)
-{
-	ZEND_PARSE_PARAMETERS_NONE();
-	APPKIT_REQUIRE_MAIN_THREAD();
+#define THIS_STAGE_WINDOW ((PHPStageWindow *) APPKIT_ID(Z_OBJ_P(ZEND_THIS)))
 
-	RETURN_BOOL(!((PHPStageWindow *) APPKIT_ID(Z_OBJ_P(ZEND_THIS)))->refusesKey);
+ZEND_METHOD(ObjCStageWindow, on)
+{
+	zend_string *selector_name;
+	zend_fcall_info fci;
+	zend_fcall_info_cache fcc;
+
+	ZEND_PARSE_PARAMETERS_START(2, 2)
+		Z_PARAM_STR(selector_name)
+		Z_PARAM_FUNC(fci, fcc)
+	ZEND_PARSE_PARAMETERS_END();
+
+	APPKIT_BEGIN
+		PHPStageWindow *window = THIS_STAGE_WINDOW;
+		NSString *name = appkit_nsstring(selector_name);
+		/* No detach: a callout whose callable is freed at request end goes inert, and dealloc frees the record. */
+		appkit_callout *callout = appkit_callout_new(&fci.function_name, NULL);
+
+		appkit_callout_retain(callout);
+		if (window->handlers == nil) {
+			window->handlers = [[NSMutableDictionary alloc] init];
+		}
+		/* The pointer first: replacing the entry releases the NSValue holding it. */
+		appkit_callout *replaced = window->handlers[name] != nil ? [window->handlers[name] pointerValue] : NULL;
+		window->handlers[name] = [NSValue valueWithPointer:callout];
+		if (replaced != NULL) {
+			appkit_callout_release(replaced);
+		}
+	APPKIT_END
 }
 
-ZEND_METHOD(ObjCStageWindow, setCanBecomeKey)
+ZEND_METHOD(ObjCStageWindow, off)
 {
-	bool can;
+	zend_string *selector_name;
 
 	ZEND_PARSE_PARAMETERS_START(1, 1)
-		Z_PARAM_BOOL(can)
+		Z_PARAM_STR(selector_name)
 	ZEND_PARSE_PARAMETERS_END();
-	APPKIT_REQUIRE_MAIN_THREAD();
 
-	((PHPStageWindow *) APPKIT_ID(Z_OBJ_P(ZEND_THIS)))->refusesKey = !can;
+	APPKIT_BEGIN
+		PHPStageWindow *window = THIS_STAGE_WINDOW;
+		NSString *name = appkit_nsstring(selector_name);
+		NSValue *existing = window->handlers[name];
+
+		if (existing != nil) {
+			/* The pointer first: removing the entry releases the NSValue holding it. */
+			appkit_callout *callout = [existing pointerValue];
+			[window->handlers removeObjectForKey:name];
+			appkit_callout_release(callout);
+		}
+	APPKIT_END
 }
 
 ZEND_METHOD(ObjCDrawView, initWithFrameDraw)

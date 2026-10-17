@@ -1,8 +1,9 @@
 /* This is a generated file, edit the .stub.php file instead.
- * Stub hash: 7681bf05f2d7b9011ef5bf1dbff5d219eaa583a3 */
+ * Stub hash: 5f5acc47e355eaa385a8494e2a5b2e48669667b2 */
 
-ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(arginfo_class_CFFileDescriptor_create, 0, 3, CFFileDescriptor, 1)
-	ZEND_ARG_TYPE_INFO(0, fd, IS_MIXED, 0)
+ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(arginfo_class_CFFileDescriptor_create, 0, 4, CFFileDescriptor, 1)
+	ZEND_ARG_OBJ_INFO(0, allocator, CFAllocator, 1)
+	ZEND_ARG_TYPE_INFO(0, fd, IS_LONG, 0)
 	ZEND_ARG_TYPE_INFO(0, closeOnInvalidate, _IS_BOOL, 0)
 	ZEND_ARG_TYPE_INFO(0, callout, IS_CALLABLE, 0)
 ZEND_END_ARG_INFO()
@@ -22,7 +23,8 @@ ZEND_END_ARG_INFO()
 ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_CFFileDescriptor_isValid, 0, 0, _IS_BOOL, 0)
 ZEND_END_ARG_INFO()
 
-ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(arginfo_class_CFFileDescriptor_createRunLoopSource, 0, 1, CFRunLoopSource, 1)
+ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(arginfo_class_CFFileDescriptor_createRunLoopSource, 0, 2, CFRunLoopSource, 1)
+	ZEND_ARG_OBJ_INFO(0, allocator, CFAllocator, 1)
 	ZEND_ARG_TYPE_INFO(0, order, IS_LONG, 0)
 ZEND_END_ARG_INFO()
 

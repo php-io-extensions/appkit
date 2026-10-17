@@ -89,11 +89,9 @@ ZEND_METHOD(NSDate, timeIntervalSince1970)
 
 ZEND_METHOD(NSPoint, __construct)
 {
-	double x = 0.0;
-	double y = 0.0;
+	double x, y;
 
-	ZEND_PARSE_PARAMETERS_START(0, 2)
-		Z_PARAM_OPTIONAL
+	ZEND_PARSE_PARAMETERS_START(2, 2)
 		Z_PARAM_DOUBLE(x)
 		Z_PARAM_DOUBLE(y)
 	ZEND_PARSE_PARAMETERS_END();

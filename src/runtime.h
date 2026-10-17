@@ -65,8 +65,10 @@ extern zend_class_entry *appkit_ce_NSEventType;
 extern zend_class_entry *appkit_ce_NSEventMask;
 extern zend_class_entry *appkit_ce_NSEventModifierFlags;
 extern zend_class_entry *appkit_ce_NSDate;
+extern zend_class_entry *appkit_ce_NSError;
 extern zend_class_entry *appkit_ce_NSPoint;
 extern zend_class_entry *appkit_ce_CFType;
+extern zend_class_entry *appkit_ce_CFAllocator;
 extern zend_class_entry *appkit_ce_CFRunLoop;
 extern zend_class_entry *appkit_ce_CFRunLoopRunResult;
 extern zend_class_entry *appkit_ce_CFRunLoopSource;
@@ -74,6 +76,7 @@ extern zend_class_entry *appkit_ce_CFFileDescriptor;
 extern zend_class_entry *appkit_ce_CFData;
 extern zend_class_entry *appkit_ce_CGDataProvider;
 extern zend_class_entry *appkit_ce_CGColorSpace;
+extern zend_class_entry *appkit_ce_CGColor;
 extern zend_class_entry *appkit_ce_CGImage;
 extern zend_class_entry *appkit_ce_NSSize;
 extern zend_class_entry *appkit_ce_NSRect;
@@ -107,6 +110,9 @@ extern zend_class_entry *appkit_ce_AVPlayerViewControlsStyle;
 extern zend_class_entry *appkit_ce_AVPlayerView;
 extern zend_class_entry *appkit_ce_NSEdgeInsets;
 extern zend_class_entry *appkit_ce_NSLayoutAnchor;
+extern zend_class_entry *appkit_ce_NSLayoutDimension;
+extern zend_class_entry *appkit_ce_NSLayoutXAxisAnchor;
+extern zend_class_entry *appkit_ce_NSLayoutYAxisAnchor;
 extern zend_class_entry *appkit_ce_NSLayoutConstraint;
 extern zend_class_entry *appkit_ce_NSColor;
 extern zend_class_entry *appkit_ce_NSColorSpace;
@@ -150,6 +156,10 @@ extern zend_class_entry *appkit_ce_NSImageView;
 extern zend_class_entry *appkit_ce_NSBoxType;
 extern zend_class_entry *appkit_ce_NSBox;
 extern zend_class_entry *appkit_ce_NSScrollView;
+extern zend_class_entry *appkit_ce_NSSplitViewDividerStyle;
+extern zend_class_entry *appkit_ce_NSSplitView;
+extern zend_class_entry *appkit_ce_NSTabView;
+extern zend_class_entry *appkit_ce_NSTabViewItem;
 extern zend_class_entry *appkit_ce_NSTextView;
 extern zend_class_entry *appkit_ce_NSMutableAttributedString;
 extern zend_class_entry *appkit_ce_NSTextStorage;
@@ -200,11 +210,12 @@ extern zend_class_entry *appkit_ce_GCControllerDirectionPad;
 
 /* Class registration, one per stub, called from MINIT in hierarchy order. */
 void appkit_register_NSObject(void);
-void appkit_register_CALayer(void);
+void appkit_register_CALayer(int module_number);
 void appkit_register_NSResponder(void);
 void appkit_register_NSApplication(void);
 void appkit_register_NSEvent(void);
 void appkit_register_NSDate(void);
+void appkit_register_NSError(void);
 void appkit_register_NSPoint(void);
 void appkit_register_CFType(void);
 void appkit_register_CFRunLoop(void);
@@ -231,6 +242,7 @@ void appkit_register_NSFont(void);
 void appkit_register_NSStackView(void);
 void appkit_register_NSGridView(void);
 void appkit_register_NSControls(int module_number);
+void appkit_register_NSSplitView(int module_number);
 void appkit_register_NSTableView(void);
 void appkit_register_NSNotificationCenter(int module_number);
 void appkit_register_AVKit(int module_number);
@@ -250,7 +262,6 @@ zend_string *appkit_zend_string(CFStringRef str);
 const char *appkit_cfstring_constant(CFStringRef str);
 zend_long appkit_enum_value(zend_object *obj_or_null, zend_long fallback);
 void appkit_return_enum(zval *rv, zend_class_entry *ce, zend_long value, bool int_fallback);
-bool appkit_fd_from_zval(zval *zfd, uint32_t arg_num, int *fd);
 bool appkit_rect_from(zend_object *rect, uint32_t arg_num, NSRect *out);
 bool appkit_size_from(zend_object *size, uint32_t arg_num, NSSize *out);
 bool appkit_point_from(zend_object *point, uint32_t arg_num, NSPoint *out);
@@ -280,6 +291,19 @@ bool appkit_callout_call(appkit_callout *callout, uint32_t argc, zval *argv, zva
 void appkit_callouts_detach_all(void);
 
 /*
+ * The probe switch. A kept refusal site reads `if (!APPKIT_PROBE_OFF("<id>") && (<check>))`.
+ * A build configured with --enable-appkit-probes lets env APPKIT_PROBE_OFF=<id> turn that one
+ * site off, so tests/Probes can show the crash the site prevents; any other build compiles
+ * the switch out.
+ */
+#ifdef APPKIT_PROBES
+bool appkit_probe_off(const char *id);
+# define APPKIT_PROBE_OFF(id) appkit_probe_off(id)
+#else
+# define APPKIT_PROBE_OFF(id) 0
+#endif
+
+/*
  * Every binding body runs inside an autorelease pool and turns an NSException
  * into AppKitException. RETURN_* inside the body is fine: the pool drains on
  * the way out and anything returned was boxed (retained) first.
@@ -287,10 +311,15 @@ void appkit_callouts_detach_all(void);
 #define APPKIT_BEGIN @autoreleasepool { @try {
 #define APPKIT_END } @catch (NSException *appkit_exception) { appkit_throw_nsexception(appkit_exception); RETURN_THROWS(); } }
 
-/* AppKit asserts on the main thread; this makes the refusal a PHP exception. */
+/*
+ * The main-thread gate, only on the AppKit UI families (NSApplication, NSWindow, NSView and its
+ * subclasses, NSMenu and NSMenuItem, NSScreen, NSEvent monitors, NSLayoutAnchor, CADisplayLink):
+ * off the main thread AppKit traps the process there. Every other class runs on the thread it is
+ * called from.
+ */
 #define APPKIT_REQUIRE_MAIN_THREAD() do { \
-	if (!appkit_on_main_thread()) { \
-		zend_throw_exception_ex(appkit_ce_AppKitException, 0, \
+	if (!APPKIT_PROBE_OFF("main-thread-appkit-ui") && (!appkit_on_main_thread())) { \
+		zend_throw_exception_ex(appkit_ce_AppKitException, 0, /* binding:main-thread-appkit-ui */ \
 			"%s::%s() must be called on the main thread", \
 			ZSTR_VAL(EX(func)->common.scope->name), ZSTR_VAL(EX(func)->common.function_name)); \
 		RETURN_THROWS(); \

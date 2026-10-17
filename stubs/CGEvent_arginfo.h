@@ -1,5 +1,9 @@
 /* This is a generated file, edit the .stub.php file instead.
- * Stub hash: 1717a59844d2d03278b040b3781dd5dd96bfd035 */
+ * Stub hash: 7bffc574cbf44025a272dd4b11e4a329eabeb632 */
+
+ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(arginfo_class_CGEventSource_create, 0, 1, CGEventSource, 1)
+	ZEND_ARG_OBJ_INFO(0, stateID, CGEventSourceStateID, 0)
+ZEND_END_ARG_INFO()
 
 ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_CGEventSource_keyState, 0, 2, _IS_BOOL, 0)
 	ZEND_ARG_OBJ_INFO(0, stateID, CGEventSourceStateID, 0)
@@ -7,14 +11,14 @@ ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_CGEventSource_keyState, 0,
 ZEND_END_ARG_INFO()
 
 ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(arginfo_class_CGEvent_createMouseEvent, 0, 4, CGEvent, 1)
-	ZEND_ARG_OBJ_INFO(0, source, CFType, 1)
+	ZEND_ARG_OBJ_INFO(0, source, CGEventSource, 1)
 	ZEND_ARG_OBJ_INFO(0, mouseType, CGEventType, 0)
 	ZEND_ARG_OBJ_INFO(0, mouseCursorPosition, NSPoint, 0)
 	ZEND_ARG_OBJ_INFO(0, mouseButton, CGMouseButton, 0)
 ZEND_END_ARG_INFO()
 
 ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(arginfo_class_CGEvent_createScrollWheelEvent2, 0, 6, CGEvent, 1)
-	ZEND_ARG_OBJ_INFO(0, source, CFType, 1)
+	ZEND_ARG_OBJ_INFO(0, source, CGEventSource, 1)
 	ZEND_ARG_OBJ_INFO(0, units, CGScrollEventUnit, 0)
 	ZEND_ARG_TYPE_INFO(0, wheelCount, IS_LONG, 0)
 	ZEND_ARG_TYPE_INFO(0, wheel1, IS_LONG, 0)
@@ -38,6 +42,7 @@ ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_CGEvent_setLocation, 0, 1,
 	ZEND_ARG_OBJ_INFO(0, location, NSPoint, 0)
 ZEND_END_ARG_INFO()
 
+ZEND_METHOD(CGEventSource, create);
 ZEND_METHOD(CGEventSource, keyState);
 ZEND_METHOD(CGEvent, createMouseEvent);
 ZEND_METHOD(CGEvent, createScrollWheelEvent2);
@@ -47,6 +52,7 @@ ZEND_METHOD(CGEvent, getLocation);
 ZEND_METHOD(CGEvent, setLocation);
 
 static const zend_function_entry class_CGEventSource_methods[] = {
+	ZEND_ME(CGEventSource, create, arginfo_class_CGEventSource_create, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
 	ZEND_ME(CGEventSource, keyState, arginfo_class_CGEventSource_keyState, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
 	ZEND_FE_END
 };

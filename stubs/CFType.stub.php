@@ -13,8 +13,19 @@ class CFType
 
     public function hash(): int {}
 
-    public function description(): string {}
+    public function copyDescription(): string {}
 
     /** The object's address, for handing it to another extension. */
     public function pointer(): int {}
+}
+
+/**
+ * A CFAllocatorRef.
+ *
+ * @not-serializable
+ */
+final class CFAllocator extends CFType
+{
+    /** CFAllocatorGetDefault */
+    public static function getDefault(): CFAllocator {}
 }

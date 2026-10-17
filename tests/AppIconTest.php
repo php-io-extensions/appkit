@@ -21,8 +21,8 @@ it('sets the Dock icon from an image and restores the bundle\'s', function (): v
 
 it('makes an image over a CGImage at a size in points and sets it as the Dock icon', function (): void {
     $app = NSApplication::sharedApplication();
-    $provider = CGDataProvider::createWithCFData(CFData::create(str_repeat("\xff\x80\x00\xff", 16 * 16)));
-    $cg = CGImage::create(16, 16, 8, 32, 64, CGColorSpace::createWithName(kCGColorSpaceSRGB), kCGImageAlphaPremultipliedLast | kCGBitmapByteOrder32Big, $provider, false, kCGRenderingIntentDefault);
+    $provider = CGDataProvider::createWithCFData(CFData::create(null, str_repeat("\xff\x80\x00\xff", 16 * 16), 16 * 16 * 4));
+    $cg = CGImage::create(16, 16, 8, 32, 64, CGColorSpace::createWithName(kCGColorSpaceSRGB), kCGImageAlphaPremultipliedLast | kCGBitmapByteOrder32Big, $provider, null, false, kCGRenderingIntentDefault);
 
     $image = NSImage::initWithCGImageSize($cg, new NSSize(32.0, 32.0));
     $app->setApplicationIconImage($image);
@@ -40,9 +40,10 @@ it('requests the user\'s attention and cancels the request', function (): void {
     $app = NSApplication::sharedApplication();
     $app->finishLaunching();
 
-    $request = $app->requestUserAttention(NSRequestUserAttentionType::INFORMATIONAL);
+    $request = $app->requestUserAttention(NSRequestUserAttentionType::INFORMATIONAL_REQUEST);
     $app->cancelUserAttentionRequest($request);
 
     expect($request)->toBeInt()->toBeGreaterThanOrEqual(0)
-        ->and(NSRequestUserAttentionType::CRITICAL->value)->toBe(0);
+        ->and(NSRequestUserAttentionType::CRITICAL_REQUEST->value)->toBe(0)
+        ->and(NSRequestUserAttentionType::INFORMATIONAL_REQUEST->value)->toBe(10);
 });

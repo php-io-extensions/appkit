@@ -129,7 +129,9 @@ it('picks a date', function (): void {
     $picker->setDatePickerMode(NSDatePickerMode::SINGLE);
     $picker->setDateValue(NSDate::dateWithTimeIntervalSince1970(86400.0));
 
-    expect($picker->dateValue()->timeIntervalSince1970())->toBe(86400.0);
+    expect($picker->dateValue()->timeIntervalSince1970())->toBe(86400.0)
+        ->and([NSDatePicker::ELEMENT_HOUR_MINUTE, NSDatePicker::ELEMENT_HOUR_MINUTE_SECOND, NSDatePicker::ELEMENT_TIME_ZONE, NSDatePicker::ELEMENT_YEAR_MONTH, NSDatePicker::ELEMENT_YEAR_MONTH_DAY, NSDatePicker::ELEMENT_ERA])
+        ->toBe([0x000c, 0x000e, 0x0010, 0x00c0, 0x00e0, 0x0100]);
 });
 
 it('animates a progress indicator', function (): void {
@@ -280,14 +282,15 @@ it('carries a link and a font in an attributed string that a selectable label sh
     expect([NSLinkAttributeName, NSFontAttributeName])->toBe(['NSLink', 'NSFont'])
         ->and($url->absoluteString())->toBe('https://example.com/docs')
         ->and([$text->string(), $text->length()])->toBe(['the docs', 8])
-        ->and($text->attributeAtIndex(NSLinkAttributeName, 0)->absoluteString())->toBe('https://example.com/docs')
-        ->and($text->attributeAtIndex(NSFontAttributeName, 7)->pointSize())->toBe(15.0)
-        ->and($text->attributeAtIndex('NSVenusianAbsent', 0))->toBeNull()
+        ->and($text->attributeAtIndexEffectiveRange(NSLinkAttributeName, 0)[0]->absoluteString())->toBe('https://example.com/docs')
+        ->and($text->attributeAtIndexEffectiveRange(NSFontAttributeName, 7)[0]->pointSize())->toBe(15.0)
+        ->and($text->attributeAtIndexEffectiveRange('NSVenusianAbsent', 0)[0])->toBeNull()
+        ->and(method_exists($text, 'attributeAtIndex'))->toBeFalse()
         ->and($before)->toBe([false, false])
         ->and([$label->isSelectable(), $label->allowsEditingTextAttributes(), $label->isEditable()])->toBe([true, true, false])
         ->and($shown->string())->toBe('docs')
-        ->and($shown->attributeAtIndex(NSLinkAttributeName, 0))->toBe('https://example.com/a b')
-        ->and(fn () => $text->attributeAtIndex(NSLinkAttributeName, 99))->toThrow(AppKitException::class)
+        ->and($shown->attributeAtIndexEffectiveRange(NSLinkAttributeName, 0)[0])->toBe('https://example.com/a b')
+        ->and(fn () => $text->attributeAtIndexEffectiveRange(NSLinkAttributeName, 99))->toThrow(AppKitException::class)
         ->and(fn () => NSAttributedString::initWithStringAttributes('x', ['NSLink' => []]))->toThrow(TypeError::class);
 });
 
@@ -298,7 +301,7 @@ it('aligns attributed text through a paragraph style', function (): void {
     $label = NSTextField::labelWithAttributedString(NSAttributedString::initWithStringAttributes('docs', [NSParagraphStyleAttributeName => $style]));
     $label->setSelectable(true);
     $label->setAllowsEditingTextAttributes(true);
-    $shown = $label->attributedStringValue()->attributeAtIndex(NSParagraphStyleAttributeName, 0);
+    $shown = $label->attributedStringValue()->attributeAtIndexEffectiveRange(NSParagraphStyleAttributeName, 0)[0];
 
     expect(NSParagraphStyleAttributeName)->toBe('NSParagraphStyle')
         ->and($natural)->toBe(NSTextAlignment::NATURAL)
@@ -321,7 +324,7 @@ it('styles a text view\'s storage with colour attributes and text blocks and rea
     $red = NSColor::colorWithRedGreenBlueAlpha(1.0, 0.0, 0.0, 1.0);
     $block = NSTextBlock::init();
     $block->setBackgroundColor($red);
-    $block->setValueTypeForDimension(100.0, NSTextBlockValueType::PERCENTAGE, NSTextBlockDimension::WIDTH);
+    $block->setValueTypeForDimension(100.0, NSTextBlockValueType::PERCENTAGE_VALUE_TYPE, NSTextBlockDimension::WIDTH);
     $style = NSMutableParagraphStyle::init();
     $style->setTextBlocks([$block]);
 
@@ -330,24 +333,25 @@ it('styles a text view\'s storage with colour attributes and text blocks and rea
     $storage->addAttributeValueRange(NSBackgroundColorAttributeName, $red, new NSRange(0, 1));
     $storage->addAttributeValueRange(NSParagraphStyleAttributeName, $style, new NSRange(8, 5));
     $storage->endEditing();
-    $blocks = $storage->attributeAtIndex(NSParagraphStyleAttributeName, 8)->textBlocks();
+    $blocks = $storage->attributeAtIndexEffectiveRange(NSParagraphStyleAttributeName, 8)[0]->textBlocks();
 
     expect($storage)->toBeInstanceOf(NSTextStorage::class)
         ->and($storage)->toBeInstanceOf(NSMutableAttributedString::class)
         ->and([NSForegroundColorAttributeName, NSBackgroundColorAttributeName])->toBe(['NSColor', 'NSBackgroundColor'])
-        ->and(round($storage->attributeAtIndex(NSForegroundColorAttributeName, 5)->redComponent(), 2))->toBe(1.0)
-        ->and($storage->attributeAtIndex(NSBackgroundColorAttributeName, 1))->toBeNull()
+        ->and(round($storage->attributeAtIndexEffectiveRange(NSForegroundColorAttributeName, 5)[0]->redComponent(), 2))->toBe(1.0)
+        ->and($storage->attributeAtIndexEffectiveRange(NSBackgroundColorAttributeName, 1)[0])->toBeNull()
         ->and($blocks)->toHaveCount(1)
         ->and(round($blocks[0]->backgroundColor()->redComponent(), 2))->toBe(1.0)
         ->and($blocks[0]->valueForDimension(NSTextBlockDimension::WIDTH))->toBe(100.0)
-        ->and($blocks[0]->valueTypeForDimension(NSTextBlockDimension::WIDTH))->toBe(NSTextBlockValueType::PERCENTAGE);
+        ->and($blocks[0]->valueTypeForDimension(NSTextBlockDimension::WIDTH))->toBe(NSTextBlockValueType::PERCENTAGE_VALUE_TYPE)
+        ->and(NSTextBlockValueType::ABSOLUTE_VALUE_TYPE->value)->toBe(0);
 
     $storage->removeAttributeRange(NSBackgroundColorAttributeName, new NSRange(0, $storage->length()));
     $storage->setAttributedString(NSAttributedString::initWithStringAttributes('plain', []));
-    expect($storage->attributeAtIndex(NSBackgroundColorAttributeName, 0))->toBeNull()
-        ->and($storage->attributeAtIndex(NSParagraphStyleAttributeName, 0))->toBeNull()
+    expect($storage->attributeAtIndexEffectiveRange(NSBackgroundColorAttributeName, 0)[0])->toBeNull()
+        ->and($storage->attributeAtIndexEffectiveRange(NSParagraphStyleAttributeName, 0)[0])->toBeNull()
         ->and($text->string())->toBe('plain')
-        ->and(fn () => $storage->addAttributeValueRange(NSForegroundColorAttributeName, $red, new NSRange(3, 9)))->toThrow(ValueError::class, 'within')
+        ->and(fn () => $storage->addAttributeValueRange(NSForegroundColorAttributeName, $red, new NSRange(3, 9)))->toThrow(AppKitException::class, 'NSRangeException')
         ->and(fn () => $style->setTextBlocks(['x']))->toThrow(TypeError::class, 'NSTextBlock');
 });
 
@@ -360,7 +364,7 @@ it('selects in a text view, finds a glyph\'s rect and scrolls its clip view', fu
     $manager = $text->layoutManager();
     $container = $text->textContainer();
     $manager->ensureLayoutForTextContainer($container);
-    $glyphs = $manager->glyphRangeForCharacterRange(new NSRange(700, 1));
+    [$glyphs, $actual] = $manager->glyphRangeForCharacterRangeActualCharacterRange(new NSRange(700, 1));
     $rect = $manager->boundingRectForGlyphRangeInTextContainer($glyphs, $container);
     $clip = $scroll->contentView();
     $clip->setPostsBoundsChangedNotifications(true);
@@ -372,14 +376,21 @@ it('selects in a text view, finds a glyph\'s rect and scrolls its clip view', fu
 
     expect([$text->selectedRange()->location, $text->selectedRange()->length])->toBe([5, 3])
         ->and($glyphs)->toBeInstanceOf(NSRange::class)
+        ->and([$actual->location, $actual->length])->toBe([700, 1])
+        ->and(fn () => new NSRange(1))->toThrow(ArgumentCountError::class)
+        ->and((new ReflectionProperty(NSRange::class, 'location'))->hasDefaultValue())->toBeFalse()
         ->and($rect->y)->toBeGreaterThan(100.0)
         ->and($clip)->toBeInstanceOf(NSClipView::class)
         ->and($clip->postsBoundsChangedNotifications())->toBeTrue()
         ->and($clip->bounds()->y)->toBeGreaterThan(0.0)
         ->and($scroll->documentVisibleRect()->y)->toBe($clip->bounds()->y)
         ->and($moved)->toBeGreaterThan(0)
-        ->and(NSViewBoundsDidChangeNotification)->toBe('NSViewBoundsDidChangeNotification')
-        ->and(fn () => $text->setSelectedRange(new NSRange(5000, 1)))->toThrow(ValueError::class, 'within');
+        ->and(NSViewBoundsDidChangeNotification)->toBe('NSViewBoundsDidChangeNotification');
+
+    // AppKit clamps a selection past the end to the end of the text.
+    $length = strlen($text->string());
+    $text->setSelectedRange(new NSRange(5000, 1));
+    expect([$text->selectedRange()->location, $text->selectedRange()->length])->toBe([$length, 0]);
     $text->scrollRangeToVisible(new NSRange(0, 1));
 });
 
@@ -415,11 +426,12 @@ it('reads an attribute with the run it covers', function (): void {
         ->and([$run->location, $run->length])->toBe([4, 3])
         ->and($before)->toBeNull()
         ->and([$gap->location, $gap->length])->toBe([0, 4])
-        ->and(fn () => $storage->attributeAtIndexEffectiveRange('VenusianMark', 13))->toThrow(ValueError::class, 'within')
-        ->and(fn () => $storage->attributeAtIndexEffectiveRange('VenusianMark', -1))->toThrow(ValueError::class, 'within');
+        ->and(fn () => $storage->attributeAtIndexEffectiveRange('VenusianMark', 13))->toThrow(AppKitException::class, 'NSRangeException')
+        // -1 reaches AppKit as NSUIntegerMax, past the end.
+        ->and(fn () => $storage->attributeAtIndexEffectiveRange('VenusianMark', -1))->toThrow(AppKitException::class, 'NSRangeException');
 });
 
-it('refuses a text attribute value of a class AppKit would only fail on when drawing', function (): void {
+it('refuses a colour attribute value of another class, and passes the other attributes through', function (): void {
     $storage = NSTextView::scrollableTextView()->documentView()->textStorage();
     $storage->setAttributedString(NSAttributedString::initWithStringAttributes('styled', []));
     $red = NSColor::colorWithRedGreenBlueAlpha(1.0, 0.0, 0.0, 1.0);
@@ -429,10 +441,16 @@ it('refuses a text attribute value of a class AppKit would only fail on when dra
 
     expect(fn () => $storage->addAttributeValueRange(NSForegroundColorAttributeName, $font, new NSRange(0, 1)))
         ->toThrow(TypeError::class, 'value for NSForegroundColorAttributeName must be an NSColor, NSFont given')
-        ->and(fn () => NSAttributedString::initWithStringAttributes('x', [NSParagraphStyleAttributeName => $red]))
-        ->toThrow(TypeError::class, 'value for NSParagraphStyleAttributeName must be an NSParagraphStyle, NSColor given')
+        ->and(NSAttributedString::initWithStringAttributes('x', [NSParagraphStyleAttributeName => $red])->attributeAtIndexEffectiveRange(NSParagraphStyleAttributeName, 0)[0])
+        ->toBe($red)
+        ->and(NSAttributedString::initWithStringAttributes('x', [NSFontAttributeName => $red])->attributeAtIndexEffectiveRange(NSFontAttributeName, 0)[0])
+        ->toBe($red)
+        ->and(NSAttributedString::initWithStringAttributes('x', [NSLinkAttributeName => $red])->attributeAtIndexEffectiveRange(NSLinkAttributeName, 0)[0])
+        ->toBe($red)
         ->and(fn () => NSAttributedString::initWithStringAttributes('x', [NSForegroundColorAttributeName => 'red']))
         ->toThrow(TypeError::class, 'must be an NSColor, string given')
-        ->and($storage->attributeAtIndex('VenusianAnything', 0)->pointSize())->toBe(12.0)
-        ->and(round($plain->attributeAtIndex('VenusianAnything', 0)->redComponent(), 2))->toBe(1.0);
+        ->and(fn () => NSAttributedString::initWithStringAttributes('x', [NSBackgroundColorAttributeName => 'red']))
+        ->toThrow(TypeError::class, 'value for NSBackgroundColorAttributeName must be an NSColor, string given')
+        ->and($storage->attributeAtIndexEffectiveRange('VenusianAnything', 0)[0]->pointSize())->toBe(12.0)
+        ->and(round($plain->attributeAtIndexEffectiveRange('VenusianAnything', 0)[0]->redComponent(), 2))->toBe(1.0);
 });

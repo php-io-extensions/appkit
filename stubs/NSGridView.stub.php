@@ -15,11 +15,11 @@ enum NSGridCellPlacement: int
 /** Both properties must be set and non-negative where a binding reads it (ValueError otherwise). */
 final class NSRange
 {
-    public int $location = 0;
+    public int $location;
 
-    public int $length = 0;
+    public int $length;
 
-    public function __construct(int $location = 0, int $length = 0) {}
+    public function __construct(int $location, int $length) {}
 }
 
 /**
@@ -34,14 +34,14 @@ class NSGridView extends NSView
     public function numberOfColumns(): int {}
 
     /**
-     * A null element leaves that cell empty.
+     * An empty cell takes NSGridCell::emptyContentView().
      *
      * @param NSView[] $views
      */
     public function addRowWithViews(array $views): NSGridRow {}
 
     /**
-     * A null element leaves that cell empty.
+     * An empty cell takes NSGridCell::emptyContentView().
      *
      * @param NSView[] $views
      */
@@ -50,7 +50,7 @@ class NSGridView extends NSView
     public function removeRowAtIndex(int $index): void {}
 
     /**
-     * A null element leaves that cell empty.
+     * An empty cell takes NSGridCell::emptyContentView().
      *
      * @param NSView[] $views
      */
@@ -78,9 +78,11 @@ class NSGridView extends NSView
  */
 class NSGridCell extends NSObject
 {
+    public static function emptyContentView(): NSView {}
+
     public function contentView(): ?NSView {}
 
-    /** null empties the cell (NSGridCell.emptyContentView), which contentView() reads back as null */
+    /** contentView =; AppKit reads a cell given emptyContentView() back as null. */
     public function setContentView(?NSView $view): void {}
 
     public function xPlacement(): NSGridCellPlacement {}

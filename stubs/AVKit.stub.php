@@ -25,33 +25,40 @@ class NSURL extends NSObject
 
 /**
  * CMTime as a value, field for field: $value / $timescale seconds when FLAG_VALID is set
- * and no infinity or indefinite flag is. Every property must be set where a binding reads it.
+ * and no infinity or indefinite flag is.
  */
 final class CMTime
 {
-    /** CMTimeFlags */
-    public const int FLAG_VALID = 1;
-    public const int FLAG_HAS_BEEN_ROUNDED = 2;
-    public const int FLAG_POSITIVE_INFINITY = 4;
-    public const int FLAG_NEGATIVE_INFINITY = 8;
-    public const int FLAG_INDEFINITE = 16;
+    /** @cvalue kCMTimeFlags_Valid */
+    public const int FLAG_VALID = UNKNOWN;
+    /** @cvalue kCMTimeFlags_HasBeenRounded */
+    public const int FLAG_HAS_BEEN_ROUNDED = UNKNOWN;
+    /** @cvalue kCMTimeFlags_PositiveInfinity */
+    public const int FLAG_POSITIVE_INFINITY = UNKNOWN;
+    /** @cvalue kCMTimeFlags_NegativeInfinity */
+    public const int FLAG_NEGATIVE_INFINITY = UNKNOWN;
+    /** @cvalue kCMTimeFlags_Indefinite */
+    public const int FLAG_INDEFINITE = UNKNOWN;
 
-    public int $value = 0;
+    public int $value;
 
-    public int $timescale = 1;
+    public int $timescale;
 
-    public int $flags = 1;
+    public int $flags;
 
-    public int $epoch = 0;
+    public int $epoch;
 
-    /** The struct as given; with two arguments it is CMTimeMake(value, timescale). */
-    public function __construct(int $value = 0, int $timescale = 1, int $flags = 1, int $epoch = 0) {}
+    /** The struct as given, field for field. */
+    public function __construct(int $value, int $timescale, int $flags, int $epoch) {}
+
+    /** CMTimeMake */
+    public static function make(int $value, int $timescale): CMTime {}
 
     /** CMTimeMakeWithSeconds */
-    public static function withSeconds(float $seconds, int $preferredTimescale): CMTime {}
+    public static function makeWithSeconds(float $seconds, int $preferredTimescale): CMTime {}
 
     /** CMTimeGetSeconds: NaN for an invalid or indefinite time, ±INF for the infinities */
-    public function seconds(): float {}
+    public function getSeconds(): float {}
 }
 
 enum AVPlayerItemStatus: int
@@ -72,8 +79,8 @@ class AVPlayerItem extends NSObject
 
     public function duration(): CMTime {}
 
-    /** The NSError when status is FAILED; description() carries the text. */
-    public function error(): ?NSObject {}
+    /** The NSError when status is FAILED. */
+    public function error(): ?NSError {}
 }
 
 enum AVPlayerTimeControlStatus: int

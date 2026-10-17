@@ -5,9 +5,16 @@ declare(strict_types=1);
 it('finds the main display among the active ones', function (): void {
     $main = CGDisplay::mainDisplayID();
 
+    $countError = CGDisplay::getActiveDisplayList(0, $none, $count);
+    $listError = CGDisplay::getActiveDisplayList($count, $displays, $listed);
+
     expect($main)->toBeGreaterThan(0)
-        ->and(CGDisplay::getActiveDisplayList())->toContain($main)
-        ->and(count(CGDisplay::getActiveDisplayList()))->toBe(count(NSScreen::screens()));
+        ->and([$countError, $listError])->toBe([kCGErrorSuccess, kCGErrorSuccess])
+        ->and($none)->toBe([])
+        ->and($count)->toBe(count(NSScreen::screens()))
+        ->and($listed)->toBe($count)
+        ->and($displays)->toContain($main)
+        ->and($displays)->toHaveCount($count);
 });
 
 it('answers the display bounds the menu-bar screen has', function (): void {
@@ -40,25 +47,26 @@ it('sets the mode the display already runs, a change of nothing', function (): v
     $display = CGDisplay::mainDisplayID();
     $current = CGDisplay::copyDisplayMode($display);
 
-    CGDisplay::setDisplayMode($display, $current);
-
-    expect(CGDisplay::copyDisplayMode($display)->getWidth())->toBe($current->getWidth());
+    expect(CGDisplay::setDisplayMode($display, $current, null))->toBe(kCGErrorSuccess)
+        ->and(CGDisplay::copyDisplayMode($display)->getWidth())->toBe($current->getWidth());
 });
 
 it('captures the display and releases it', function (): void {
     $display = CGDisplay::mainDisplayID();
 
-    CGDisplay::capture($display);
-    CGDisplay::release($display);
+    $captured = CGDisplay::capture($display);
+    $released = CGDisplay::release($display);
 
-    expect(CGDisplay::shieldingWindowLevel())->toBeGreaterThan(NSScreenSaverWindowLevel);
+    expect([$captured, $released])->toBe([kCGErrorSuccess, kCGErrorSuccess])
+        ->and(CGDisplay::shieldingWindowLevel())->toBeGreaterThan(NSScreenSaverWindowLevel);
 });
 
-it('turns a CGError into an AppKitException, and refuses an id that is no display id', function (): void {
+it('answers Core Graphics\' CGError, and refuses an id that is no display id', function (): void {
     $mode = CGDisplay::copyDisplayMode(CGDisplay::mainDisplayID());
 
-    expect(fn () => CGDisplay::release(0xFFFFFFF0))->toThrow(AppKitException::class, 'CGDisplayRelease failed with CGError 1001')
-        ->and(fn () => CGDisplay::setDisplayMode(0xFFFFFFF0, $mode))->toThrow(AppKitException::class, 'CGDisplaySetDisplayMode failed with CGError 1000')
+    expect(CGDisplay::release(0xFFFFFFF0))->toBe(kCGErrorIllegalArgument)
+        ->and(CGDisplay::setDisplayMode(0xFFFFFFF0, $mode, []))->toBe(kCGErrorFailure)
+        ->and(CGDisplay::setDisplayMode(CGDisplay::mainDisplayID(), null, null))->toBe(kCGErrorFailure)
         ->and(CGDisplay::copyDisplayMode(0xFFFFFFF0))->toBeNull()
         ->and(fn () => CGDisplay::bounds(-1))->toThrow(ValueError::class, 'must be a CGDirectDisplayID')
         ->and(fn () => CGDisplay::copyDisplayMode(0x1_0000_0000))->toThrow(ValueError::class, 'must be a CGDirectDisplayID');

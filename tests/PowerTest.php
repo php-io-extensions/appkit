@@ -23,17 +23,26 @@ it('carries the Foundation values of the activity options', function (): void {
 });
 
 it('takes a power assertion against display sleep and releases it', function (): void {
-    $assertion = IOPMAssertion::createWithName(kIOPMAssertionTypePreventUserIdleDisplaySleep, kIOPMAssertionLevelOn, 'appkit test');
+    $created = IOPMAssertion::createWithName(kIOPMAssertionTypePreventUserIdleDisplaySleep, kIOPMAssertionLevelOn, 'appkit test', $assertion);
 
-    expect($assertion)->toBeGreaterThan(0)
+    expect($created)->toBe(kIOReturnSuccess)
+        ->and($assertion)->toBeGreaterThan(0)
         ->and([kIOPMAssertionTypePreventUserIdleSystemSleep, kIOPMAssertionTypePreventSystemSleep, kIOPMAssertionLevelOff, kIOPMAssertionLevelOn])
-        ->toBe(['PreventUserIdleSystemSleep', 'PreventSystemSleep', 0, 255]);
+        ->toBe(['PreventUserIdleSystemSleep', 'PreventSystemSleep', 0, 255])
+        ->and(kIOPMAssertionTypePreventUserIdleDisplaySleep)->toBe('PreventUserIdleDisplaySleep')
+        ->and(kIOReturnSuccess)->toBe(0);
 
-    IOPMAssertion::release($assertion);
-    expect(fn () => IOPMAssertion::release($assertion))->toThrow(AppKitException::class, 'IOPMAssertionRelease failed with IOReturn');
+    // A second release answers kIOReturnBadArgument (0xE00002C2), as IOReturn's signed int.
+    expect(IOPMAssertion::release($assertion))->toBe(kIOReturnSuccess)
+        ->and(IOPMAssertion::release($assertion))->toBe(-536870206);
 });
 
-it('refuses a level that is neither on nor off', function (): void {
-    expect(fn () => IOPMAssertion::createWithName(kIOPMAssertionTypePreventUserIdleSystemSleep, 7, 'x'))
-        ->toThrow(ValueError::class, 'must be kIOPMAssertionLevelOff or kIOPMAssertionLevelOn');
+it('passes any level to IOKit, which takes 7 as well', function (): void {
+    $created = IOPMAssertion::createWithName(kIOPMAssertionTypePreventUserIdleSystemSleep, 7, 'appkit test', $assertion);
+
+    expect($created)->toBe(kIOReturnSuccess)
+        ->and($assertion)->toBeGreaterThan(0)
+        ->and(IOPMAssertion::release($assertion))->toBe(kIOReturnSuccess)
+        ->and(IOPMAssertion::createWithName(kIOPMAssertionTypePreventUserIdleSystemSleep, kIOPMAssertionLevelOff, 'appkit test', $off))->toBe(kIOReturnSuccess)
+        ->and(IOPMAssertion::release($off))->toBe(kIOReturnSuccess);
 });

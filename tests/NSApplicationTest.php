@@ -75,12 +75,12 @@ it('runs its own loop until stopped from inside it', function (): void {
     [$read, $write] = stream_socket_pair(STREAM_PF_UNIX, STREAM_SOCK_STREAM, 0);
     $app = $this->app;
 
-    $fd = CFFileDescriptor::create($read, false, function () use ($app): void {
+    $fd = CFFileDescriptor::create(null, streamDescriptor($read), false, function () use ($app): void {
         $app->stop(null);
         $app->postEventAtStart(applicationDefined(), false);
     });
     $fd->enableCallBacks(kCFFileDescriptorReadCallBack);
-    $source = $fd->createRunLoopSource(0);
+    $source = $fd->createRunLoopSource(null, 0);
     CFRunLoop::getMain()->addSource($source, kCFRunLoopCommonModes);
 
     fwrite($write, 'x');

@@ -8,9 +8,15 @@ void appkit_register_NSLayout(void)
 	appkit_ce_NSLayoutAnchor = register_class_NSLayoutAnchor(appkit_ce_NSObject);
 	appkit_object_setup(appkit_ce_NSLayoutAnchor);
 	appkit_map_objc_class("NSLayoutAnchor", appkit_ce_NSLayoutAnchor);
-	appkit_map_objc_class("NSLayoutDimension", appkit_ce_NSLayoutAnchor);
-	appkit_map_objc_class("NSLayoutXAxisAnchor", appkit_ce_NSLayoutAnchor);
-	appkit_map_objc_class("NSLayoutYAxisAnchor", appkit_ce_NSLayoutAnchor);
+	appkit_ce_NSLayoutDimension = register_class_NSLayoutDimension(appkit_ce_NSLayoutAnchor);
+	appkit_object_setup(appkit_ce_NSLayoutDimension);
+	appkit_map_objc_class("NSLayoutDimension", appkit_ce_NSLayoutDimension);
+	appkit_ce_NSLayoutXAxisAnchor = register_class_NSLayoutXAxisAnchor(appkit_ce_NSLayoutAnchor);
+	appkit_object_setup(appkit_ce_NSLayoutXAxisAnchor);
+	appkit_map_objc_class("NSLayoutXAxisAnchor", appkit_ce_NSLayoutXAxisAnchor);
+	appkit_ce_NSLayoutYAxisAnchor = register_class_NSLayoutYAxisAnchor(appkit_ce_NSLayoutAnchor);
+	appkit_object_setup(appkit_ce_NSLayoutYAxisAnchor);
+	appkit_map_objc_class("NSLayoutYAxisAnchor", appkit_ce_NSLayoutYAxisAnchor);
 
 	appkit_ce_NSLayoutConstraint = register_class_NSLayoutConstraint(appkit_ce_NSObject);
 	appkit_object_setup(appkit_ce_NSLayoutConstraint);
@@ -36,13 +42,9 @@ bool appkit_edge_insets_from(zend_object *insets, uint32_t arg_num, NSEdgeInsets
 
 ZEND_METHOD(NSEdgeInsets, __construct)
 {
-	double top = 0.0;
-	double left = 0.0;
-	double bottom = 0.0;
-	double right = 0.0;
+	double top, left, bottom, right;
 
-	ZEND_PARSE_PARAMETERS_START(0, 4)
-		Z_PARAM_OPTIONAL
+	ZEND_PARSE_PARAMETERS_START(4, 4)
 		Z_PARAM_DOUBLE(top)
 		Z_PARAM_DOUBLE(left)
 		Z_PARAM_DOUBLE(bottom)
@@ -121,19 +123,7 @@ APPKIT_ANCHOR_TO_ANCHOR_CONSTANT(constraintGreaterThanOrEqualToAnchorConstant, c
 APPKIT_ANCHOR_TO_ANCHOR(constraintLessThanOrEqualToAnchor, constraintLessThanOrEqualToAnchor)
 APPKIT_ANCHOR_TO_ANCHOR_CONSTANT(constraintLessThanOrEqualToAnchorConstant, constraintLessThanOrEqualToAnchor)
 
-/* Only an NSLayoutDimension answers the constant-only constraints; an axis anchor would raise NSInvalidArgumentException. */
-static bool appkit_require_dimension(zend_execute_data *execute_data)
-{
-	if ([THIS_ANCHOR isKindOfClass:[NSLayoutDimension class]]) {
-		return true;
-	}
-
-	zend_throw_exception_ex(appkit_ce_AppKitException, 0, "NSLayoutAnchor::%s() needs a dimension anchor (widthAnchor or heightAnchor), %s given",
-		ZSTR_VAL(EX(func)->common.function_name), object_getClassName(THIS_ANCHOR));
-	return false;
-}
-
-ZEND_METHOD(NSLayoutAnchor, constraintEqualToConstant)
+ZEND_METHOD(NSLayoutDimension, constraintEqualToConstant)
 {
 	double constant;
 
@@ -141,16 +131,13 @@ ZEND_METHOD(NSLayoutAnchor, constraintEqualToConstant)
 		Z_PARAM_DOUBLE(constant)
 	ZEND_PARSE_PARAMETERS_END();
 	APPKIT_REQUIRE_MAIN_THREAD();
-	if (!appkit_require_dimension(execute_data)) {
-		RETURN_THROWS();
-	}
 
 	APPKIT_BEGIN
 		appkit_box_objc(return_value, [(NSLayoutDimension *) THIS_ANCHOR constraintEqualToConstant:constant]);
 	APPKIT_END
 }
 
-ZEND_METHOD(NSLayoutAnchor, constraintGreaterThanOrEqualToConstant)
+ZEND_METHOD(NSLayoutDimension, constraintGreaterThanOrEqualToConstant)
 {
 	double constant;
 
@@ -158,16 +145,13 @@ ZEND_METHOD(NSLayoutAnchor, constraintGreaterThanOrEqualToConstant)
 		Z_PARAM_DOUBLE(constant)
 	ZEND_PARSE_PARAMETERS_END();
 	APPKIT_REQUIRE_MAIN_THREAD();
-	if (!appkit_require_dimension(execute_data)) {
-		RETURN_THROWS();
-	}
 
 	APPKIT_BEGIN
 		appkit_box_objc(return_value, [(NSLayoutDimension *) THIS_ANCHOR constraintGreaterThanOrEqualToConstant:constant]);
 	APPKIT_END
 }
 
-ZEND_METHOD(NSLayoutAnchor, constraintLessThanOrEqualToConstant)
+ZEND_METHOD(NSLayoutDimension, constraintLessThanOrEqualToConstant)
 {
 	double constant;
 
@@ -175,9 +159,6 @@ ZEND_METHOD(NSLayoutAnchor, constraintLessThanOrEqualToConstant)
 		Z_PARAM_DOUBLE(constant)
 	ZEND_PARSE_PARAMETERS_END();
 	APPKIT_REQUIRE_MAIN_THREAD();
-	if (!appkit_require_dimension(execute_data)) {
-		RETURN_THROWS();
-	}
 
 	APPKIT_BEGIN
 		appkit_box_objc(return_value, [(NSLayoutDimension *) THIS_ANCHOR constraintLessThanOrEqualToConstant:constant]);
@@ -209,7 +190,6 @@ ZEND_METHOD(NSLayoutConstraint, activateConstraints)
 	ZEND_PARSE_PARAMETERS_START(1, 1)
 		Z_PARAM_ARRAY_HT(ht)
 	ZEND_PARSE_PARAMETERS_END();
-	APPKIT_REQUIRE_MAIN_THREAD();
 
 	APPKIT_BEGIN
 		NSArray *constraints = appkit_constraints_from(ht, 1);
@@ -227,7 +207,6 @@ ZEND_METHOD(NSLayoutConstraint, deactivateConstraints)
 	ZEND_PARSE_PARAMETERS_START(1, 1)
 		Z_PARAM_ARRAY_HT(ht)
 	ZEND_PARSE_PARAMETERS_END();
-	APPKIT_REQUIRE_MAIN_THREAD();
 
 	APPKIT_BEGIN
 		NSArray *constraints = appkit_constraints_from(ht, 1);
@@ -241,7 +220,6 @@ ZEND_METHOD(NSLayoutConstraint, deactivateConstraints)
 ZEND_METHOD(NSLayoutConstraint, isActive)
 {
 	ZEND_PARSE_PARAMETERS_NONE();
-	APPKIT_REQUIRE_MAIN_THREAD();
 
 	APPKIT_BEGIN
 		RETURN_BOOL([THIS_CONSTRAINT isActive]);
@@ -255,7 +233,6 @@ ZEND_METHOD(NSLayoutConstraint, setActive)
 	ZEND_PARSE_PARAMETERS_START(1, 1)
 		Z_PARAM_BOOL(active)
 	ZEND_PARSE_PARAMETERS_END();
-	APPKIT_REQUIRE_MAIN_THREAD();
 
 	APPKIT_BEGIN
 		[THIS_CONSTRAINT setActive:active];
@@ -265,7 +242,6 @@ ZEND_METHOD(NSLayoutConstraint, setActive)
 ZEND_METHOD(NSLayoutConstraint, constant)
 {
 	ZEND_PARSE_PARAMETERS_NONE();
-	APPKIT_REQUIRE_MAIN_THREAD();
 
 	APPKIT_BEGIN
 		RETURN_DOUBLE([THIS_CONSTRAINT constant]);
@@ -279,7 +255,6 @@ ZEND_METHOD(NSLayoutConstraint, setConstant)
 	ZEND_PARSE_PARAMETERS_START(1, 1)
 		Z_PARAM_DOUBLE(constant)
 	ZEND_PARSE_PARAMETERS_END();
-	APPKIT_REQUIRE_MAIN_THREAD();
 
 	APPKIT_BEGIN
 		[THIS_CONSTRAINT setConstant:constant];
@@ -289,7 +264,6 @@ ZEND_METHOD(NSLayoutConstraint, setConstant)
 ZEND_METHOD(NSLayoutConstraint, priority)
 {
 	ZEND_PARSE_PARAMETERS_NONE();
-	APPKIT_REQUIRE_MAIN_THREAD();
 
 	APPKIT_BEGIN
 		RETURN_DOUBLE([THIS_CONSTRAINT priority]);
@@ -303,7 +277,6 @@ ZEND_METHOD(NSLayoutConstraint, setPriority)
 	ZEND_PARSE_PARAMETERS_START(1, 1)
 		Z_PARAM_DOUBLE(priority)
 	ZEND_PARSE_PARAMETERS_END();
-	APPKIT_REQUIRE_MAIN_THREAD();
 
 	APPKIT_BEGIN
 		[THIS_CONSTRAINT setPriority:(NSLayoutPriority) priority];

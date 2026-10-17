@@ -84,7 +84,6 @@ ZEND_METHOD(NSFont, familyName)
 ZEND_METHOD(NSFontManager, sharedFontManager)
 {
 	ZEND_PARSE_PARAMETERS_NONE();
-	APPKIT_REQUIRE_MAIN_THREAD();
 
 	APPKIT_BEGIN
 		appkit_box_objc(return_value, [NSFontManager sharedFontManager]);
@@ -103,7 +102,6 @@ ZEND_METHOD(NSFontManager, fontWithFamilyTraitsWeightSize)
 		Z_PARAM_LONG(weight)
 		Z_PARAM_DOUBLE(size)
 	ZEND_PARSE_PARAMETERS_END();
-	APPKIT_REQUIRE_MAIN_THREAD();
 
 	APPKIT_BEGIN
 		appkit_box_objc(return_value, [THIS_FONT_MANAGER fontWithFamily:appkit_nsstring(family) traits:(NSFontTraitMask) traits weight:(NSInteger) weight size:size]);
@@ -117,7 +115,6 @@ ZEND_METHOD(NSFontManager, weightOfFont)
 	ZEND_PARSE_PARAMETERS_START(1, 1)
 		Z_PARAM_OBJ_OF_CLASS(font, appkit_ce_NSFont)
 	ZEND_PARSE_PARAMETERS_END();
-	APPKIT_REQUIRE_MAIN_THREAD();
 
 	APPKIT_BEGIN
 		RETURN_LONG((zend_long) [THIS_FONT_MANAGER weightOfFont:(NSFont *) APPKIT_ID(font)]);

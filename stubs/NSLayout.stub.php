@@ -4,15 +4,15 @@
 
 final class NSEdgeInsets
 {
-    public float $top = 0.0;
+    public float $top;
 
-    public float $left = 0.0;
+    public float $left;
 
-    public float $bottom = 0.0;
+    public float $bottom;
 
-    public float $right = 0.0;
+    public float $right;
 
-    public function __construct(float $top = 0.0, float $left = 0.0, float $bottom = 0.0, float $right = 0.0) {}
+    public function __construct(float $top, float $left, float $bottom, float $right) {}
 }
 
 /**
@@ -31,15 +31,32 @@ class NSLayoutAnchor extends NSObject
     public function constraintLessThanOrEqualToAnchor(NSLayoutAnchor $anchor): NSLayoutConstraint {}
 
     public function constraintLessThanOrEqualToAnchorConstant(NSLayoutAnchor $anchor, float $constant): NSLayoutConstraint {}
+}
 
-    /** NSLayoutDimension only; throws AppKitException on an axis anchor */
-    public function constraintEqualToConstant(float $constant): NSLayoutConstraint {}
+/**
+ * @not-serializable
+ */
+class NSLayoutDimension extends NSLayoutAnchor
+{
+    public function constraintEqualToConstant(float $c): NSLayoutConstraint {}
 
-    /** NSLayoutDimension only */
-    public function constraintGreaterThanOrEqualToConstant(float $constant): NSLayoutConstraint {}
+    public function constraintGreaterThanOrEqualToConstant(float $c): NSLayoutConstraint {}
 
-    /** NSLayoutDimension only */
-    public function constraintLessThanOrEqualToConstant(float $constant): NSLayoutConstraint {}
+    public function constraintLessThanOrEqualToConstant(float $c): NSLayoutConstraint {}
+}
+
+/**
+ * @not-serializable
+ */
+class NSLayoutXAxisAnchor extends NSLayoutAnchor
+{
+}
+
+/**
+ * @not-serializable
+ */
+class NSLayoutYAxisAnchor extends NSLayoutAnchor
+{
 }
 
 /**

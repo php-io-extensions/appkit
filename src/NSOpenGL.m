@@ -43,6 +43,28 @@ void appkit_register_NSOpenGL(int module_number)
 
 /* ---- NSOpenGLPixelFormat ------------------------------------------------- */
 
+/* The attributes NSOpenGLPixelFormat.h documents as followed by a value. */
+static bool appkit_pixel_format_takes_value(NSOpenGLPixelFormatAttribute attribute)
+{
+	switch (attribute) {
+		case NSOpenGLPFAAuxBuffers:
+		case NSOpenGLPFAColorSize:
+		case NSOpenGLPFAAlphaSize:
+		case NSOpenGLPFADepthSize:
+		case NSOpenGLPFAStencilSize:
+		case NSOpenGLPFAAccumSize:
+		case NSOpenGLPFASampleBuffers:
+		case NSOpenGLPFASamples:
+		case NSOpenGLPFARendererID:
+		case NSOpenGLPFAScreenMask:
+		case NSOpenGLPFAVirtualScreenCount:
+		case NSOpenGLPFAOpenGLProfile:
+			return true;
+		default:
+			return false;
+	}
+}
+
 ZEND_METHOD(NSOpenGLPixelFormat, initWithAttributes)
 {
 	HashTable *list;
@@ -65,9 +87,20 @@ ZEND_METHOD(NSOpenGLPixelFormat, initWithAttributes)
 		}
 		attribs[at++] = (NSOpenGLPixelFormatAttribute) Z_LVAL_P(entry);
 	} ZEND_HASH_FOREACH_END();
-	if (count == 0 || attribs[count - 1] != 0) {
+	/* The list ends at its first 0 (one is always appended); a value-taking attribute needs its value before that. */
+	bool value_missing = false;
+	for (uint32_t i = 0; i < count && attribs[i] != 0; i++) {
+		if (appkit_pixel_format_takes_value(attribs[i])) {
+			if (i + 1 >= count) {
+				value_missing = true;
+				break;
+			}
+			i++;
+		}
+	}
+	if (!APPKIT_PROBE_OFF("pixel-format-value") && (value_missing)) {
 		efree(attribs);
-		zend_argument_value_error(1, "must end in 0");
+		zend_argument_value_error(1, "must give a value after its last attribute, which takes one"); /* binding:pixel-format-value */
 		RETURN_THROWS();
 	}
 
@@ -152,7 +185,6 @@ ZEND_METHOD(NSOpenGLContext, flushBuffer)
 ZEND_METHOD(NSOpenGLContext, update)
 {
 	ZEND_PARSE_PARAMETERS_NONE();
-	APPKIT_REQUIRE_MAIN_THREAD();
 
 	APPKIT_BEGIN
 		[THIS_CONTEXT update];
@@ -175,7 +207,6 @@ ZEND_METHOD(NSOpenGLContext, setView)
 	ZEND_PARSE_PARAMETERS_START(1, 1)
 		Z_PARAM_OBJ_OF_CLASS_OR_NULL(view, appkit_ce_NSView)
 	ZEND_PARSE_PARAMETERS_END();
-	APPKIT_REQUIRE_MAIN_THREAD();
 
 	APPKIT_BEGIN
 		[THIS_CONTEXT setView:view != NULL ? (NSView *) APPKIT_ID(view) : nil];
@@ -201,10 +232,6 @@ ZEND_METHOD(NSOpenGLView, initWithFramePixelFormat)
 	APPKIT_BEGIN
 		NSOpenGLView *view = [[(Class) appkit_called_class(execute_data) alloc]
 			initWithFrame:rect pixelFormat:format_obj != NULL ? (NSOpenGLPixelFormat *) APPKIT_ID(format_obj) : nil];
-		if (view == nil) {
-			zend_throw_exception(appkit_ce_AppKitException, "NSOpenGLView made no view for that pixel format", 0);
-			RETURN_THROWS();
-		}
 		appkit_box_objc(return_value, view);
 		[view release];
 	APPKIT_END
@@ -275,7 +302,6 @@ ZEND_METHOD(NSOpenGLContext, setValuesForParameter)
 		Z_PARAM_ARRAY_HT(values)
 		Z_PARAM_OBJ_OF_CLASS(parameter, appkit_ce_NSOpenGLContextParameter)
 	ZEND_PARSE_PARAMETERS_END();
-	APPKIT_REQUIRE_MAIN_THREAD();
 
 	if (zend_hash_num_elements(values) > APPKIT_GL_PARAMETER_MAX) {
 		zend_argument_value_error(1, "must hold at most %d ints", APPKIT_GL_PARAMETER_MAX);
@@ -304,7 +330,6 @@ ZEND_METHOD(NSOpenGLContext, getValuesForParameter)
 		Z_PARAM_OBJ_OF_CLASS(parameter, appkit_ce_NSOpenGLContextParameter)
 		Z_PARAM_LONG(count)
 	ZEND_PARSE_PARAMETERS_END();
-	APPKIT_REQUIRE_MAIN_THREAD();
 
 	if (count < 1 || count > APPKIT_GL_PARAMETER_MAX) {
 		zend_argument_value_error(2, "must be between 1 and %d", APPKIT_GL_PARAMETER_MAX);

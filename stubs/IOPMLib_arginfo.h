@@ -1,5 +1,5 @@
 /* This is a generated file, edit the .stub.php file instead.
- * Stub hash: 255f57461c6fb66706947d70d393083c5332a9de */
+ * Stub hash: e054b05ef2c32e74c3f33271c414dec7ebcf2e90 */
 
 ZEND_BEGIN_ARG_INFO_EX(arginfo_class_IOPMAssertion___construct, 0, 0, 0)
 ZEND_END_ARG_INFO()
@@ -8,9 +8,10 @@ ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_IOPMAssertion_createWithNa
 	ZEND_ARG_TYPE_INFO(0, type, IS_STRING, 0)
 	ZEND_ARG_TYPE_INFO(0, level, IS_LONG, 0)
 	ZEND_ARG_TYPE_INFO(0, name, IS_STRING, 0)
+	ZEND_ARG_TYPE_INFO_WITH_DEFAULT_VALUE(1, assertionID, IS_LONG, 1, "null")
 ZEND_END_ARG_INFO()
 
-ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_IOPMAssertion_release, 0, 1, IS_VOID, 0)
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_IOPMAssertion_release, 0, 1, IS_LONG, 0)
 	ZEND_ARG_TYPE_INFO(0, assertion, IS_LONG, 0)
 ZEND_END_ARG_INFO()
 
@@ -27,11 +28,12 @@ static const zend_function_entry class_IOPMAssertion_methods[] = {
 
 static void register_IOPMLib_symbols(int module_number)
 {
-	REGISTER_STRING_CONSTANT("kIOPMAssertionTypePreventUserIdleSystemSleep", "PreventUserIdleSystemSleep", CONST_PERSISTENT);
-	REGISTER_STRING_CONSTANT("kIOPMAssertionTypePreventUserIdleDisplaySleep", "PreventUserIdleDisplaySleep", CONST_PERSISTENT);
-	REGISTER_STRING_CONSTANT("kIOPMAssertionTypePreventSystemSleep", "PreventSystemSleep", CONST_PERSISTENT);
-	REGISTER_LONG_CONSTANT("kIOPMAssertionLevelOff", 0, CONST_PERSISTENT);
-	REGISTER_LONG_CONSTANT("kIOPMAssertionLevelOn", 255, CONST_PERSISTENT);
+	REGISTER_STRING_CONSTANT("kIOPMAssertionTypePreventUserIdleSystemSleep", appkit_cfstring_constant(kIOPMAssertionTypePreventUserIdleSystemSleep), CONST_PERSISTENT);
+	REGISTER_STRING_CONSTANT("kIOPMAssertionTypePreventUserIdleDisplaySleep", appkit_cfstring_constant(kIOPMAssertionTypePreventUserIdleDisplaySleep), CONST_PERSISTENT);
+	REGISTER_STRING_CONSTANT("kIOPMAssertionTypePreventSystemSleep", appkit_cfstring_constant(kIOPMAssertionTypePreventSystemSleep), CONST_PERSISTENT);
+	REGISTER_LONG_CONSTANT("kIOPMAssertionLevelOff", kIOPMAssertionLevelOff, CONST_PERSISTENT);
+	REGISTER_LONG_CONSTANT("kIOPMAssertionLevelOn", kIOPMAssertionLevelOn, CONST_PERSISTENT);
+	REGISTER_LONG_CONSTANT("kIOReturnSuccess", kIOReturnSuccess, CONST_PERSISTENT);
 }
 
 static zend_class_entry *register_class_IOPMAssertion(void)

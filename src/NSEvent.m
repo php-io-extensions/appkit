@@ -24,7 +24,7 @@ ZEND_METHOD(NSEvent, otherEventWithTypeLocationModifierFlagsTimestampWindowNumbe
 	zend_long flags_long = 0;
 	double timestamp;
 	zend_long window_number;
-	zend_object *unused_pass_nil = NULL;
+	zend_object *context = NULL;
 	zend_long subtype;
 	zend_long data1;
 	zend_long data2;
@@ -35,7 +35,7 @@ ZEND_METHOD(NSEvent, otherEventWithTypeLocationModifierFlagsTimestampWindowNumbe
 		Z_PARAM_OBJ_OF_CLASS_OR_LONG(flags_case, appkit_ce_NSEventModifierFlags, flags_long)
 		Z_PARAM_DOUBLE(timestamp)
 		Z_PARAM_LONG(window_number)
-		Z_PARAM_OBJ_OF_CLASS_OR_NULL(unused_pass_nil, appkit_ce_NSObject)
+		Z_PARAM_OBJ_OF_CLASS_OR_NULL(context, appkit_ce_NSGraphicsContext)
 		Z_PARAM_LONG(subtype)
 		Z_PARAM_LONG(data1)
 		Z_PARAM_LONG(data2)
@@ -62,7 +62,7 @@ ZEND_METHOD(NSEvent, otherEventWithTypeLocationModifierFlagsTimestampWindowNumbe
 			modifierFlags:(NSEventModifierFlags) appkit_enum_value(flags_case, flags_long)
 			timestamp:timestamp
 			windowNumber:(NSInteger) window_number
-			context:(unused_pass_nil != NULL ? APPKIT_ID(unused_pass_nil) : nil)
+			context:(context != NULL ? APPKIT_ID(context) : nil)
 			subtype:(short) subtype
 			data1:(NSInteger) data1
 			data2:(NSInteger) data2];
@@ -79,7 +79,7 @@ ZEND_METHOD(NSEvent, mouseEventWithTypeLocationModifierFlagsTimestampWindowNumbe
 	zend_long flags_long = 0;
 	double timestamp;
 	zend_long window_number;
-	zend_object *unused_pass_nil = NULL;
+	zend_object *context = NULL;
 	zend_long event_number;
 	zend_long click_count;
 	double pressure;
@@ -91,7 +91,7 @@ ZEND_METHOD(NSEvent, mouseEventWithTypeLocationModifierFlagsTimestampWindowNumbe
 		Z_PARAM_OBJ_OF_CLASS_OR_LONG(flags_case, appkit_ce_NSEventModifierFlags, flags_long)
 		Z_PARAM_DOUBLE(timestamp)
 		Z_PARAM_LONG(window_number)
-		Z_PARAM_OBJ_OF_CLASS_OR_NULL(unused_pass_nil, appkit_ce_NSObject)
+		Z_PARAM_OBJ_OF_CLASS_OR_NULL(context, appkit_ce_NSGraphicsContext)
 		Z_PARAM_LONG(event_number)
 		Z_PARAM_LONG(click_count)
 		Z_PARAM_DOUBLE(pressure)
@@ -106,7 +106,7 @@ ZEND_METHOD(NSEvent, mouseEventWithTypeLocationModifierFlagsTimestampWindowNumbe
 			modifierFlags:(NSEventModifierFlags) appkit_enum_value(flags_case, flags_long)
 			timestamp:timestamp
 			windowNumber:(NSInteger) window_number
-			context:(unused_pass_nil != NULL ? APPKIT_ID(unused_pass_nil) : nil)
+			context:(context != NULL ? APPKIT_ID(context) : nil)
 			eventNumber:(NSInteger) event_number
 			clickCount:(NSInteger) click_count
 			pressure:(float) pressure];
@@ -208,7 +208,7 @@ ZEND_METHOD(NSEvent, keyEventWithTypeLocationModifierFlagsTimestampWindowNumberC
 	zend_long flags_long = 0;
 	double timestamp;
 	zend_long window_number;
-	zend_object *unused_pass_nil = NULL;
+	zend_object *context = NULL;
 	zend_string *keys;
 	zend_string *ukeys;
 	bool repeat;
@@ -221,7 +221,7 @@ ZEND_METHOD(NSEvent, keyEventWithTypeLocationModifierFlagsTimestampWindowNumberC
 		Z_PARAM_OBJ_OF_CLASS_OR_LONG(flags_case, appkit_ce_NSEventModifierFlags, flags_long)
 		Z_PARAM_DOUBLE(timestamp)
 		Z_PARAM_LONG(window_number)
-		Z_PARAM_OBJ_OF_CLASS_OR_NULL(unused_pass_nil, appkit_ce_NSObject)
+		Z_PARAM_OBJ_OF_CLASS_OR_NULL(context, appkit_ce_NSGraphicsContext)
 		Z_PARAM_STR(keys)
 		Z_PARAM_STR(ukeys)
 		Z_PARAM_BOOL(repeat)
@@ -242,7 +242,7 @@ ZEND_METHOD(NSEvent, keyEventWithTypeLocationModifierFlagsTimestampWindowNumberC
 			modifierFlags:(NSEventModifierFlags) appkit_enum_value(flags_case, flags_long)
 			timestamp:timestamp
 			windowNumber:(NSInteger) window_number
-			context:(unused_pass_nil != NULL ? APPKIT_ID(unused_pass_nil) : nil)
+			context:(context != NULL ? APPKIT_ID(context) : nil)
 			characters:appkit_nsstring(keys)
 			charactersIgnoringModifiers:appkit_nsstring(ukeys)
 			isARepeat:repeat
@@ -250,18 +250,85 @@ ZEND_METHOD(NSEvent, keyEventWithTypeLocationModifierFlagsTimestampWindowNumberC
 	APPKIT_END
 }
 
-METHOD(NSEvent, eventWithCGEvent, PARSE_OBJ(appkit_ce_CGEvent), appkit_box_objc(return_value, [NSEvent eventWithCGEvent:(CGEventRef) APPKIT_CF(v)]);)
-METHOD(NSEvent, mouseLocation, PARSE_NONE, appkit_return_point(return_value, [NSEvent mouseLocation]);)
-METHOD(NSEvent, pressedMouseButtons, PARSE_NONE, RETURN_LONG((zend_long) [NSEvent pressedMouseButtons]);)
-LONG_GET(NSEvent, NSEvent, keyCode, keyCode)
-STR_GET_OR_NULL(NSEvent, NSEvent, characters, characters)
-STR_GET_OR_NULL(NSEvent, NSEvent, charactersIgnoringModifiers, charactersIgnoringModifiers)
-BOOL_GET(NSEvent, NSEvent, isARepeat, isARepeat)
-LONG_GET(NSEvent, NSEvent, clickCount, clickCount)
-DOUBLE_GET(NSEvent, NSEvent, deltaX, deltaX)
-DOUBLE_GET(NSEvent, NSEvent, deltaY, deltaY)
-DOUBLE_GET(NSEvent, NSEvent, scrollingDeltaX, scrollingDeltaX)
-DOUBLE_GET(NSEvent, NSEvent, scrollingDeltaY, scrollingDeltaY)
-BOOL_GET(NSEvent, NSEvent, hasPreciseScrollingDeltas, hasPreciseScrollingDeltas)
-BOOL_GET(NSEvent, NSEvent, isDirectionInvertedFromDevice, isDirectionInvertedFromDevice)
-OBJ_GET(NSEvent, NSEvent, window, window)
+ANY_METHOD(NSEvent, eventWithCGEvent, PARSE_OBJ(appkit_ce_CGEvent), appkit_box_objc(return_value, [NSEvent eventWithCGEvent:(CGEventRef) APPKIT_CF(v)]);)
+ANY_METHOD(NSEvent, mouseLocation, PARSE_NONE, appkit_return_point(return_value, [NSEvent mouseLocation]);)
+ANY_METHOD(NSEvent, pressedMouseButtons, PARSE_NONE, RETURN_LONG((zend_long) [NSEvent pressedMouseButtons]);)
+ANY_LONG_GET(NSEvent, NSEvent, keyCode, keyCode)
+ANY_STR_GET_OR_NULL(NSEvent, NSEvent, characters, characters)
+ANY_STR_GET_OR_NULL(NSEvent, NSEvent, charactersIgnoringModifiers, charactersIgnoringModifiers)
+ANY_BOOL_GET(NSEvent, NSEvent, isARepeat, isARepeat)
+ANY_LONG_GET(NSEvent, NSEvent, clickCount, clickCount)
+ANY_DOUBLE_GET(NSEvent, NSEvent, deltaX, deltaX)
+ANY_DOUBLE_GET(NSEvent, NSEvent, deltaY, deltaY)
+ANY_DOUBLE_GET(NSEvent, NSEvent, scrollingDeltaX, scrollingDeltaX)
+ANY_DOUBLE_GET(NSEvent, NSEvent, scrollingDeltaY, scrollingDeltaY)
+ANY_BOOL_GET(NSEvent, NSEvent, hasPreciseScrollingDeltas, hasPreciseScrollingDeltas)
+ANY_BOOL_GET(NSEvent, NSEvent, isDirectionInvertedFromDevice, isDirectionInvertedFromDevice)
+ANY_OBJ_GET(NSEvent, NSEvent, window, window)
+
+/* Monitors already removed: a second +removeMonitor: of one crashes AppKit. Weak, so a freed monitor's address can be reused. */
+static NSHashTable *appkit_removed_monitors;
+
+static void appkit_monitor_removed(id monitor)
+{
+	if (appkit_removed_monitors == nil) {
+		appkit_removed_monitors = [[NSHashTable weakObjectsHashTable] retain];
+	}
+	[appkit_removed_monitors addObject:monitor];
+}
+
+ZEND_METHOD(NSEvent, addLocalMonitorForEventsMatchingMaskHandler)
+{
+	zend_object *mask_case = NULL;
+	zend_long mask_long = 0;
+	zval *handler;
+
+	ZEND_PARSE_PARAMETERS_START(2, 2)
+		Z_PARAM_OBJ_OF_CLASS_OR_LONG(mask_case, appkit_ce_NSEventMask, mask_long)
+		Z_PARAM_ZVAL(handler)
+	ZEND_PARSE_PARAMETERS_END();
+	APPKIT_REQUIRE_MAIN_THREAD();
+
+	if (!zend_is_callable(handler, 0, NULL)) {
+		zend_argument_type_error(2, "must be a valid callback");
+		RETURN_THROWS();
+	}
+
+	APPKIT_BEGIN
+		PHPAppKitBlockCallout *holder = [[[PHPAppKitBlockCallout alloc] init] autorelease];
+		/* No detach: after request end the callout is inert and the block hands AppKit its event back. */
+		holder->callout = appkit_callout_new(handler, NULL);
+		appkit_callout_retain(holder->callout);
+
+		id monitor = [NSEvent addLocalMonitorForEventsMatchingMask:(NSEventMask) appkit_enum_value(mask_case, mask_long) handler:^NSEvent *(NSEvent *event) {
+			zval argv[1], retval;
+			NSEvent *out = event;
+
+			appkit_box_objc(&argv[0], event);
+			if (appkit_callout_call(holder->callout, 1, argv, &retval)) {
+				/* The handler's NSEvent, or nil for its null; any other return has no NSEvent form, so AppKit gets its own event, as when the handler did not run. */
+				if (Z_TYPE(retval) == IS_NULL) {
+					out = nil;
+				} else if (Z_TYPE(retval) == IS_OBJECT && instanceof_function(Z_OBJCE(retval), appkit_ce_NSEvent)) {
+					out = [[(NSEvent *) APPKIT_ID(Z_OBJ(retval)) retain] autorelease];
+				}
+			}
+			zval_ptr_dtor(&retval);
+			zval_ptr_dtor(&argv[0]);
+
+			return out;
+		}];
+		appkit_box_objc(return_value, monitor);
+	APPKIT_END
+}
+
+METHOD(NSEvent, removeMonitor, PARSE_OBJ(appkit_ce_NSObject),
+	id monitor = APPKIT_ID(v);
+	if (!APPKIT_PROBE_OFF("monitor-remove-once") && ([appkit_removed_monitors containsObject:monitor])) {
+		zend_argument_value_error(1, "is a monitor already removed"); /* binding:monitor-remove-once */
+		RETURN_THROWS();
+	}
+	[[monitor retain] autorelease];
+	[NSEvent removeMonitor:monitor];
+	appkit_monitor_removed(monitor);
+)

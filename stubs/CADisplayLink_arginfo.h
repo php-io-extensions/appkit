@@ -1,10 +1,10 @@
 /* This is a generated file, edit the .stub.php file instead.
- * Stub hash: 6aac89a37e0cc8b6caa42fc7a815511e85135e5c */
+ * Stub hash: 9b2162fa8d28e9416eb9660c7d2e8477eb7fa66d */
 
-ZEND_BEGIN_ARG_INFO_EX(arginfo_class_CAFrameRateRange___construct, 0, 0, 0)
-	ZEND_ARG_TYPE_INFO_WITH_DEFAULT_VALUE(0, minimum, IS_DOUBLE, 0, "0.0")
-	ZEND_ARG_TYPE_INFO_WITH_DEFAULT_VALUE(0, maximum, IS_DOUBLE, 0, "0.0")
-	ZEND_ARG_TYPE_INFO_WITH_DEFAULT_VALUE(0, preferred, IS_DOUBLE, 0, "0.0")
+ZEND_BEGIN_ARG_INFO_EX(arginfo_class_CAFrameRateRange___construct, 0, 0, 3)
+	ZEND_ARG_TYPE_INFO(0, minimum, IS_DOUBLE, 0)
+	ZEND_ARG_TYPE_INFO(0, maximum, IS_DOUBLE, 0)
+	ZEND_ARG_TYPE_INFO(0, preferred, IS_DOUBLE, 0)
 ZEND_END_ARG_INFO()
 
 ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_CADisplayLink_timestamp, 0, 0, IS_DOUBLE, 0)
@@ -77,19 +77,19 @@ static zend_class_entry *register_class_CAFrameRateRange(void)
 	class_entry = zend_register_internal_class_with_flags(&ce, NULL, ZEND_ACC_FINAL);
 
 	zval property_minimum_default_value;
-	ZVAL_DOUBLE(&property_minimum_default_value, 0.0);
+	ZVAL_UNDEF(&property_minimum_default_value);
 	zend_string *property_minimum_name = zend_string_init("minimum", sizeof("minimum") - 1, 1);
 	zend_declare_typed_property(class_entry, property_minimum_name, &property_minimum_default_value, ZEND_ACC_PUBLIC, NULL, (zend_type) ZEND_TYPE_INIT_MASK(MAY_BE_DOUBLE));
 	zend_string_release(property_minimum_name);
 
 	zval property_maximum_default_value;
-	ZVAL_DOUBLE(&property_maximum_default_value, 0.0);
+	ZVAL_UNDEF(&property_maximum_default_value);
 	zend_string *property_maximum_name = zend_string_init("maximum", sizeof("maximum") - 1, 1);
 	zend_declare_typed_property(class_entry, property_maximum_name, &property_maximum_default_value, ZEND_ACC_PUBLIC, NULL, (zend_type) ZEND_TYPE_INIT_MASK(MAY_BE_DOUBLE));
 	zend_string_release(property_maximum_name);
 
 	zval property_preferred_default_value;
-	ZVAL_DOUBLE(&property_preferred_default_value, 0.0);
+	ZVAL_UNDEF(&property_preferred_default_value);
 	zend_string *property_preferred_name = zend_string_init("preferred", sizeof("preferred") - 1, 1);
 	zend_declare_typed_property(class_entry, property_preferred_name, &property_preferred_default_value, ZEND_ACC_PUBLIC, NULL, (zend_type) ZEND_TYPE_INIT_MASK(MAY_BE_DOUBLE));
 	zend_string_release(property_preferred_name);

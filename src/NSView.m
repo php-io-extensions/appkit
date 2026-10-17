@@ -8,7 +8,6 @@ _Static_assert(NSViewLayerContentsRedrawNever == 0 && NSViewLayerContentsRedrawO
 
 void appkit_register_NSView(int module_number)
 {
-	register_NSView_symbols(module_number);
 	appkit_ce_NSViewLayerContentsRedrawPolicy = register_class_NSViewLayerContentsRedrawPolicy();
 	appkit_ce_NSView = register_class_NSView(appkit_ce_NSResponder);
 	appkit_object_setup(appkit_ce_NSView);
@@ -124,111 +123,6 @@ ZEND_METHOD(NSView, intrinsicContentSize)
 	APPKIT_END
 }
 
-ZEND_METHOD(NSView, setLayerBackgroundColor)
-{
-	zend_object *color = NULL;
-
-	ZEND_PARSE_PARAMETERS_START(1, 1)
-		Z_PARAM_OBJ_OF_CLASS_OR_NULL(color, appkit_ce_NSColor)
-	ZEND_PARSE_PARAMETERS_END();
-	APPKIT_REQUIRE_MAIN_THREAD();
-
-	APPKIT_BEGIN
-		[THIS_VIEW setWantsLayer:YES];
-		THIS_VIEW.layer.backgroundColor = color == NULL ? NULL : ((NSColor *) APPKIT_ID(color)).CGColor;
-	APPKIT_END
-}
-
-ZEND_METHOD(NSView, layerContents)
-{
-	ZEND_PARSE_PARAMETERS_NONE();
-	APPKIT_REQUIRE_MAIN_THREAD();
-
-	APPKIT_BEGIN
-		id contents = THIS_VIEW.layer.contents;
-		if (contents != nil && CFGetTypeID((CFTypeRef) contents) == CGImageGetTypeID()) {
-			appkit_box_cf(return_value, (CFTypeRef) contents);
-		} else {
-			appkit_box_objc(return_value, [contents isKindOfClass:[NSImage class]] ? contents : nil);
-		}
-	APPKIT_END
-}
-
-ZEND_METHOD(NSView, setLayerContents)
-{
-	zend_object *contents = NULL;
-
-	ZEND_PARSE_PARAMETERS_START(1, 1)
-		Z_PARAM_OBJ_OR_NULL(contents)
-	ZEND_PARSE_PARAMETERS_END();
-	APPKIT_REQUIRE_MAIN_THREAD();
-
-	if (contents != NULL && !instanceof_function(contents->ce, appkit_ce_NSImage) && !instanceof_function(contents->ce, appkit_ce_CGImage)) {
-		zend_argument_type_error(1, "must be of type NSImage|CGImage|null, %s given", ZSTR_VAL(contents->ce->name));
-		RETURN_THROWS();
-	}
-
-	/* CALayer takes either as its contents: a CGImageRef is toll-free an id here. */
-	APPKIT_BEGIN
-		[THIS_VIEW setWantsLayer:YES];
-		THIS_VIEW.layer.contents = contents == NULL ? nil : APPKIT_ID(contents);
-	APPKIT_END
-}
-
-ZEND_METHOD(NSView, layerContentsGravity)
-{
-	ZEND_PARSE_PARAMETERS_NONE();
-	APPKIT_REQUIRE_MAIN_THREAD();
-
-	APPKIT_BEGIN
-		NSString *gravity = THIS_VIEW.layer.contentsGravity;
-		if (gravity == nil) {
-			RETURN_NULL();
-		}
-		RETURN_STR(appkit_zend_string((CFStringRef) gravity));
-	APPKIT_END
-}
-
-ZEND_METHOD(NSView, setLayerContentsGravity)
-{
-	zend_string *gravity;
-
-	ZEND_PARSE_PARAMETERS_START(1, 1)
-		Z_PARAM_STR(gravity)
-	ZEND_PARSE_PARAMETERS_END();
-	APPKIT_REQUIRE_MAIN_THREAD();
-
-	APPKIT_BEGIN
-		[THIS_VIEW setWantsLayer:YES];
-		THIS_VIEW.layer.contentsGravity = appkit_nsstring(gravity);
-	APPKIT_END
-}
-
-ZEND_METHOD(NSView, layerMasksToBounds)
-{
-	ZEND_PARSE_PARAMETERS_NONE();
-	APPKIT_REQUIRE_MAIN_THREAD();
-
-	APPKIT_BEGIN
-		RETURN_BOOL(THIS_VIEW.layer.masksToBounds);
-	APPKIT_END
-}
-
-ZEND_METHOD(NSView, setLayerMasksToBounds)
-{
-	bool flag;
-
-	ZEND_PARSE_PARAMETERS_START(1, 1)
-		Z_PARAM_BOOL(flag)
-	ZEND_PARSE_PARAMETERS_END();
-	APPKIT_REQUIRE_MAIN_THREAD();
-
-	APPKIT_BEGIN
-		[THIS_VIEW setWantsLayer:YES];
-		THIS_VIEW.layer.masksToBounds = flag;
-	APPKIT_END
-}
-
 ZEND_METHOD(NSView, visibleRect)
 {
 	ZEND_PARSE_PARAMETERS_NONE();
@@ -256,17 +150,6 @@ ZEND_METHOD(NSView, scrollPoint)
 
 	APPKIT_BEGIN
 		[THIS_VIEW scrollPoint:NSMakePoint(Z_DVAL_P(x), Z_DVAL_P(y))];
-	APPKIT_END
-}
-
-ZEND_METHOD(NSView, layerBackgroundColor)
-{
-	ZEND_PARSE_PARAMETERS_NONE();
-	APPKIT_REQUIRE_MAIN_THREAD();
-
-	APPKIT_BEGIN
-		CGColorRef color = THIS_VIEW.layer.backgroundColor;
-		appkit_box_objc(return_value, color == NULL ? nil : [NSColor colorWithCGColor:color]);
 	APPKIT_END
 }
 
@@ -324,15 +207,7 @@ ZEND_METHOD(NSView, setLayer)
 	APPKIT_REQUIRE_MAIN_THREAD();
 
 	APPKIT_BEGIN
-		if (layer == NULL) {
-			/* Back to a backing layer of the view's own: AppKit makes one when wantsLayer turns on with no layer set. */
-			THIS_VIEW.layer = nil;
-			[THIS_VIEW setWantsLayer:NO];
-			[THIS_VIEW setWantsLayer:YES];
-		} else {
-			[THIS_VIEW setWantsLayer:YES];
-			THIS_VIEW.layer = (CALayer *) APPKIT_ID(layer);
-		}
+		THIS_VIEW.layer = layer != NULL ? (CALayer *) APPKIT_ID(layer) : nil;
 	APPKIT_END
 }
 APPKIT_VIEW_BOOL_GET(postsFrameChangedNotifications, postsFrameChangedNotifications)
@@ -434,12 +309,7 @@ ZEND_METHOD(NSView, displayLinkWithTargetSelector)
 	APPKIT_REQUIRE_MAIN_THREAD();
 
 	APPKIT_BEGIN
-		if (@available(macOS 14.0, *)) {
-			appkit_box_objc(return_value, [THIS_VIEW displayLinkWithTarget:APPKIT_ID(target) selector:sel_registerName(ZSTR_VAL(selector))]);
-		} else {
-			zend_throw_exception(appkit_ce_AppKitException, "NSView::displayLinkWithTargetSelector() needs macOS 14", 0);
-			RETURN_THROWS();
-		}
+		appkit_box_objc(return_value, [THIS_VIEW displayLinkWithTarget:APPKIT_ID(target) selector:sel_registerName(ZSTR_VAL(selector))]);
 	APPKIT_END
 }
 

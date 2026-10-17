@@ -8,10 +8,9 @@
 final class CFFileDescriptor extends CFType
 {
     /**
-     * @param int|resource|Socket $fd
      * @param callable $callout called as $callout(CFFileDescriptor $f, int $callBackTypes)
      */
-    public static function create(mixed $fd, bool $closeOnInvalidate, callable $callout): ?CFFileDescriptor {}
+    public static function create(?CFAllocator $allocator, int $fd, bool $closeOnInvalidate, callable $callout): ?CFFileDescriptor {}
 
     public function getNativeDescriptor(): int {}
 
@@ -23,5 +22,5 @@ final class CFFileDescriptor extends CFType
 
     public function isValid(): bool {}
 
-    public function createRunLoopSource(int $order): ?CFRunLoopSource {}
+    public function createRunLoopSource(?CFAllocator $allocator, int $order): ?CFRunLoopSource {}
 }

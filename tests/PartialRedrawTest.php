@@ -20,7 +20,7 @@ function pinnedBytes(int $bytes): array
 function imageAt(int $address, int $size, int $width, int $height, int $stride): ?CGImage
 {
     return CGImage::create($width, $height, 8, 32, $stride, CGColorSpace::createWithName(kCGColorSpaceSRGB),
-        kCGImageAlphaNoneSkipLast | kCGBitmapByteOrder32Big, CGDataProvider::createDirect($address, $size), false, kCGRenderingIntentDefault);
+        kCGImageAlphaNoneSkipLast | kCGBitmapByteOrder32Big, CGDataProvider::createDirect($address, $size), null, false, kCGRenderingIntentDefault);
 }
 
 it('reads an image straight from memory it does not copy', function (): void {
@@ -41,19 +41,20 @@ it('describes a sub-rect of a frame by its stride, the last row without the padd
     $rect = imageAt($address + $offset, 64 + 16, 4, 2, 64);
 
     expect([$rect->getWidth(), $rect->getHeight()])->toBe([4, 2])
-        ->and(fn () => imageAt($address + $offset, 64 + 15, 4, 2, 64))->toThrow(ValueError::class, 'must provide 80 bytes for that description, it holds 79');
+        ->and(imageAt($address + $offset, 64 + 15, 4, 2, 64))->toBeNull();
 
     FFI::free($memory);
 });
 
-it('refuses a provider over no memory', function (): void {
-    expect(fn () => CGDataProvider::createDirect(0, 16))->toThrow(ValueError::class, 'must not be a null address')
-        ->and(fn () => CGDataProvider::createDirect(1024, 0))->toThrow(ValueError::class, 'must be the byte count at the address');
+it('passes a provider\'s address and size to Core Graphics, which makes none for a size below 1', function (): void {
+    expect(CGDataProvider::createDirect(0, 16))->toBeInstanceOf(CGDataProvider::class)
+        ->and(CGDataProvider::createDirect(1024, 0))->toBeNull()
+        ->and(CGDataProvider::createDirect(1024, -1))->toBeNull();
 });
 
 it('cuts a rect out of an image, and answers null outside it', function (): void {
     $image = CGImage::create(4, 4, 8, 32, 16, CGColorSpace::createWithName(kCGColorSpaceSRGB), kCGImageAlphaNoneSkipLast | kCGBitmapByteOrder32Big,
-        CGDataProvider::createWithCFData(CFData::create(str_repeat("\x10\x20\x30\xff", 16))), false, kCGRenderingIntentDefault);
+        CGDataProvider::createWithCFData(CFData::create(null, str_repeat("\x10\x20\x30\xff", 16), 64)), null, false, kCGRenderingIntentDefault);
     $part = CGImage::createWithImageInRect($image, new NSRect(1, 1, 2, 3));
 
     expect([$part->getWidth(), $part->getHeight()])->toBe([2, 3])

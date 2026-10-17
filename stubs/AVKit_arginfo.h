@@ -1,5 +1,5 @@
 /* This is a generated file, edit the .stub.php file instead.
- * Stub hash: eddc47e5774ab9522e5c1c35836d1175239c07a9 */
+ * Stub hash: 000b99d5f1701a939448ff5b790f0a0ed55cbb94 */
 
 ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(arginfo_class_NSURL_fileURLWithPath, 0, 1, NSURL, 0)
 	ZEND_ARG_TYPE_INFO(0, path, IS_STRING, 0)
@@ -14,19 +14,24 @@ ZEND_END_ARG_INFO()
 
 #define arginfo_class_NSURL_absoluteString arginfo_class_NSURL_path
 
-ZEND_BEGIN_ARG_INFO_EX(arginfo_class_CMTime___construct, 0, 0, 0)
-	ZEND_ARG_TYPE_INFO_WITH_DEFAULT_VALUE(0, value, IS_LONG, 0, "0")
-	ZEND_ARG_TYPE_INFO_WITH_DEFAULT_VALUE(0, timescale, IS_LONG, 0, "1")
-	ZEND_ARG_TYPE_INFO_WITH_DEFAULT_VALUE(0, flags, IS_LONG, 0, "1")
-	ZEND_ARG_TYPE_INFO_WITH_DEFAULT_VALUE(0, epoch, IS_LONG, 0, "0")
+ZEND_BEGIN_ARG_INFO_EX(arginfo_class_CMTime___construct, 0, 0, 4)
+	ZEND_ARG_TYPE_INFO(0, value, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, timescale, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, flags, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, epoch, IS_LONG, 0)
 ZEND_END_ARG_INFO()
 
-ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(arginfo_class_CMTime_withSeconds, 0, 2, CMTime, 0)
+ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(arginfo_class_CMTime_make, 0, 2, CMTime, 0)
+	ZEND_ARG_TYPE_INFO(0, value, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, timescale, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(arginfo_class_CMTime_makeWithSeconds, 0, 2, CMTime, 0)
 	ZEND_ARG_TYPE_INFO(0, seconds, IS_DOUBLE, 0)
 	ZEND_ARG_TYPE_INFO(0, preferredTimescale, IS_LONG, 0)
 ZEND_END_ARG_INFO()
 
-ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_CMTime_seconds, 0, 0, IS_DOUBLE, 0)
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_CMTime_getSeconds, 0, 0, IS_DOUBLE, 0)
 ZEND_END_ARG_INFO()
 
 ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_AVPlayerItem_playerItemWithURL, 0, 1, IS_STATIC, 0)
@@ -39,7 +44,7 @@ ZEND_END_ARG_INFO()
 ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(arginfo_class_AVPlayerItem_duration, 0, 0, CMTime, 0)
 ZEND_END_ARG_INFO()
 
-ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(arginfo_class_AVPlayerItem_error, 0, 0, NSObject, 1)
+ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(arginfo_class_AVPlayerItem_error, 0, 0, NSError, 1)
 ZEND_END_ARG_INFO()
 
 ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_AVPlayer_playerWithPlayerItem, 0, 1, IS_STATIC, 0)
@@ -51,7 +56,7 @@ ZEND_END_ARG_INFO()
 
 #define arginfo_class_AVPlayer_pause arginfo_class_AVPlayer_play
 
-#define arginfo_class_AVPlayer_rate arginfo_class_CMTime_seconds
+#define arginfo_class_AVPlayer_rate arginfo_class_CMTime_getSeconds
 
 ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_AVPlayer_setRate, 0, 1, IS_VOID, 0)
 	ZEND_ARG_TYPE_INFO(0, rate, IS_DOUBLE, 0)
@@ -106,8 +111,9 @@ ZEND_METHOD(NSURL, path);
 ZEND_METHOD(NSURL, URLWithString);
 ZEND_METHOD(NSURL, absoluteString);
 ZEND_METHOD(CMTime, __construct);
-ZEND_METHOD(CMTime, withSeconds);
-ZEND_METHOD(CMTime, seconds);
+ZEND_METHOD(CMTime, make);
+ZEND_METHOD(CMTime, makeWithSeconds);
+ZEND_METHOD(CMTime, getSeconds);
 ZEND_METHOD(AVPlayerItem, playerItemWithURL);
 ZEND_METHOD(AVPlayerItem, status);
 ZEND_METHOD(AVPlayerItem, duration);
@@ -141,8 +147,9 @@ static const zend_function_entry class_NSURL_methods[] = {
 
 static const zend_function_entry class_CMTime_methods[] = {
 	ZEND_ME(CMTime, __construct, arginfo_class_CMTime___construct, ZEND_ACC_PUBLIC)
-	ZEND_ME(CMTime, withSeconds, arginfo_class_CMTime_withSeconds, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
-	ZEND_ME(CMTime, seconds, arginfo_class_CMTime_seconds, ZEND_ACC_PUBLIC)
+	ZEND_ME(CMTime, make, arginfo_class_CMTime_make, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	ZEND_ME(CMTime, makeWithSeconds, arginfo_class_CMTime_makeWithSeconds, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	ZEND_ME(CMTime, getSeconds, arginfo_class_CMTime_getSeconds, ZEND_ACC_PUBLIC)
 	ZEND_FE_END
 };
 
@@ -203,55 +210,55 @@ static zend_class_entry *register_class_CMTime(void)
 	class_entry = zend_register_internal_class_with_flags(&ce, NULL, ZEND_ACC_FINAL);
 
 	zval const_FLAG_VALID_value;
-	ZVAL_LONG(&const_FLAG_VALID_value, 1);
+	ZVAL_LONG(&const_FLAG_VALID_value, kCMTimeFlags_Valid);
 	zend_string *const_FLAG_VALID_name = zend_string_init_interned("FLAG_VALID", sizeof("FLAG_VALID") - 1, 1);
 	zend_declare_typed_class_constant(class_entry, const_FLAG_VALID_name, &const_FLAG_VALID_value, ZEND_ACC_PUBLIC, NULL, (zend_type) ZEND_TYPE_INIT_MASK(MAY_BE_LONG));
 	zend_string_release(const_FLAG_VALID_name);
 
 	zval const_FLAG_HAS_BEEN_ROUNDED_value;
-	ZVAL_LONG(&const_FLAG_HAS_BEEN_ROUNDED_value, 2);
+	ZVAL_LONG(&const_FLAG_HAS_BEEN_ROUNDED_value, kCMTimeFlags_HasBeenRounded);
 	zend_string *const_FLAG_HAS_BEEN_ROUNDED_name = zend_string_init_interned("FLAG_HAS_BEEN_ROUNDED", sizeof("FLAG_HAS_BEEN_ROUNDED") - 1, 1);
 	zend_declare_typed_class_constant(class_entry, const_FLAG_HAS_BEEN_ROUNDED_name, &const_FLAG_HAS_BEEN_ROUNDED_value, ZEND_ACC_PUBLIC, NULL, (zend_type) ZEND_TYPE_INIT_MASK(MAY_BE_LONG));
 	zend_string_release(const_FLAG_HAS_BEEN_ROUNDED_name);
 
 	zval const_FLAG_POSITIVE_INFINITY_value;
-	ZVAL_LONG(&const_FLAG_POSITIVE_INFINITY_value, 4);
+	ZVAL_LONG(&const_FLAG_POSITIVE_INFINITY_value, kCMTimeFlags_PositiveInfinity);
 	zend_string *const_FLAG_POSITIVE_INFINITY_name = zend_string_init_interned("FLAG_POSITIVE_INFINITY", sizeof("FLAG_POSITIVE_INFINITY") - 1, 1);
 	zend_declare_typed_class_constant(class_entry, const_FLAG_POSITIVE_INFINITY_name, &const_FLAG_POSITIVE_INFINITY_value, ZEND_ACC_PUBLIC, NULL, (zend_type) ZEND_TYPE_INIT_MASK(MAY_BE_LONG));
 	zend_string_release(const_FLAG_POSITIVE_INFINITY_name);
 
 	zval const_FLAG_NEGATIVE_INFINITY_value;
-	ZVAL_LONG(&const_FLAG_NEGATIVE_INFINITY_value, 8);
+	ZVAL_LONG(&const_FLAG_NEGATIVE_INFINITY_value, kCMTimeFlags_NegativeInfinity);
 	zend_string *const_FLAG_NEGATIVE_INFINITY_name = zend_string_init_interned("FLAG_NEGATIVE_INFINITY", sizeof("FLAG_NEGATIVE_INFINITY") - 1, 1);
 	zend_declare_typed_class_constant(class_entry, const_FLAG_NEGATIVE_INFINITY_name, &const_FLAG_NEGATIVE_INFINITY_value, ZEND_ACC_PUBLIC, NULL, (zend_type) ZEND_TYPE_INIT_MASK(MAY_BE_LONG));
 	zend_string_release(const_FLAG_NEGATIVE_INFINITY_name);
 
 	zval const_FLAG_INDEFINITE_value;
-	ZVAL_LONG(&const_FLAG_INDEFINITE_value, 16);
+	ZVAL_LONG(&const_FLAG_INDEFINITE_value, kCMTimeFlags_Indefinite);
 	zend_string *const_FLAG_INDEFINITE_name = zend_string_init_interned("FLAG_INDEFINITE", sizeof("FLAG_INDEFINITE") - 1, 1);
 	zend_declare_typed_class_constant(class_entry, const_FLAG_INDEFINITE_name, &const_FLAG_INDEFINITE_value, ZEND_ACC_PUBLIC, NULL, (zend_type) ZEND_TYPE_INIT_MASK(MAY_BE_LONG));
 	zend_string_release(const_FLAG_INDEFINITE_name);
 
 	zval property_value_default_value;
-	ZVAL_LONG(&property_value_default_value, 0);
+	ZVAL_UNDEF(&property_value_default_value);
 	zend_string *property_value_name = zend_string_init("value", sizeof("value") - 1, 1);
 	zend_declare_typed_property(class_entry, property_value_name, &property_value_default_value, ZEND_ACC_PUBLIC, NULL, (zend_type) ZEND_TYPE_INIT_MASK(MAY_BE_LONG));
 	zend_string_release(property_value_name);
 
 	zval property_timescale_default_value;
-	ZVAL_LONG(&property_timescale_default_value, 1);
+	ZVAL_UNDEF(&property_timescale_default_value);
 	zend_string *property_timescale_name = zend_string_init("timescale", sizeof("timescale") - 1, 1);
 	zend_declare_typed_property(class_entry, property_timescale_name, &property_timescale_default_value, ZEND_ACC_PUBLIC, NULL, (zend_type) ZEND_TYPE_INIT_MASK(MAY_BE_LONG));
 	zend_string_release(property_timescale_name);
 
 	zval property_flags_default_value;
-	ZVAL_LONG(&property_flags_default_value, 1);
+	ZVAL_UNDEF(&property_flags_default_value);
 	zend_string *property_flags_name = zend_string_init("flags", sizeof("flags") - 1, 1);
 	zend_declare_typed_property(class_entry, property_flags_name, &property_flags_default_value, ZEND_ACC_PUBLIC, NULL, (zend_type) ZEND_TYPE_INIT_MASK(MAY_BE_LONG));
 	zend_string_release(property_flags_name);
 
 	zval property_epoch_default_value;
-	ZVAL_LONG(&property_epoch_default_value, 0);
+	ZVAL_UNDEF(&property_epoch_default_value);
 	zend_string *property_epoch_name = zend_string_init("epoch", sizeof("epoch") - 1, 1);
 	zend_declare_typed_property(class_entry, property_epoch_name, &property_epoch_default_value, ZEND_ACC_PUBLIC, NULL, (zend_type) ZEND_TYPE_INIT_MASK(MAY_BE_LONG));
 	zend_string_release(property_epoch_name);

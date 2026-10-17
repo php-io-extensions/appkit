@@ -1,9 +1,10 @@
 /* This is a generated file, edit the .stub.php file instead.
- * Stub hash: 6b81969153aef291e15b0b14d16707ba2be29cbc */
+ * Stub hash: 576d20954163bd2129494edb53a0f4e5d09b3058 */
 
-ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(arginfo_class_CFData_create, 0, 1, CFData, 0)
+ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(arginfo_class_CFData_create, 0, 3, CFData, 1)
+	ZEND_ARG_OBJ_INFO(0, allocator, CFAllocator, 1)
 	ZEND_ARG_TYPE_MASK(0, bytes, MAY_BE_STRING|MAY_BE_LONG, NULL)
-	ZEND_ARG_TYPE_INFO_WITH_DEFAULT_VALUE(0, length, IS_LONG, 1, "null")
+	ZEND_ARG_TYPE_INFO(0, length, IS_LONG, 0)
 ZEND_END_ARG_INFO()
 
 ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_CFData_getLength, 0, 0, IS_LONG, 0)
@@ -13,7 +14,7 @@ ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(arginfo_class_CGDataProvider_createWithCF
 	ZEND_ARG_OBJ_INFO(0, data, CFData, 0)
 ZEND_END_ARG_INFO()
 
-ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(arginfo_class_CGDataProvider_createDirect, 0, 2, CGDataProvider, 0)
+ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(arginfo_class_CGDataProvider_createDirect, 0, 2, CGDataProvider, 1)
 	ZEND_ARG_TYPE_INFO(0, address, IS_LONG, 0)
 	ZEND_ARG_TYPE_INFO(0, size, IS_LONG, 0)
 ZEND_END_ARG_INFO()
@@ -22,15 +23,16 @@ ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(arginfo_class_CGColorSpace_createWithName
 	ZEND_ARG_TYPE_INFO(0, name, IS_STRING, 0)
 ZEND_END_ARG_INFO()
 
-ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(arginfo_class_CGImage_create, 0, 10, CGImage, 1)
+ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(arginfo_class_CGImage_create, 0, 11, CGImage, 1)
 	ZEND_ARG_TYPE_INFO(0, width, IS_LONG, 0)
 	ZEND_ARG_TYPE_INFO(0, height, IS_LONG, 0)
 	ZEND_ARG_TYPE_INFO(0, bitsPerComponent, IS_LONG, 0)
 	ZEND_ARG_TYPE_INFO(0, bitsPerPixel, IS_LONG, 0)
 	ZEND_ARG_TYPE_INFO(0, bytesPerRow, IS_LONG, 0)
-	ZEND_ARG_OBJ_INFO(0, space, CGColorSpace, 0)
+	ZEND_ARG_OBJ_INFO(0, space, CGColorSpace, 1)
 	ZEND_ARG_TYPE_INFO(0, bitmapInfo, IS_LONG, 0)
-	ZEND_ARG_OBJ_INFO(0, provider, CGDataProvider, 0)
+	ZEND_ARG_OBJ_INFO(0, provider, CGDataProvider, 1)
+	ZEND_ARG_TYPE_INFO(0, decode, IS_ARRAY, 1)
 	ZEND_ARG_TYPE_INFO(0, shouldInterpolate, _IS_BOOL, 0)
 	ZEND_ARG_TYPE_INFO(0, intent, IS_LONG, 0)
 ZEND_END_ARG_INFO()
@@ -144,6 +146,17 @@ static void register_CoreGraphics_symbols(int module_number)
 	REGISTER_LONG_CONSTANT("kCGBitmapByteOrder32Little", kCGBitmapByteOrder32Little, CONST_PERSISTENT);
 	REGISTER_LONG_CONSTANT("kCGBitmapByteOrder32Big", kCGBitmapByteOrder32Big, CONST_PERSISTENT);
 	REGISTER_LONG_CONSTANT("kCGRenderingIntentDefault", kCGRenderingIntentDefault, CONST_PERSISTENT);
+	REGISTER_LONG_CONSTANT("kCGErrorSuccess", kCGErrorSuccess, CONST_PERSISTENT);
+	REGISTER_LONG_CONSTANT("kCGErrorFailure", kCGErrorFailure, CONST_PERSISTENT);
+	REGISTER_LONG_CONSTANT("kCGErrorIllegalArgument", kCGErrorIllegalArgument, CONST_PERSISTENT);
+	REGISTER_LONG_CONSTANT("kCGErrorInvalidConnection", kCGErrorInvalidConnection, CONST_PERSISTENT);
+	REGISTER_LONG_CONSTANT("kCGErrorInvalidContext", kCGErrorInvalidContext, CONST_PERSISTENT);
+	REGISTER_LONG_CONSTANT("kCGErrorCannotComplete", kCGErrorCannotComplete, CONST_PERSISTENT);
+	REGISTER_LONG_CONSTANT("kCGErrorNotImplemented", kCGErrorNotImplemented, CONST_PERSISTENT);
+	REGISTER_LONG_CONSTANT("kCGErrorRangeCheck", kCGErrorRangeCheck, CONST_PERSISTENT);
+	REGISTER_LONG_CONSTANT("kCGErrorTypeCheck", kCGErrorTypeCheck, CONST_PERSISTENT);
+	REGISTER_LONG_CONSTANT("kCGErrorInvalidOperation", kCGErrorInvalidOperation, CONST_PERSISTENT);
+	REGISTER_LONG_CONSTANT("kCGErrorNoneAvailable", kCGErrorNoneAvailable, CONST_PERSISTENT);
 }
 
 static zend_class_entry *register_class_CGInterpolationQuality(void)
@@ -198,6 +211,16 @@ static zend_class_entry *register_class_CGColorSpace(zend_class_entry *class_ent
 	zend_class_entry ce, *class_entry;
 
 	INIT_CLASS_ENTRY(ce, "CGColorSpace", class_CGColorSpace_methods);
+	class_entry = zend_register_internal_class_with_flags(&ce, class_entry_CFType, ZEND_ACC_FINAL|ZEND_ACC_NOT_SERIALIZABLE);
+
+	return class_entry;
+}
+
+static zend_class_entry *register_class_CGColor(zend_class_entry *class_entry_CFType)
+{
+	zend_class_entry ce, *class_entry;
+
+	INIT_CLASS_ENTRY(ce, "CGColor", NULL);
 	class_entry = zend_register_internal_class_with_flags(&ce, class_entry_CFType, ZEND_ACC_FINAL|ZEND_ACC_NOT_SERIALIZABLE);
 
 	return class_entry;

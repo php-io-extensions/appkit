@@ -110,12 +110,7 @@ ZEND_METHOD(NSApplication, activate)
 	APPKIT_REQUIRE_MAIN_THREAD();
 
 	APPKIT_BEGIN
-		if (@available(macOS 14.0, *)) {
-			[THIS_APP activate];
-		} else {
-			zend_throw_exception(appkit_ce_AppKitException, "NSApplication::activate() requires macOS 14.0 or later", 0);
-			RETURN_THROWS();
-		}
+		[THIS_APP activate];
 	APPKIT_END
 }
 

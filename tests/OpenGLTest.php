@@ -28,9 +28,12 @@ it('makes a 4.1 core context from a pixel format and reads its CGL context back'
     expect(NSOpenGLContext::currentContext())->toBeNull();
 });
 
-it('refuses an attribute list that does not end in 0', function (): void {
-    NSOpenGLPixelFormat::initWithAttributes([NSOpenGLPFAAccelerated]);
-})->throws(ValueError::class);
+it('ends an attribute list itself, and refuses a last attribute that takes a value without one', function (): void {
+    expect(NSOpenGLPixelFormat::initWithAttributes([NSOpenGLPFAAccelerated]))->toBeInstanceOf(NSOpenGLPixelFormat::class)
+        ->and(NSOpenGLPixelFormat::initWithAttributes([]))->toBeInstanceOf(NSOpenGLPixelFormat::class)
+        ->and(fn () => NSOpenGLPixelFormat::initWithAttributes([NSOpenGLPFAAccelerated, NSOpenGLPFAColorSize]))
+        ->toThrow(ValueError::class, 'must give a value after its last attribute');
+});
 
 it('answers null for a pixel format no renderer offers', function (): void {
     // 1024 colour bits: no renderer has them.
@@ -47,17 +50,21 @@ it('marks a view as needing display', function (): void {
     expect($view->needsDisplay())->toBeTrue();
 });
 
-it('draws through PHP from drawRect: with the view\'s context current', function (): void {
+it('hands drawRect: to PHP with the dirty rect and nothing else: the handler makes its context current and flushes', function (): void {
     $app = NSApplication::sharedApplication();
     $window = newWindow(200, 150);
     $format = NSOpenGLPixelFormat::initWithAttributes([NSOpenGLPFAOpenGLProfile, NSOpenGLProfileVersion4_1Core, NSOpenGLPFAAccelerated, NSOpenGLPFADoubleBuffer, NSOpenGLPFAColorSize, 24, 0]);
     $seen = [];
-    $view = ObjCOpenGLView::initWithFramePixelFormatDraw(new NSRect(0.0, 0.0, 200.0, 150.0), $format, function (ObjCOpenGLView $drawn) use (&$seen): void {
+    $view = ObjCOpenGLView::initWithFramePixelFormatDraw(new NSRect(0.0, 0.0, 200.0, 150.0), $format, function (ObjCOpenGLView $drawn, NSRect $dirty) use (&$seen): void {
+        $drawn->openGLContext()->makeCurrentContext();
         glGetIntegerv(GL_DRAW_FRAMEBUFFER_BINDING, $bound);
-        $seen[] = [$drawn, $bound[0], CGLGetCurrentContext()?->pointer()];
+        $seen[] = [$drawn, $bound[0], CGLGetCurrentContext()?->pointer(), $dirty];
         glClearColor(1.0, 0.0, 0.0, 1.0);
         glClear(GL_COLOR_BUFFER_BIT);
+        $drawn->openGLContext()->flushBuffer();
+        NSOpenGLContext::clearCurrentContext();
     });
+    NSOpenGLContext::clearCurrentContext();
     $view->setWantsBestResolutionOpenGLSurface(true);
     $window->contentView()->addSubview($view);
     $window->makeKeyAndOrderFront(null);
@@ -71,6 +78,8 @@ it('draws through PHP from drawRect: with the view\'s context current', function
         ->and($seen[0][0]->pointer())->toBe($view->pointer())
         ->and($seen[0][1])->toBe(0)
         ->and($seen[0][2])->toBe($view->openGLContext()->CGLContextObj())
+        ->and($seen[0][3])->toBeInstanceOf(NSRect::class)
+        ->and([$seen[0][3]->width, $seen[0][3]->height])->toBe([200.0, 150.0])
         ->and($view->wantsBestResolutionOpenGLSurface())->toBeTrue()
         ->and($view->pixelFormat()?->pointer())->toBe($format->pointer())
         ->and($view->openGLContext()->view()?->pointer())->toBe($view->pointer());
@@ -117,6 +126,11 @@ it('leaves no context current after it draws when none was', function (): void {
         ->and(CGLGetCurrentContext())->toBeNull()
         ->and(NSOpenGLContext::currentContext())->toBeNull();
     $window->close();
+});
+
+it('answers null, not an exception, when AppKit makes no OpenGL view', function (): void {
+    expect((string) (new ReflectionMethod(NSOpenGLView::class, 'initWithFramePixelFormat'))->getReturnType())->toBe('?static')
+        ->and((string) (new ReflectionMethod(ObjCOpenGLView::class, 'initWithFramePixelFormatDraw'))->getReturnType())->toBe('?static');
 });
 
 it('turns vsync off and on through the swap interval, and reads it back', function (): void {

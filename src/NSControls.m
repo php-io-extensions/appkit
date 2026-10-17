@@ -14,8 +14,6 @@ _Static_assert(NSButtonTypeMomentaryLight == 0 && NSButtonTypePushOnPushOff == 1
 	&& NSButtonTypeAccelerator == 8 && NSButtonTypeMultiLevelAccelerator == 9, "NSButtonType values moved");
 _Static_assert(NSDatePickerStyleTextFieldAndStepper == 0 && NSDatePickerStyleClockAndCalendar == 1 && NSDatePickerStyleTextField == 2, "NSDatePickerStyle values moved");
 _Static_assert(NSDatePickerModeSingle == 0 && NSDatePickerModeRange == 1, "NSDatePickerMode values moved");
-_Static_assert(NSDatePickerElementFlagHourMinute == 0x000c && NSDatePickerElementFlagHourMinuteSecond == 0x000e && NSDatePickerElementFlagTimeZone == 0x0010
-	&& NSDatePickerElementFlagYearMonth == 0x00c0 && NSDatePickerElementFlagYearMonthDay == 0x00e0 && NSDatePickerElementFlagEra == 0x0100, "NSDatePickerElementFlags values moved");
 _Static_assert(NSProgressIndicatorStyleBar == 0 && NSProgressIndicatorStyleSpinning == 1, "NSProgressIndicatorStyle values moved");
 _Static_assert(NSImageScaleProportionallyDown == 0 && NSImageScaleAxesIndependently == 1 && NSImageScaleNone == 2 && NSImageScaleProportionallyUpOrDown == 3, "NSImageScaling values moved");
 _Static_assert(NSTextBlockAbsoluteValueType == 0 && NSTextBlockPercentageValueType == 1, "NSTextBlockValueType values moved");
@@ -232,8 +230,8 @@ METHOD(NSPopUpButton, itemTitles, PARSE_NONE,
 )
 
 /* NSTimeZone */
-METHOD(NSTimeZone, timeZoneWithName, PARSE_STR, appkit_box_objc(return_value, [NSTimeZone timeZoneWithName:appkit_nsstring(v)]);)
-STR_GET(NSTimeZone, NSTimeZone, name, name)
+ANY_METHOD(NSTimeZone, timeZoneWithName, PARSE_STR, appkit_box_objc(return_value, [NSTimeZone timeZoneWithName:appkit_nsstring(v)]);)
+ANY_STR_GET(NSTimeZone, NSTimeZone, name, name)
 
 /* NSDatePicker */
 OBJ_GET(NSDatePicker, NSDatePicker, dateValue, dateValue)
@@ -259,7 +257,7 @@ SENDER_METHOD(NSProgressIndicator, NSProgressIndicator, stopAnimation, stopAnima
 BOOL_SET(NSProgressIndicator, NSProgressIndicator, setDisplayedWhenStopped, setDisplayedWhenStopped)
 
 /* NSImage */
-METHOD(NSImage, initWithContentsOfFile, PARSE_STR,
+ANY_METHOD(NSImage, initWithContentsOfFile, PARSE_STR,
 	NSImage *image = [[CALLED alloc] initWithContentsOfFile:appkit_nsstring(v)];
 	appkit_box_objc(return_value, image);
 	[image release];
@@ -276,7 +274,6 @@ ZEND_METHOD(NSImage, initWithCGImageSize)
 	if (!appkit_size_from(size_obj, 2, &size)) {
 		RETURN_THROWS();
 	}
-	APPKIT_REQUIRE_MAIN_THREAD();
 
 	APPKIT_BEGIN
 		NSImage *made = [[CALLED alloc] initWithCGImage:(CGImageRef) APPKIT_CF(image) size:size];
@@ -284,7 +281,7 @@ ZEND_METHOD(NSImage, initWithCGImageSize)
 		[made release];
 	APPKIT_END
 }
-SIZE_GET(NSImage, NSImage, size, size)
+ANY_SIZE_GET(NSImage, NSImage, size, size)
 
 /* NSAttributedString */
 ZEND_METHOD(NSAttributedString, initWithStringAttributes)
@@ -296,7 +293,6 @@ ZEND_METHOD(NSAttributedString, initWithStringAttributes)
 		Z_PARAM_STR(string)
 		Z_PARAM_ARRAY_HT(attributes)
 	ZEND_PARSE_PARAMETERS_END();
-	APPKIT_REQUIRE_MAIN_THREAD();
 
 	APPKIT_BEGIN
 		NSDictionary *dictionary = appkit_nsdictionary(attributes, 2);
@@ -317,29 +313,8 @@ ZEND_METHOD(NSAttributedString, initWithStringAttributes)
 	APPKIT_END
 }
 
-STR_GET(NSAttributedString, NSAttributedString, string, string)
-LONG_GET(NSAttributedString, NSAttributedString, length, length)
-
-ZEND_METHOD(NSAttributedString, attributeAtIndex)
-{
-	zend_string *name;
-	zend_long index;
-
-	ZEND_PARSE_PARAMETERS_START(2, 2)
-		Z_PARAM_STR(name)
-		Z_PARAM_LONG(index)
-	ZEND_PARSE_PARAMETERS_END();
-	APPKIT_REQUIRE_MAIN_THREAD();
-
-	if (index < 0) {
-		zend_argument_value_error(2, "must be greater than or equal to 0");
-		RETURN_THROWS();
-	}
-
-	APPKIT_BEGIN
-		appkit_zval_from_id(return_value, [SELF(NSAttributedString) attribute:appkit_nsstring(name) atIndex:(NSUInteger) index effectiveRange:NULL]);
-	APPKIT_END
-}
+ANY_STR_GET(NSAttributedString, NSAttributedString, string, string)
+ANY_LONG_GET(NSAttributedString, NSAttributedString, length, length)
 
 ZEND_METHOD(NSAttributedString, attributeAtIndexEffectiveRange)
 {
@@ -352,33 +327,15 @@ ZEND_METHOD(NSAttributedString, attributeAtIndexEffectiveRange)
 		Z_PARAM_STR(name)
 		Z_PARAM_LONG(index)
 	ZEND_PARSE_PARAMETERS_END();
-	APPKIT_REQUIRE_MAIN_THREAD();
 
+	/* The index converts to NSUInteger as C converts it; AppKit raises NSRangeException past the end. */
 	APPKIT_BEGIN
-		NSUInteger length = [SELF(NSAttributedString) length];
-		if (index < 0 || (NSUInteger) index >= length) {
-			zend_argument_value_error(2, "must be within the text's %lu characters", (unsigned long) length);
-			RETURN_THROWS();
-		}
 		appkit_zval_from_id(&value, [SELF(NSAttributedString) attribute:appkit_nsstring(name) atIndex:(NSUInteger) index effectiveRange:&effective]);
 		appkit_return_range(&range, effective);
 		array_init_size(return_value, 2);
 		add_next_index_zval(return_value, &value);
 		add_next_index_zval(return_value, &range);
 	APPKIT_END
-}
-
-/* A range argument that must end within a string of $length UTF-16 units. */
-static bool appkit_range_within(zend_object *range_obj, NSUInteger length, uint32_t arg_num, NSRange *out)
-{
-	if (!appkit_range_from(range_obj, arg_num, out)) {
-		return false;
-	}
-	if (NSMaxRange(*out) > length) {
-		zend_argument_value_error(arg_num, "must end within the text's %lu characters", (unsigned long) length);
-		return false;
-	}
-	return true;
 }
 
 /* NSMutableAttributedString */
@@ -393,13 +350,12 @@ ZEND_METHOD(NSMutableAttributedString, addAttributeValueRange)
 		Z_PARAM_OBJ_OF_CLASS(value, appkit_ce_NSObject)
 		Z_PARAM_OBJ_OF_CLASS(range_obj, appkit_ce_NSRange)
 	ZEND_PARSE_PARAMETERS_END();
-	APPKIT_REQUIRE_MAIN_THREAD();
 
 	APPKIT_BEGIN
 		if (!appkit_attribute_value_fits(appkit_nsstring(name), APPKIT_ID(value), 2, ZSTR_VAL(value->ce->name))) {
 			RETURN_THROWS();
 		}
-		if (!appkit_range_within(range_obj, [SELF(NSAttributedString) length], 3, &range)) {
+		if (!appkit_range_from(range_obj, 3, &range)) {
 			RETURN_THROWS();
 		}
 		[SELF(NSMutableAttributedString) addAttribute:appkit_nsstring(name) value:APPKIT_ID(value) range:range];
@@ -416,29 +372,28 @@ ZEND_METHOD(NSMutableAttributedString, removeAttributeRange)
 		Z_PARAM_STR(name)
 		Z_PARAM_OBJ_OF_CLASS(range_obj, appkit_ce_NSRange)
 	ZEND_PARSE_PARAMETERS_END();
-	APPKIT_REQUIRE_MAIN_THREAD();
 
 	APPKIT_BEGIN
-		if (!appkit_range_within(range_obj, [SELF(NSAttributedString) length], 2, &range)) {
+		if (!appkit_range_from(range_obj, 2, &range)) {
 			RETURN_THROWS();
 		}
 		[SELF(NSMutableAttributedString) removeAttribute:appkit_nsstring(name) range:range];
 	APPKIT_END
 }
 
-METHOD(NSMutableAttributedString, setAttributedString, PARSE_OBJ(appkit_ce_NSAttributedString),
+ANY_METHOD(NSMutableAttributedString, setAttributedString, PARSE_OBJ(appkit_ce_NSAttributedString),
 	[SELF(NSMutableAttributedString) setAttributedString:(NSAttributedString *) APPKIT_ID(v)];)
-VOID_METHOD(NSMutableAttributedString, NSMutableAttributedString, beginEditing, beginEditing)
-VOID_METHOD(NSMutableAttributedString, NSMutableAttributedString, endEditing, endEditing)
+ANY_VOID_METHOD(NSMutableAttributedString, NSMutableAttributedString, beginEditing, beginEditing)
+ANY_VOID_METHOD(NSMutableAttributedString, NSMutableAttributedString, endEditing, endEditing)
 
 /* NSTextBlock */
-METHOD(NSTextBlock, init, PARSE_NONE,
+ANY_METHOD(NSTextBlock, init, PARSE_NONE,
 	NSTextBlock *block = [[CALLED alloc] init];
 	appkit_box_objc(return_value, block);
 	[block release];
 )
-OBJ_GET(NSTextBlock, NSTextBlock, backgroundColor, backgroundColor)
-OBJ_SET_OR_NULL(NSTextBlock, NSTextBlock, setBackgroundColor, setBackgroundColor, appkit_ce_NSColor, NSColor *)
+ANY_OBJ_GET(NSTextBlock, NSTextBlock, backgroundColor, backgroundColor)
+ANY_OBJ_SET_OR_NULL(NSTextBlock, NSTextBlock, setBackgroundColor, setBackgroundColor, appkit_ce_NSColor, NSColor *)
 
 ZEND_METHOD(NSTextBlock, setValueTypeForDimension)
 {
@@ -450,25 +405,23 @@ ZEND_METHOD(NSTextBlock, setValueTypeForDimension)
 		Z_PARAM_OBJ_OF_CLASS(type, appkit_ce_NSTextBlockValueType)
 		Z_PARAM_OBJ_OF_CLASS(dimension, appkit_ce_NSTextBlockDimension)
 	ZEND_PARSE_PARAMETERS_END();
-	APPKIT_REQUIRE_MAIN_THREAD();
 
 	APPKIT_BEGIN
 		[SELF(NSTextBlock) setValue:value type:(NSTextBlockValueType) appkit_enum_value(type, 0) forDimension:(NSTextBlockDimension) appkit_enum_value(dimension, 0)];
 	APPKIT_END
 }
 
-METHOD(NSTextBlock, valueForDimension, PARSE_OBJ(appkit_ce_NSTextBlockDimension),
+ANY_METHOD(NSTextBlock, valueForDimension, PARSE_OBJ(appkit_ce_NSTextBlockDimension),
 	RETURN_DOUBLE([SELF(NSTextBlock) valueForDimension:(NSTextBlockDimension) appkit_enum_value(v, 0)]);)
-METHOD(NSTextBlock, valueTypeForDimension, PARSE_OBJ(appkit_ce_NSTextBlockDimension),
+ANY_METHOD(NSTextBlock, valueTypeForDimension, PARSE_OBJ(appkit_ce_NSTextBlockDimension),
 	appkit_return_enum(return_value, appkit_ce_NSTextBlockValueType, (zend_long) [SELF(NSTextBlock) valueTypeForDimension:(NSTextBlockDimension) appkit_enum_value(v, 0)], false);)
 
 /* NSParagraphStyle */
-ENUM_GET(NSParagraphStyle, NSParagraphStyle, alignment, alignment, appkit_ce_NSTextAlignment, false)
+ANY_ENUM_GET(NSParagraphStyle, NSParagraphStyle, alignment, alignment, appkit_ce_NSTextAlignment, false)
 
 ZEND_METHOD(NSParagraphStyle, textBlocks)
 {
 	ZEND_PARSE_PARAMETERS_NONE();
-	APPKIT_REQUIRE_MAIN_THREAD();
 
 	APPKIT_BEGIN
 		NSArray *blocks = [SELF(NSParagraphStyle) textBlocks];
@@ -482,12 +435,12 @@ ZEND_METHOD(NSParagraphStyle, textBlocks)
 }
 
 /* NSMutableParagraphStyle */
-METHOD(NSMutableParagraphStyle, init, PARSE_NONE,
+ANY_METHOD(NSMutableParagraphStyle, init, PARSE_NONE,
 	NSMutableParagraphStyle *style = [[CALLED alloc] init];
 	appkit_box_objc(return_value, style);
 	[style release];
 )
-ENUM_SET(NSMutableParagraphStyle, NSMutableParagraphStyle, setAlignment, setAlignment, appkit_ce_NSTextAlignment, NSTextAlignment)
+ANY_ENUM_SET(NSMutableParagraphStyle, NSMutableParagraphStyle, setAlignment, setAlignment, appkit_ce_NSTextAlignment, NSTextAlignment)
 
 ZEND_METHOD(NSMutableParagraphStyle, setTextBlocks)
 {
@@ -497,7 +450,6 @@ ZEND_METHOD(NSMutableParagraphStyle, setTextBlocks)
 	ZEND_PARSE_PARAMETERS_START(1, 1)
 		Z_PARAM_ARRAY_HT(blocks)
 	ZEND_PARSE_PARAMETERS_END();
-	APPKIT_REQUIRE_MAIN_THREAD();
 
 	APPKIT_BEGIN
 		NSMutableArray *list = [NSMutableArray arrayWithCapacity:zend_hash_num_elements(blocks)];
@@ -514,8 +466,8 @@ ZEND_METHOD(NSMutableParagraphStyle, setTextBlocks)
 }
 
 /* NSWorkspace */
-METHOD(NSWorkspace, sharedWorkspace, PARSE_NONE, appkit_box_objc(return_value, [NSWorkspace sharedWorkspace]);)
-METHOD(NSWorkspace, openURL, PARSE_OBJ(appkit_ce_NSURL), RETURN_BOOL([SELF(NSWorkspace) openURL:(NSURL *) APPKIT_ID(v)]);)
+ANY_METHOD(NSWorkspace, sharedWorkspace, PARSE_NONE, appkit_box_objc(return_value, [NSWorkspace sharedWorkspace]);)
+ANY_METHOD(NSWorkspace, openURL, PARSE_OBJ(appkit_ce_NSURL), RETURN_BOOL([SELF(NSWorkspace) openURL:(NSURL *) APPKIT_ID(v)]);)
 
 /* NSImageView */
 METHOD(NSImageView, imageViewWithImage, PARSE_OBJ(appkit_ce_NSImage), appkit_box_objc(return_value, [CALLED imageViewWithImage:(NSImage *) APPKIT_ID(v)]);)
@@ -592,7 +544,7 @@ ZEND_METHOD(NSTextView, name) \
 	ZEND_PARSE_PARAMETERS_END(); \
 	APPKIT_REQUIRE_MAIN_THREAD(); \
 	APPKIT_BEGIN \
-		if (!appkit_range_within(range_obj, [[SELF(NSTextView) string] length], 1, &range)) { \
+		if (!appkit_range_from(range_obj, 1, &range)) { \
 			RETURN_THROWS(); \
 		} \
 		[SELF(NSTextView) sel:range]; \
@@ -624,9 +576,9 @@ ZEND_METHOD(NSTextView, setMaxSize)
 }
 
 /* NSTextContainer */
-BOOL_GET(NSTextContainer, NSTextContainer, widthTracksTextView, widthTracksTextView)
-BOOL_SET(NSTextContainer, NSTextContainer, setWidthTracksTextView, setWidthTracksTextView)
-SIZE_GET(NSTextContainer, NSTextContainer, size, size)
+ANY_BOOL_GET(NSTextContainer, NSTextContainer, widthTracksTextView, widthTracksTextView)
+ANY_BOOL_SET(NSTextContainer, NSTextContainer, setWidthTracksTextView, setWidthTracksTextView)
+ANY_SIZE_GET(NSTextContainer, NSTextContainer, size, size)
 
 ZEND_METHOD(NSTextContainer, setSize)
 {
@@ -636,7 +588,6 @@ ZEND_METHOD(NSTextContainer, setSize)
 	ZEND_PARSE_PARAMETERS_START(1, 1)
 		Z_PARAM_OBJ_OF_CLASS(size_obj, appkit_ce_NSSize)
 	ZEND_PARSE_PARAMETERS_END();
-	APPKIT_REQUIRE_MAIN_THREAD();
 	if (!appkit_size_from(size_obj, 1, &size)) {
 		RETURN_THROWS();
 	}
@@ -647,27 +598,31 @@ ZEND_METHOD(NSTextContainer, setSize)
 }
 
 /* NSLayoutManager */
-METHOD(NSLayoutManager, ensureLayoutForTextContainer, PARSE_OBJ(appkit_ce_NSTextContainer), [SELF(NSLayoutManager) ensureLayoutForTextContainer:(NSTextContainer *) APPKIT_ID(v)];)
-METHOD(NSLayoutManager, usedRectForTextContainer, PARSE_OBJ(appkit_ce_NSTextContainer), appkit_return_rect(return_value, [SELF(NSLayoutManager) usedRectForTextContainer:(NSTextContainer *) APPKIT_ID(v)]);)
+ANY_METHOD(NSLayoutManager, ensureLayoutForTextContainer, PARSE_OBJ(appkit_ce_NSTextContainer), [SELF(NSLayoutManager) ensureLayoutForTextContainer:(NSTextContainer *) APPKIT_ID(v)];)
+ANY_METHOD(NSLayoutManager, usedRectForTextContainer, PARSE_OBJ(appkit_ce_NSTextContainer), appkit_return_rect(return_value, [SELF(NSLayoutManager) usedRectForTextContainer:(NSTextContainer *) APPKIT_ID(v)]);)
 
-BOOL_GET(NSLayoutManager, NSLayoutManager, allowsNonContiguousLayout, allowsNonContiguousLayout)
-BOOL_SET(NSLayoutManager, NSLayoutManager, setAllowsNonContiguousLayout, setAllowsNonContiguousLayout)
+ANY_BOOL_GET(NSLayoutManager, NSLayoutManager, allowsNonContiguousLayout, allowsNonContiguousLayout)
+ANY_BOOL_SET(NSLayoutManager, NSLayoutManager, setAllowsNonContiguousLayout, setAllowsNonContiguousLayout)
 
-ZEND_METHOD(NSLayoutManager, glyphRangeForCharacterRange)
+ZEND_METHOD(NSLayoutManager, glyphRangeForCharacterRangeActualCharacterRange)
 {
 	zend_object *range_obj;
-	NSRange range;
+	NSRange range, actual;
+	zval glyphs, actual_zv;
 
 	ZEND_PARSE_PARAMETERS_START(1, 1)
 		Z_PARAM_OBJ_OF_CLASS(range_obj, appkit_ce_NSRange)
 	ZEND_PARSE_PARAMETERS_END();
-	APPKIT_REQUIRE_MAIN_THREAD();
 
 	APPKIT_BEGIN
-		if (!appkit_range_within(range_obj, [[SELF(NSLayoutManager) textStorage] length], 1, &range)) {
+		if (!appkit_range_from(range_obj, 1, &range)) {
 			RETURN_THROWS();
 		}
-		appkit_return_range(return_value, [SELF(NSLayoutManager) glyphRangeForCharacterRange:range actualCharacterRange:NULL]);
+		appkit_return_range(&glyphs, [SELF(NSLayoutManager) glyphRangeForCharacterRange:range actualCharacterRange:&actual]);
+		appkit_return_range(&actual_zv, actual);
+		array_init_size(return_value, 2);
+		add_next_index_zval(return_value, &glyphs);
+		add_next_index_zval(return_value, &actual_zv);
 	APPKIT_END
 }
 
@@ -680,10 +635,9 @@ ZEND_METHOD(NSLayoutManager, boundingRectForGlyphRangeInTextContainer)
 		Z_PARAM_OBJ_OF_CLASS(range_obj, appkit_ce_NSRange)
 		Z_PARAM_OBJ_OF_CLASS(container, appkit_ce_NSTextContainer)
 	ZEND_PARSE_PARAMETERS_END();
-	APPKIT_REQUIRE_MAIN_THREAD();
 
 	APPKIT_BEGIN
-		if (!appkit_range_within(range_obj, [SELF(NSLayoutManager) numberOfGlyphs], 1, &range)) {
+		if (!appkit_range_from(range_obj, 1, &range)) {
 			RETURN_THROWS();
 		}
 		appkit_return_rect(return_value, [SELF(NSLayoutManager) boundingRectForGlyphRange:range inTextContainer:(NSTextContainer *) APPKIT_ID(container)]);

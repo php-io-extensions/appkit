@@ -1,5 +1,5 @@
 /* This is a generated file, edit the .stub.php file instead.
- * Stub hash: 0dc795f0b0e806c4e6f41eb81af1f94fe7905772 */
+ * Stub hash: 0292d83dd09875aeeef6470c281b5da9e88fc320 */
 
 ZEND_BEGIN_ARG_INFO_EX(arginfo_class_ObjCDelegate___construct, 0, 0, 1)
 	ZEND_ARG_TYPE_INFO(0, protocol, IS_STRING, 0)
@@ -23,29 +23,28 @@ ZEND_END_ARG_INFO()
 
 #define arginfo_class_ObjCObserver___construct arginfo_class_ObjCTarget___construct
 
-ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_ObjCObserver_observe, 0, 3, IS_VOID, 0)
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_ObjCObserver_observe, 0, 4, IS_VOID, 0)
 	ZEND_ARG_OBJ_INFO(0, object, NSObject, 0)
 	ZEND_ARG_TYPE_INFO(0, keyPath, IS_STRING, 0)
 	ZEND_ARG_TYPE_INFO(0, options, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, context, IS_LONG, 0)
 ZEND_END_ARG_INFO()
 
-ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_ObjCObserver_stop, 0, 2, IS_VOID, 0)
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_ObjCObserver_stop, 0, 3, IS_VOID, 0)
 	ZEND_ARG_OBJ_INFO(0, object, NSObject, 0)
 	ZEND_ARG_TYPE_INFO(0, keyPath, IS_STRING, 0)
+	ZEND_ARG_TYPE_INFO(0, context, IS_LONG, 0)
 ZEND_END_ARG_INFO()
 
-ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_ObjCOpenGLView_initWithFramePixelFormatDraw, 0, 3, IS_STATIC, 0)
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_ObjCOpenGLView_initWithFramePixelFormatDraw, 0, 3, IS_STATIC, 1)
 	ZEND_ARG_OBJ_INFO(0, frame, NSRect, 0)
 	ZEND_ARG_OBJ_INFO(0, format, NSOpenGLPixelFormat, 1)
 	ZEND_ARG_TYPE_INFO(0, draw, IS_CALLABLE, 0)
 ZEND_END_ARG_INFO()
 
-ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_ObjCStageWindow_canBecomeKey, 0, 0, _IS_BOOL, 0)
-ZEND_END_ARG_INFO()
+#define arginfo_class_ObjCStageWindow_on arginfo_class_ObjCDelegate_on
 
-ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_ObjCStageWindow_setCanBecomeKey, 0, 1, IS_VOID, 0)
-	ZEND_ARG_TYPE_INFO(0, canBecomeKey, _IS_BOOL, 0)
-ZEND_END_ARG_INFO()
+#define arginfo_class_ObjCStageWindow_off arginfo_class_ObjCDelegate_off
 
 ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_ObjCDrawView_initWithFrameDraw, 0, 2, IS_STATIC, 0)
 	ZEND_ARG_OBJ_INFO(0, frame, NSRect, 0)
@@ -61,8 +60,8 @@ ZEND_METHOD(ObjCObserver, __construct);
 ZEND_METHOD(ObjCObserver, observe);
 ZEND_METHOD(ObjCObserver, stop);
 ZEND_METHOD(ObjCOpenGLView, initWithFramePixelFormatDraw);
-ZEND_METHOD(ObjCStageWindow, canBecomeKey);
-ZEND_METHOD(ObjCStageWindow, setCanBecomeKey);
+ZEND_METHOD(ObjCStageWindow, on);
+ZEND_METHOD(ObjCStageWindow, off);
 ZEND_METHOD(ObjCDrawView, initWithFrameDraw);
 
 static const zend_function_entry class_ObjCDelegate_methods[] = {
@@ -91,8 +90,8 @@ static const zend_function_entry class_ObjCOpenGLView_methods[] = {
 };
 
 static const zend_function_entry class_ObjCStageWindow_methods[] = {
-	ZEND_ME(ObjCStageWindow, canBecomeKey, arginfo_class_ObjCStageWindow_canBecomeKey, ZEND_ACC_PUBLIC)
-	ZEND_ME(ObjCStageWindow, setCanBecomeKey, arginfo_class_ObjCStageWindow_setCanBecomeKey, ZEND_ACC_PUBLIC)
+	ZEND_ME(ObjCStageWindow, on, arginfo_class_ObjCStageWindow_on, ZEND_ACC_PUBLIC)
+	ZEND_ME(ObjCStageWindow, off, arginfo_class_ObjCStageWindow_off, ZEND_ACC_PUBLIC)
 	ZEND_FE_END
 };
 
@@ -136,22 +135,28 @@ static zend_class_entry *register_class_ObjCObserver(zend_class_entry *class_ent
 	class_entry = zend_register_internal_class_with_flags(&ce, class_entry_NSObject, ZEND_ACC_FINAL|ZEND_ACC_NOT_SERIALIZABLE);
 
 	zval const_OPTION_NEW_value;
-	ZVAL_LONG(&const_OPTION_NEW_value, 1);
+	ZVAL_LONG(&const_OPTION_NEW_value, NSKeyValueObservingOptionNew);
 	zend_string *const_OPTION_NEW_name = zend_string_init_interned("OPTION_NEW", sizeof("OPTION_NEW") - 1, 1);
 	zend_declare_typed_class_constant(class_entry, const_OPTION_NEW_name, &const_OPTION_NEW_value, ZEND_ACC_PUBLIC, NULL, (zend_type) ZEND_TYPE_INIT_MASK(MAY_BE_LONG));
 	zend_string_release(const_OPTION_NEW_name);
 
 	zval const_OPTION_OLD_value;
-	ZVAL_LONG(&const_OPTION_OLD_value, 2);
+	ZVAL_LONG(&const_OPTION_OLD_value, NSKeyValueObservingOptionOld);
 	zend_string *const_OPTION_OLD_name = zend_string_init_interned("OPTION_OLD", sizeof("OPTION_OLD") - 1, 1);
 	zend_declare_typed_class_constant(class_entry, const_OPTION_OLD_name, &const_OPTION_OLD_value, ZEND_ACC_PUBLIC, NULL, (zend_type) ZEND_TYPE_INIT_MASK(MAY_BE_LONG));
 	zend_string_release(const_OPTION_OLD_name);
 
 	zval const_OPTION_INITIAL_value;
-	ZVAL_LONG(&const_OPTION_INITIAL_value, 4);
+	ZVAL_LONG(&const_OPTION_INITIAL_value, NSKeyValueObservingOptionInitial);
 	zend_string *const_OPTION_INITIAL_name = zend_string_init_interned("OPTION_INITIAL", sizeof("OPTION_INITIAL") - 1, 1);
 	zend_declare_typed_class_constant(class_entry, const_OPTION_INITIAL_name, &const_OPTION_INITIAL_value, ZEND_ACC_PUBLIC, NULL, (zend_type) ZEND_TYPE_INIT_MASK(MAY_BE_LONG));
 	zend_string_release(const_OPTION_INITIAL_name);
+
+	zval const_OPTION_PRIOR_value;
+	ZVAL_LONG(&const_OPTION_PRIOR_value, NSKeyValueObservingOptionPrior);
+	zend_string *const_OPTION_PRIOR_name = zend_string_init_interned("OPTION_PRIOR", sizeof("OPTION_PRIOR") - 1, 1);
+	zend_declare_typed_class_constant(class_entry, const_OPTION_PRIOR_name, &const_OPTION_PRIOR_value, ZEND_ACC_PUBLIC, NULL, (zend_type) ZEND_TYPE_INIT_MASK(MAY_BE_LONG));
+	zend_string_release(const_OPTION_PRIOR_name);
 
 	return class_entry;
 }

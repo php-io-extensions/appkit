@@ -74,6 +74,72 @@ const kCGBitmapByteOrder32Big = UNKNOWN;
  */
 const kCGRenderingIntentDefault = UNKNOWN;
 
+/**
+ * @var int
+ * @cvalue kCGErrorSuccess
+ */
+const kCGErrorSuccess = UNKNOWN;
+
+/**
+ * @var int
+ * @cvalue kCGErrorFailure
+ */
+const kCGErrorFailure = UNKNOWN;
+
+/**
+ * @var int
+ * @cvalue kCGErrorIllegalArgument
+ */
+const kCGErrorIllegalArgument = UNKNOWN;
+
+/**
+ * @var int
+ * @cvalue kCGErrorInvalidConnection
+ */
+const kCGErrorInvalidConnection = UNKNOWN;
+
+/**
+ * @var int
+ * @cvalue kCGErrorInvalidContext
+ */
+const kCGErrorInvalidContext = UNKNOWN;
+
+/**
+ * @var int
+ * @cvalue kCGErrorCannotComplete
+ */
+const kCGErrorCannotComplete = UNKNOWN;
+
+/**
+ * @var int
+ * @cvalue kCGErrorNotImplemented
+ */
+const kCGErrorNotImplemented = UNKNOWN;
+
+/**
+ * @var int
+ * @cvalue kCGErrorRangeCheck
+ */
+const kCGErrorRangeCheck = UNKNOWN;
+
+/**
+ * @var int
+ * @cvalue kCGErrorTypeCheck
+ */
+const kCGErrorTypeCheck = UNKNOWN;
+
+/**
+ * @var int
+ * @cvalue kCGErrorInvalidOperation
+ */
+const kCGErrorInvalidOperation = UNKNOWN;
+
+/**
+ * @var int
+ * @cvalue kCGErrorNoneAvailable
+ */
+const kCGErrorNoneAvailable = UNKNOWN;
+
 enum CGInterpolationQuality: int
 {
     case DEFAULT = 0;
@@ -89,10 +155,11 @@ enum CGInterpolationQuality: int
 final class CFData extends CFType
 {
     /**
-     * CFDataCreate: a copy of $bytes, or of $length bytes read at the address $bytes
+     * CFDataCreate: a copy of $length bytes from the string $bytes, or read at the address $bytes
      * (an ext-fb buffer's pointer()). An address is trusted: it must hold $length readable bytes.
+     * null when Core Foundation makes no data.
      */
-    public static function create(string|int $bytes, ?int $length = null): CFData {}
+    public static function create(?CFAllocator $allocator, string|int $bytes, int $length): ?CFData {}
 
     public function getLength(): int {}
 }
@@ -109,8 +176,9 @@ final class CGDataProvider extends CFType
      * CGDataProviderCreateDirect over $size bytes at $address: Core Graphics reads the memory in
      * place, never copying it or freeing it. The memory (an ext-fb buffer's pointer()) is the
      * caller's and must outlive every image made from the provider. An address is trusted.
+     * null when Core Graphics makes no provider (a size below 1).
      */
-    public static function createDirect(int $address, int $size): CGDataProvider {}
+    public static function createDirect(int $address, int $size): ?CGDataProvider {}
 }
 
 /**
@@ -123,16 +191,25 @@ final class CGColorSpace extends CFType
 }
 
 /**
+ * A CGColorRef.
+ *
+ * @not-serializable
+ */
+final class CGColor extends CFType
+{
+}
+
+/**
  * @not-serializable
  */
 final class CGImage extends CFType
 {
     /**
-     * CGImageCreate with no decode array. $bitmapInfo is a kCGImageAlpha* value, or'ed with a
-     * kCGBitmapByteOrder* one. The provider's data must hold $bytesPerRow × $height bytes.
-     * null when Core Graphics refuses the description.
+     * CGImageCreate. $bitmapInfo is a kCGImageAlpha* value, or'ed with a kCGBitmapByteOrder* one.
+     * $decode is null or a list of floats, two per colour component of $space. null when Core
+     * Graphics refuses the description, a provider shorter than it included.
      */
-    public static function create(int $width, int $height, int $bitsPerComponent, int $bitsPerPixel, int $bytesPerRow, CGColorSpace $space, int $bitmapInfo, CGDataProvider $provider, bool $shouldInterpolate, int $intent): ?CGImage {}
+    public static function create(int $width, int $height, int $bitsPerComponent, int $bitsPerPixel, int $bytesPerRow, ?CGColorSpace $space, int $bitmapInfo, ?CGDataProvider $provider, ?array $decode, bool $shouldInterpolate, int $intent): ?CGImage {}
 
     public function getWidth(): int {}
 

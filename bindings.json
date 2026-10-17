@@ -1,0 +1,56 @@
+{
+  "symbols": {
+    "CFType::getTypeID": "CFGetTypeID",
+    "CFType::hash": "CFHash",
+    "CGDisplay::mainDisplayID": "CGMainDisplayID",
+    "CGDisplay::shieldingWindowLevel": "CGShieldingWindowLevel",
+    "CFType::copyDescription": "CFCopyDescription",
+    "CGDisplay::getActiveDisplayList": "CGGetActiveDisplayList"
+  },
+  "glue": {
+    "AppKitException": {"methods": []},
+    "ObjCDelegate": {"methods": ["__construct", "on", "off", "protocolName"], "forwards": "forwardInvocation: for the named protocol's selectors"},
+    "ObjCTarget": {"methods": ["__construct"], "forwards": "action:"},
+    "ObjCObserver": {"methods": ["__construct", "observe", "stop"], "forwards": "observeValueForKeyPath:ofObject:change:context:"},
+    "ObjCDrawView": {"methods": ["initWithFrameDraw"], "forwards": "drawRect:"},
+    "ObjCOpenGLView": {"methods": ["initWithFramePixelFormatDraw"], "forwards": "drawRect:"},
+    "ObjCStageWindow": {"methods": ["on", "off"], "forwards": "canBecomeKeyWindow, canBecomeMainWindow"},
+    "NSEvent": {"methods": ["addLocalMonitorForEventsMatchingMaskHandler"], "forwards": "handler block ^NSEvent *(NSEvent *)"},
+    "NSNotificationCenter": {"methods": ["addObserverForNameObjectQueueUsingBlock"], "forwards": "block ^(NSNotification *)"},
+    "CFFileDescriptor": {"methods": ["create"], "forwards": "CFFileDescriptorCallBack"},
+    "GCController": {"methods": ["startWirelessControllerDiscoveryWithCompletionHandler"], "forwards": "completion block"},
+    "CGDataProvider": {"methods": ["createDirect"], "forwards": "CGDataProviderDirectCallbacks.getBytePointer"},
+    "NSObject": {"methods": ["pointer", "fromPointer"], "forwards": "address hand-off (kept, Angel 2026-10-16)"},
+    "CFType": {"methods": ["pointer"], "forwards": "address hand-off (kept, Angel 2026-10-16)"}
+  },
+  "helpers": {
+    "marshal": [
+      "appkit_rect_from",
+      "appkit_point_from",
+      "appkit_size_from",
+      "appkit_display_from",
+      "appkit_view_array",
+      "appkit_range_from",
+      "appkit_nsdictionary",
+      "appkit_double_props",
+      "appkit_constraints_from",
+      "appkit_cmtime_from",
+      "appkit_edge_insets_from"
+    ],
+    "translate": [
+      "appkit_throw_nsexception"
+    ]
+  },
+  "sites": {
+    "main-thread-appkit-ui": {"kind": "refusal", "outcome": 2, "probe": "tests/Probes/MainThreadTest.php"},
+    "cfdata-null-address": {"kind": "refusal", "outcome": 2, "probe": "tests/Probes/CFDataNullTest.php"},
+    "cfdata-string-length": {"kind": "refusal", "outcome": 1, "probe": "tests/Probes/CFDataStringLengthTest.php"},
+    "cgimage-decode-length": {"kind": "refusal", "outcome": 1, "probe": "tests/Probes/CGImageDecodeLengthTest.php"},
+    "attribute-value-class": {"kind": "refusal", "outcome": 2, "probe": "tests/Probes/AttributeValueTest.php"},
+    "glue-construct-once": {"kind": "refusal", "outcome": 1, "probe": "tests/Probes/GlueConstructTest.php"},
+    "monitor-remove-once": {"kind": "refusal", "outcome": 2, "probe": "tests/Probes/MonitorRemoveTest.php"},
+    "pixel-format-value": {"kind": "refusal", "outcome": 1, "probe": "tests/Probes/PixelFormatTest.php"},
+    "calayer-contents-value": {"kind": "marshal"}
+  },
+  "typemap": {"UInt8": ["string", "int"]}
+}

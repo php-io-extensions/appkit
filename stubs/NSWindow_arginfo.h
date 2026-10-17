@@ -1,5 +1,5 @@
 /* This is a generated file, edit the .stub.php file instead.
- * Stub hash: 566ce1cc91e4e9390b135e68987e472c358c7257 */
+ * Stub hash: 359ef5099effefeb61db830eb355a6d1f4e5a8e5 */
 
 ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(arginfo_class_NSWindow_initWithContentRectStyleMaskBackingDefer, 0, 4, NSWindow, 0)
 	ZEND_ARG_OBJ_INFO(0, contentRect, NSRect, 0)
@@ -37,6 +37,10 @@ ZEND_END_ARG_INFO()
 #define arginfo_class_NSWindow_isKeyWindow arginfo_class_NSWindow_isVisible
 
 #define arginfo_class_NSWindow_isMainWindow arginfo_class_NSWindow_isVisible
+
+#define arginfo_class_NSWindow_canBecomeKeyWindow arginfo_class_NSWindow_isVisible
+
+#define arginfo_class_NSWindow_canBecomeMainWindow arginfo_class_NSWindow_isVisible
 
 #define arginfo_class_NSWindow_makeKeyWindow arginfo_class_NSWindow_close
 
@@ -230,6 +234,8 @@ ZEND_METHOD(NSWindow, miniaturize);
 ZEND_METHOD(NSWindow, isVisible);
 ZEND_METHOD(NSWindow, isKeyWindow);
 ZEND_METHOD(NSWindow, isMainWindow);
+ZEND_METHOD(NSWindow, canBecomeKeyWindow);
+ZEND_METHOD(NSWindow, canBecomeMainWindow);
 ZEND_METHOD(NSWindow, makeKeyWindow);
 ZEND_METHOD(NSWindow, delegate);
 ZEND_METHOD(NSWindow, setDelegate);
@@ -303,6 +309,8 @@ static const zend_function_entry class_NSWindow_methods[] = {
 	ZEND_ME(NSWindow, isVisible, arginfo_class_NSWindow_isVisible, ZEND_ACC_PUBLIC)
 	ZEND_ME(NSWindow, isKeyWindow, arginfo_class_NSWindow_isKeyWindow, ZEND_ACC_PUBLIC)
 	ZEND_ME(NSWindow, isMainWindow, arginfo_class_NSWindow_isMainWindow, ZEND_ACC_PUBLIC)
+	ZEND_ME(NSWindow, canBecomeKeyWindow, arginfo_class_NSWindow_canBecomeKeyWindow, ZEND_ACC_PUBLIC)
+	ZEND_ME(NSWindow, canBecomeMainWindow, arginfo_class_NSWindow_canBecomeMainWindow, ZEND_ACC_PUBLIC)
 	ZEND_ME(NSWindow, makeKeyWindow, arginfo_class_NSWindow_makeKeyWindow, ZEND_ACC_PUBLIC)
 	ZEND_ME(NSWindow, delegate, arginfo_class_NSWindow_delegate, ZEND_ACC_PUBLIC)
 	ZEND_ME(NSWindow, setDelegate, arginfo_class_NSWindow_setDelegate, ZEND_ACC_PUBLIC)

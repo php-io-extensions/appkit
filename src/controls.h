@@ -19,7 +19,7 @@
 #define CALLED ((id) appkit_called_class(execute_data))
 #define SELECTOR_OR_NULL(str) ((str) != NULL ? sel_registerName(ZSTR_VAL(str)) : NULL)
 
-/* Every method: parse, main-thread guard, body inside the exception guard. */
+/* A method of the AppKit UI families: parse, main-thread guard, body inside the exception guard. */
 #define METHOD(cls, name, parse, body) \
 ZEND_METHOD(cls, name) { parse APPKIT_REQUIRE_MAIN_THREAD(); APPKIT_BEGIN body APPKIT_END }
 
@@ -51,6 +51,31 @@ ZEND_METHOD(cls, name) { parse APPKIT_REQUIRE_MAIN_THREAD(); APPKIT_BEGIN body A
 #define SENDER_METHOD(cls, T, name, sel)          METHOD(cls, name, PARSE_OBJ_OR_NULL(appkit_ce_NSObject), [SELF(T) sel:OPTIONAL_ID(v)];)
 #define SIZE_GET(cls, T, name, sel)               METHOD(cls, name, PARSE_NONE, appkit_return_size(return_value, [SELF(T) sel]);)
 #define STR_GET_NULLABLE STR_GET_OR_NULL
+
+/*
+ * The same accessors for a class any thread may call (Foundation, text, graphics, media, the
+ * game controllers, the non-view AppKit helpers): parse, body inside the exception guard, no
+ * main-thread gate.
+ */
+#define ANY_METHOD(cls, name, parse, body) \
+ZEND_METHOD(cls, name) { parse APPKIT_BEGIN body APPKIT_END }
+
+#define ANY_VOID_METHOD(cls, T, name, sel)            ANY_METHOD(cls, name, PARSE_NONE, [SELF(T) sel];)
+#define ANY_BOOL_GET(cls, T, name, sel)               ANY_METHOD(cls, name, PARSE_NONE, RETURN_BOOL([SELF(T) sel]);)
+#define ANY_BOOL_SET(cls, T, name, sel)               ANY_METHOD(cls, name, PARSE_BOOL, [SELF(T) sel:v];)
+#define ANY_DOUBLE_GET(cls, T, name, sel)             ANY_METHOD(cls, name, PARSE_NONE, RETURN_DOUBLE([SELF(T) sel]);)
+#define ANY_DOUBLE_SET(cls, T, name, sel)             ANY_METHOD(cls, name, PARSE_DOUBLE, [SELF(T) sel:v];)
+#define ANY_LONG_GET(cls, T, name, sel)               ANY_METHOD(cls, name, PARSE_NONE, RETURN_LONG((zend_long) [SELF(T) sel]);)
+#define ANY_LONG_SET(cls, T, name, sel, NT)           ANY_METHOD(cls, name, PARSE_LONG, [SELF(T) sel:(NT) v];)
+#define ANY_STR_GET(cls, T, name, sel)                ANY_METHOD(cls, name, PARSE_NONE, RETURN_STR(appkit_zend_string((CFStringRef) [SELF(T) sel]));)
+#define ANY_STR_GET_OR_NULL(cls, T, name, sel)        ANY_METHOD(cls, name, PARSE_NONE, NSString *s = [SELF(T) sel]; if (s == nil) { RETURN_NULL(); } RETURN_STR(appkit_zend_string((CFStringRef) s));)
+#define ANY_STR_SET(cls, T, name, sel)                ANY_METHOD(cls, name, PARSE_STR, [SELF(T) sel:appkit_nsstring(v)];)
+#define ANY_OBJ_GET(cls, T, name, sel)                ANY_METHOD(cls, name, PARSE_NONE, appkit_box_objc(return_value, [SELF(T) sel]);)
+#define ANY_OBJ_SET(cls, T, name, sel, ce, OT)        ANY_METHOD(cls, name, PARSE_OBJ(ce), [SELF(T) sel:(OT) APPKIT_ID(v)];)
+#define ANY_OBJ_SET_OR_NULL(cls, T, name, sel, ce, OT) ANY_METHOD(cls, name, PARSE_OBJ_OR_NULL(ce), [SELF(T) sel:(OT) OPTIONAL_ID(v)];)
+#define ANY_ENUM_GET(cls, T, name, sel, ce, fallback) ANY_METHOD(cls, name, PARSE_NONE, appkit_return_enum(return_value, ce, (zend_long) [SELF(T) sel], fallback);)
+#define ANY_ENUM_SET(cls, T, name, sel, ce, ET)       ANY_METHOD(cls, name, PARSE_OBJ(ce), [SELF(T) sel:(ET) appkit_enum_value(v, 0)];)
+#define ANY_SIZE_GET(cls, T, name, sel)               ANY_METHOD(cls, name, PARSE_NONE, appkit_return_size(return_value, [SELF(T) sel]);)
 
 /* A static constructor taking (string title, ?NSObject target, ?string action). */
 #define TITLE_TARGET_ACTION(cls, T, name, sel) \

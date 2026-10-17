@@ -53,7 +53,8 @@ it('asks for a frame-rate range and reads it back', function (): void {
 
     expect($range)->toBeInstanceOf(CAFrameRateRange::class)
         ->and([$range->minimum, $range->maximum, $range->preferred])->toBe([30.0, 120.0, 60.0])
-        ->and(new CAFrameRateRange())->toEqual(new CAFrameRateRange(0.0, 0.0, 0.0));
+        ->and(fn () => new CAFrameRateRange(30.0, 120.0))->toThrow(ArgumentCountError::class)
+        ->and((new ReflectionProperty(CAFrameRateRange::class, 'minimum'))->hasDefaultValue())->toBeFalse();
 
     $link->invalidate();
     $window->close();

@@ -43,10 +43,11 @@ final class CGDisplay
     public static function mainDisplayID(): int {}
 
     /**
-     * CGGetActiveDisplayList
-     * @return list<int>
+     * CGGetActiveDisplayList: the CGError. $activeDisplays receives up to $maxDisplays IDs
+     * as a list of ints (a $maxDisplays of 0 passes no list: the count query); $displayCount
+     * receives the count.
      */
-    public static function getActiveDisplayList(): array {}
+    public static function getActiveDisplayList(int $maxDisplays, ?array &$activeDisplays = null, ?int &$displayCount = null): int {}
 
     public static function bounds(int $display): NSRect {}
 
@@ -59,14 +60,14 @@ final class CGDisplay
      */
     public static function copyAllDisplayModes(int $display, ?array $options = null): array {}
 
-    /** CGDisplaySetDisplayMode with no options; throws AppKitException with the CGError on failure. */
-    public static function setDisplayMode(int $display, CGDisplayMode $mode): void {}
+    /** CGDisplaySetDisplayMode: the CGError. $options holds CFDictionary keys, as copyAllDisplayModes() takes them. */
+    public static function setDisplayMode(int $display, ?CGDisplayMode $mode, ?array $options): int {}
 
-    /** CGDisplayCapture: the display is the caller's alone until release(). Throws on a CGError. */
-    public static function capture(int $display): void {}
+    /** CGDisplayCapture: the CGError. The display is the caller's alone until release(). */
+    public static function capture(int $display): int {}
 
-    /** CGDisplayRelease. Throws on a CGError. */
-    public static function release(int $display): void {}
+    /** CGDisplayRelease: the CGError. */
+    public static function release(int $display): int {}
 
     /** CGShieldingWindowLevel: the level above a captured display's shield. */
     public static function shieldingWindowLevel(): int {}

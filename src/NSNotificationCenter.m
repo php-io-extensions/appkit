@@ -20,8 +20,8 @@ void appkit_register_NSNotificationCenter(int module_number)
 	APPKIT_MAP(NSOperationQueue, appkit_ce_NSObject);
 }
 
-STR_GET(NSNotification, NSNotification, name, name)
-OBJ_GET(NSNotification, NSNotification, object, object)
+ANY_STR_GET(NSNotification, NSNotification, name, name)
+ANY_OBJ_GET(NSNotification, NSNotification, object, object)
 
 ZEND_METHOD(NSNotificationCenter, defaultCenter)
 {
@@ -51,7 +51,6 @@ ZEND_METHOD(NSNotificationCenter, addObserverForNameObjectQueueUsingBlock)
 		Z_PARAM_OBJ_OF_CLASS_OR_NULL(queue, appkit_ce_NSOperationQueue)
 		Z_PARAM_ZVAL(block)
 	ZEND_PARSE_PARAMETERS_END();
-	APPKIT_REQUIRE_MAIN_THREAD();
 
 	if (!zend_is_callable(block, 0, NULL)) {
 		zend_argument_type_error(4, "must be a valid callback");
@@ -78,7 +77,7 @@ ZEND_METHOD(NSNotificationCenter, addObserverForNameObjectQueueUsingBlock)
 	APPKIT_END
 }
 
-OBJ_SET(NSNotificationCenter, NSNotificationCenter, removeObserver, removeObserver, appkit_ce_NSObject, id)
+ANY_OBJ_SET(NSNotificationCenter, NSNotificationCenter, removeObserver, removeObserver, appkit_ce_NSObject, id)
 
 ZEND_METHOD(NSNotificationCenter, postNotificationNameObject)
 {
@@ -89,7 +88,6 @@ ZEND_METHOD(NSNotificationCenter, postNotificationNameObject)
 		Z_PARAM_STR(name)
 		Z_PARAM_OBJ_OF_CLASS_OR_NULL(object, appkit_ce_NSObject)
 	ZEND_PARSE_PARAMETERS_END();
-	APPKIT_REQUIRE_MAIN_THREAD();
 
 	APPKIT_BEGIN
 		[SELF(NSNotificationCenter) postNotificationName:appkit_nsstring(name) object:OPTIONAL_ID(object)];
@@ -97,10 +95,10 @@ ZEND_METHOD(NSNotificationCenter, postNotificationNameObject)
 }
 
 /* NSOperationQueue */
-METHOD(NSOperationQueue, mainQueue, PARSE_NONE, appkit_box_objc(return_value, [NSOperationQueue mainQueue]);)
-METHOD(NSOperationQueue, init, PARSE_NONE,
+ANY_METHOD(NSOperationQueue, mainQueue, PARSE_NONE, appkit_box_objc(return_value, [NSOperationQueue mainQueue]);)
+ANY_METHOD(NSOperationQueue, init, PARSE_NONE,
 	NSOperationQueue *queue = [[CALLED alloc] init];
 	appkit_box_objc(return_value, queue);
 	[queue release];
 )
-VOID_METHOD(NSOperationQueue, NSOperationQueue, waitUntilAllOperationsAreFinished, waitUntilAllOperationsAreFinished)
+ANY_VOID_METHOD(NSOperationQueue, NSOperationQueue, waitUntilAllOperationsAreFinished, waitUntilAllOperationsAreFinished)

@@ -4,8 +4,8 @@
 
 enum NSRequestUserAttentionType: int
 {
-    case CRITICAL = 0;
-    case INFORMATIONAL = 10;
+    case CRITICAL_REQUEST = 0;
+    case INFORMATIONAL_REQUEST = 10;
 }
 
 enum NSApplicationActivationPolicy: int

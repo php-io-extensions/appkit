@@ -1,5 +1,5 @@
 /* This is a generated file, edit the .stub.php file instead.
- * Stub hash: 31fca6d570eeabc43df8ee1827f564d7a33838cb */
+ * Stub hash: 0ccc4f0f7b5a89e104213f3be7d943f25fa9379f */
 
 ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_NSIndexSet_indexSetWithIndex, 0, 1, IS_STATIC, 0)
 	ZEND_ARG_TYPE_INFO(0, index, IS_LONG, 0)
@@ -205,19 +205,19 @@ static zend_class_entry *register_class_NSTableColumn(zend_class_entry *class_en
 	class_entry = zend_register_internal_class_with_flags(&ce, class_entry_NSObject, ZEND_ACC_NOT_SERIALIZABLE);
 
 	zval const_RESIZING_MASK_NONE_value;
-	ZVAL_LONG(&const_RESIZING_MASK_NONE_value, 0);
+	ZVAL_LONG(&const_RESIZING_MASK_NONE_value, NSTableColumnNoResizing);
 	zend_string *const_RESIZING_MASK_NONE_name = zend_string_init_interned("RESIZING_MASK_NONE", sizeof("RESIZING_MASK_NONE") - 1, 1);
 	zend_declare_typed_class_constant(class_entry, const_RESIZING_MASK_NONE_name, &const_RESIZING_MASK_NONE_value, ZEND_ACC_PUBLIC, NULL, (zend_type) ZEND_TYPE_INIT_MASK(MAY_BE_LONG));
 	zend_string_release(const_RESIZING_MASK_NONE_name);
 
 	zval const_RESIZING_MASK_AUTORESIZING_value;
-	ZVAL_LONG(&const_RESIZING_MASK_AUTORESIZING_value, 1);
+	ZVAL_LONG(&const_RESIZING_MASK_AUTORESIZING_value, NSTableColumnAutoresizingMask);
 	zend_string *const_RESIZING_MASK_AUTORESIZING_name = zend_string_init_interned("RESIZING_MASK_AUTORESIZING", sizeof("RESIZING_MASK_AUTORESIZING") - 1, 1);
 	zend_declare_typed_class_constant(class_entry, const_RESIZING_MASK_AUTORESIZING_name, &const_RESIZING_MASK_AUTORESIZING_value, ZEND_ACC_PUBLIC, NULL, (zend_type) ZEND_TYPE_INIT_MASK(MAY_BE_LONG));
 	zend_string_release(const_RESIZING_MASK_AUTORESIZING_name);
 
 	zval const_RESIZING_MASK_USER_RESIZING_value;
-	ZVAL_LONG(&const_RESIZING_MASK_USER_RESIZING_value, 2);
+	ZVAL_LONG(&const_RESIZING_MASK_USER_RESIZING_value, NSTableColumnUserResizingMask);
 	zend_string *const_RESIZING_MASK_USER_RESIZING_name = zend_string_init_interned("RESIZING_MASK_USER_RESIZING", sizeof("RESIZING_MASK_USER_RESIZING") - 1, 1);
 	zend_declare_typed_class_constant(class_entry, const_RESIZING_MASK_USER_RESIZING_name, &const_RESIZING_MASK_USER_RESIZING_value, ZEND_ACC_PUBLIC, NULL, (zend_type) ZEND_TYPE_INIT_MASK(MAY_BE_LONG));
 	zend_string_release(const_RESIZING_MASK_USER_RESIZING_name);

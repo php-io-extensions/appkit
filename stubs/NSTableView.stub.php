@@ -20,10 +20,12 @@ class NSIndexSet extends NSObject
  */
 class NSTableColumn extends NSObject
 {
-    /** NSTableColumnResizingOptions, combined with | */
-    public const int RESIZING_MASK_NONE = 0;
-    public const int RESIZING_MASK_AUTORESIZING = 1;
-    public const int RESIZING_MASK_USER_RESIZING = 2;
+    /** @cvalue NSTableColumnNoResizing */
+    public const int RESIZING_MASK_NONE = UNKNOWN;
+    /** @cvalue NSTableColumnAutoresizingMask */
+    public const int RESIZING_MASK_AUTORESIZING = UNKNOWN;
+    /** @cvalue NSTableColumnUserResizingMask */
+    public const int RESIZING_MASK_USER_RESIZING = UNKNOWN;
 
     public static function initWithIdentifier(string $identifier): static {}
 

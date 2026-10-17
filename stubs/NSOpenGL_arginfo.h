@@ -1,5 +1,5 @@
 /* This is a generated file, edit the .stub.php file instead.
- * Stub hash: 8a95a8d940bbb149c771d6a94958f28a0792a62e */
+ * Stub hash: ce7b569a7becf703d0d170bffd38eb6d86d65593 */
 
 ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_NSOpenGLPixelFormat_initWithAttributes, 0, 1, IS_STATIC, 1)
 	ZEND_ARG_TYPE_INFO(0, attribs, IS_ARRAY, 0)
@@ -42,7 +42,7 @@ ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_NSOpenGLContext_getValuesF
 	ZEND_ARG_TYPE_INFO(0, count, IS_LONG, 0)
 ZEND_END_ARG_INFO()
 
-ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_NSOpenGLView_initWithFramePixelFormat, 0, 2, IS_STATIC, 0)
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_NSOpenGLView_initWithFramePixelFormat, 0, 2, IS_STATIC, 1)
 	ZEND_ARG_OBJ_INFO(0, frame, NSRect, 0)
 	ZEND_ARG_OBJ_INFO(0, format, NSOpenGLPixelFormat, 1)
 ZEND_END_ARG_INFO()

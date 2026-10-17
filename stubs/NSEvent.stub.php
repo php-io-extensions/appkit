@@ -96,12 +96,12 @@ enum NSEventModifierFlags: int
  */
 class NSEvent extends NSObject
 {
-    public static function otherEventWithTypeLocationModifierFlagsTimestampWindowNumberContextSubtypeData1Data2(NSEventType $type, NSPoint $location, NSEventModifierFlags|int $flags, float $time, int $wNum, ?NSObject $unusedPassNil, int $subtype, int $d1, int $d2): ?NSEvent {}
+    public static function otherEventWithTypeLocationModifierFlagsTimestampWindowNumberContextSubtypeData1Data2(NSEventType $type, NSPoint $location, NSEventModifierFlags|int $flags, float $time, int $wNum, ?NSGraphicsContext $context, int $subtype, int $d1, int $d2): ?NSEvent {}
 
-    public static function mouseEventWithTypeLocationModifierFlagsTimestampWindowNumberContextEventNumberClickCountPressure(NSEventType $type, NSPoint $location, NSEventModifierFlags|int $flags, float $time, int $wNum, ?NSObject $unusedPassNil, int $eNum, int $cNum, float $pressure): ?NSEvent {}
+    public static function mouseEventWithTypeLocationModifierFlagsTimestampWindowNumberContextEventNumberClickCountPressure(NSEventType $type, NSPoint $location, NSEventModifierFlags|int $flags, float $time, int $wNum, ?NSGraphicsContext $context, int $eNum, int $cNum, float $pressure): ?NSEvent {}
 
     /** A KeyDown, KeyUp or FlagsChanged event; AppKit raises for any other type. */
-    public static function keyEventWithTypeLocationModifierFlagsTimestampWindowNumberContextCharactersCharactersIgnoringModifiersIsARepeatKeyCode(NSEventType $type, NSPoint $location, NSEventModifierFlags|int $flags, float $time, int $wNum, ?NSObject $unusedPassNil, string $keys, string $ukeys, bool $flag, int $code): ?NSEvent {}
+    public static function keyEventWithTypeLocationModifierFlagsTimestampWindowNumberContextCharactersCharactersIgnoringModifiersIsARepeatKeyCode(NSEventType $type, NSPoint $location, NSEventModifierFlags|int $flags, float $time, int $wNum, ?NSGraphicsContext $context, string $keys, string $ukeys, bool $flag, int $code): ?NSEvent {}
 
     /** The NSEvent for a Quartz event: the only way to make a scroll-wheel or other-button event. */
     public static function eventWithCGEvent(CGEvent $cgEvent): ?NSEvent {}
@@ -111,6 +111,18 @@ class NSEvent extends NSObject
 
     /** The mouse buttons down now, whatever event reported them: bit 0 left, 1 right, 2 and up the others. */
     public static function pressedMouseButtons(): int {}
+
+    /**
+     * +addLocalMonitorForEventsMatchingMask:handler:. AppKit calls $handler(NSEvent $event): ?NSEvent
+     * for each matching event this app dispatches through sendEvent:, not those a nested tracking loop
+     * takes: AppKit gets the returned NSEvent, or nil (the event swallowed) for null; any other return,
+     * or a handler that did not run, hands AppKit its own event. The monitor keeps $handler until
+     * removeMonitor(); after request end the handler no longer runs.
+     */
+    public static function addLocalMonitorForEventsMatchingMaskHandler(NSEventMask|int $mask, callable $handler): NSObject {}
+
+    /** +removeMonitor:. ValueError for a monitor already removed (AppKit crashes on a second removal); AppKit raises for an object that is no monitor. */
+    public static function removeMonitor(NSObject $monitor): void {}
 
     public function type(): NSEventType|int {}
 

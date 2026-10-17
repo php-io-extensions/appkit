@@ -143,6 +143,10 @@ class NSWindow extends NSResponder
 
     public function isMainWindow(): bool {}
 
+    public function canBecomeKeyWindow(): bool {}
+
+    public function canBecomeMainWindow(): bool {}
+
     public function makeKeyWindow(): void {}
 
     public function delegate(): ?NSObject {}

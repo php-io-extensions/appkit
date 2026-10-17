@@ -4,9 +4,9 @@
 
 final class NSPoint
 {
-    public float $x = 0.0;
+    public float $x;
 
-    public float $y = 0.0;
+    public float $y;
 
-    public function __construct(float $x = 0.0, float $y = 0.0) {}
+    public function __construct(float $x, float $y) {}
 }

@@ -1,9 +1,9 @@
 /* This is a generated file, edit the .stub.php file instead.
- * Stub hash: 35aefd279cda363e2a505309ef1302d649b970ef */
+ * Stub hash: f312ea54b49f37bf3daf3fa3617456e58536731c */
 
-ZEND_BEGIN_ARG_INFO_EX(arginfo_class_NSRange___construct, 0, 0, 0)
-	ZEND_ARG_TYPE_INFO_WITH_DEFAULT_VALUE(0, location, IS_LONG, 0, "0")
-	ZEND_ARG_TYPE_INFO_WITH_DEFAULT_VALUE(0, length, IS_LONG, 0, "0")
+ZEND_BEGIN_ARG_INFO_EX(arginfo_class_NSRange___construct, 0, 0, 2)
+	ZEND_ARG_TYPE_INFO(0, location, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, length, IS_LONG, 0)
 ZEND_END_ARG_INFO()
 
 ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_NSGridView_gridViewWithNumberOfColumnsRows, 0, 2, IS_STATIC, 0)
@@ -60,6 +60,9 @@ ZEND_END_ARG_INFO()
 
 ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(arginfo_class_NSGridView_columnAtIndex, 0, 1, NSGridColumn, 0)
 	ZEND_ARG_TYPE_INFO(0, index, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(arginfo_class_NSGridCell_emptyContentView, 0, 0, NSView, 0)
 ZEND_END_ARG_INFO()
 
 ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(arginfo_class_NSGridCell_contentView, 0, 0, NSView, 1)
@@ -134,6 +137,7 @@ ZEND_METHOD(NSGridView, cellAtColumnIndexRowIndex);
 ZEND_METHOD(NSGridView, mergeCellsInHorizontalRangeVerticalRange);
 ZEND_METHOD(NSGridView, rowAtIndex);
 ZEND_METHOD(NSGridView, columnAtIndex);
+ZEND_METHOD(NSGridCell, emptyContentView);
 ZEND_METHOD(NSGridCell, contentView);
 ZEND_METHOD(NSGridCell, setContentView);
 ZEND_METHOD(NSGridCell, xPlacement);
@@ -182,6 +186,7 @@ static const zend_function_entry class_NSGridView_methods[] = {
 };
 
 static const zend_function_entry class_NSGridCell_methods[] = {
+	ZEND_ME(NSGridCell, emptyContentView, arginfo_class_NSGridCell_emptyContentView, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
 	ZEND_ME(NSGridCell, contentView, arginfo_class_NSGridCell_contentView, ZEND_ACC_PUBLIC)
 	ZEND_ME(NSGridCell, setContentView, arginfo_class_NSGridCell_setContentView, ZEND_ACC_PUBLIC)
 	ZEND_ME(NSGridCell, xPlacement, arginfo_class_NSGridCell_xPlacement, ZEND_ACC_PUBLIC)
@@ -254,13 +259,13 @@ static zend_class_entry *register_class_NSRange(void)
 	class_entry = zend_register_internal_class_with_flags(&ce, NULL, ZEND_ACC_FINAL);
 
 	zval property_location_default_value;
-	ZVAL_LONG(&property_location_default_value, 0);
+	ZVAL_UNDEF(&property_location_default_value);
 	zend_string *property_location_name = zend_string_init("location", sizeof("location") - 1, 1);
 	zend_declare_typed_property(class_entry, property_location_name, &property_location_default_value, ZEND_ACC_PUBLIC, NULL, (zend_type) ZEND_TYPE_INIT_MASK(MAY_BE_LONG));
 	zend_string_release(property_location_name);
 
 	zval property_length_default_value;
-	ZVAL_LONG(&property_length_default_value, 0);
+	ZVAL_UNDEF(&property_length_default_value);
 	zend_string *property_length_name = zend_string_init("length", sizeof("length") - 1, 1);
 	zend_declare_typed_property(class_entry, property_length_name, &property_length_default_value, ZEND_ACC_PUBLIC, NULL, (zend_type) ZEND_TYPE_INIT_MASK(MAY_BE_LONG));
 	zend_string_release(property_length_name);

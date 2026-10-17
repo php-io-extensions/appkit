@@ -16,6 +16,12 @@ class NSColor extends NSObject
     public function blueComponent(): float {}
 
     public function alphaComponent(): float {}
+
+    public function CGColor(): CGColor {}
+
+    public static function colorWithCGColor(CGColor $cgColor): ?NSColor {}
+
+    public function colorUsingColorSpace(NSColorSpace $space): ?NSColor {}
 }
 
 /**

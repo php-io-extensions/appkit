@@ -2,7 +2,6 @@
 #include "controls.h"
 #include "../stubs/NSTableView_arginfo.h"
 
-_Static_assert(NSTableColumnNoResizing == 0 && NSTableColumnAutoresizingMask == 1 && NSTableColumnUserResizingMask == 2, "NSTableColumnResizingOptions values moved");
 
 void appkit_register_NSTableView(void)
 {
@@ -14,22 +13,22 @@ void appkit_register_NSTableView(void)
 }
 
 /* NSIndexSet */
-METHOD(NSIndexSet, indexSetWithIndex, PARSE_LONG, appkit_box_objc(return_value, [CALLED indexSetWithIndex:(NSUInteger) v]);)
-LONG_GET(NSIndexSet, NSIndexSet, firstIndex, firstIndex)
-LONG_GET(NSIndexSet, NSIndexSet, count, count)
+ANY_METHOD(NSIndexSet, indexSetWithIndex, PARSE_LONG, appkit_box_objc(return_value, [CALLED indexSetWithIndex:(NSUInteger) v]);)
+ANY_LONG_GET(NSIndexSet, NSIndexSet, firstIndex, firstIndex)
+ANY_LONG_GET(NSIndexSet, NSIndexSet, count, count)
 
 /* NSTableColumn */
-METHOD(NSTableColumn, initWithIdentifier, PARSE_STR,
+ANY_METHOD(NSTableColumn, initWithIdentifier, PARSE_STR,
 	NSTableColumn *column = [[CALLED alloc] initWithIdentifier:appkit_nsstring(v)];
 	appkit_box_objc(return_value, column);
 	[column release];
 )
-STR_GET(NSTableColumn, NSTableColumn, identifier, identifier)
-STR_GET(NSTableColumn, NSTableColumn, title, title)
-STR_SET(NSTableColumn, NSTableColumn, setTitle, setTitle)
-DOUBLE_GET(NSTableColumn, NSTableColumn, width, width)
-DOUBLE_SET(NSTableColumn, NSTableColumn, setWidth, setWidth)
-LONG_SET(NSTableColumn, NSTableColumn, setResizingMask, setResizingMask, NSTableColumnResizingOptions)
+ANY_STR_GET(NSTableColumn, NSTableColumn, identifier, identifier)
+ANY_STR_GET(NSTableColumn, NSTableColumn, title, title)
+ANY_STR_SET(NSTableColumn, NSTableColumn, setTitle, setTitle)
+ANY_DOUBLE_GET(NSTableColumn, NSTableColumn, width, width)
+ANY_DOUBLE_SET(NSTableColumn, NSTableColumn, setWidth, setWidth)
+ANY_LONG_SET(NSTableColumn, NSTableColumn, setResizingMask, setResizingMask, NSTableColumnResizingOptions)
 
 /* NSTableView */
 OBJ_SET(NSTableView, NSTableView, addTableColumn, addTableColumn, appkit_ce_NSTableColumn, NSTableColumn *)
@@ -105,4 +104,4 @@ ZEND_METHOD(NSTableView, viewAtColumnRowMakeIfNecessary)
 }
 
 /* NSCell */
-METHOD(NSCell, objectValue, PARSE_NONE, appkit_zval_from_id(return_value, [SELF(NSCell) objectValue]);)
+ANY_METHOD(NSCell, objectValue, PARSE_NONE, appkit_zval_from_id(return_value, [SELF(NSCell) objectValue]);)

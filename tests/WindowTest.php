@@ -26,6 +26,22 @@ it('creates a window with the rect, style and title it was given', function (): 
     $window->close();
 });
 
+it('answers whether it can become key and main by its style', function (): void {
+    $titled = newWindow();
+    $borderless = NSWindow::initWithContentRectStyleMaskBackingDefer(new NSRect(0.0, 0.0, 100.0, 100.0), NSWindowStyleMask::BORDERLESS->value, NSBackingStoreType::BUFFERED, false);
+    $borderless->setReleasedWhenClosed(false);
+
+    // AppKit answers main only for a visible window.
+    expect([$titled->canBecomeKeyWindow(), $titled->canBecomeMainWindow()])->toBe([true, false])
+        ->and([$borderless->canBecomeKeyWindow(), $borderless->canBecomeMainWindow()])->toBe([false, false]);
+
+    $titled->makeKeyAndOrderFront(null);
+    expect($titled->canBecomeMainWindow())->toBeTrue();
+
+    $titled->close();
+    $borderless->close();
+});
+
 it('shows, orders out and closes', function (): void {
     $window = newWindow();
 
@@ -67,10 +83,17 @@ it('asks its delegate, through PHP, before and while closing', function (): void
 });
 
 it('refuses a window rect with an unset property', function (): void {
-    $rect = new NSRect();
+    $rect = new NSRect(0.0, 0.0, 320.0, 200.0);
     unset($rect->width);
 
     expect(fn () => NSWindow::initWithContentRectStyleMaskBackingDefer($rect, 0, NSBackingStoreType::BUFFERED, false))->toThrow(ValueError::class);
+});
+
+it('takes every NSRect and NSSize field', function (): void {
+    expect(fn () => new NSRect(0.0, 0.0))->toThrow(ArgumentCountError::class)
+        ->and(fn () => new NSSize(1.0))->toThrow(ArgumentCountError::class)
+        ->and((new ReflectionProperty(NSRect::class, 'width'))->hasDefaultValue())->toBeFalse()
+        ->and((new ReflectionProperty(NSSize::class, 'height'))->hasDefaultValue())->toBeFalse();
 });
 
 it('takes a colour space from Core Graphics and gives a window its own', function (): void {

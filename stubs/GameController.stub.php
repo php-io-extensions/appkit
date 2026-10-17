@@ -41,10 +41,10 @@ class GCController extends NSObject
 
     public static function stopWirelessControllerDiscovery(): void {}
 
-    /** False before macOS 11.3, where the property does not exist. */
+    /** macOS 11.3+; before that AppKitException (NSInvalidArgumentException: the property does not exist). */
     public static function shouldMonitorBackgroundEvents(): bool {}
 
-    /** Does nothing before macOS 11.3. Set it once a controller connected: SDL found earlier crashes on macOS 12.3. */
+    /** macOS 11.3+, as the getter. Set it once a controller connected: SDL found earlier crashes on macOS 12.3. */
     public static function setShouldMonitorBackgroundEvents(bool $shouldMonitorBackgroundEvents): void {}
 
     public function vendorName(): ?string {}

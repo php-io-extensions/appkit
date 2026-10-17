@@ -24,8 +24,10 @@ zend_class_entry *appkit_ce_NSEventType;
 zend_class_entry *appkit_ce_NSEventMask;
 zend_class_entry *appkit_ce_NSEventModifierFlags;
 zend_class_entry *appkit_ce_NSDate;
+zend_class_entry *appkit_ce_NSError;
 zend_class_entry *appkit_ce_NSPoint;
 zend_class_entry *appkit_ce_CFType;
+zend_class_entry *appkit_ce_CFAllocator;
 zend_class_entry *appkit_ce_CFRunLoop;
 zend_class_entry *appkit_ce_CFRunLoopRunResult;
 zend_class_entry *appkit_ce_CFRunLoopSource;
@@ -33,6 +35,7 @@ zend_class_entry *appkit_ce_CFFileDescriptor;
 zend_class_entry *appkit_ce_CFData;
 zend_class_entry *appkit_ce_CGDataProvider;
 zend_class_entry *appkit_ce_CGColorSpace;
+zend_class_entry *appkit_ce_CGColor;
 zend_class_entry *appkit_ce_CGImage;
 zend_class_entry *appkit_ce_NSSize;
 zend_class_entry *appkit_ce_NSRect;
@@ -66,6 +69,9 @@ zend_class_entry *appkit_ce_AVPlayerViewControlsStyle;
 zend_class_entry *appkit_ce_AVPlayerView;
 zend_class_entry *appkit_ce_NSEdgeInsets;
 zend_class_entry *appkit_ce_NSLayoutAnchor;
+zend_class_entry *appkit_ce_NSLayoutDimension;
+zend_class_entry *appkit_ce_NSLayoutXAxisAnchor;
+zend_class_entry *appkit_ce_NSLayoutYAxisAnchor;
 zend_class_entry *appkit_ce_NSLayoutConstraint;
 zend_class_entry *appkit_ce_NSColor;
 zend_class_entry *appkit_ce_NSColorSpace;
@@ -109,6 +115,10 @@ zend_class_entry *appkit_ce_NSImageView;
 zend_class_entry *appkit_ce_NSBoxType;
 zend_class_entry *appkit_ce_NSBox;
 zend_class_entry *appkit_ce_NSScrollView;
+zend_class_entry *appkit_ce_NSSplitViewDividerStyle;
+zend_class_entry *appkit_ce_NSSplitView;
+zend_class_entry *appkit_ce_NSTabView;
+zend_class_entry *appkit_ce_NSTabViewItem;
 zend_class_entry *appkit_ce_NSTextView;
 zend_class_entry *appkit_ce_NSMutableAttributedString;
 zend_class_entry *appkit_ce_NSTextStorage;
@@ -174,14 +184,19 @@ static PHP_GSHUTDOWN_FUNCTION(appkit)
 PHP_MINIT_FUNCTION(appkit)
 {
 	register_appkit_symbols(module_number);
+#ifdef APPKIT_PROBES
+	/* Only a probe build has it: tests/Probes skips without it. */
+	REGISTER_BOOL_CONSTANT("APPKIT_PROBES", true, CONST_PERSISTENT);
+#endif
 	appkit_ce_AppKitException = register_class_AppKitException(spl_ce_RuntimeException);
 
 	appkit_register_NSObject();
-	appkit_register_CALayer();
+	appkit_register_CALayer(module_number);
 	appkit_register_NSResponder();
 	appkit_register_NSApplication();
 	appkit_register_NSEvent();
 	appkit_register_NSDate();
+	appkit_register_NSError();
 	appkit_register_NSPoint();
 	appkit_register_NSGeometry();
 	appkit_register_NSView(module_number);
@@ -192,6 +207,7 @@ PHP_MINIT_FUNCTION(appkit)
 	appkit_register_NSStackView();
 	appkit_register_NSGridView();
 	appkit_register_NSControls(module_number);
+	appkit_register_NSSplitView(module_number);
 	appkit_register_NSTableView();
 	appkit_register_NSNotificationCenter(module_number);
 	appkit_register_GameController(module_number);

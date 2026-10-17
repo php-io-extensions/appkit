@@ -6,15 +6,17 @@ declare(strict_types=1);
 function rgbx(int $width, int $height, string $bytes): ?CGImage
 {
     return CGImage::create($width, $height, 8, 32, $width * 4, CGColorSpace::createWithName(kCGColorSpaceSRGB),
-        kCGImageAlphaNoneSkipLast | kCGBitmapByteOrder32Big, CGDataProvider::createWithCFData(CFData::create($bytes)), false, kCGRenderingIntentDefault);
+        kCGImageAlphaNoneSkipLast | kCGBitmapByteOrder32Big, CGDataProvider::createWithCFData(CFData::create(null, $bytes, strlen($bytes))), null, false, kCGRenderingIntentDefault);
 }
 
 it('copies bytes into a CFData', function (): void {
-    $data = CFData::create("\x01\x02\x03\x00\x05");
+    $data = CFData::create(null, "\x01\x02\x03\x00\x05", 5);
 
     expect($data)->toBeInstanceOf(CFType::class)
         ->and($data->getLength())->toBe(5)
-        ->and(CFData::create('')->getLength())->toBe(0)
+        ->and(CFData::create(null, '', 0)->getLength())->toBe(0)
+        ->and(CFData::create(CFAllocator::getDefault(), 'abcd', 2)->getLength())->toBe(2)
+        ->and((string) (new ReflectionMethod(CFData::class, 'create'))->getParameters()[0]->getType())->toBe('?CFAllocator')
         ->and($data->pointer())->not->toBe(0);
 });
 
@@ -29,8 +31,8 @@ it('makes an image from bytes', function (): void {
 
     expect($image)->toBeInstanceOf(CGImage::class)
         ->and([$image->getWidth(), $image->getHeight()])->toBe([3, 2])
-        ->and(CGDataProvider::createWithCFData(CFData::create('abcd')))->toBeInstanceOf(CGDataProvider::class)
-        ->and(CGDataProvider::createWithCFData(CFData::create('')))->toBeNull();
+        ->and(CGDataProvider::createWithCFData(CFData::create(null, 'abcd', 4)))->toBeInstanceOf(CGDataProvider::class)
+        ->and(CGDataProvider::createWithCFData(CFData::create(null, '', 0)))->toBeNull();
 });
 
 it('carries the Core Graphics values of its constants', function (): void {
@@ -39,14 +41,27 @@ it('carries the Core Graphics values of its constants', function (): void {
         ->and(kCGRenderingIntentDefault)->toBe(0);
 });
 
-it('refuses a description its provider cannot back', function (Closure $create, string $message): void {
-    expect($create)->toThrow(ValueError::class, $message);
+it('answers null for a description Core Graphics refuses', function (Closure $create): void {
+    expect($create())->toBeNull();
 })->with([
-    'too few bytes' => [fn () => rgbx(3, 2, str_repeat('x', 23)), 'must provide 24 bytes for that description, it holds 23'],
-    'no width' => [fn () => rgbx(0, 2, 'abcd'), 'must be between 1 and'],
-    'a row shorter than its pixels' => [fn () => CGImage::create(3, 2, 8, 32, 11, CGColorSpace::createWithName(kCGColorSpaceSRGB), kCGImageAlphaNoneSkipLast, CGDataProvider::createWithCFData(CFData::create(str_repeat('x', 24))), false, 0), 'must hold a row: at least 12 bytes'],
-    'more bits a component than a pixel' => [fn () => CGImage::create(3, 2, 8, 4, 12, CGColorSpace::createWithName(kCGColorSpaceSRGB), kCGImageAlphaNoneSkipLast, CGDataProvider::createWithCFData(CFData::create(str_repeat('x', 24))), false, 0), 'must be between bitsPerComponent and 128'],
+    'too few bytes' => [fn () => rgbx(3, 2, str_repeat('x', 23))],
+    'no width' => [fn () => rgbx(0, 2, 'abcd')],
+    'a negative width' => [fn () => rgbx(-1, 2, 'abcd')],
+    'a row shorter than its pixels' => [fn () => CGImage::create(3, 2, 8, 32, 11, CGColorSpace::createWithName(kCGColorSpaceSRGB), kCGImageAlphaNoneSkipLast, CGDataProvider::createWithCFData(CFData::create(null, str_repeat('x', 24), 24)), null, false, 0)],
+    'more bits a component than a pixel' => [fn () => CGImage::create(3, 2, 8, 4, 12, CGColorSpace::createWithName(kCGColorSpaceSRGB), kCGImageAlphaNoneSkipLast, CGDataProvider::createWithCFData(CFData::create(null, str_repeat('x', 24), 24)), null, false, 0)],
+    'more bits a component than 32' => [fn () => CGImage::create(2, 2, 33, 132, 64, CGColorSpace::createWithName(kCGColorSpaceSRGB), kCGImageAlphaNoneSkipLast, CGDataProvider::createWithCFData(CFData::create(null, str_repeat('x', 128), 128)), null, false, 0)],
+    'no provider' => [fn () => CGImage::create(2, 2, 8, 32, 8, CGColorSpace::createWithName(kCGColorSpaceSRGB), kCGImageAlphaNoneSkipLast, null, null, false, 0)],
 ]);
+
+it('hands Core Graphics a decode array, two values per colour component, and refuses a shorter one', function (): void {
+    $provider = CGDataProvider::createWithCFData(CFData::create(null, str_repeat("\xff\x00\x00\xff", 4), 16));
+    $space = CGColorSpace::createWithName(kCGColorSpaceSRGB);
+    $inverted = CGImage::create(2, 2, 8, 32, 8, $space, kCGImageAlphaNoneSkipLast, $provider, [1.0, 0.0, 1.0, 0.0, 1.0, 0.0], false, 0);
+
+    expect($inverted)->toBeInstanceOf(CGImage::class)
+        ->and(fn () => CGImage::create(2, 2, 8, 32, 8, $space, kCGImageAlphaNoneSkipLast, $provider, [0.0, 1.0], false, 0))
+        ->toThrow(ValueError::class, 'must hold 6 values for that colour space, 2 given');
+});
 
 it('shows an image made from bytes as a view\'s layer contents, and clears it', function (): void {
     $window = newWindow();
@@ -54,13 +69,12 @@ it('shows an image made from bytes as a view\'s layer contents, and clears it', 
     $window->contentView()->addSubview($view);
 
     $image = rgbx(3, 2, str_repeat("\xff\x80\x00\xff", 6));
-    $view->setLayerContents($image);
+    $view->setWantsLayer(true);
+    $view->layer()->setContents($image);
     expect($view->wantsLayer())->toBeTrue()
-        ->and($view->layerContents())->toBe($image);
-    $view->setLayerContents(null);
-    expect($view->layerContents())->toBeNull();
-
-    expect(fn () => $view->setLayerContents(CFData::create('x')))->toThrow(TypeError::class, 'must be of type NSImage|CGImage|null, CFData given')
+        ->and($view->layer()->contents())->toBe($image);
+    $view->layer()->setContents(null);
+    expect($view->layer()->contents())->toBeNull()
         ->and($window->backingScaleFactor())->toBeGreaterThanOrEqual(1.0);
 });
 
@@ -68,16 +82,42 @@ it('copies bytes at an address into a CFData', function () {
     $buffer = new FbBuffer(new FbFormat(FB_LAYOUT_RGBA8888, channelOrder: FB_CHANNELS_RGBA), 4, 2);
     $buffer->fill(0x11223344);
 
-    $data = CFData::create($buffer->pointer(), $buffer->size());
+    $data = CFData::create(null, $buffer->pointer(), $buffer->size());
 
     expect($data->getLength())->toBe(32)
-        ->and(CFData::create($buffer->bytes())->getLength())->toBe(32);
+        ->and(CFData::create(null, $buffer->bytes(), strlen($buffer->bytes()))->getLength())->toBe(32);
 })->skip(! class_exists(FbBuffer::class), 'needs ext-fb for a native address');
 
-it('refuses an address without a length, a null address, and a length with a string', function (Closure $call, string $message) {
+it('refuses a byte count past the string and a null address with a byte count', function (Closure $call, string $message) {
     expect($call)->toThrow(ValueError::class, $message);
 })->with([
-    'no length' => [fn () => CFData::create(4096), 'must be the byte count'],
-    'null address' => [fn () => CFData::create(0, 4), 'must not be a null address'],
-    'string with length' => [fn () => CFData::create('abcd', 4), 'must be null when $bytes is a string'],
+    'past the string' => [fn () => CFData::create(null, 'abcd', 5), 'must not exceed the 4 bytes of $bytes'],
+    'null address' => [fn () => CFData::create(null, 0, 4), 'must not be a null address when $length is above 0'],
 ]);
+
+it('passes an empty null address and a negative length to Core Foundation', function () {
+    expect(CFData::create(null, 0, 0)->getLength())->toBe(0)
+        ->and(CFData::create(null, 'abcd', -1))->toBeNull();
+});
+
+it('boxes a CGColorRef as a CGColor', function (): void {
+    $color = NSColor::colorWithRedGreenBlueAlpha(0.0, 0.0, 1.0, 1.0)->CGColor();
+
+    expect($color)->toBeInstanceOf(CGColor::class)
+        ->and(get_parent_class(CGColor::class))->toBe(CFType::class)
+        ->and($color->copyDescription())->toContain('CGColor');
+});
+
+it('answers the default allocator', function (): void {
+    $allocator = CFAllocator::getDefault();
+
+    expect($allocator)->toBeInstanceOf(CFAllocator::class)
+        ->and(get_parent_class(CFAllocator::class))->toBe(CFType::class)
+        ->and(CFAllocator::getDefault())->toBe($allocator);
+});
+
+it('carries the CGError values', function (): void {
+    expect([kCGErrorSuccess, kCGErrorFailure, kCGErrorIllegalArgument, kCGErrorInvalidConnection, kCGErrorInvalidContext, kCGErrorCannotComplete,
+        kCGErrorNotImplemented, kCGErrorRangeCheck, kCGErrorTypeCheck, kCGErrorInvalidOperation, kCGErrorNoneAvailable])
+        ->toBe([0, 1000, 1001, 1002, 1003, 1004, 1006, 1007, 1008, 1010, 1011]);
+});

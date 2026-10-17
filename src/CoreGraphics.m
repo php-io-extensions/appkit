@@ -18,6 +18,8 @@ void appkit_register_CoreGraphics(int module_number)
 	appkit_object_setup(appkit_ce_CGDataProvider);
 	appkit_ce_CGColorSpace = register_class_CGColorSpace(appkit_ce_CFType);
 	appkit_object_setup(appkit_ce_CGColorSpace);
+	appkit_ce_CGColor = register_class_CGColor(appkit_ce_CFType);
+	appkit_object_setup(appkit_ce_CGColor);
 	appkit_ce_CGImage = register_class_CGImage(appkit_ce_CFType);
 	appkit_object_setup(appkit_ce_CGImage);
 }
@@ -33,36 +35,34 @@ static void appkit_return_created(zval *return_value, CFTypeRef created)
 
 ZEND_METHOD(CFData, create)
 {
+	zend_object *allocator;
 	zend_string *bytes = NULL;
 	zend_long address = 0;
-	zend_long length = 0;
-	bool length_null = true;
+	zend_long length;
 
-	ZEND_PARSE_PARAMETERS_START(1, 2)
+	ZEND_PARSE_PARAMETERS_START(3, 3)
+		Z_PARAM_OBJ_OF_CLASS_OR_NULL(allocator, appkit_ce_CFAllocator)
 		Z_PARAM_STR_OR_LONG(bytes, address)
-		Z_PARAM_OPTIONAL
-		Z_PARAM_LONG_OR_NULL(length, length_null)
+		Z_PARAM_LONG(length)
 	ZEND_PARSE_PARAMETERS_END();
 
+	CFAllocatorRef cf_allocator = allocator != NULL ? (CFAllocatorRef) APPKIT_CF(allocator) : NULL;
+
 	if (bytes != NULL) {
-		if (!length_null) {
-			zend_argument_value_error(2, "must be null when $bytes is a string");
+		if (!APPKIT_PROBE_OFF("cfdata-string-length") && (length > (zend_long) ZSTR_LEN(bytes))) {
+			zend_argument_value_error(3, "must not exceed the %zu bytes of $bytes", ZSTR_LEN(bytes)); /* binding:cfdata-string-length */
 			RETURN_THROWS();
 		}
-		appkit_return_created(return_value, CFDataCreate(kCFAllocatorDefault, (const UInt8 *) ZSTR_VAL(bytes), (CFIndex) ZSTR_LEN(bytes)));
+		appkit_return_created(return_value, CFDataCreate(cf_allocator, (const UInt8 *) ZSTR_VAL(bytes), (CFIndex) length));
 		return;
 	}
-	if (address == 0) {
-		zend_argument_value_error(1, "must not be a null address");
-		RETURN_THROWS();
-	}
-	if (length_null || length < 0) {
-		zend_argument_value_error(2, "must be the byte count to read at the address $bytes");
+	if (!APPKIT_PROBE_OFF("cfdata-null-address") && (address == 0 && length > 0)) {
+		zend_argument_value_error(2, "must not be a null address when $length is above 0"); /* binding:cfdata-null-address */
 		RETURN_THROWS();
 	}
 
 	/* The address is trusted: an ext-fb buffer's pointer() with its size(). */
-	appkit_return_created(return_value, CFDataCreate(kCFAllocatorDefault, (const UInt8 *) (uintptr_t) address, (CFIndex) length));
+	appkit_return_created(return_value, CFDataCreate(cf_allocator, (const UInt8 *) (uintptr_t) address, (CFIndex) length));
 }
 
 ZEND_METHOD(CFData, getLength)
@@ -83,47 +83,21 @@ ZEND_METHOD(CGDataProvider, createWithCFData)
 	appkit_return_created(return_value, CGDataProviderCreateWithCFData((CFDataRef) APPKIT_CF(data)));
 }
 
-/*
- * The info a provider made by createDirect() carries: the address and its byte count. Core
- * Graphics hands the info back from CGDataProviderGetInfo(), so CGImage::create can check a
- * description against the count without copying the bytes. The tag tells it from any other info.
- */
-typedef struct {
-	uint32_t tag;
-	const void *bytes;
-	size_t size;
-} appkit_direct_provider;
-
-#define APPKIT_DIRECT_PROVIDER_TAG 0x41505056u /* "APPV" */
-
+/* The provider's info is the address itself: getBytePointer hands it back, and nothing is owned or freed. */
 static const void *appkit_direct_provider_bytes(void *info)
 {
-	return ((appkit_direct_provider *) info)->bytes;
+	return info;
 }
 
 static void appkit_direct_provider_release_bytes(void *info, const void *bytes)
 {
 }
 
-/* Core Graphics may let go of a provider after the request ends (an image kept as layer contents): plain malloc, not the request heap. */
-static void appkit_direct_provider_release_info(void *info)
-{
-	free(info);
-}
-
-/* The byte count of a provider made by createDirect(), or -1 for any other provider. */
-static zend_long appkit_direct_provider_size(CGDataProviderRef provider)
-{
-	appkit_direct_provider *info = (appkit_direct_provider *) CGDataProviderGetInfo(provider);
-
-	return info != NULL && info->tag == APPKIT_DIRECT_PROVIDER_TAG ? (zend_long) info->size : -1;
-}
-
 ZEND_METHOD(CGDataProvider, createDirect)
 {
 	zend_long address, size;
 	static const CGDataProviderDirectCallbacks callbacks = {
-		0, appkit_direct_provider_bytes, appkit_direct_provider_release_bytes, NULL, appkit_direct_provider_release_info,
+		0, appkit_direct_provider_bytes, appkit_direct_provider_release_bytes, NULL, NULL,
 	};
 
 	ZEND_PARSE_PARAMETERS_START(2, 2)
@@ -131,25 +105,7 @@ ZEND_METHOD(CGDataProvider, createDirect)
 		Z_PARAM_LONG(size)
 	ZEND_PARSE_PARAMETERS_END();
 
-	if (address == 0) {
-		zend_argument_value_error(1, "must not be a null address");
-		RETURN_THROWS();
-	}
-	if (size < 1) {
-		zend_argument_value_error(2, "must be the byte count at the address");
-		RETURN_THROWS();
-	}
-
-	appkit_direct_provider *info = malloc(sizeof(appkit_direct_provider));
-	if (info == NULL) {
-		zend_throw_exception(appkit_ce_AppKitException, "Out of memory for the provider's info", 0);
-		RETURN_THROWS();
-	}
-	info->tag = APPKIT_DIRECT_PROVIDER_TAG;
-	info->bytes = (const void *) (uintptr_t) address;
-	info->size = (size_t) size;
-
-	appkit_return_created(return_value, CGDataProviderCreateDirect(info, (off_t) size, &callbacks));
+	appkit_return_created(return_value, CGDataProviderCreateDirect((void *) (uintptr_t) address, (off_t) size, &callbacks));
 }
 
 ZEND_METHOD(CGColorSpace, createWithName)
@@ -169,60 +125,49 @@ ZEND_METHOD(CGImage, create)
 {
 	zend_long width, height, bits_per_component, bits_per_pixel, bytes_per_row, bitmap_info, intent;
 	zend_object *space, *provider;
+	HashTable *decode_list;
 	bool should_interpolate;
 
-	ZEND_PARSE_PARAMETERS_START(10, 10)
+	ZEND_PARSE_PARAMETERS_START(11, 11)
 		Z_PARAM_LONG(width)
 		Z_PARAM_LONG(height)
 		Z_PARAM_LONG(bits_per_component)
 		Z_PARAM_LONG(bits_per_pixel)
 		Z_PARAM_LONG(bytes_per_row)
-		Z_PARAM_OBJ_OF_CLASS(space, appkit_ce_CGColorSpace)
+		Z_PARAM_OBJ_OF_CLASS_OR_NULL(space, appkit_ce_CGColorSpace)
 		Z_PARAM_LONG(bitmap_info)
-		Z_PARAM_OBJ_OF_CLASS(provider, appkit_ce_CGDataProvider)
+		Z_PARAM_OBJ_OF_CLASS_OR_NULL(provider, appkit_ce_CGDataProvider)
+		Z_PARAM_ARRAY_HT_OR_NULL(decode_list)
 		Z_PARAM_BOOL(should_interpolate)
 		Z_PARAM_LONG(intent)
 	ZEND_PARSE_PARAMETERS_END();
 
-	if (width < 1 || height < 1 || width > INT32_MAX || height > INT32_MAX) {
-		zend_argument_value_error(width < 1 || width > INT32_MAX ? 1 : 2, "must be between 1 and %d", INT32_MAX);
-		RETURN_THROWS();
-	}
-	if (bits_per_component < 1 || bits_per_component > 32) {
-		zend_argument_value_error(3, "must be between 1 and 32");
-		RETURN_THROWS();
-	}
-	if (bits_per_pixel < bits_per_component || bits_per_pixel > 128) {
-		zend_argument_value_error(4, "must be between bitsPerComponent and 128");
-		RETURN_THROWS();
-	}
-	if (bytes_per_row < (width * bits_per_pixel + 7) / 8 || bytes_per_row > INT32_MAX) {
-		zend_argument_value_error(5, "must hold a row: at least " ZEND_LONG_FMT " bytes", (width * bits_per_pixel + 7) / 8);
-		RETURN_THROWS();
-	}
+	CGColorSpaceRef cg_space = space != NULL ? (CGColorSpaceRef) APPKIT_CF(space) : NULL;
+	CGFloat *decode = NULL;
 
-	/*
-	 * Core Graphics reads the provider lazily and trusts the description: a short provider would be
-	 * read past its end. A provider made by createDirect() knows its size; any other is measured by a copy.
-	 * The last row only needs its pixels, not the stride's padding.
-	 */
-	zend_long length = appkit_direct_provider_size((CGDataProviderRef) APPKIT_CF(provider));
-	zend_long needed = bytes_per_row * (height - 1) + (width * bits_per_pixel + 7) / 8;
-	if (length < 0) {
-		CFDataRef data = CGDataProviderCopyData((CGDataProviderRef) APPKIT_CF(provider));
-		length = data != NULL ? (zend_long) CFDataGetLength(data) : 0;
-		if (data != NULL) {
-			CFRelease(data);
+	if (decode_list != NULL) {
+		/* Core Graphics reads two values per colour component of the space; an image mask (no space) has one component. */
+		size_t needed = 2 * (cg_space != NULL ? CGColorSpaceGetNumberOfComponents(cg_space) : 1);
+		uint32_t given = zend_hash_num_elements(decode_list);
+		if (!APPKIT_PROBE_OFF("cgimage-decode-length") && (given < needed)) {
+			zend_argument_value_error(9, "must hold %zu values for that colour space, %u given", needed, given); /* binding:cgimage-decode-length */
+			RETURN_THROWS();
 		}
-		needed = bytes_per_row * height;
-	}
-	if (length < needed) {
-		zend_argument_value_error(8, "must provide " ZEND_LONG_FMT " bytes for that description, it holds " ZEND_LONG_FMT, needed, length);
-		RETURN_THROWS();
+		decode = ecalloc(given > 0 ? given : 1, sizeof(CGFloat));
+		uint32_t at = 0;
+		zval *entry;
+		ZEND_HASH_FOREACH_VAL(decode_list, entry) {
+			decode[at++] = (CGFloat) zval_get_double(entry);
+		} ZEND_HASH_FOREACH_END();
 	}
 
-	appkit_return_created(return_value, CGImageCreate((size_t) width, (size_t) height, (size_t) bits_per_component, (size_t) bits_per_pixel, (size_t) bytes_per_row,
-		(CGColorSpaceRef) APPKIT_CF(space), (CGBitmapInfo) bitmap_info, (CGDataProviderRef) APPKIT_CF(provider), NULL, should_interpolate, (CGColorRenderingIntent) intent));
+	CGImageRef image = CGImageCreate((size_t) width, (size_t) height, (size_t) bits_per_component, (size_t) bits_per_pixel, (size_t) bytes_per_row,
+		cg_space, (CGBitmapInfo) bitmap_info, provider != NULL ? (CGDataProviderRef) APPKIT_CF(provider) : NULL, decode, should_interpolate,
+		(CGColorRenderingIntent) intent);
+	if (decode != NULL) {
+		efree(decode);
+	}
+	appkit_return_created(return_value, image);
 }
 
 ZEND_METHOD(CGImage, getWidth)

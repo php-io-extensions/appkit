@@ -29,18 +29,13 @@ ZEND_METHOD(NSColor, colorWithRedGreenBlueAlpha)
 	APPKIT_END
 }
 
-/* Components are read in sRGB so a catalog or pattern colour answers too. */
+/* The component of the colour as it is: AppKit raises for a colour without RGB components (translated). */
 #define APPKIT_COLOR_COMPONENT(name, sel) \
 ZEND_METHOD(NSColor, name) \
 { \
 	ZEND_PARSE_PARAMETERS_NONE(); \
 	APPKIT_BEGIN \
-		NSColor *srgb = [THIS_COLOR colorUsingColorSpace:[NSColorSpace sRGBColorSpace]]; \
-		if (srgb == nil) { \
-			zend_throw_exception_ex(appkit_ce_AppKitException, 0, "NSColor::%s(): the colour has no sRGB components", #name); \
-			RETURN_THROWS(); \
-		} \
-		RETURN_DOUBLE([srgb sel]); \
+		RETURN_DOUBLE([THIS_COLOR sel]); \
 	APPKIT_END \
 }
 
@@ -48,6 +43,41 @@ APPKIT_COLOR_COMPONENT(redComponent, redComponent)
 APPKIT_COLOR_COMPONENT(greenComponent, greenComponent)
 APPKIT_COLOR_COMPONENT(blueComponent, blueComponent)
 APPKIT_COLOR_COMPONENT(alphaComponent, alphaComponent)
+
+ZEND_METHOD(NSColor, CGColor)
+{
+	ZEND_PARSE_PARAMETERS_NONE();
+
+	APPKIT_BEGIN
+		appkit_box_cf(return_value, [THIS_COLOR CGColor]);
+	APPKIT_END
+}
+
+ZEND_METHOD(NSColor, colorWithCGColor)
+{
+	zend_object *color;
+
+	ZEND_PARSE_PARAMETERS_START(1, 1)
+		Z_PARAM_OBJ_OF_CLASS(color, appkit_ce_CGColor)
+	ZEND_PARSE_PARAMETERS_END();
+
+	APPKIT_BEGIN
+		appkit_box_objc(return_value, [NSColor colorWithCGColor:(CGColorRef) APPKIT_CF(color)]);
+	APPKIT_END
+}
+
+ZEND_METHOD(NSColor, colorUsingColorSpace)
+{
+	zend_object *space;
+
+	ZEND_PARSE_PARAMETERS_START(1, 1)
+		Z_PARAM_OBJ_OF_CLASS(space, appkit_ce_NSColorSpace)
+	ZEND_PARSE_PARAMETERS_END();
+
+	APPKIT_BEGIN
+		appkit_box_objc(return_value, [THIS_COLOR colorUsingColorSpace:(NSColorSpace *) APPKIT_ID(space)]);
+	APPKIT_END
+}
 
 #define THIS_COLOR_SPACE ((NSColorSpace *) APPKIT_ID(Z_OBJ_P(ZEND_THIS)))
 

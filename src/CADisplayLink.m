@@ -11,10 +11,9 @@ void appkit_register_CADisplayLink(void)
 
 ZEND_METHOD(CAFrameRateRange, __construct)
 {
-	double minimum = 0.0, maximum = 0.0, preferred = 0.0;
+	double minimum, maximum, preferred;
 
-	ZEND_PARSE_PARAMETERS_START(0, 3)
-		Z_PARAM_OPTIONAL
+	ZEND_PARSE_PARAMETERS_START(3, 3)
 		Z_PARAM_DOUBLE(minimum)
 		Z_PARAM_DOUBLE(maximum)
 		Z_PARAM_DOUBLE(preferred)
@@ -32,13 +31,8 @@ ZEND_METHOD(CADisplayLink, name) \
 	parse \
 	APPKIT_REQUIRE_MAIN_THREAD(); \
 	APPKIT_BEGIN \
-		if (@available(macOS 14.0, *)) { \
-			CADisplayLink *link = SELF(CADisplayLink); \
-			body \
-		} else { \
-			zend_throw_exception(appkit_ce_AppKitException, "CADisplayLink needs macOS 14", 0); \
-			RETURN_THROWS(); \
-		} \
+		CADisplayLink *link = SELF(CADisplayLink); \
+		body \
 	APPKIT_END \
 }
 

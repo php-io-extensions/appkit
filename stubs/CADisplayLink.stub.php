@@ -5,13 +5,13 @@
 /** CAFrameRateRange: the frame rates a display link may run at, in Hz. */
 final class CAFrameRateRange
 {
-    public float $minimum = 0.0;
+    public float $minimum;
 
-    public float $maximum = 0.0;
+    public float $maximum;
 
-    public float $preferred = 0.0;
+    public float $preferred;
 
-    public function __construct(float $minimum = 0.0, float $maximum = 0.0, float $preferred = 0.0) {}
+    public function __construct(float $minimum, float $maximum, float $preferred) {}
 }
 
 /**

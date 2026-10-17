@@ -1,5 +1,5 @@
 /* This is a generated file, edit the .stub.php file instead.
- * Stub hash: 90cca383cd9207f264f7b0fa891e653fa92177d8 */
+ * Stub hash: fef9609cb9dc102be9b27af4391a6d7234ce94b6 */
 
 ZEND_BEGIN_ARG_INFO_EX(arginfo_class_CFType___construct, 0, 0, 0)
 ZEND_END_ARG_INFO()
@@ -9,23 +9,32 @@ ZEND_END_ARG_INFO()
 
 #define arginfo_class_CFType_hash arginfo_class_CFType_getTypeID
 
-ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_CFType_description, 0, 0, IS_STRING, 0)
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_CFType_copyDescription, 0, 0, IS_STRING, 0)
 ZEND_END_ARG_INFO()
 
 #define arginfo_class_CFType_pointer arginfo_class_CFType_getTypeID
 
+ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(arginfo_class_CFAllocator_getDefault, 0, 0, CFAllocator, 0)
+ZEND_END_ARG_INFO()
+
 ZEND_METHOD(CFType, __construct);
 ZEND_METHOD(CFType, getTypeID);
 ZEND_METHOD(CFType, hash);
-ZEND_METHOD(CFType, description);
+ZEND_METHOD(CFType, copyDescription);
 ZEND_METHOD(CFType, pointer);
+ZEND_METHOD(CFAllocator, getDefault);
 
 static const zend_function_entry class_CFType_methods[] = {
 	ZEND_ME(CFType, __construct, arginfo_class_CFType___construct, ZEND_ACC_PRIVATE)
 	ZEND_ME(CFType, getTypeID, arginfo_class_CFType_getTypeID, ZEND_ACC_PUBLIC)
 	ZEND_ME(CFType, hash, arginfo_class_CFType_hash, ZEND_ACC_PUBLIC)
-	ZEND_ME(CFType, description, arginfo_class_CFType_description, ZEND_ACC_PUBLIC)
+	ZEND_ME(CFType, copyDescription, arginfo_class_CFType_copyDescription, ZEND_ACC_PUBLIC)
 	ZEND_ME(CFType, pointer, arginfo_class_CFType_pointer, ZEND_ACC_PUBLIC)
+	ZEND_FE_END
+};
+
+static const zend_function_entry class_CFAllocator_methods[] = {
+	ZEND_ME(CFAllocator, getDefault, arginfo_class_CFAllocator_getDefault, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
 	ZEND_FE_END
 };
 
@@ -35,6 +44,16 @@ static zend_class_entry *register_class_CFType(void)
 
 	INIT_CLASS_ENTRY(ce, "CFType", class_CFType_methods);
 	class_entry = zend_register_internal_class_with_flags(&ce, NULL, ZEND_ACC_NOT_SERIALIZABLE);
+
+	return class_entry;
+}
+
+static zend_class_entry *register_class_CFAllocator(zend_class_entry *class_entry_CFType)
+{
+	zend_class_entry ce, *class_entry;
+
+	INIT_CLASS_ENTRY(ce, "CFAllocator", class_CFAllocator_methods);
+	class_entry = zend_register_internal_class_with_flags(&ce, class_entry_CFType, ZEND_ACC_FINAL|ZEND_ACC_NOT_SERIALIZABLE);
 
 	return class_entry;
 }

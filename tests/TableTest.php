@@ -106,6 +106,7 @@ it('keeps a view a delegate builds for a row alive after PHP lets go of it', fun
     pumpFor($this->app, 0.2);
 
     expect($table->viewAtColumnRowMakeIfNecessary(0, 1, false)->stringValue())->toBe('row 1')
-        ->and($table->viewAtColumnRowMakeIfNecessary(0, 0, false))->toBeInstanceOf(NSTextField::class);
+        ->and($table->viewAtColumnRowMakeIfNecessary(0, 0, false))->toBeInstanceOf(NSTextField::class)
+        ->and([NSTableColumn::RESIZING_MASK_NONE, NSTableColumn::RESIZING_MASK_AUTORESIZING, NSTableColumn::RESIZING_MASK_USER_RESIZING])->toBe([0, 1, 2]);
     $window->close();
 });

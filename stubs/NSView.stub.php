@@ -2,30 +2,6 @@
 
 /** @generate-class-entries */
 
-/**
- * @var string
- * @cvalue appkit_cfstring_constant((CFStringRef) kCAGravityResize)
- */
-const kCAGravityResize = UNKNOWN;
-
-/**
- * @var string
- * @cvalue appkit_cfstring_constant((CFStringRef) kCAGravityResizeAspect)
- */
-const kCAGravityResizeAspect = UNKNOWN;
-
-/**
- * @var string
- * @cvalue appkit_cfstring_constant((CFStringRef) kCAGravityResizeAspectFill)
- */
-const kCAGravityResizeAspectFill = UNKNOWN;
-
-/**
- * @var string
- * @cvalue appkit_cfstring_constant((CFStringRef) kCAGravityCenter)
- */
-const kCAGravityCenter = UNKNOWN;
-
 enum NSViewLayerContentsRedrawPolicy: int
 {
     case NEVER = 0;
@@ -120,34 +96,8 @@ class NSView extends NSResponder
     /** The view's layer; null when it has none. */
     public function layer(): ?CALayer {}
 
-    /**
-     * setWantsLayer:YES, then the view's layer = $layer (the view hosts it). Null puts a fresh
-     * backing layer of the view's own in place: wantsLayer off and on again.
-     */
+    /** The view's layer = $layer. */
     public function setLayer(?CALayer $layer): void {}
-
-    /** NSColor of layer.backgroundColor; null when the view has no layer or the layer no colour */
-    public function layerBackgroundColor(): ?NSColor {}
-
-    /** setWantsLayer:YES, then layer.backgroundColor = color.CGColor; null clears the colour */
-    public function setLayerBackgroundColor(?NSColor $color): void {}
-
-    /** layer.contents; null when the view has no layer or its contents are neither kind of image */
-    public function layerContents(): NSImage|CGImage|null {}
-
-    /** setWantsLayer:YES, then layer.contents = contents; null clears it */
-    public function setLayerContents(NSImage|CGImage|null $contents): void {}
-
-    /** layer.contentsGravity; null when the view has no layer */
-    public function layerContentsGravity(): ?string {}
-
-    /** setWantsLayer:YES, then layer.contentsGravity = gravity (a kCAGravity* string) */
-    public function setLayerContentsGravity(string $gravity): void {}
-
-    public function layerMasksToBounds(): bool {}
-
-    /** setWantsLayer:YES, then layer.masksToBounds = flag */
-    public function setLayerMasksToBounds(bool $flag): void {}
 
     public function postsFrameChangedNotifications(): bool {}
 
@@ -157,21 +107,21 @@ class NSView extends NSResponder
 
     public function setPostsBoundsChangedNotifications(bool $flag): void {}
 
-    public function widthAnchor(): NSLayoutAnchor {}
+    public function widthAnchor(): NSLayoutDimension {}
 
-    public function heightAnchor(): NSLayoutAnchor {}
+    public function heightAnchor(): NSLayoutDimension {}
 
-    public function leadingAnchor(): NSLayoutAnchor {}
+    public function leadingAnchor(): NSLayoutXAxisAnchor {}
 
-    public function trailingAnchor(): NSLayoutAnchor {}
+    public function trailingAnchor(): NSLayoutXAxisAnchor {}
 
-    public function topAnchor(): NSLayoutAnchor {}
+    public function topAnchor(): NSLayoutYAxisAnchor {}
 
-    public function bottomAnchor(): NSLayoutAnchor {}
+    public function bottomAnchor(): NSLayoutYAxisAnchor {}
 
-    public function centerXAnchor(): NSLayoutAnchor {}
+    public function centerXAnchor(): NSLayoutXAxisAnchor {}
 
-    public function centerYAnchor(): NSLayoutAnchor {}
+    public function centerYAnchor(): NSLayoutYAxisAnchor {}
 
     public function bounds(): NSRect {}
 

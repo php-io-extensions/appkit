@@ -29,11 +29,9 @@ void appkit_register_NSGridView(void)
 
 ZEND_METHOD(NSRange, __construct)
 {
-	zend_long location = 0;
-	zend_long length = 0;
+	zend_long location, length;
 
-	ZEND_PARSE_PARAMETERS_START(0, 2)
-		Z_PARAM_OPTIONAL
+	ZEND_PARSE_PARAMETERS_START(2, 2)
 		Z_PARAM_LONG(location)
 		Z_PARAM_LONG(length)
 	ZEND_PARSE_PARAMETERS_END();
@@ -91,7 +89,7 @@ ZEND_METHOD(NSGridView, addRowWithViews)
 	APPKIT_REQUIRE_MAIN_THREAD();
 
 	APPKIT_BEGIN
-		NSArray *views = appkit_view_array(ht, 1, [NSGridCell emptyContentView]);
+		NSArray *views = appkit_view_array(ht, 1, nil);
 		if (views == nil) {
 			RETURN_THROWS();
 		}
@@ -111,7 +109,7 @@ ZEND_METHOD(NSGridView, insertRowAtIndexWithViews)
 	APPKIT_REQUIRE_MAIN_THREAD();
 
 	APPKIT_BEGIN
-		NSArray *views = appkit_view_array(ht, 2, [NSGridCell emptyContentView]);
+		NSArray *views = appkit_view_array(ht, 2, nil);
 		if (views == nil) {
 			RETURN_THROWS();
 		}
@@ -129,7 +127,7 @@ ZEND_METHOD(NSGridView, addColumnWithViews)
 	APPKIT_REQUIRE_MAIN_THREAD();
 
 	APPKIT_BEGIN
-		NSArray *views = appkit_view_array(ht, 1, [NSGridCell emptyContentView]);
+		NSArray *views = appkit_view_array(ht, 1, nil);
 		if (views == nil) {
 			RETURN_THROWS();
 		}
@@ -172,14 +170,21 @@ ZEND_METHOD(NSGridView, mergeCellsInHorizontalRangeVerticalRange)
 	APPKIT_END
 }
 
+ZEND_METHOD(NSGridCell, emptyContentView)
+{
+	ZEND_PARSE_PARAMETERS_NONE();
+
+	APPKIT_BEGIN
+		appkit_box_objc(return_value, [NSGridCell emptyContentView]);
+	APPKIT_END
+}
+
 ZEND_METHOD(NSGridCell, contentView)
 {
 	ZEND_PARSE_PARAMETERS_NONE();
-	APPKIT_REQUIRE_MAIN_THREAD();
 
 	APPKIT_BEGIN
-		NSView *content = [THIS_CELL contentView];
-		appkit_box_objc(return_value, content == [NSGridCell emptyContentView] ? nil : content);
+		appkit_box_objc(return_value, [THIS_CELL contentView]);
 	APPKIT_END
 }
 
@@ -190,17 +195,16 @@ ZEND_METHOD(NSGridCell, setContentView)
 	ZEND_PARSE_PARAMETERS_START(1, 1)
 		Z_PARAM_OBJ_OF_CLASS_OR_NULL(view, appkit_ce_NSView)
 	ZEND_PARSE_PARAMETERS_END();
-	APPKIT_REQUIRE_MAIN_THREAD();
 
 	APPKIT_BEGIN
-		[THIS_CELL setContentView:view != NULL ? (NSView *) APPKIT_ID(view) : [NSGridCell emptyContentView]];
+		[THIS_CELL setContentView:view != NULL ? (NSView *) APPKIT_ID(view) : nil];
 	APPKIT_END
 }
 
 #define APPKIT_GRID_PLACEMENT_SET(cls, name, self, sel) \
-ZEND_METHOD(cls, name) { zend_object *p; ZEND_PARSE_PARAMETERS_START(1, 1) Z_PARAM_OBJ_OF_CLASS(p, appkit_ce_NSGridCellPlacement) ZEND_PARSE_PARAMETERS_END(); APPKIT_REQUIRE_MAIN_THREAD(); APPKIT_BEGIN [self sel:(NSGridCellPlacement) appkit_enum_value(p, 0)]; APPKIT_END }
+ZEND_METHOD(cls, name) { zend_object *p; ZEND_PARSE_PARAMETERS_START(1, 1) Z_PARAM_OBJ_OF_CLASS(p, appkit_ce_NSGridCellPlacement) ZEND_PARSE_PARAMETERS_END(); APPKIT_BEGIN [self sel:(NSGridCellPlacement) appkit_enum_value(p, 0)]; APPKIT_END }
 #define APPKIT_GRID_DOUBLE_ON(cls, name, self, sel) \
-ZEND_METHOD(cls, name) { double v; ZEND_PARSE_PARAMETERS_START(1, 1) Z_PARAM_DOUBLE(v) ZEND_PARSE_PARAMETERS_END(); APPKIT_REQUIRE_MAIN_THREAD(); APPKIT_BEGIN [self sel:v]; APPKIT_END }
+ZEND_METHOD(cls, name) { double v; ZEND_PARSE_PARAMETERS_START(1, 1) Z_PARAM_DOUBLE(v) ZEND_PARSE_PARAMETERS_END(); APPKIT_BEGIN [self sel:v]; APPKIT_END }
 
 APPKIT_GRID_PLACEMENT_SET(NSGridCell, setXPlacement, THIS_CELL, setXPlacement)
 APPKIT_GRID_PLACEMENT_SET(NSGridCell, setYPlacement, THIS_CELL, setYPlacement)
@@ -213,13 +217,13 @@ APPKIT_GRID_DOUBLE_ON(NSGridColumn, setLeadingPadding, THIS_COLUMN, setLeadingPa
 APPKIT_GRID_DOUBLE_ON(NSGridColumn, setTrailingPadding, THIS_COLUMN, setTrailingPadding)
 APPKIT_GRID_PLACEMENT_SET(NSGridColumn, setXPlacement, THIS_COLUMN, setXPlacement)
 
-ENUM_GET(NSGridCell, NSGridCell, xPlacement, xPlacement, appkit_ce_NSGridCellPlacement, false)
-ENUM_GET(NSGridCell, NSGridCell, yPlacement, yPlacement, appkit_ce_NSGridCellPlacement, false)
-DOUBLE_GET(NSGridRow, NSGridRow, height, height)
-DOUBLE_GET(NSGridRow, NSGridRow, topPadding, topPadding)
-DOUBLE_GET(NSGridRow, NSGridRow, bottomPadding, bottomPadding)
-ENUM_GET(NSGridRow, NSGridRow, yPlacement, yPlacement, appkit_ce_NSGridCellPlacement, false)
-DOUBLE_GET(NSGridColumn, NSGridColumn, width, width)
-DOUBLE_GET(NSGridColumn, NSGridColumn, leadingPadding, leadingPadding)
-DOUBLE_GET(NSGridColumn, NSGridColumn, trailingPadding, trailingPadding)
-ENUM_GET(NSGridColumn, NSGridColumn, xPlacement, xPlacement, appkit_ce_NSGridCellPlacement, false)
+ANY_ENUM_GET(NSGridCell, NSGridCell, xPlacement, xPlacement, appkit_ce_NSGridCellPlacement, false)
+ANY_ENUM_GET(NSGridCell, NSGridCell, yPlacement, yPlacement, appkit_ce_NSGridCellPlacement, false)
+ANY_DOUBLE_GET(NSGridRow, NSGridRow, height, height)
+ANY_DOUBLE_GET(NSGridRow, NSGridRow, topPadding, topPadding)
+ANY_DOUBLE_GET(NSGridRow, NSGridRow, bottomPadding, bottomPadding)
+ANY_ENUM_GET(NSGridRow, NSGridRow, yPlacement, yPlacement, appkit_ce_NSGridCellPlacement, false)
+ANY_DOUBLE_GET(NSGridColumn, NSGridColumn, width, width)
+ANY_DOUBLE_GET(NSGridColumn, NSGridColumn, leadingPadding, leadingPadding)
+ANY_DOUBLE_GET(NSGridColumn, NSGridColumn, trailingPadding, trailingPadding)
+ANY_ENUM_GET(NSGridColumn, NSGridColumn, xPlacement, xPlacement, appkit_ce_NSGridCellPlacement, false)

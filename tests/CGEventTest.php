@@ -20,16 +20,20 @@ it('moves an event to another location', function (): void {
     expect($event->getLocation())->toEqual(new NSPoint(50.0, 60.0));
 });
 
-it('takes no event source but null', function (): void {
-    expect(fn () => CGEvent::createMouseEvent(CFData::create('x'), CGEventType::MOUSE_MOVED, new NSPoint(), CGMouseButton::LEFT))
-        ->toThrow(ValueError::class, 'must be null')
-        ->and(fn () => CGEvent::createScrollWheelEvent2(CFData::create('x'), CGScrollEventUnit::LINE, 1, 1, 0, 0))
-        ->toThrow(ValueError::class, 'must be null');
+it('makes events from the event source it is given', function (): void {
+    $source = CGEventSource::create(CGEventSourceStateID::HID_SYSTEM_STATE);
+
+    expect(CGEvent::createMouseEvent($source, CGEventType::MOUSE_MOVED, new NSPoint(1.0, 2.0), CGMouseButton::LEFT))->toBeInstanceOf(CGEvent::class)
+        ->and(CGEvent::createScrollWheelEvent2($source, CGScrollEventUnit::LINE, 1, 1, 0, 0))->toBeInstanceOf(CGEvent::class)
+        ->and((string) (new ReflectionMethod(CGEvent::class, 'createMouseEvent'))->getParameters()[0]->getType())->toBe('?CGEventSource')
+        ->and((string) (new ReflectionMethod(CGEvent::class, 'createScrollWheelEvent2'))->getParameters()[0]->getType())->toBe('?CGEventSource')
+        ->and(fn () => CGEvent::createMouseEvent(CFData::create(null, 'x', 1), CGEventType::MOUSE_MOVED, new NSPoint(0.0, 0.0), CGMouseButton::LEFT))
+        ->toThrow(TypeError::class);
 });
 
-it('takes one to three wheels', function (): void {
-    expect(fn () => CGEvent::createScrollWheelEvent2(null, CGScrollEventUnit::LINE, 0, 1, 0, 0))->toThrow(ValueError::class)
-        ->and(fn () => CGEvent::createScrollWheelEvent2(null, CGScrollEventUnit::LINE, 4, 1, 0, 0))->toThrow(ValueError::class);
+it('passes any wheel count to Quartz, which makes no event for 0 and one for 4', function (): void {
+    expect(CGEvent::createScrollWheelEvent2(null, CGScrollEventUnit::LINE, 0, 1, 0, 0))->toBeNull()
+        ->and(CGEvent::createScrollWheelEvent2(null, CGScrollEventUnit::LINE, 4, 1, 0, 0))->toBeInstanceOf(CGEvent::class);
 });
 
 it('numbers event types, buttons, units and mouse fields as Quartz does', function (): void {
@@ -46,6 +50,14 @@ it('reads whether a key is down in an event source state', function (): void {
         ->and(CGEventSource::keyState(CGEventSourceStateID::HID_SYSTEM_STATE, 0x7F))->toBeFalse()
         ->and(array_map(fn (CGEventSourceStateID $s): int => $s->value, CGEventSourceStateID::cases()))->toBe([-1, 0, 1])
         ->and(get_parent_class(CGEventSource::class))->toBe(CFType::class);
+});
+
+it('creates an event source for a state', function (): void {
+    $source = CGEventSource::create(CGEventSourceStateID::HID_SYSTEM_STATE);
+
+    expect($source)->toBeInstanceOf(CGEventSource::class)
+        ->and($source->copyDescription())->toContain('CGEventSource')
+        ->and(method_exists(CFType::class, 'description'))->toBeFalse();
 });
 
 it('takes a key code within an unsigned short', function (): void {

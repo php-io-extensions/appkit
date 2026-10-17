@@ -1,13 +1,4 @@
 #include "runtime.h"
-#include "php_network.h"
-
-/* Inside php-src the header is there whether or not ext/sockets is built; HAVE_SOCKETS says it is. */
-#if __has_include("ext/sockets/php_sockets.h")
-# include "ext/sockets/php_sockets.h"
-# ifdef HAVE_SOCKETS
-#  define APPKIT_HAVE_SOCKETS 1
-# endif
-#endif
 
 #include <objc/runtime.h>
 #include <pthread.h>
@@ -205,6 +196,12 @@ void appkit_box_cf(zval *rv, CFTypeRef ref)
 		ce = appkit_ce_CGDisplayMode;
 	} else if (type == CGEventGetTypeID()) {
 		ce = appkit_ce_CGEvent;
+	} else if (type == CGColorGetTypeID()) {
+		ce = appkit_ce_CGColor;
+	} else if (type == CFAllocatorGetTypeID()) {
+		ce = appkit_ce_CFAllocator;
+	} else if (type == CGEventSourceGetTypeID()) {
+		ce = appkit_ce_CGEventSource;
 	}
 
 	appkit_box_new(rv, ce, (void *) CFRetain(ref), true);
@@ -290,63 +287,6 @@ void appkit_return_enum(zval *rv, zend_class_entry *ce, zend_long value, bool in
 	ZVAL_NULL(rv);
 }
 
-bool appkit_fd_from_zval(zval *zfd, uint32_t arg_num, int *fd)
-{
-	switch (Z_TYPE_P(zfd)) {
-		case IS_LONG:
-			if (Z_LVAL_P(zfd) < 0 || Z_LVAL_P(zfd) > INT_MAX) {
-				zend_argument_value_error(arg_num, "must be a valid file descriptor");
-				return false;
-			}
-			*fd = (int) Z_LVAL_P(zfd);
-			return true;
-
-		case IS_RESOURCE: {
-			php_stream *stream = (php_stream *) zend_fetch_resource2_ex(
-				zfd, NULL, php_file_le_stream(), php_file_le_pstream()
-			);
-			php_socket_t stream_fd = -1;
-
-			if (stream == NULL) {
-				zend_argument_type_error(arg_num, "must be a valid stream resource");
-				return false;
-			}
-
-			if (php_stream_cast(stream, PHP_STREAM_AS_FD_FOR_SELECT | PHP_STREAM_CAST_INTERNAL,
-					(void **) &stream_fd, 0) != SUCCESS || stream_fd < 0) {
-				zend_argument_value_error(arg_num, "must be a stream backed by a file descriptor");
-				return false;
-			}
-
-			*fd = (int) stream_fd;
-			return true;
-		}
-
-#ifdef APPKIT_HAVE_SOCKETS
-		case IS_OBJECT: {
-			/* Resolved by name so appkit.so never links against ext/sockets symbols. */
-			zend_class_entry *socket_class = zend_hash_str_find_ptr(CG(class_table), "socket", sizeof("socket") - 1);
-
-			if (socket_class != NULL && Z_OBJCE_P(zfd) == socket_class) {
-				php_socket *socket = Z_SOCKET_P(zfd);
-
-				if (socket->bsd_socket < 0) {
-					zend_argument_value_error(arg_num, "has already been closed");
-					return false;
-				}
-
-				*fd = (int) socket->bsd_socket;
-				return true;
-			}
-			break;
-		}
-#endif
-	}
-
-	zend_argument_type_error(arg_num, "must be of type Socket|resource|int, %s given", zend_zval_value_name(zfd));
-	return false;
-}
-
 void appkit_throw_nsexception(NSException *e)
 {
 	if (EG(exception) != NULL) {
@@ -362,6 +302,16 @@ bool appkit_on_main_thread(void)
 {
 	return pthread_main_np() != 0;
 }
+
+#ifdef APPKIT_PROBES
+/* True when env APPKIT_PROBE_OFF names this site id. */
+bool appkit_probe_off(const char *id)
+{
+	const char *off = getenv("APPKIT_PROBE_OFF");
+
+	return off != NULL && strcmp(off, id) == 0;
+}
+#endif
 
 appkit_callout *appkit_callout_new(zval *callable, void (*detach)(CFTypeRef))
 {
@@ -629,9 +579,9 @@ void appkit_zval_from_id(zval *out, id value)
 }
 
 /*
- * Whether a value suits a text attribute AppKit types: a colour, paragraph style, font or link
- * of another class only fails when the text is laid out or drawn, outside any PHP call. Names
- * AppKit gives no type pass. $given names the PHP value in the TypeError.
+ * Whether a value suits the foreground or background colour attribute: a value of another class
+ * kills the process when the text is drawn (SIGTRAP or an uncaught NSInvalidArgumentException),
+ * outside any PHP call. Every other name passes through. $given names the PHP value in the TypeError.
  */
 bool appkit_attribute_value_fits(NSString *name, id value, uint32_t arg_num, const char *given)
 {
@@ -641,32 +591,23 @@ bool appkit_attribute_value_fits(NSString *name, id value, uint32_t arg_num, con
 	} typed[] = {
 		{"NSForegroundColorAttributeName", "NSColor"},
 		{"NSBackgroundColorAttributeName", "NSColor"},
-		{"NSParagraphStyleAttributeName", "NSParagraphStyle"},
-		{"NSFontAttributeName", "NSFont"},
-		{"NSLinkAttributeName", "NSURL or NSString"},
 	};
 	NSString *names[] = {
 		NSForegroundColorAttributeName,
 		NSBackgroundColorAttributeName,
-		NSParagraphStyleAttributeName,
-		NSFontAttributeName,
-		NSLinkAttributeName,
 	};
 	bool fits[] = {
 		[value isKindOfClass:[NSColor class]],
 		[value isKindOfClass:[NSColor class]],
-		[value isKindOfClass:[NSParagraphStyle class]],
-		[value isKindOfClass:[NSFont class]],
-		[value isKindOfClass:[NSURL class]] || [value isKindOfClass:[NSString class]],
 	};
 
 	for (size_t i = 0; i < sizeof(typed) / sizeof(typed[0]); i++) {
 		if ([name isEqualToString:names[i]]) {
-			if (fits[i]) {
-				return true;
+			if (!APPKIT_PROBE_OFF("attribute-value-class") && !fits[i]) {
+				zend_argument_type_error(arg_num, "value for %s must be an %s, %s given", typed[i].name, typed[i].wants, given); /* binding:attribute-value-class */
+				return false;
 			}
-			zend_argument_type_error(arg_num, "value for %s must be an %s, %s given", typed[i].name, typed[i].wants, given);
-			return false;
+			return true;
 		}
 	}
 

@@ -20,21 +20,33 @@ it('builds an application-defined event with every field it was given', function
 it('turns an NSException into AppKitException', function (): void {
     // otherEventWithType: only accepts the "other" event types; a key event raises.
     expect(fn () => NSEvent::otherEventWithTypeLocationModifierFlagsTimestampWindowNumberContextSubtypeData1Data2(
-        NSEventType::KEY_DOWN, new NSPoint(), 0, 0.0, 0, null, 0, 0, 0,
+        NSEventType::KEY_DOWN, new NSPoint(0.0, 0.0),0, 0.0, 0, null, 0, 0, 0,
     ))->toThrow(AppKitException::class, 'NSInternalInconsistencyException');
 });
 
 it('rejects a subtype outside a short', function (): void {
     expect(fn () => NSEvent::otherEventWithTypeLocationModifierFlagsTimestampWindowNumberContextSubtypeData1Data2(
-        NSEventType::APPLICATION_DEFINED, new NSPoint(), 0, 0.0, 0, null, 40000, 0, 0,
+        NSEventType::APPLICATION_DEFINED, new NSPoint(0.0, 0.0),0, 0.0, 0, null, 40000, 0, 0,
     ))->toThrow(ValueError::class);
 });
 
-it('defaults NSPoint to the origin', function (): void {
-    $p = new NSPoint();
+it('takes both NSPoint coordinates', function (): void {
+    $p = new NSPoint(0.0, 0.0);
 
-    expect($p->x)->toBe(0.0)->and($p->y)->toBe(0.0);
+    expect($p->x)->toBe(0.0)->and($p->y)->toBe(0.0)
+        ->and(fn () => new NSPoint())->toThrow(ArgumentCountError::class)
+        ->and((new ReflectionProperty(NSPoint::class, 'x'))->hasDefaultValue())->toBeFalse();
 });
+
+it('types the event constructors\' context as an NSGraphicsContext', function (string $method): void {
+    $context = (new ReflectionMethod(NSEvent::class, $method))->getParameters()[5];
+
+    expect([$context->getName(), (string) $context->getType()])->toBe(['context', '?NSGraphicsContext']);
+})->with([
+    'otherEventWithTypeLocationModifierFlagsTimestampWindowNumberContextSubtypeData1Data2',
+    'mouseEventWithTypeLocationModifierFlagsTimestampWindowNumberContextEventNumberClickCountPressure',
+    'keyEventWithTypeLocationModifierFlagsTimestampWindowNumberContextCharactersCharactersIgnoringModifiersIsARepeatKeyCode',
+]);
 
 it('builds a key event with every field it was given and reads it back', function (): void {
     $event = NSEvent::keyEventWithTypeLocationModifierFlagsTimestampWindowNumberContextCharactersCharactersIgnoringModifiersIsARepeatKeyCode(
@@ -50,7 +62,7 @@ it('builds a key event with every field it was given and reads it back', functio
 
 it('builds a flags-changed event through the key constructor, keeping device-dependent bits', function (): void {
     $event = NSEvent::keyEventWithTypeLocationModifierFlagsTimestampWindowNumberContextCharactersCharactersIgnoringModifiersIsARepeatKeyCode(
-        NSEventType::FLAGS_CHANGED, new NSPoint(), NSEventModifierFlags::SHIFT->value | 0x2, 0.0, 0, null, '', '', false, 0x38,
+        NSEventType::FLAGS_CHANGED, new NSPoint(0.0, 0.0),NSEventModifierFlags::SHIFT->value | 0x2, 0.0, 0, null, '', '', false, 0x38,
     );
 
     expect([$event->type(), $event->keyCode(), $event->modifierFlags() & 0x2])->toBe([NSEventType::FLAGS_CHANGED, 0x38, 0x2]);
@@ -58,7 +70,7 @@ it('builds a flags-changed event through the key constructor, keeping device-dep
 
 it('rejects a key code outside an unsigned short', function (): void {
     expect(fn () => NSEvent::keyEventWithTypeLocationModifierFlagsTimestampWindowNumberContextCharactersCharactersIgnoringModifiersIsARepeatKeyCode(
-        NSEventType::KEY_DOWN, new NSPoint(), 0, 0.0, 0, null, '', '', false, 70000,
+        NSEventType::KEY_DOWN, new NSPoint(0.0, 0.0),0, 0.0, 0, null, '', '', false, 70000,
     ))->toThrow(ValueError::class);
 });
 
@@ -76,7 +88,7 @@ it('reads a mouse event\'s click count and window', function (): void {
 
 it('raises AppKitException asking a mouse event for characters', function (): void {
     $event = NSEvent::mouseEventWithTypeLocationModifierFlagsTimestampWindowNumberContextEventNumberClickCountPressure(
-        NSEventType::LEFT_MOUSE_DOWN, new NSPoint(), 0, 0.0, 0, null, 0, 1, 1.0,
+        NSEventType::LEFT_MOUSE_DOWN, new NSPoint(0.0, 0.0),0, 0.0, 0, null, 0, 1, 1.0,
     );
 
     expect(fn () => $event->characters())->toThrow(AppKitException::class, 'NSInternalInconsistencyException');

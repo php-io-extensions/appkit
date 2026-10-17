@@ -11,16 +11,6 @@ void appkit_register_CGDirectDisplay(int module_number)
 
 #define THIS_MODE ((CGDisplayModeRef) APPKIT_CF(Z_OBJ_P(ZEND_THIS)))
 
-/* A CGError as AppKitException, its code the CGError. */
-static bool appkit_cg_ok(CGError error, const char *function)
-{
-	if (error == kCGErrorSuccess) {
-		return true;
-	}
-	zend_throw_exception_ex(appkit_ce_AppKitException, (zend_long) error, "%s failed with CGError %d", function, (int) error);
-	return false;
-}
-
 /* A CGDirectDisplayID parameter: a uint32. */
 static bool appkit_display_from(zend_long value, uint32_t arg_num, CGDirectDisplayID *out)
 {
@@ -80,25 +70,38 @@ ZEND_METHOD(CGDisplay, mainDisplayID)
 
 ZEND_METHOD(CGDisplay, getActiveDisplayList)
 {
+	zend_long max_displays;
+	zval *displays_ref = NULL, *count_ref = NULL;
 	uint32_t count = 0;
 
-	ZEND_PARSE_PARAMETERS_NONE();
+	ZEND_PARSE_PARAMETERS_START(1, 3)
+		Z_PARAM_LONG(max_displays)
+		Z_PARAM_OPTIONAL
+		Z_PARAM_ZVAL(displays_ref)
+		Z_PARAM_ZVAL(count_ref)
+	ZEND_PARSE_PARAMETERS_END();
 
-	if (!appkit_cg_ok(CGGetActiveDisplayList(0, NULL, &count), "CGGetActiveDisplayList")) {
-		RETURN_THROWS();
+	uint32_t max = (uint32_t) max_displays;
+	CGDirectDisplayID *displays = max > 0 ? ecalloc(max, sizeof(CGDirectDisplayID)) : NULL;
+	CGError error = CGGetActiveDisplayList(max, displays, &count);
+
+	if (displays_ref != NULL) {
+		zval list;
+		uint32_t filled = displays != NULL ? MIN(count, max) : 0;
+
+		array_init_size(&list, filled);
+		for (uint32_t i = 0; i < filled; i++) {
+			add_next_index_long(&list, (zend_long) displays[i]);
+		}
+		ZEND_TRY_ASSIGN_REF_VALUE(displays_ref, &list);
 	}
-
-	CGDirectDisplayID *displays = ecalloc(count > 0 ? count : 1, sizeof(CGDirectDisplayID));
-	if (!appkit_cg_ok(CGGetActiveDisplayList(count, displays, &count), "CGGetActiveDisplayList")) {
+	if (displays != NULL) {
 		efree(displays);
-		RETURN_THROWS();
 	}
-
-	array_init_size(return_value, count);
-	for (uint32_t i = 0; i < count; i++) {
-		add_next_index_long(return_value, (zend_long) displays[i]);
+	if (count_ref != NULL) {
+		ZEND_TRY_ASSIGN_REF_LONG(count_ref, (zend_long) count);
 	}
-	efree(displays);
+	RETURN_LONG((zend_long) error);
 }
 
 ZEND_METHOD(CGDisplay, bounds)
@@ -174,19 +177,27 @@ ZEND_METHOD(CGDisplay, setDisplayMode)
 {
 	zend_long display_long;
 	zend_object *mode;
+	HashTable *options;
 	CGDirectDisplayID display;
+	CGError error;
 
-	ZEND_PARSE_PARAMETERS_START(2, 2)
+	ZEND_PARSE_PARAMETERS_START(3, 3)
 		Z_PARAM_LONG(display_long)
-		Z_PARAM_OBJ_OF_CLASS(mode, appkit_ce_CGDisplayMode)
+		Z_PARAM_OBJ_OF_CLASS_OR_NULL(mode, appkit_ce_CGDisplayMode)
+		Z_PARAM_ARRAY_HT_OR_NULL(options)
 	ZEND_PARSE_PARAMETERS_END();
 	if (!appkit_display_from(display_long, 1, &display)) {
 		RETURN_THROWS();
 	}
 
-	if (!appkit_cg_ok(CGDisplaySetDisplayMode(display, (CGDisplayModeRef) APPKIT_CF(mode), NULL), "CGDisplaySetDisplayMode")) {
-		RETURN_THROWS();
+	@autoreleasepool {
+		NSDictionary *dictionary = options != NULL ? appkit_nsdictionary(options, 3) : nil;
+		if (options != NULL && dictionary == nil) {
+			RETURN_THROWS();
+		}
+		error = CGDisplaySetDisplayMode(display, mode != NULL ? (CGDisplayModeRef) APPKIT_CF(mode) : NULL, (CFDictionaryRef) dictionary);
 	}
+	RETURN_LONG((zend_long) error);
 }
 
 ZEND_METHOD(CGDisplay, capture)
@@ -201,9 +212,7 @@ ZEND_METHOD(CGDisplay, capture)
 		RETURN_THROWS();
 	}
 
-	if (!appkit_cg_ok(CGDisplayCapture(display), "CGDisplayCapture")) {
-		RETURN_THROWS();
-	}
+	RETURN_LONG((zend_long) CGDisplayCapture(display));
 }
 
 ZEND_METHOD(CGDisplay, release)
@@ -218,9 +227,7 @@ ZEND_METHOD(CGDisplay, release)
 		RETURN_THROWS();
 	}
 
-	if (!appkit_cg_ok(CGDisplayRelease(display), "CGDisplayRelease")) {
-		RETURN_THROWS();
-	}
+	RETURN_LONG((zend_long) CGDisplayRelease(display));
 }
 
 ZEND_METHOD(CGDisplay, shieldingWindowLevel)

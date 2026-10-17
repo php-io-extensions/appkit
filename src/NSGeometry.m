@@ -9,11 +9,9 @@ void appkit_register_NSGeometry(void)
 
 ZEND_METHOD(NSSize, __construct)
 {
-	double width = 0.0;
-	double height = 0.0;
+	double width, height;
 
-	ZEND_PARSE_PARAMETERS_START(0, 2)
-		Z_PARAM_OPTIONAL
+	ZEND_PARSE_PARAMETERS_START(2, 2)
 		Z_PARAM_DOUBLE(width)
 		Z_PARAM_DOUBLE(height)
 	ZEND_PARSE_PARAMETERS_END();
@@ -24,13 +22,9 @@ ZEND_METHOD(NSSize, __construct)
 
 ZEND_METHOD(NSRect, __construct)
 {
-	double x = 0.0;
-	double y = 0.0;
-	double width = 0.0;
-	double height = 0.0;
+	double x, y, width, height;
 
-	ZEND_PARSE_PARAMETERS_START(0, 4)
-		Z_PARAM_OPTIONAL
+	ZEND_PARSE_PARAMETERS_START(4, 4)
 		Z_PARAM_DOUBLE(x)
 		Z_PARAM_DOUBLE(y)
 		Z_PARAM_DOUBLE(width)

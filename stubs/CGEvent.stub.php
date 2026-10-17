@@ -106,29 +106,32 @@ enum CGEventSourceStateID: int
 }
 
 /**
- * A Quartz event source. Only its state reads are bound, as statics: no source is created.
+ * A Quartz event source (CGEventSourceRef).
  *
  * @not-serializable
  */
 final class CGEventSource extends CFType
 {
+    /** CGEventSourceCreate; null when Quartz makes no source. */
+    public static function create(CGEventSourceStateID $stateID): ?CGEventSource {}
+
     /** CGEventSourceKeyState: whether the key with macOS virtual key code $key is down in that state now. */
     public static function keyState(CGEventSourceStateID $stateID, int $key): bool {}
 }
 
 /**
  * A Quartz event, for the NSEvents AppKit has no constructor for (a scroll wheel, another
- * mouse button, motion deltas): NSEvent::eventWithCGEvent(). No CGEventSource is bound, so
- * the source is null. Locations are Quartz's: origin at the top left of the main screen.
+ * mouse button, motion deltas): NSEvent::eventWithCGEvent(). Locations are Quartz's: origin
+ * at the top left of the main screen.
  *
  * @not-serializable
  */
 final class CGEvent extends CFType
 {
-    public static function createMouseEvent(?CFType $source, CGEventType $mouseType, NSPoint $mouseCursorPosition, CGMouseButton $mouseButton): ?CGEvent {}
+    public static function createMouseEvent(?CGEventSource $source, CGEventType $mouseType, NSPoint $mouseCursorPosition, CGMouseButton $mouseButton): ?CGEvent {}
 
     /** One to three wheels; $wheel1 is vertical, $wheel2 horizontal. */
-    public static function createScrollWheelEvent2(?CFType $source, CGScrollEventUnit $units, int $wheelCount, int $wheel1, int $wheel2, int $wheel3): ?CGEvent {}
+    public static function createScrollWheelEvent2(?CGEventSource $source, CGScrollEventUnit $units, int $wheelCount, int $wheel1, int $wheel2, int $wheel3): ?CGEvent {}
 
     public function getIntegerValueField(int $field): int {}
 

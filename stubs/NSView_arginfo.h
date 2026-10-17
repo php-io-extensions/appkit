@@ -1,5 +1,5 @@
 /* This is a generated file, edit the .stub.php file instead.
- * Stub hash: d8a16bff3344381ee7d2c51cb4e764884e8f8c96 */
+ * Stub hash: 80cda797ac2596301ec0f03d7035f87fa4d6507d */
 
 ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_NSView_initWithFrame, 0, 1, IS_STATIC, 0)
 	ZEND_ARG_OBJ_INFO(0, frame, NSRect, 0)
@@ -104,31 +104,6 @@ ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_NSView_setLayer, 0, 1, IS_
 	ZEND_ARG_OBJ_INFO(0, layer, CALayer, 1)
 ZEND_END_ARG_INFO()
 
-ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(arginfo_class_NSView_layerBackgroundColor, 0, 0, NSColor, 1)
-ZEND_END_ARG_INFO()
-
-ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_NSView_setLayerBackgroundColor, 0, 1, IS_VOID, 0)
-	ZEND_ARG_OBJ_INFO(0, color, NSColor, 1)
-ZEND_END_ARG_INFO()
-
-ZEND_BEGIN_ARG_WITH_RETURN_OBJ_TYPE_MASK_EX(arginfo_class_NSView_layerContents, 0, 0, NSImage|CGImage, MAY_BE_NULL)
-ZEND_END_ARG_INFO()
-
-ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_NSView_setLayerContents, 0, 1, IS_VOID, 0)
-	ZEND_ARG_OBJ_TYPE_MASK(0, contents, NSImage|CGImage, MAY_BE_NULL, NULL)
-ZEND_END_ARG_INFO()
-
-ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_NSView_layerContentsGravity, 0, 0, IS_STRING, 1)
-ZEND_END_ARG_INFO()
-
-ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_NSView_setLayerContentsGravity, 0, 1, IS_VOID, 0)
-	ZEND_ARG_TYPE_INFO(0, gravity, IS_STRING, 0)
-ZEND_END_ARG_INFO()
-
-#define arginfo_class_NSView_layerMasksToBounds arginfo_class_NSView_isFlipped
-
-#define arginfo_class_NSView_setLayerMasksToBounds arginfo_class_NSView_setNeedsDisplay
-
 #define arginfo_class_NSView_postsFrameChangedNotifications arginfo_class_NSView_isFlipped
 
 #define arginfo_class_NSView_setPostsFrameChangedNotifications arginfo_class_NSView_setNeedsDisplay
@@ -137,22 +112,24 @@ ZEND_END_ARG_INFO()
 
 #define arginfo_class_NSView_setPostsBoundsChangedNotifications arginfo_class_NSView_setNeedsDisplay
 
-ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(arginfo_class_NSView_widthAnchor, 0, 0, NSLayoutAnchor, 0)
+ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(arginfo_class_NSView_widthAnchor, 0, 0, NSLayoutDimension, 0)
 ZEND_END_ARG_INFO()
 
 #define arginfo_class_NSView_heightAnchor arginfo_class_NSView_widthAnchor
 
-#define arginfo_class_NSView_leadingAnchor arginfo_class_NSView_widthAnchor
+ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(arginfo_class_NSView_leadingAnchor, 0, 0, NSLayoutXAxisAnchor, 0)
+ZEND_END_ARG_INFO()
 
-#define arginfo_class_NSView_trailingAnchor arginfo_class_NSView_widthAnchor
+#define arginfo_class_NSView_trailingAnchor arginfo_class_NSView_leadingAnchor
 
-#define arginfo_class_NSView_topAnchor arginfo_class_NSView_widthAnchor
+ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(arginfo_class_NSView_topAnchor, 0, 0, NSLayoutYAxisAnchor, 0)
+ZEND_END_ARG_INFO()
 
-#define arginfo_class_NSView_bottomAnchor arginfo_class_NSView_widthAnchor
+#define arginfo_class_NSView_bottomAnchor arginfo_class_NSView_topAnchor
 
-#define arginfo_class_NSView_centerXAnchor arginfo_class_NSView_widthAnchor
+#define arginfo_class_NSView_centerXAnchor arginfo_class_NSView_leadingAnchor
 
-#define arginfo_class_NSView_centerYAnchor arginfo_class_NSView_widthAnchor
+#define arginfo_class_NSView_centerYAnchor arginfo_class_NSView_topAnchor
 
 #define arginfo_class_NSView_bounds arginfo_class_NSView_frame
 
@@ -219,14 +196,6 @@ ZEND_METHOD(NSView, wantsBestResolutionOpenGLSurface);
 ZEND_METHOD(NSView, setWantsBestResolutionOpenGLSurface);
 ZEND_METHOD(NSView, layer);
 ZEND_METHOD(NSView, setLayer);
-ZEND_METHOD(NSView, layerBackgroundColor);
-ZEND_METHOD(NSView, setLayerBackgroundColor);
-ZEND_METHOD(NSView, layerContents);
-ZEND_METHOD(NSView, setLayerContents);
-ZEND_METHOD(NSView, layerContentsGravity);
-ZEND_METHOD(NSView, setLayerContentsGravity);
-ZEND_METHOD(NSView, layerMasksToBounds);
-ZEND_METHOD(NSView, setLayerMasksToBounds);
 ZEND_METHOD(NSView, postsFrameChangedNotifications);
 ZEND_METHOD(NSView, setPostsFrameChangedNotifications);
 ZEND_METHOD(NSView, postsBoundsChangedNotifications);
@@ -285,14 +254,6 @@ static const zend_function_entry class_NSView_methods[] = {
 	ZEND_ME(NSView, setWantsBestResolutionOpenGLSurface, arginfo_class_NSView_setWantsBestResolutionOpenGLSurface, ZEND_ACC_PUBLIC)
 	ZEND_ME(NSView, layer, arginfo_class_NSView_layer, ZEND_ACC_PUBLIC)
 	ZEND_ME(NSView, setLayer, arginfo_class_NSView_setLayer, ZEND_ACC_PUBLIC)
-	ZEND_ME(NSView, layerBackgroundColor, arginfo_class_NSView_layerBackgroundColor, ZEND_ACC_PUBLIC)
-	ZEND_ME(NSView, setLayerBackgroundColor, arginfo_class_NSView_setLayerBackgroundColor, ZEND_ACC_PUBLIC)
-	ZEND_ME(NSView, layerContents, arginfo_class_NSView_layerContents, ZEND_ACC_PUBLIC)
-	ZEND_ME(NSView, setLayerContents, arginfo_class_NSView_setLayerContents, ZEND_ACC_PUBLIC)
-	ZEND_ME(NSView, layerContentsGravity, arginfo_class_NSView_layerContentsGravity, ZEND_ACC_PUBLIC)
-	ZEND_ME(NSView, setLayerContentsGravity, arginfo_class_NSView_setLayerContentsGravity, ZEND_ACC_PUBLIC)
-	ZEND_ME(NSView, layerMasksToBounds, arginfo_class_NSView_layerMasksToBounds, ZEND_ACC_PUBLIC)
-	ZEND_ME(NSView, setLayerMasksToBounds, arginfo_class_NSView_setLayerMasksToBounds, ZEND_ACC_PUBLIC)
 	ZEND_ME(NSView, postsFrameChangedNotifications, arginfo_class_NSView_postsFrameChangedNotifications, ZEND_ACC_PUBLIC)
 	ZEND_ME(NSView, setPostsFrameChangedNotifications, arginfo_class_NSView_setPostsFrameChangedNotifications, ZEND_ACC_PUBLIC)
 	ZEND_ME(NSView, postsBoundsChangedNotifications, arginfo_class_NSView_postsBoundsChangedNotifications, ZEND_ACC_PUBLIC)
@@ -316,14 +277,6 @@ static const zend_function_entry class_NSView_methods[] = {
 	ZEND_ME(NSView, displayLinkWithTargetSelector, arginfo_class_NSView_displayLinkWithTargetSelector, ZEND_ACC_PUBLIC)
 	ZEND_FE_END
 };
-
-static void register_NSView_symbols(int module_number)
-{
-	REGISTER_STRING_CONSTANT("kCAGravityResize", appkit_cfstring_constant((CFStringRef) kCAGravityResize), CONST_PERSISTENT);
-	REGISTER_STRING_CONSTANT("kCAGravityResizeAspect", appkit_cfstring_constant((CFStringRef) kCAGravityResizeAspect), CONST_PERSISTENT);
-	REGISTER_STRING_CONSTANT("kCAGravityResizeAspectFill", appkit_cfstring_constant((CFStringRef) kCAGravityResizeAspectFill), CONST_PERSISTENT);
-	REGISTER_STRING_CONSTANT("kCAGravityCenter", appkit_cfstring_constant((CFStringRef) kCAGravityCenter), CONST_PERSISTENT);
-}
 
 static zend_class_entry *register_class_NSViewLayerContentsRedrawPolicy(void)
 {

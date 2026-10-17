@@ -1,5 +1,5 @@
 /* This is a generated file, edit the .stub.php file instead.
- * Stub hash: 7623fdfbaeb65b189399d6f04780ebb484255174 */
+ * Stub hash: 565f92861fb508171ba3c2c17ede2842c6d32109 */
 
 ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(arginfo_class_NSColor_colorWithRedGreenBlueAlpha, 0, 4, NSColor, 0)
 	ZEND_ARG_TYPE_INFO(0, red, IS_DOUBLE, 0)
@@ -16,6 +16,17 @@ ZEND_END_ARG_INFO()
 #define arginfo_class_NSColor_blueComponent arginfo_class_NSColor_redComponent
 
 #define arginfo_class_NSColor_alphaComponent arginfo_class_NSColor_redComponent
+
+ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(arginfo_class_NSColor_CGColor, 0, 0, CGColor, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(arginfo_class_NSColor_colorWithCGColor, 0, 1, NSColor, 1)
+	ZEND_ARG_OBJ_INFO(0, cgColor, CGColor, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(arginfo_class_NSColor_colorUsingColorSpace, 0, 1, NSColor, 1)
+	ZEND_ARG_OBJ_INFO(0, space, NSColorSpace, 0)
+ZEND_END_ARG_INFO()
 
 ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(arginfo_class_NSColorSpace_initWithCGColorSpace, 0, 1, NSColorSpace, 1)
 	ZEND_ARG_OBJ_INFO(0, space, CGColorSpace, 0)
@@ -34,6 +45,9 @@ ZEND_METHOD(NSColor, redComponent);
 ZEND_METHOD(NSColor, greenComponent);
 ZEND_METHOD(NSColor, blueComponent);
 ZEND_METHOD(NSColor, alphaComponent);
+ZEND_METHOD(NSColor, CGColor);
+ZEND_METHOD(NSColor, colorWithCGColor);
+ZEND_METHOD(NSColor, colorUsingColorSpace);
 ZEND_METHOD(NSColorSpace, initWithCGColorSpace);
 ZEND_METHOD(NSColorSpace, sRGBColorSpace);
 ZEND_METHOD(NSColorSpace, displayP3ColorSpace);
@@ -45,6 +59,9 @@ static const zend_function_entry class_NSColor_methods[] = {
 	ZEND_ME(NSColor, greenComponent, arginfo_class_NSColor_greenComponent, ZEND_ACC_PUBLIC)
 	ZEND_ME(NSColor, blueComponent, arginfo_class_NSColor_blueComponent, ZEND_ACC_PUBLIC)
 	ZEND_ME(NSColor, alphaComponent, arginfo_class_NSColor_alphaComponent, ZEND_ACC_PUBLIC)
+	ZEND_ME(NSColor, CGColor, arginfo_class_NSColor_CGColor, ZEND_ACC_PUBLIC)
+	ZEND_ME(NSColor, colorWithCGColor, arginfo_class_NSColor_colorWithCGColor, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	ZEND_ME(NSColor, colorUsingColorSpace, arginfo_class_NSColor_colorUsingColorSpace, ZEND_ACC_PUBLIC)
 	ZEND_FE_END
 };
 

@@ -13,7 +13,7 @@ void appkit_register_NSProcessInfo(void)
 	APPKIT_MAP(NSProcessInfo, appkit_ce_NSObject);
 }
 
-METHOD(NSProcessInfo, processInfo, PARSE_NONE, appkit_box_objc(return_value, [NSProcessInfo processInfo]);)
+ANY_METHOD(NSProcessInfo, processInfo, PARSE_NONE, appkit_box_objc(return_value, [NSProcessInfo processInfo]);)
 
 ZEND_METHOD(NSProcessInfo, beginActivityWithOptionsReason)
 {

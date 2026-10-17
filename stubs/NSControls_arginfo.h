@@ -1,5 +1,5 @@
 /* This is a generated file, edit the .stub.php file instead.
- * Stub hash: 9b49ee176e3c046dc9ef865fefd5bb5287b4881b */
+ * Stub hash: d33f3d8c2ac83834b88e8b37f85b79a8e91a9a40 */
 
 ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_NSControl_isEnabled, 0, 0, _IS_BOOL, 0)
 ZEND_END_ARG_INFO()
@@ -322,11 +322,6 @@ ZEND_END_ARG_INFO()
 
 #define arginfo_class_NSAttributedString_length arginfo_class_NSControl_integerValue
 
-ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_NSAttributedString_attributeAtIndex, 0, 2, IS_MIXED, 0)
-	ZEND_ARG_TYPE_INFO(0, name, IS_STRING, 0)
-	ZEND_ARG_TYPE_INFO(0, index, IS_LONG, 0)
-ZEND_END_ARG_INFO()
-
 ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_NSAttributedString_attributeAtIndexEffectiveRange, 0, 2, IS_ARRAY, 0)
 	ZEND_ARG_TYPE_INFO(0, name, IS_STRING, 0)
 	ZEND_ARG_TYPE_INFO(0, index, IS_LONG, 0)
@@ -539,8 +534,8 @@ ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(arginfo_class_NSLayoutManager_usedRectFor
 	ZEND_ARG_OBJ_INFO(0, container, NSTextContainer, 0)
 ZEND_END_ARG_INFO()
 
-ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(arginfo_class_NSLayoutManager_glyphRangeForCharacterRange, 0, 1, NSRange, 0)
-	ZEND_ARG_OBJ_INFO(0, range, NSRange, 0)
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_NSLayoutManager_glyphRangeForCharacterRangeActualCharacterRange, 0, 1, IS_ARRAY, 0)
+	ZEND_ARG_OBJ_INFO(0, charRange, NSRange, 0)
 ZEND_END_ARG_INFO()
 
 ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(arginfo_class_NSLayoutManager_boundingRectForGlyphRangeInTextContainer, 0, 2, NSRect, 0)
@@ -654,7 +649,6 @@ ZEND_METHOD(NSImage, size);
 ZEND_METHOD(NSAttributedString, initWithStringAttributes);
 ZEND_METHOD(NSAttributedString, string);
 ZEND_METHOD(NSAttributedString, length);
-ZEND_METHOD(NSAttributedString, attributeAtIndex);
 ZEND_METHOD(NSAttributedString, attributeAtIndexEffectiveRange);
 ZEND_METHOD(NSMutableAttributedString, addAttributeValueRange);
 ZEND_METHOD(NSMutableAttributedString, removeAttributeRange);
@@ -726,7 +720,7 @@ ZEND_METHOD(NSTextContainer, size);
 ZEND_METHOD(NSTextContainer, setSize);
 ZEND_METHOD(NSLayoutManager, ensureLayoutForTextContainer);
 ZEND_METHOD(NSLayoutManager, usedRectForTextContainer);
-ZEND_METHOD(NSLayoutManager, glyphRangeForCharacterRange);
+ZEND_METHOD(NSLayoutManager, glyphRangeForCharacterRangeActualCharacterRange);
 ZEND_METHOD(NSLayoutManager, boundingRectForGlyphRangeInTextContainer);
 ZEND_METHOD(NSLayoutManager, allowsNonContiguousLayout);
 ZEND_METHOD(NSLayoutManager, setAllowsNonContiguousLayout);
@@ -874,7 +868,6 @@ static const zend_function_entry class_NSAttributedString_methods[] = {
 	ZEND_ME(NSAttributedString, initWithStringAttributes, arginfo_class_NSAttributedString_initWithStringAttributes, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
 	ZEND_ME(NSAttributedString, string, arginfo_class_NSAttributedString_string, ZEND_ACC_PUBLIC)
 	ZEND_ME(NSAttributedString, length, arginfo_class_NSAttributedString_length, ZEND_ACC_PUBLIC)
-	ZEND_ME(NSAttributedString, attributeAtIndex, arginfo_class_NSAttributedString_attributeAtIndex, ZEND_ACC_PUBLIC)
 	ZEND_ME(NSAttributedString, attributeAtIndexEffectiveRange, arginfo_class_NSAttributedString_attributeAtIndexEffectiveRange, ZEND_ACC_PUBLIC)
 	ZEND_FE_END
 };
@@ -994,7 +987,7 @@ static const zend_function_entry class_NSTextContainer_methods[] = {
 static const zend_function_entry class_NSLayoutManager_methods[] = {
 	ZEND_ME(NSLayoutManager, ensureLayoutForTextContainer, arginfo_class_NSLayoutManager_ensureLayoutForTextContainer, ZEND_ACC_PUBLIC)
 	ZEND_ME(NSLayoutManager, usedRectForTextContainer, arginfo_class_NSLayoutManager_usedRectForTextContainer, ZEND_ACC_PUBLIC)
-	ZEND_ME(NSLayoutManager, glyphRangeForCharacterRange, arginfo_class_NSLayoutManager_glyphRangeForCharacterRange, ZEND_ACC_PUBLIC)
+	ZEND_ME(NSLayoutManager, glyphRangeForCharacterRangeActualCharacterRange, arginfo_class_NSLayoutManager_glyphRangeForCharacterRangeActualCharacterRange, ZEND_ACC_PUBLIC)
 	ZEND_ME(NSLayoutManager, boundingRectForGlyphRangeInTextContainer, arginfo_class_NSLayoutManager_boundingRectForGlyphRangeInTextContainer, ZEND_ACC_PUBLIC)
 	ZEND_ME(NSLayoutManager, allowsNonContiguousLayout, arginfo_class_NSLayoutManager_allowsNonContiguousLayout, ZEND_ACC_PUBLIC)
 	ZEND_ME(NSLayoutManager, setAllowsNonContiguousLayout, arginfo_class_NSLayoutManager_setAllowsNonContiguousLayout, ZEND_ACC_PUBLIC)
@@ -1019,13 +1012,13 @@ static zend_class_entry *register_class_NSTextBlockValueType(void)
 {
 	zend_class_entry *class_entry = zend_register_internal_enum("NSTextBlockValueType", IS_LONG, NULL);
 
-	zval enum_case_ABSOLUTE_value;
-	ZVAL_LONG(&enum_case_ABSOLUTE_value, 0);
-	zend_enum_add_case_cstr(class_entry, "ABSOLUTE", &enum_case_ABSOLUTE_value);
+	zval enum_case_ABSOLUTE_VALUE_TYPE_value;
+	ZVAL_LONG(&enum_case_ABSOLUTE_VALUE_TYPE_value, 0);
+	zend_enum_add_case_cstr(class_entry, "ABSOLUTE_VALUE_TYPE", &enum_case_ABSOLUTE_VALUE_TYPE_value);
 
-	zval enum_case_PERCENTAGE_value;
-	ZVAL_LONG(&enum_case_PERCENTAGE_value, 1);
-	zend_enum_add_case_cstr(class_entry, "PERCENTAGE", &enum_case_PERCENTAGE_value);
+	zval enum_case_PERCENTAGE_VALUE_TYPE_value;
+	ZVAL_LONG(&enum_case_PERCENTAGE_VALUE_TYPE_value, 1);
+	zend_enum_add_case_cstr(class_entry, "PERCENTAGE_VALUE_TYPE", &enum_case_PERCENTAGE_VALUE_TYPE_value);
 
 	return class_entry;
 }
@@ -1288,37 +1281,37 @@ static zend_class_entry *register_class_NSDatePicker(zend_class_entry *class_ent
 	class_entry = zend_register_internal_class_with_flags(&ce, class_entry_NSControl, ZEND_ACC_NOT_SERIALIZABLE);
 
 	zval const_ELEMENT_HOUR_MINUTE_value;
-	ZVAL_LONG(&const_ELEMENT_HOUR_MINUTE_value, 0xc);
+	ZVAL_LONG(&const_ELEMENT_HOUR_MINUTE_value, NSDatePickerElementFlagHourMinute);
 	zend_string *const_ELEMENT_HOUR_MINUTE_name = zend_string_init_interned("ELEMENT_HOUR_MINUTE", sizeof("ELEMENT_HOUR_MINUTE") - 1, 1);
 	zend_declare_typed_class_constant(class_entry, const_ELEMENT_HOUR_MINUTE_name, &const_ELEMENT_HOUR_MINUTE_value, ZEND_ACC_PUBLIC, NULL, (zend_type) ZEND_TYPE_INIT_MASK(MAY_BE_LONG));
 	zend_string_release(const_ELEMENT_HOUR_MINUTE_name);
 
 	zval const_ELEMENT_HOUR_MINUTE_SECOND_value;
-	ZVAL_LONG(&const_ELEMENT_HOUR_MINUTE_SECOND_value, 0xe);
+	ZVAL_LONG(&const_ELEMENT_HOUR_MINUTE_SECOND_value, NSDatePickerElementFlagHourMinuteSecond);
 	zend_string *const_ELEMENT_HOUR_MINUTE_SECOND_name = zend_string_init_interned("ELEMENT_HOUR_MINUTE_SECOND", sizeof("ELEMENT_HOUR_MINUTE_SECOND") - 1, 1);
 	zend_declare_typed_class_constant(class_entry, const_ELEMENT_HOUR_MINUTE_SECOND_name, &const_ELEMENT_HOUR_MINUTE_SECOND_value, ZEND_ACC_PUBLIC, NULL, (zend_type) ZEND_TYPE_INIT_MASK(MAY_BE_LONG));
 	zend_string_release(const_ELEMENT_HOUR_MINUTE_SECOND_name);
 
 	zval const_ELEMENT_TIME_ZONE_value;
-	ZVAL_LONG(&const_ELEMENT_TIME_ZONE_value, 0x10);
+	ZVAL_LONG(&const_ELEMENT_TIME_ZONE_value, NSDatePickerElementFlagTimeZone);
 	zend_string *const_ELEMENT_TIME_ZONE_name = zend_string_init_interned("ELEMENT_TIME_ZONE", sizeof("ELEMENT_TIME_ZONE") - 1, 1);
 	zend_declare_typed_class_constant(class_entry, const_ELEMENT_TIME_ZONE_name, &const_ELEMENT_TIME_ZONE_value, ZEND_ACC_PUBLIC, NULL, (zend_type) ZEND_TYPE_INIT_MASK(MAY_BE_LONG));
 	zend_string_release(const_ELEMENT_TIME_ZONE_name);
 
 	zval const_ELEMENT_YEAR_MONTH_value;
-	ZVAL_LONG(&const_ELEMENT_YEAR_MONTH_value, 0xc0);
+	ZVAL_LONG(&const_ELEMENT_YEAR_MONTH_value, NSDatePickerElementFlagYearMonth);
 	zend_string *const_ELEMENT_YEAR_MONTH_name = zend_string_init_interned("ELEMENT_YEAR_MONTH", sizeof("ELEMENT_YEAR_MONTH") - 1, 1);
 	zend_declare_typed_class_constant(class_entry, const_ELEMENT_YEAR_MONTH_name, &const_ELEMENT_YEAR_MONTH_value, ZEND_ACC_PUBLIC, NULL, (zend_type) ZEND_TYPE_INIT_MASK(MAY_BE_LONG));
 	zend_string_release(const_ELEMENT_YEAR_MONTH_name);
 
 	zval const_ELEMENT_YEAR_MONTH_DAY_value;
-	ZVAL_LONG(&const_ELEMENT_YEAR_MONTH_DAY_value, 0xe0);
+	ZVAL_LONG(&const_ELEMENT_YEAR_MONTH_DAY_value, NSDatePickerElementFlagYearMonthDay);
 	zend_string *const_ELEMENT_YEAR_MONTH_DAY_name = zend_string_init_interned("ELEMENT_YEAR_MONTH_DAY", sizeof("ELEMENT_YEAR_MONTH_DAY") - 1, 1);
 	zend_declare_typed_class_constant(class_entry, const_ELEMENT_YEAR_MONTH_DAY_name, &const_ELEMENT_YEAR_MONTH_DAY_value, ZEND_ACC_PUBLIC, NULL, (zend_type) ZEND_TYPE_INIT_MASK(MAY_BE_LONG));
 	zend_string_release(const_ELEMENT_YEAR_MONTH_DAY_name);
 
 	zval const_ELEMENT_ERA_value;
-	ZVAL_LONG(&const_ELEMENT_ERA_value, 0x100);
+	ZVAL_LONG(&const_ELEMENT_ERA_value, NSDatePickerElementFlagEra);
 	zend_string *const_ELEMENT_ERA_name = zend_string_init_interned("ELEMENT_ERA", sizeof("ELEMENT_ERA") - 1, 1);
 	zend_declare_typed_class_constant(class_entry, const_ELEMENT_ERA_name, &const_ELEMENT_ERA_value, ZEND_ACC_PUBLIC, NULL, (zend_type) ZEND_TYPE_INIT_MASK(MAY_BE_LONG));
 	zend_string_release(const_ELEMENT_ERA_name);

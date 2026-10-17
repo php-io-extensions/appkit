@@ -43,27 +43,20 @@ static void appkit_fd_detach(CFTypeRef owner)
 
 ZEND_METHOD(CFFileDescriptor, create)
 {
-	zval *zfd;
+	zend_object *allocator;
+	zend_long fd;
 	bool close_on_invalidate;
-	zval *callout_zv;
-	int fd;
+	zend_fcall_info fci;
+	zend_fcall_info_cache fcc;
 
-	ZEND_PARSE_PARAMETERS_START(3, 3)
-		Z_PARAM_ZVAL(zfd)
+	ZEND_PARSE_PARAMETERS_START(4, 4)
+		Z_PARAM_OBJ_OF_CLASS_OR_NULL(allocator, appkit_ce_CFAllocator)
+		Z_PARAM_LONG(fd)
 		Z_PARAM_BOOL(close_on_invalidate)
-		Z_PARAM_ZVAL(callout_zv)
+		Z_PARAM_FUNC(fci, fcc)
 	ZEND_PARSE_PARAMETERS_END();
 
-	if (!appkit_fd_from_zval(zfd, 1, &fd)) {
-		RETURN_THROWS();
-	}
-
-	if (!zend_is_callable(callout_zv, 0, NULL)) {
-		zend_argument_type_error(3, "must be a valid callback");
-		RETURN_THROWS();
-	}
-
-	appkit_callout *callout = appkit_callout_new(callout_zv, appkit_fd_detach);
+	appkit_callout *callout = appkit_callout_new(&fci.function_name, appkit_fd_detach);
 	CFFileDescriptorContext context = {
 		.version = 0,
 		.info = callout,
@@ -74,7 +67,8 @@ ZEND_METHOD(CFFileDescriptor, create)
 
 	/* Held across the create so a failed create frees the record here and a successful one leaves CF's reference. */
 	appkit_callout_retain(callout);
-	CFFileDescriptorRef ref = CFFileDescriptorCreate(kCFAllocatorDefault, fd, close_on_invalidate, appkit_fd_callout, &context);
+	CFFileDescriptorRef ref = CFFileDescriptorCreate(allocator ? (CFAllocatorRef) APPKIT_CF(allocator) : NULL,
+		(CFFileDescriptorNativeDescriptor) fd, close_on_invalidate, appkit_fd_callout, &context);
 
 	if (ref != NULL) {
 		callout->owner = ref;
@@ -134,13 +128,16 @@ ZEND_METHOD(CFFileDescriptor, isValid)
 
 ZEND_METHOD(CFFileDescriptor, createRunLoopSource)
 {
+	zend_object *allocator;
 	zend_long order;
 
-	ZEND_PARSE_PARAMETERS_START(1, 1)
+	ZEND_PARSE_PARAMETERS_START(2, 2)
+		Z_PARAM_OBJ_OF_CLASS_OR_NULL(allocator, appkit_ce_CFAllocator)
 		Z_PARAM_LONG(order)
 	ZEND_PARSE_PARAMETERS_END();
 
-	CFRunLoopSourceRef source = CFFileDescriptorCreateRunLoopSource(kCFAllocatorDefault, THIS_FD, (CFIndex) order);
+	CFRunLoopSourceRef source = CFFileDescriptorCreateRunLoopSource(allocator ? (CFAllocatorRef) APPKIT_CF(allocator) : NULL,
+		THIS_FD, (CFIndex) order);
 
 	if (source == NULL) {
 		RETURN_NULL();
