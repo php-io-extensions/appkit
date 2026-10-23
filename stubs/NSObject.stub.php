@@ -32,3 +32,16 @@ class NSObject
      */
     public static function fromPointer(int $pointer): static {}
 }
+
+/**
+ * Any string object AppKit hands back (a class cluster: __NSCFString, tagged pointers) boxes as this.
+ *
+ * @not-serializable
+ */
+class NSString extends NSObject
+{
+    public static function stringWithString(string $string): static {}
+
+    /** null when the string has no UTF-8 form */
+    public function UTF8String(): ?string {}
+}

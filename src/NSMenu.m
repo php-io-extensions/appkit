@@ -200,6 +200,20 @@ ZEND_METHOD(NSMenu, performActionForItemAtIndex)
 	APPKIT_END
 }
 
+ZEND_METHOD(NSMenu, performKeyEquivalent)
+{
+	zend_object *event;
+
+	ZEND_PARSE_PARAMETERS_START(1, 1)
+		Z_PARAM_OBJ_OF_CLASS(event, appkit_ce_NSEvent)
+	ZEND_PARSE_PARAMETERS_END();
+	APPKIT_REQUIRE_MAIN_THREAD(); /* binding:main-thread-nsmenu-perform-key-equivalent */
+
+	APPKIT_BEGIN
+		RETVAL_BOOL([THIS_MENU performKeyEquivalent:(NSEvent *) APPKIT_ID(event)]);
+	APPKIT_END
+}
+
 ZEND_METHOD(NSMenu, popUpMenuPositioningItemAtLocationInView)
 {
 	zend_object *item = NULL;

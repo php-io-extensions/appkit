@@ -1,5 +1,5 @@
 /* This is a generated file, edit the .stub.php file instead.
- * Stub hash: 359ef5099effefeb61db830eb355a6d1f4e5a8e5 */
+ * Stub hash: 1999dcb9c4054729fb48b8c4281aab2ea341f830 */
 
 ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(arginfo_class_NSWindow_initWithContentRectStyleMaskBackingDefer, 0, 4, NSWindow, 0)
 	ZEND_ARG_OBJ_INFO(0, contentRect, NSRect, 0)
@@ -88,6 +88,42 @@ ZEND_END_ARG_INFO()
 
 ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(arginfo_class_NSWindow_firstResponder, 0, 0, NSResponder, 1)
 ZEND_END_ARG_INFO()
+
+#define arginfo_class_NSWindow_initialFirstResponder arginfo_class_NSWindow_contentView
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_NSWindow_setInitialFirstResponder, 0, 1, IS_VOID, 0)
+	ZEND_ARG_OBJ_INFO(0, initialFirstResponder, NSView, 1)
+ZEND_END_ARG_INFO()
+
+#define arginfo_class_NSWindow_selectNextKeyView arginfo_class_NSWindow_makeKeyAndOrderFront
+
+#define arginfo_class_NSWindow_selectPreviousKeyView arginfo_class_NSWindow_makeKeyAndOrderFront
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_NSWindow_setAutorecalculatesKeyViewLoop, 0, 1, IS_VOID, 0)
+	ZEND_ARG_TYPE_INFO(0, autorecalculatesKeyViewLoop, _IS_BOOL, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_NSWindow_beginSheetCompletionHandler, 0, 2, IS_VOID, 0)
+	ZEND_ARG_OBJ_INFO(0, sheetWindow, NSWindow, 0)
+	ZEND_ARG_OBJ_INFO(0, handler, Closure, 1)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_NSWindow_endSheet, 0, 1, IS_VOID, 0)
+	ZEND_ARG_OBJ_INFO(0, sheetWindow, NSWindow, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_NSWindow_endSheetReturnCode, 0, 2, IS_VOID, 0)
+	ZEND_ARG_OBJ_INFO(0, sheetWindow, NSWindow, 0)
+	ZEND_ARG_TYPE_INFO(0, returnCode, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_NSWindow_sheets, 0, 0, IS_ARRAY, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(arginfo_class_NSWindow_attachedSheet, 0, 0, NSWindow, 1)
+ZEND_END_ARG_INFO()
+
+#define arginfo_class_NSWindow_sheetParent arginfo_class_NSWindow_attachedSheet
 
 ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_NSWindow_windowNumberAtPointBelowWindowWithWindowNumber, 0, 2, IS_LONG, 0)
 	ZEND_ARG_OBJ_INFO(0, point, NSPoint, 0)
@@ -251,6 +287,17 @@ ZEND_METHOD(NSWindow, acceptsMouseMovedEvents);
 ZEND_METHOD(NSWindow, setAcceptsMouseMovedEvents);
 ZEND_METHOD(NSWindow, makeFirstResponder);
 ZEND_METHOD(NSWindow, firstResponder);
+ZEND_METHOD(NSWindow, initialFirstResponder);
+ZEND_METHOD(NSWindow, setInitialFirstResponder);
+ZEND_METHOD(NSWindow, selectNextKeyView);
+ZEND_METHOD(NSWindow, selectPreviousKeyView);
+ZEND_METHOD(NSWindow, setAutorecalculatesKeyViewLoop);
+ZEND_METHOD(NSWindow, beginSheetCompletionHandler);
+ZEND_METHOD(NSWindow, endSheet);
+ZEND_METHOD(NSWindow, endSheetReturnCode);
+ZEND_METHOD(NSWindow, sheets);
+ZEND_METHOD(NSWindow, attachedSheet);
+ZEND_METHOD(NSWindow, sheetParent);
 ZEND_METHOD(NSWindow, windowNumberAtPointBelowWindowWithWindowNumber);
 ZEND_METHOD(NSWindow, frame);
 ZEND_METHOD(NSWindow, setContentSize);
@@ -326,6 +373,17 @@ static const zend_function_entry class_NSWindow_methods[] = {
 	ZEND_ME(NSWindow, setAcceptsMouseMovedEvents, arginfo_class_NSWindow_setAcceptsMouseMovedEvents, ZEND_ACC_PUBLIC)
 	ZEND_ME(NSWindow, makeFirstResponder, arginfo_class_NSWindow_makeFirstResponder, ZEND_ACC_PUBLIC)
 	ZEND_ME(NSWindow, firstResponder, arginfo_class_NSWindow_firstResponder, ZEND_ACC_PUBLIC)
+	ZEND_ME(NSWindow, initialFirstResponder, arginfo_class_NSWindow_initialFirstResponder, ZEND_ACC_PUBLIC)
+	ZEND_ME(NSWindow, setInitialFirstResponder, arginfo_class_NSWindow_setInitialFirstResponder, ZEND_ACC_PUBLIC)
+	ZEND_ME(NSWindow, selectNextKeyView, arginfo_class_NSWindow_selectNextKeyView, ZEND_ACC_PUBLIC)
+	ZEND_ME(NSWindow, selectPreviousKeyView, arginfo_class_NSWindow_selectPreviousKeyView, ZEND_ACC_PUBLIC)
+	ZEND_ME(NSWindow, setAutorecalculatesKeyViewLoop, arginfo_class_NSWindow_setAutorecalculatesKeyViewLoop, ZEND_ACC_PUBLIC)
+	ZEND_ME(NSWindow, beginSheetCompletionHandler, arginfo_class_NSWindow_beginSheetCompletionHandler, ZEND_ACC_PUBLIC)
+	ZEND_ME(NSWindow, endSheet, arginfo_class_NSWindow_endSheet, ZEND_ACC_PUBLIC)
+	ZEND_ME(NSWindow, endSheetReturnCode, arginfo_class_NSWindow_endSheetReturnCode, ZEND_ACC_PUBLIC)
+	ZEND_ME(NSWindow, sheets, arginfo_class_NSWindow_sheets, ZEND_ACC_PUBLIC)
+	ZEND_ME(NSWindow, attachedSheet, arginfo_class_NSWindow_attachedSheet, ZEND_ACC_PUBLIC)
+	ZEND_ME(NSWindow, sheetParent, arginfo_class_NSWindow_sheetParent, ZEND_ACC_PUBLIC)
 	ZEND_ME(NSWindow, windowNumberAtPointBelowWindowWithWindowNumber, arginfo_class_NSWindow_windowNumberAtPointBelowWindowWithWindowNumber, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
 	ZEND_ME(NSWindow, frame, arginfo_class_NSWindow_frame, ZEND_ACC_PUBLIC)
 	ZEND_ME(NSWindow, setContentSize, arginfo_class_NSWindow_setContentSize, ZEND_ACC_PUBLIC)

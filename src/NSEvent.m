@@ -4,8 +4,10 @@
 
 #import <AppKit/AppKit.h>
 
-void appkit_register_NSEvent(void)
+void appkit_register_NSEvent(int module_number)
 {
+	register_NSEvent_symbols(module_number);
+
 	appkit_ce_NSEventType = register_class_NSEventType();
 	appkit_ce_NSEventMask = register_class_NSEventMask();
 	appkit_ce_NSEventModifierFlags = register_class_NSEventModifierFlags();

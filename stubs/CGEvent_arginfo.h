@@ -1,5 +1,5 @@
 /* This is a generated file, edit the .stub.php file instead.
- * Stub hash: 7bffc574cbf44025a272dd4b11e4a329eabeb632 */
+ * Stub hash: c9c7e124437a0302427c4ec842828486e785e45c */
 
 ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(arginfo_class_CGEventSource_create, 0, 1, CGEventSource, 1)
 	ZEND_ARG_OBJ_INFO(0, stateID, CGEventSourceStateID, 0)
@@ -26,6 +26,19 @@ ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(arginfo_class_CGEvent_createScrollWheelEv
 	ZEND_ARG_TYPE_INFO(0, wheel3, IS_LONG, 0)
 ZEND_END_ARG_INFO()
 
+ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(arginfo_class_CGEvent_createKeyboardEvent, 0, 3, CGEvent, 1)
+	ZEND_ARG_OBJ_INFO(0, source, CGEventSource, 1)
+	ZEND_ARG_TYPE_INFO(0, virtualKey, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, keyDown, _IS_BOOL, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_CGEvent_getFlags, 0, 0, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_CGEvent_setFlags, 0, 1, IS_VOID, 0)
+	ZEND_ARG_TYPE_INFO(0, flags, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
 ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_CGEvent_getIntegerValueField, 0, 1, IS_LONG, 0)
 	ZEND_ARG_TYPE_INFO(0, field, IS_LONG, 0)
 ZEND_END_ARG_INFO()
@@ -46,6 +59,9 @@ ZEND_METHOD(CGEventSource, create);
 ZEND_METHOD(CGEventSource, keyState);
 ZEND_METHOD(CGEvent, createMouseEvent);
 ZEND_METHOD(CGEvent, createScrollWheelEvent2);
+ZEND_METHOD(CGEvent, createKeyboardEvent);
+ZEND_METHOD(CGEvent, getFlags);
+ZEND_METHOD(CGEvent, setFlags);
 ZEND_METHOD(CGEvent, getIntegerValueField);
 ZEND_METHOD(CGEvent, setIntegerValueField);
 ZEND_METHOD(CGEvent, getLocation);
@@ -60,6 +76,9 @@ static const zend_function_entry class_CGEventSource_methods[] = {
 static const zend_function_entry class_CGEvent_methods[] = {
 	ZEND_ME(CGEvent, createMouseEvent, arginfo_class_CGEvent_createMouseEvent, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
 	ZEND_ME(CGEvent, createScrollWheelEvent2, arginfo_class_CGEvent_createScrollWheelEvent2, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	ZEND_ME(CGEvent, createKeyboardEvent, arginfo_class_CGEvent_createKeyboardEvent, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	ZEND_ME(CGEvent, getFlags, arginfo_class_CGEvent_getFlags, ZEND_ACC_PUBLIC)
+	ZEND_ME(CGEvent, setFlags, arginfo_class_CGEvent_setFlags, ZEND_ACC_PUBLIC)
 	ZEND_ME(CGEvent, getIntegerValueField, arginfo_class_CGEvent_getIntegerValueField, ZEND_ACC_PUBLIC)
 	ZEND_ME(CGEvent, setIntegerValueField, arginfo_class_CGEvent_setIntegerValueField, ZEND_ACC_PUBLIC)
 	ZEND_ME(CGEvent, getLocation, arginfo_class_CGEvent_getLocation, ZEND_ACC_PUBLIC)

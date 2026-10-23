@@ -1,5 +1,5 @@
 /* This is a generated file, edit the .stub.php file instead.
- * Stub hash: 80cda797ac2596301ec0f03d7035f87fa4d6507d */
+ * Stub hash: 1197c667cc899085ac531961bfe5f303ffa9c88a */
 
 ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_NSView_initWithFrame, 0, 1, IS_STATIC, 0)
 	ZEND_ARG_OBJ_INFO(0, frame, NSRect, 0)
@@ -53,6 +53,14 @@ ZEND_END_ARG_INFO()
 
 ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_NSView_setHidden, 0, 1, IS_VOID, 0)
 	ZEND_ARG_TYPE_INFO(0, hidden, _IS_BOOL, 0)
+ZEND_END_ARG_INFO()
+
+#define arginfo_class_NSView_isHiddenOrHasHiddenAncestor arginfo_class_NSView_isFlipped
+
+#define arginfo_class_NSView_nextKeyView arginfo_class_NSView_superview
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_NSView_setNextKeyView, 0, 1, IS_VOID, 0)
+	ZEND_ARG_OBJ_INFO(0, nextKeyView, NSView, 1)
 ZEND_END_ARG_INFO()
 
 ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_NSView_contentHuggingPriorityForOrientation, 0, 1, IS_DOUBLE, 0)
@@ -177,6 +185,9 @@ ZEND_METHOD(NSView, setNeedsDisplay);
 ZEND_METHOD(NSView, needsDisplay);
 ZEND_METHOD(NSView, isHidden);
 ZEND_METHOD(NSView, setHidden);
+ZEND_METHOD(NSView, isHiddenOrHasHiddenAncestor);
+ZEND_METHOD(NSView, nextKeyView);
+ZEND_METHOD(NSView, setNextKeyView);
 ZEND_METHOD(NSView, contentHuggingPriorityForOrientation);
 ZEND_METHOD(NSView, setContentHuggingPriorityForOrientation);
 ZEND_METHOD(NSView, contentCompressionResistancePriorityForOrientation);
@@ -235,6 +246,9 @@ static const zend_function_entry class_NSView_methods[] = {
 	ZEND_ME(NSView, needsDisplay, arginfo_class_NSView_needsDisplay, ZEND_ACC_PUBLIC)
 	ZEND_ME(NSView, isHidden, arginfo_class_NSView_isHidden, ZEND_ACC_PUBLIC)
 	ZEND_ME(NSView, setHidden, arginfo_class_NSView_setHidden, ZEND_ACC_PUBLIC)
+	ZEND_ME(NSView, isHiddenOrHasHiddenAncestor, arginfo_class_NSView_isHiddenOrHasHiddenAncestor, ZEND_ACC_PUBLIC)
+	ZEND_ME(NSView, nextKeyView, arginfo_class_NSView_nextKeyView, ZEND_ACC_PUBLIC)
+	ZEND_ME(NSView, setNextKeyView, arginfo_class_NSView_setNextKeyView, ZEND_ACC_PUBLIC)
 	ZEND_ME(NSView, contentHuggingPriorityForOrientation, arginfo_class_NSView_contentHuggingPriorityForOrientation, ZEND_ACC_PUBLIC)
 	ZEND_ME(NSView, setContentHuggingPriorityForOrientation, arginfo_class_NSView_setContentHuggingPriorityForOrientation, ZEND_ACC_PUBLIC)
 	ZEND_ME(NSView, contentCompressionResistancePriorityForOrientation, arginfo_class_NSView_contentCompressionResistancePriorityForOrientation, ZEND_ACC_PUBLIC)

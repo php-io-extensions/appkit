@@ -1,5 +1,24 @@
 # Log
 
+## 2026-10-22
+
+* Key-view loop: `NSView` nextKeyView (+set); `NSWindow` initialFirstResponder (+set), selectNextKeyView:, selectPreviousKeyView:, setAutorecalculatesKeyViewLoop:; `NSResponder` acceptsFirstResponder; glue `ObjCFocusView` (acceptsFirstResponder handler) and `ObjCKeyWindow` (keyDown: handler; false = NSWindow's own). Each with its own main-thread site. [surface](api/surface.md), [glue](architecture/glue.md)
+* Coverage: `scripts/support.php` writes `SUPPORT.md` (every live AppKit method and property accessor from clang's AST dump of the SDK headers, bound or not; protocol methods not counted; a stub method on a subclass counts for the ancestor's member) and the README API badge; `--check` compares without the date. 609 / 7210 on the macOS SDK.
+* Fix: an enum read with an int fallback (`NSEvent::type()`, button and menu item `state`) crashed on a value no case has: Zend answers it with SUCCESS and no case. It now returns the int. An `NSOpenPanel` sheet posts the private event type 21. [surface](api/surface.md)
+
+## 2026-10-21
+
+* 0.10.3: `NSAlert`, `NSPanel`, `NSSavePanel`, `NSOpenPanel` (each UI method with its own main-thread site; both `beginSheetModalForWindowCompletionHandler` forward a `^(NSModalResponse)` block), `NSPasteboard` (any thread), `NSAlertFirstButtonReturn`, `NSModalResponseOK`, `NSModalResponseCancel`, `NSPasteboardTypeString`. [surface](api/surface.md)
+
+## 2026-10-20
+
+* 0.10.3: `NSWindow` sheets (`beginSheetCompletionHandler` forwards a `^(NSModalResponse)` block to the closure, `endSheet`, `endSheetReturnCode`, `sheets`, `attachedSheet`, `sheetParent`), `NSButton::keyEquivalent` / `setKeyEquivalent`, `NSView::isHiddenOrHasHiddenAncestor`; each with its own main-thread site. [surface](api/surface.md)
+* 0.10.3: `NSMenu::performKeyEquivalent` (its own main-thread site), `CGEvent::createKeyboardEvent`, `getFlags`, `setFlags`, the arrow, F1-F12, Delete, Home, End, Page Up and Page Down function-key characters, `NSBackspaceCharacter`, `NSTabCharacter`. AppKit matches a key equivalent's Shift exactly only for a key event that carries its Quartz event (`eventWithCGEvent`); one made with `keyEventWithType…` matches Shift loosely. [surface](api/surface.md)
+
+## 2026-10-18
+
+* 0.10.3: `NSOutlineView` (outline column, expand/collapse, item ↔ row, reload, indentation), `NSTableView` double action, clicked row, `scrollRowToVisible:`, `NSString` (`stringWithString:`, `UTF8String`; every AppKit string boxes as it), `NSNotification::userInfo`, `NSCarriageReturnCharacter` / `NSEnterCharacter`. Each new UI method carries its own main-thread site. [surface](api/surface.md)
+
 ## 2026-10-16
 
 * 1:1 remediation, 0.10.2. Names and types native: `CMTime::make` / `makeWithSeconds` / `getSeconds`, `CFType::copyDescription`, `NSRequestUserAttentionType::*_REQUEST`, `NSTextBlockValueType::*_VALUE_TYPE`, `glyphRangeForCharacterRangeActualCharacterRange`, `?CFAllocator` on CF creators, `?CGEventSource` on CGEvent creators, `?NSGraphicsContext` on NSEvent constructors, every struct field required. New 1:1 bindings: `CGColor`, `CFAllocator`, `CGEventSource::create`, `NSError`, `NSLayoutDimension` / `NSLayoutXAxisAnchor` / `NSLayoutYAxisAnchor` (the `…ToConstant` methods on the dimension), CALayer backgroundColor / contents / contentsGravity / masksToBounds, `NSColor` CGColor / colorWithCGColor: / colorUsingColorSpace:, `NSWindow` canBecomeKeyWindow / canBecomeMainWindow, `NSGridCell::emptyContentView`, `ObjCObserver::OPTION_PRIOR`, `kCGError*`, `kIOReturnSuccess`. Pass-through: CGError / IOReturn returned as `int` (out-parameters by reference), null from CF/CG creates, AppKit's clamps and exceptions, availability through the unrecognized-selector exception; the main-thread gate only on AppKit UI classes. Kept refusals only at eight probed crash sites, each `/* binding:<id> */` with a `tests/Probes` test and the `--enable-appkit-probes` build. Glue forwards only: `ObjCOpenGLView` hands `(view, dirty)` with no make-current/flush, `ObjCStageWindow` `on`/`off` handlers for both overrides, `ObjCObserver` native options + context + whole change dictionary, local monitor return passed to AppKit, delegate structs and `char` marshalled both ways, `createDirect` untagged. Invented API removed: NSView `layer*` helpers and `setLayer:` wantsLayer toggling, `NSAttributedString::attributeAtIndex`, NSColor sRGB conversion, NSGridView null ↔ empty cell, `ObjCStageWindow::canBecomeKey` / `setCanBecomeKey`, `CMTime::withSeconds` / `seconds`, `CFType::description`. AGENTS.md. [surface](api/surface.md), [glue](architecture/glue.md), [errors and threads](architecture/errors-and-threads.md)

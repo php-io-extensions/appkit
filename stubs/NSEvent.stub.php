@@ -169,3 +169,131 @@ class NSEvent extends NSObject
 
     public function window(): ?NSWindow {}
 }
+
+/**
+ * The characters a function-key event carries: a menu item's key equivalent takes them too.
+ *
+ * @var int
+ * @cvalue NSUpArrowFunctionKey
+ */
+const NSUpArrowFunctionKey = UNKNOWN;
+
+/**
+ * @var int
+ * @cvalue NSDownArrowFunctionKey
+ */
+const NSDownArrowFunctionKey = UNKNOWN;
+
+/**
+ * @var int
+ * @cvalue NSLeftArrowFunctionKey
+ */
+const NSLeftArrowFunctionKey = UNKNOWN;
+
+/**
+ * @var int
+ * @cvalue NSRightArrowFunctionKey
+ */
+const NSRightArrowFunctionKey = UNKNOWN;
+
+/**
+ * @var int
+ * @cvalue NSF1FunctionKey
+ */
+const NSF1FunctionKey = UNKNOWN;
+
+/**
+ * @var int
+ * @cvalue NSF2FunctionKey
+ */
+const NSF2FunctionKey = UNKNOWN;
+
+/**
+ * @var int
+ * @cvalue NSF3FunctionKey
+ */
+const NSF3FunctionKey = UNKNOWN;
+
+/**
+ * @var int
+ * @cvalue NSF4FunctionKey
+ */
+const NSF4FunctionKey = UNKNOWN;
+
+/**
+ * @var int
+ * @cvalue NSF5FunctionKey
+ */
+const NSF5FunctionKey = UNKNOWN;
+
+/**
+ * @var int
+ * @cvalue NSF6FunctionKey
+ */
+const NSF6FunctionKey = UNKNOWN;
+
+/**
+ * @var int
+ * @cvalue NSF7FunctionKey
+ */
+const NSF7FunctionKey = UNKNOWN;
+
+/**
+ * @var int
+ * @cvalue NSF8FunctionKey
+ */
+const NSF8FunctionKey = UNKNOWN;
+
+/**
+ * @var int
+ * @cvalue NSF9FunctionKey
+ */
+const NSF9FunctionKey = UNKNOWN;
+
+/**
+ * @var int
+ * @cvalue NSF10FunctionKey
+ */
+const NSF10FunctionKey = UNKNOWN;
+
+/**
+ * @var int
+ * @cvalue NSF11FunctionKey
+ */
+const NSF11FunctionKey = UNKNOWN;
+
+/**
+ * @var int
+ * @cvalue NSF12FunctionKey
+ */
+const NSF12FunctionKey = UNKNOWN;
+
+/**
+ * @var int
+ * @cvalue NSDeleteFunctionKey
+ */
+const NSDeleteFunctionKey = UNKNOWN;
+
+/**
+ * @var int
+ * @cvalue NSHomeFunctionKey
+ */
+const NSHomeFunctionKey = UNKNOWN;
+
+/**
+ * @var int
+ * @cvalue NSEndFunctionKey
+ */
+const NSEndFunctionKey = UNKNOWN;
+
+/**
+ * @var int
+ * @cvalue NSPageUpFunctionKey
+ */
+const NSPageUpFunctionKey = UNKNOWN;
+
+/**
+ * @var int
+ * @cvalue NSPageDownFunctionKey
+ */
+const NSPageDownFunctionKey = UNKNOWN;

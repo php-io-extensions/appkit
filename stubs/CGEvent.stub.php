@@ -133,6 +133,15 @@ final class CGEvent extends CFType
     /** One to three wheels; $wheel1 is vertical, $wheel2 horizontal. */
     public static function createScrollWheelEvent2(?CGEventSource $source, CGScrollEventUnit $units, int $wheelCount, int $wheel1, int $wheel2, int $wheel3): ?CGEvent {}
 
+    /** CGEventCreateKeyboardEvent; $virtualKey is a macOS virtual key code, cast to CGKeyCode (16 bits). */
+    public static function createKeyboardEvent(?CGEventSource $source, int $virtualKey, bool $keyDown): ?CGEvent {}
+
+    /** CGEventGetFlags: the CGEventFlags mask. */
+    public function getFlags(): int {}
+
+    /** CGEventSetFlags. */
+    public function setFlags(int $flags): void {}
+
     public function getIntegerValueField(int $field): int {}
 
     public function setIntegerValueField(int $field, int $value): void {}

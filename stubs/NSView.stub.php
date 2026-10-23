@@ -54,6 +54,13 @@ class NSView extends NSResponder
 
     public function setHidden(bool $hidden): void {}
 
+    public function isHiddenOrHasHiddenAncestor(): bool {}
+
+    /** The view Tab moves to from this one; null for none. */
+    public function nextKeyView(): ?NSView {}
+
+    public function setNextKeyView(?NSView $nextKeyView): void {}
+
     public function contentHuggingPriorityForOrientation(NSLayoutConstraintOrientation $orientation): float {}
 
     /** NSLayoutPriority as float (250 = low, 750 = high, 1000 = required) */

@@ -33,3 +33,41 @@ it('reads and sets the application\'s delegate', function (): void {
     $app->setDelegate($before);
     expect($app->delegate())->toBe($before);
 });
+
+it('reads and sets the key-view loop and the initial first responder, and moves along it', function (): void {
+    $app = NSApplication::sharedApplication();
+    $app->finishLaunching();
+    $app->setActivationPolicy(NSApplicationActivationPolicy::REGULAR);
+    $app->activateIgnoringOtherApps(true);
+    $window = NSWindow::initWithContentRectStyleMaskBackingDefer(new NSRect(200.0, 200.0, 240.0, 120.0), NSWindowStyleMask::TITLED, NSBackingStoreType::BUFFERED, false);
+    $window->setReleasedWhenClosed(false);
+    // Views that accept first responder: selectNextKeyView: from a text field's field editor does
+    // not walk the loop (the field editor's own insertTab: does, on a real Tab).
+    $first = ObjCFocusView::initWithFrame(new NSRect(10.0, 70.0, 200.0, 24.0));
+    $second = ObjCFocusView::initWithFrame(new NSRect(10.0, 20.0, 200.0, 24.0));
+    foreach ([$first, $second] as $view) {
+        $view->on('acceptsFirstResponder', fn (): bool => true);
+        $window->contentView()->addSubview($view);
+    }
+
+    $window->setAutorecalculatesKeyViewLoop(false);
+    $first->setNextKeyView($second);
+    $window->setInitialFirstResponder($first);
+    expect($first->nextKeyView())->toBe($second)
+        ->and($window->initialFirstResponder())->toBe($first);
+
+    $window->makeKeyAndOrderFront(null);
+    pumpUntil($app, fn (): bool => $window->isKeyWindow(), 2.0);
+    $window->makeFirstResponder($first);
+    $window->selectNextKeyView(null);
+    expect($window->firstResponder())->toBe($second);
+
+    $window->selectPreviousKeyView(null);
+    expect($window->firstResponder())->toBe($first);
+
+    $first->setNextKeyView(null);
+    $window->setInitialFirstResponder(null);
+    expect($first->nextKeyView())->toBeNull()
+        ->and($window->initialFirstResponder())->toBeNull();
+    $window->close();
+});

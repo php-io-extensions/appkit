@@ -178,6 +178,22 @@ APPKIT_VIEW_VOID(removeFromSuperview, removeFromSuperview)
 APPKIT_VIEW_VOID(layoutSubtreeIfNeeded, layoutSubtreeIfNeeded)
 APPKIT_VIEW_BOOL_GET(isHidden, isHidden)
 APPKIT_VIEW_BOOL_SET(setHidden, setHidden)
+APPKIT_VIEW_BOOL_GET(isHiddenOrHasHiddenAncestor, isHiddenOrHasHiddenAncestor) /* binding:main-thread-nsview-is-hidden-or-has-hidden-ancestor */
+APPKIT_VIEW_ANCHOR(nextKeyView, nextKeyView) /* binding:main-thread-nsview-next-key-view */
+
+ZEND_METHOD(NSView, setNextKeyView)
+{
+	zend_object *next = NULL;
+
+	ZEND_PARSE_PARAMETERS_START(1, 1)
+		Z_PARAM_OBJ_OF_CLASS_OR_NULL(next, appkit_ce_NSView)
+	ZEND_PARSE_PARAMETERS_END();
+	APPKIT_REQUIRE_MAIN_THREAD(); /* binding:main-thread-nsview-set-next-key-view */
+
+	APPKIT_BEGIN
+		[THIS_VIEW setNextKeyView:(next != NULL ? (NSView *) APPKIT_ID(next) : nil)];
+	APPKIT_END
+}
 APPKIT_VIEW_BOOL_GET(translatesAutoresizingMaskIntoConstraints, translatesAutoresizingMaskIntoConstraints)
 APPKIT_VIEW_BOOL_SET(setTranslatesAutoresizingMaskIntoConstraints, setTranslatesAutoresizingMaskIntoConstraints)
 APPKIT_VIEW_BOOL_GET(wantsLayer, wantsLayer)

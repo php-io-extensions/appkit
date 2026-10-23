@@ -116,6 +116,45 @@ final class ObjCStageWindow extends NSWindow
 }
 
 /**
+ * An NSView whose acceptsFirstResponder override asks a PHP handler, and answers NSView's own (NO)
+ * while none is set or it did not run. Made with initWithFrame().
+ *
+ * @not-serializable
+ */
+final class ObjCFocusView extends NSView
+{
+    /**
+     * Sets the handler for 'acceptsFirstResponder', replacing one set before. The override asks
+     * only that name; a handler under any other name is kept and never called.
+     *
+     * @param callable $handler called as $handler(): bool
+     */
+    public function on(string $selector, callable $handler): void {}
+
+    public function off(string $selector): void {}
+}
+
+/**
+ * An NSWindow whose keyDown: override hands the event to a PHP handler. The handler's false, no
+ * handler, or a handler that did not run calls NSWindow's own keyDown: (the key-view loop on Tab,
+ * cancelOperation: on Esc). Made with initWithContentRectStyleMaskBackingDefer().
+ *
+ * @not-serializable
+ */
+final class ObjCKeyWindow extends NSWindow
+{
+    /**
+     * Sets the handler for 'keyDown:', replacing one set before. The override asks only that
+     * name; a handler under any other name is kept and never called.
+     *
+     * @param callable $handler called as $handler(NSEvent $event): bool; true when PHP took the key
+     */
+    public function on(string $selector, callable $handler): void {}
+
+    public function off(string $selector): void {}
+}
+
+/**
  * An NSView whose drawRect: calls PHP with the dirty rect, inside the view's graphics context:
  * the trampoline a partial redraw needs. Mark rects with setNeedsDisplayInRect(); AppKit asks
  * for only those.

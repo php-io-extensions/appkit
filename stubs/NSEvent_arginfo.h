@@ -1,5 +1,5 @@
 /* This is a generated file, edit the .stub.php file instead.
- * Stub hash: 118fe08c2a9b2d6ed14708b0c5acafef663b4182 */
+ * Stub hash: 5fc6d36953812cc52b6062bb0f790f43eaf7daf1 */
 
 ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(arginfo_class_NSEvent_otherEventWithTypeLocationModifierFlagsTimestampWindowNumberContextSubtypeData1Data2, 0, 9, NSEvent, 1)
 	ZEND_ARG_OBJ_INFO(0, type, NSEventType, 0)
@@ -166,6 +166,31 @@ static const zend_function_entry class_NSEvent_methods[] = {
 	ZEND_ME(NSEvent, window, arginfo_class_NSEvent_window, ZEND_ACC_PUBLIC)
 	ZEND_FE_END
 };
+
+static void register_NSEvent_symbols(int module_number)
+{
+	REGISTER_LONG_CONSTANT("NSUpArrowFunctionKey", NSUpArrowFunctionKey, CONST_PERSISTENT);
+	REGISTER_LONG_CONSTANT("NSDownArrowFunctionKey", NSDownArrowFunctionKey, CONST_PERSISTENT);
+	REGISTER_LONG_CONSTANT("NSLeftArrowFunctionKey", NSLeftArrowFunctionKey, CONST_PERSISTENT);
+	REGISTER_LONG_CONSTANT("NSRightArrowFunctionKey", NSRightArrowFunctionKey, CONST_PERSISTENT);
+	REGISTER_LONG_CONSTANT("NSF1FunctionKey", NSF1FunctionKey, CONST_PERSISTENT);
+	REGISTER_LONG_CONSTANT("NSF2FunctionKey", NSF2FunctionKey, CONST_PERSISTENT);
+	REGISTER_LONG_CONSTANT("NSF3FunctionKey", NSF3FunctionKey, CONST_PERSISTENT);
+	REGISTER_LONG_CONSTANT("NSF4FunctionKey", NSF4FunctionKey, CONST_PERSISTENT);
+	REGISTER_LONG_CONSTANT("NSF5FunctionKey", NSF5FunctionKey, CONST_PERSISTENT);
+	REGISTER_LONG_CONSTANT("NSF6FunctionKey", NSF6FunctionKey, CONST_PERSISTENT);
+	REGISTER_LONG_CONSTANT("NSF7FunctionKey", NSF7FunctionKey, CONST_PERSISTENT);
+	REGISTER_LONG_CONSTANT("NSF8FunctionKey", NSF8FunctionKey, CONST_PERSISTENT);
+	REGISTER_LONG_CONSTANT("NSF9FunctionKey", NSF9FunctionKey, CONST_PERSISTENT);
+	REGISTER_LONG_CONSTANT("NSF10FunctionKey", NSF10FunctionKey, CONST_PERSISTENT);
+	REGISTER_LONG_CONSTANT("NSF11FunctionKey", NSF11FunctionKey, CONST_PERSISTENT);
+	REGISTER_LONG_CONSTANT("NSF12FunctionKey", NSF12FunctionKey, CONST_PERSISTENT);
+	REGISTER_LONG_CONSTANT("NSDeleteFunctionKey", NSDeleteFunctionKey, CONST_PERSISTENT);
+	REGISTER_LONG_CONSTANT("NSHomeFunctionKey", NSHomeFunctionKey, CONST_PERSISTENT);
+	REGISTER_LONG_CONSTANT("NSEndFunctionKey", NSEndFunctionKey, CONST_PERSISTENT);
+	REGISTER_LONG_CONSTANT("NSPageUpFunctionKey", NSPageUpFunctionKey, CONST_PERSISTENT);
+	REGISTER_LONG_CONSTANT("NSPageDownFunctionKey", NSPageDownFunctionKey, CONST_PERSISTENT);
+}
 
 static zend_class_entry *register_class_NSEventType(void)
 {

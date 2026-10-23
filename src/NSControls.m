@@ -138,6 +138,8 @@ STR_SET(NSButton, NSButton, setTitle, setTitle)
 ENUM_GET(NSButton, NSButton, state, state, appkit_ce_NSControlStateValue, true)
 ENUM_SET(NSButton, NSButton, setState, setState, appkit_ce_NSControlStateValue, NSControlStateValue)
 OBJ_GET(NSButton, NSButton, contentTintColor, contentTintColor)
+STR_GET(NSButton, NSButton, keyEquivalent, keyEquivalent) /* binding:main-thread-nsbutton-key-equivalent */
+STR_SET(NSButton, NSButton, setKeyEquivalent, setKeyEquivalent) /* binding:main-thread-nsbutton-set-key-equivalent */
 OBJ_SET_OR_NULL(NSButton, NSButton, setContentTintColor, setContentTintColor, appkit_ce_NSColor, NSColor *)
 
 /* NSSwitch */

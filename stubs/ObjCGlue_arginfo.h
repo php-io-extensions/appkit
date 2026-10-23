@@ -1,5 +1,5 @@
 /* This is a generated file, edit the .stub.php file instead.
- * Stub hash: 0292d83dd09875aeeef6470c281b5da9e88fc320 */
+ * Stub hash: 8724792eee3e77468a49bb63e730039d889e35c6 */
 
 ZEND_BEGIN_ARG_INFO_EX(arginfo_class_ObjCDelegate___construct, 0, 0, 1)
 	ZEND_ARG_TYPE_INFO(0, protocol, IS_STRING, 0)
@@ -46,6 +46,14 @@ ZEND_END_ARG_INFO()
 
 #define arginfo_class_ObjCStageWindow_off arginfo_class_ObjCDelegate_off
 
+#define arginfo_class_ObjCFocusView_on arginfo_class_ObjCDelegate_on
+
+#define arginfo_class_ObjCFocusView_off arginfo_class_ObjCDelegate_off
+
+#define arginfo_class_ObjCKeyWindow_on arginfo_class_ObjCDelegate_on
+
+#define arginfo_class_ObjCKeyWindow_off arginfo_class_ObjCDelegate_off
+
 ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_ObjCDrawView_initWithFrameDraw, 0, 2, IS_STATIC, 0)
 	ZEND_ARG_OBJ_INFO(0, frame, NSRect, 0)
 	ZEND_ARG_TYPE_INFO(0, draw, IS_CALLABLE, 0)
@@ -62,6 +70,10 @@ ZEND_METHOD(ObjCObserver, stop);
 ZEND_METHOD(ObjCOpenGLView, initWithFramePixelFormatDraw);
 ZEND_METHOD(ObjCStageWindow, on);
 ZEND_METHOD(ObjCStageWindow, off);
+ZEND_METHOD(ObjCFocusView, on);
+ZEND_METHOD(ObjCFocusView, off);
+ZEND_METHOD(ObjCKeyWindow, on);
+ZEND_METHOD(ObjCKeyWindow, off);
 ZEND_METHOD(ObjCDrawView, initWithFrameDraw);
 
 static const zend_function_entry class_ObjCDelegate_methods[] = {
@@ -92,6 +104,18 @@ static const zend_function_entry class_ObjCOpenGLView_methods[] = {
 static const zend_function_entry class_ObjCStageWindow_methods[] = {
 	ZEND_ME(ObjCStageWindow, on, arginfo_class_ObjCStageWindow_on, ZEND_ACC_PUBLIC)
 	ZEND_ME(ObjCStageWindow, off, arginfo_class_ObjCStageWindow_off, ZEND_ACC_PUBLIC)
+	ZEND_FE_END
+};
+
+static const zend_function_entry class_ObjCFocusView_methods[] = {
+	ZEND_ME(ObjCFocusView, on, arginfo_class_ObjCFocusView_on, ZEND_ACC_PUBLIC)
+	ZEND_ME(ObjCFocusView, off, arginfo_class_ObjCFocusView_off, ZEND_ACC_PUBLIC)
+	ZEND_FE_END
+};
+
+static const zend_function_entry class_ObjCKeyWindow_methods[] = {
+	ZEND_ME(ObjCKeyWindow, on, arginfo_class_ObjCKeyWindow_on, ZEND_ACC_PUBLIC)
+	ZEND_ME(ObjCKeyWindow, off, arginfo_class_ObjCKeyWindow_off, ZEND_ACC_PUBLIC)
 	ZEND_FE_END
 };
 
@@ -176,6 +200,26 @@ static zend_class_entry *register_class_ObjCStageWindow(zend_class_entry *class_
 	zend_class_entry ce, *class_entry;
 
 	INIT_CLASS_ENTRY(ce, "ObjCStageWindow", class_ObjCStageWindow_methods);
+	class_entry = zend_register_internal_class_with_flags(&ce, class_entry_NSWindow, ZEND_ACC_FINAL|ZEND_ACC_NOT_SERIALIZABLE);
+
+	return class_entry;
+}
+
+static zend_class_entry *register_class_ObjCFocusView(zend_class_entry *class_entry_NSView)
+{
+	zend_class_entry ce, *class_entry;
+
+	INIT_CLASS_ENTRY(ce, "ObjCFocusView", class_ObjCFocusView_methods);
+	class_entry = zend_register_internal_class_with_flags(&ce, class_entry_NSView, ZEND_ACC_FINAL|ZEND_ACC_NOT_SERIALIZABLE);
+
+	return class_entry;
+}
+
+static zend_class_entry *register_class_ObjCKeyWindow(zend_class_entry *class_entry_NSWindow)
+{
+	zend_class_entry ce, *class_entry;
+
+	INIT_CLASS_ENTRY(ce, "ObjCKeyWindow", class_ObjCKeyWindow_methods);
 	class_entry = zend_register_internal_class_with_flags(&ce, class_entry_NSWindow, ZEND_ACC_FINAL|ZEND_ACC_NOT_SERIALIZABLE);
 
 	return class_entry;

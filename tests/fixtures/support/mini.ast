@@ -1,0 +1,40 @@
+TranslationUnitDecl 0x100000000 <<invalid sloc>> <invalid sloc>
+|-ObjCInterfaceDecl 0x100000010 </SDK/System/Library/Frameworks/Foundation.framework/Headers/NSString.h:10:1, line:40:2> line:10:12 NSString
+| |-super ObjCInterface 0x100000020 'NSObject'
+| |-ObjCMethodDecl 0x100000030 <line:12:1, col:30> col:1 - length 'NSUInteger':'unsigned long'
+| `-AvailabilityAttr 0x100000040 <<scratch space>:20:34, col:62> ios 0 0 0 Unavailable "" "" 1
+|-ObjCInterfaceDecl 0x100000050 <col:1, col:17> col:17 NSButton
+|-ObjCInterfaceDecl 0x100000060 prev 0x100000050 </SDK/System/Library/Frameworks/AppKit.framework/Headers/NSButton.h:19:1, line:176:2> line:19:12 NSButton
+| |-super ObjCInterface 0x100000070 'NSControl'
+| |-AvailabilityAttr 0x100000080 <<scratch space>:20:34, col:62> ios 0 0 0 Unavailable "" "" 1
+| |-ObjCMethodDecl 0x100000090 </SDK/System/Library/Frameworks/AppKit.framework/Headers/NSButton.h:31:1, col:156> col:1 + buttonWithTitle:image:target:action: 'instancetype _Nonnull':'id'
+| | |-ParmVarDecl 0x1000000a0 <col:34, col:45> col:45 title 'NSString * _Nonnull':'NSString *'
+| | |-AvailabilityAttr 0x1000000b0 </SDK/usr/include/AvailabilityInternal.h:232:39, col:80> macos 10.12 0 0 "" "" 0
+| | `-AvailabilityAttr 0x1000000c0 <<scratch space>:20:34, col:62> ios 0 0 0 Unavailable "" "" 1
+| |-ObjCMethodDecl 0x1000000d0 </SDK/System/Library/Frameworks/AppKit.framework/Headers/NSButton.h:72:1, col:41> col:1 - setButtonType: 'void'
+| | `-ParmVarDecl 0x1000000e0 <col:24, col:37> col:37 type 'NSButtonType':'enum NSButtonType'
+| |-ObjCMethodDecl 0x1000000f0 <line:90:1, col:30> col:1 - highlight: 'void'
+| | `-ParmVarDecl 0x100000100 <col:24, col:37> col:37 flag 'BOOL':'bool'
+| |-ObjCMethodDecl 0x100000110 <line:95:1, col:40> col:1 - setPeriodicDelay:interval: 'void'
+| | |-ParmVarDecl 0x100000120 <col:24, col:37> col:37 delay 'float'
+| | `-AvailabilityAttr 0x100000130 </SDK/usr/include/AvailabilityInternal.h:232:39, col:80> macos 10.0 10.14 0 "" "" 0
+| |-ObjCPropertyDecl 0x100000140 </SDK/System/Library/Frameworks/AppKit.framework/Headers/NSButton.h:75:1, col:28> col:28 title 'NSString * _Nonnull':'NSString *' readwrite copy atomic
+| | `-AvailabilityAttr 0x100000150 <<scratch space>:20:34, col:62> ios 0 0 0 Unavailable "" "" 1
+| |-ObjCPropertyDecl 0x100000160 </SDK/System/Library/Frameworks/AppKit.framework/Headers/NSButton.h:80:1, col:28> col:28 bordered 'BOOL':'bool' readwrite atomic
+| | |-getter ObjCMethod 0x100000170 'isBordered'
+| | `-AvailabilityAttr 0x100000180 </SDK/usr/include/AvailabilityInternal.h:232:39, col:80> macos 10.0 10.15 0 "" "" 0
+| |-ObjCMethodDecl 0x100000190 </SDK/System/Library/Frameworks/AppKit.framework/Headers/NSButton.h:75:28> col:28 implicit - title 'NSString * _Nonnull':'NSString *'
+| |-ObjCMethodDecl 0x1000001a0 <col:28> col:28 implicit - setTitle: 'void'
+| | `-ParmVarDecl 0x1000001b0 <col:28> col:28 title 'NSString * _Nonnull':'NSString *'
+| |-ObjCMethodDecl 0x1000001c0 <line:80:28> col:28 implicit - isBordered 'BOOL':'bool'
+| `-ObjCMethodDecl 0x1000001d0 <col:28> col:28 implicit - setBordered: 'void'
+|   `-ParmVarDecl 0x1000001e0 <col:28> col:28 bordered 'BOOL':'bool'
+|-ObjCInterfaceDecl 0x1000001e8 </SDK/System/Library/Frameworks/AppKit.framework/Headers/NSMiniButton.h:3:1, line:6:2> line:3:12 NSMiniButton
+| `-super ObjCInterface 0x100000060 'NSButton'
+|-ObjCProtocolDecl 0x1000001f0 </SDK/System/Library/Frameworks/AppKit.framework/Headers/NSMini.h:5:1, line:9:2> line:5:11 NSMiniDelegate
+| `-ObjCMethodDecl 0x100000200 <line:7:1, col:40> col:1 - miniDidChange: 'void'
+|   `-ParmVarDecl 0x100000210 <col:24, col:37> col:37 mini 'id':'id'
+`-ObjCCategoryDecl 0x100000220 </SDK/System/Library/Frameworks/AppKit.framework/Headers/NSStringDrawing.h:44:1, line:48:2> line:44:12 NSStringDrawing
+  |-ObjCInterface 0x100000010 'NSString'
+  `-ObjCMethodDecl 0x100000230 <line:45:1, col:60> col:1 - sizeWithAttributes: 'NSSize':'struct CGSize'
+    `-ParmVarDecl 0x100000240 <col:30, col:58> col:58 attrs 'NSDictionary * _Nullable':'NSDictionary *'

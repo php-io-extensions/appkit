@@ -44,6 +44,9 @@ class NSMenu extends NSObject
 
     public function performActionForItemAtIndex(int $index): void {}
 
+    /** Perform the item whose key equivalent and modifier mask match the key event; true when one was performed. */
+    public function performKeyEquivalent(NSEvent $event): bool {}
+
     /** popUpMenuPositioningItem:atLocation:inView: tracks the menu until it closes; true when an item was chosen. $location is in $view, or on screen when $view is null. */
     public function popUpMenuPositioningItemAtLocationInView(?NSMenuItem $item, NSPoint $location, ?NSView $view): bool {}
 

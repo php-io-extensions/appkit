@@ -1,5 +1,5 @@
 /* This is a generated file, edit the .stub.php file instead.
- * Stub hash: 0ccc4f0f7b5a89e104213f3be7d943f25fa9379f */
+ * Stub hash: d6b3becc973337d58ba31146b0a4f325d41cc98f */
 
 ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_NSIndexSet_indexSetWithIndex, 0, 1, IS_STATIC, 0)
 	ZEND_ARG_TYPE_INFO(0, index, IS_LONG, 0)
@@ -105,6 +105,55 @@ ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(arginfo_class_NSTableView_viewAtColumnRow
 	ZEND_ARG_TYPE_INFO(0, makeIfNecessary, _IS_BOOL, 0)
 ZEND_END_ARG_INFO()
 
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_NSTableView_doubleAction, 0, 0, IS_STRING, 1)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_NSTableView_setDoubleAction, 0, 1, IS_VOID, 0)
+	ZEND_ARG_TYPE_INFO(0, doubleAction, IS_STRING, 1)
+ZEND_END_ARG_INFO()
+
+#define arginfo_class_NSTableView_clickedRow arginfo_class_NSIndexSet_firstIndex
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_NSTableView_scrollRowToVisible, 0, 1, IS_VOID, 0)
+	ZEND_ARG_TYPE_INFO(0, row, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(arginfo_class_NSOutlineView_outlineTableColumn, 0, 0, NSTableColumn, 1)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_NSOutlineView_setOutlineTableColumn, 0, 1, IS_VOID, 0)
+	ZEND_ARG_OBJ_INFO(0, outlineTableColumn, NSTableColumn, 1)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_NSOutlineView_expandItem, 0, 1, IS_VOID, 0)
+	ZEND_ARG_OBJ_INFO(0, item, NSObject, 1)
+ZEND_END_ARG_INFO()
+
+#define arginfo_class_NSOutlineView_collapseItem arginfo_class_NSOutlineView_expandItem
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_NSOutlineView_isItemExpanded, 0, 1, _IS_BOOL, 0)
+	ZEND_ARG_OBJ_INFO(0, item, NSObject, 1)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(arginfo_class_NSOutlineView_itemAtRow, 0, 1, NSObject, 1)
+	ZEND_ARG_TYPE_INFO(0, row, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_NSOutlineView_rowForItem, 0, 1, IS_LONG, 0)
+	ZEND_ARG_OBJ_INFO(0, item, NSObject, 1)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_NSOutlineView_reloadItemReloadChildren, 0, 2, IS_VOID, 0)
+	ZEND_ARG_OBJ_INFO(0, item, NSObject, 1)
+	ZEND_ARG_TYPE_INFO(0, reloadChildren, _IS_BOOL, 0)
+ZEND_END_ARG_INFO()
+
+#define arginfo_class_NSOutlineView_indentationPerLevel arginfo_class_NSTableColumn_width
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_NSOutlineView_setIndentationPerLevel, 0, 1, IS_VOID, 0)
+	ZEND_ARG_TYPE_INFO(0, indentationPerLevel, IS_DOUBLE, 0)
+ZEND_END_ARG_INFO()
+
 ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_NSCell_objectValue, 0, 0, IS_MIXED, 0)
 ZEND_END_ARG_INFO()
 
@@ -138,6 +187,20 @@ ZEND_METHOD(NSTableView, headerView);
 ZEND_METHOD(NSTableView, setHeaderView);
 ZEND_METHOD(NSTableView, preparedCellAtColumnRow);
 ZEND_METHOD(NSTableView, viewAtColumnRowMakeIfNecessary);
+ZEND_METHOD(NSTableView, doubleAction);
+ZEND_METHOD(NSTableView, setDoubleAction);
+ZEND_METHOD(NSTableView, clickedRow);
+ZEND_METHOD(NSTableView, scrollRowToVisible);
+ZEND_METHOD(NSOutlineView, outlineTableColumn);
+ZEND_METHOD(NSOutlineView, setOutlineTableColumn);
+ZEND_METHOD(NSOutlineView, expandItem);
+ZEND_METHOD(NSOutlineView, collapseItem);
+ZEND_METHOD(NSOutlineView, isItemExpanded);
+ZEND_METHOD(NSOutlineView, itemAtRow);
+ZEND_METHOD(NSOutlineView, rowForItem);
+ZEND_METHOD(NSOutlineView, reloadItemReloadChildren);
+ZEND_METHOD(NSOutlineView, indentationPerLevel);
+ZEND_METHOD(NSOutlineView, setIndentationPerLevel);
 ZEND_METHOD(NSCell, objectValue);
 
 static const zend_function_entry class_NSIndexSet_methods[] = {
@@ -179,6 +242,24 @@ static const zend_function_entry class_NSTableView_methods[] = {
 	ZEND_ME(NSTableView, setHeaderView, arginfo_class_NSTableView_setHeaderView, ZEND_ACC_PUBLIC)
 	ZEND_ME(NSTableView, preparedCellAtColumnRow, arginfo_class_NSTableView_preparedCellAtColumnRow, ZEND_ACC_PUBLIC)
 	ZEND_ME(NSTableView, viewAtColumnRowMakeIfNecessary, arginfo_class_NSTableView_viewAtColumnRowMakeIfNecessary, ZEND_ACC_PUBLIC)
+	ZEND_ME(NSTableView, doubleAction, arginfo_class_NSTableView_doubleAction, ZEND_ACC_PUBLIC)
+	ZEND_ME(NSTableView, setDoubleAction, arginfo_class_NSTableView_setDoubleAction, ZEND_ACC_PUBLIC)
+	ZEND_ME(NSTableView, clickedRow, arginfo_class_NSTableView_clickedRow, ZEND_ACC_PUBLIC)
+	ZEND_ME(NSTableView, scrollRowToVisible, arginfo_class_NSTableView_scrollRowToVisible, ZEND_ACC_PUBLIC)
+	ZEND_FE_END
+};
+
+static const zend_function_entry class_NSOutlineView_methods[] = {
+	ZEND_ME(NSOutlineView, outlineTableColumn, arginfo_class_NSOutlineView_outlineTableColumn, ZEND_ACC_PUBLIC)
+	ZEND_ME(NSOutlineView, setOutlineTableColumn, arginfo_class_NSOutlineView_setOutlineTableColumn, ZEND_ACC_PUBLIC)
+	ZEND_ME(NSOutlineView, expandItem, arginfo_class_NSOutlineView_expandItem, ZEND_ACC_PUBLIC)
+	ZEND_ME(NSOutlineView, collapseItem, arginfo_class_NSOutlineView_collapseItem, ZEND_ACC_PUBLIC)
+	ZEND_ME(NSOutlineView, isItemExpanded, arginfo_class_NSOutlineView_isItemExpanded, ZEND_ACC_PUBLIC)
+	ZEND_ME(NSOutlineView, itemAtRow, arginfo_class_NSOutlineView_itemAtRow, ZEND_ACC_PUBLIC)
+	ZEND_ME(NSOutlineView, rowForItem, arginfo_class_NSOutlineView_rowForItem, ZEND_ACC_PUBLIC)
+	ZEND_ME(NSOutlineView, reloadItemReloadChildren, arginfo_class_NSOutlineView_reloadItemReloadChildren, ZEND_ACC_PUBLIC)
+	ZEND_ME(NSOutlineView, indentationPerLevel, arginfo_class_NSOutlineView_indentationPerLevel, ZEND_ACC_PUBLIC)
+	ZEND_ME(NSOutlineView, setIndentationPerLevel, arginfo_class_NSOutlineView_setIndentationPerLevel, ZEND_ACC_PUBLIC)
 	ZEND_FE_END
 };
 
@@ -241,6 +322,16 @@ static zend_class_entry *register_class_NSTableView(zend_class_entry *class_entr
 
 	INIT_CLASS_ENTRY(ce, "NSTableView", class_NSTableView_methods);
 	class_entry = zend_register_internal_class_with_flags(&ce, class_entry_NSControl, ZEND_ACC_NOT_SERIALIZABLE);
+
+	return class_entry;
+}
+
+static zend_class_entry *register_class_NSOutlineView(zend_class_entry *class_entry_NSTableView)
+{
+	zend_class_entry ce, *class_entry;
+
+	INIT_CLASS_ENTRY(ce, "NSOutlineView", class_NSOutlineView_methods);
+	class_entry = zend_register_internal_class_with_flags(&ce, class_entry_NSTableView, ZEND_ACC_NOT_SERIALIZABLE);
 
 	return class_entry;
 }

@@ -1,5 +1,5 @@
 /* This is a generated file, edit the .stub.php file instead.
- * Stub hash: d33f3d8c2ac83834b88e8b37f85b79a8e91a9a40 */
+ * Stub hash: 66e159dea460ef081ad277665f707a72bde59080 */
 
 ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_NSControl_isEnabled, 0, 0, _IS_BOOL, 0)
 ZEND_END_ARG_INFO()
@@ -186,6 +186,12 @@ ZEND_END_ARG_INFO()
 #define arginfo_class_NSButton_contentTintColor arginfo_class_NSTextField_textColor
 
 #define arginfo_class_NSButton_setContentTintColor arginfo_class_NSTextField_setTextColor
+
+#define arginfo_class_NSButton_keyEquivalent arginfo_class_NSControl_stringValue
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_NSButton_setKeyEquivalent, 0, 1, IS_VOID, 0)
+	ZEND_ARG_TYPE_INFO(0, keyEquivalent, IS_STRING, 0)
+ZEND_END_ARG_INFO()
 
 #define arginfo_class_NSSwitch_state arginfo_class_NSButton_state
 
@@ -604,6 +610,8 @@ ZEND_METHOD(NSButton, state);
 ZEND_METHOD(NSButton, setState);
 ZEND_METHOD(NSButton, contentTintColor);
 ZEND_METHOD(NSButton, setContentTintColor);
+ZEND_METHOD(NSButton, keyEquivalent);
+ZEND_METHOD(NSButton, setKeyEquivalent);
 ZEND_METHOD(NSSwitch, state);
 ZEND_METHOD(NSSwitch, setState);
 ZEND_METHOD(NSSlider, sliderWithValueMinValueMaxValueTargetAction);
@@ -791,6 +799,8 @@ static const zend_function_entry class_NSButton_methods[] = {
 	ZEND_ME(NSButton, setState, arginfo_class_NSButton_setState, ZEND_ACC_PUBLIC)
 	ZEND_ME(NSButton, contentTintColor, arginfo_class_NSButton_contentTintColor, ZEND_ACC_PUBLIC)
 	ZEND_ME(NSButton, setContentTintColor, arginfo_class_NSButton_setContentTintColor, ZEND_ACC_PUBLIC)
+	ZEND_ME(NSButton, keyEquivalent, arginfo_class_NSButton_keyEquivalent, ZEND_ACC_PUBLIC)
+	ZEND_ME(NSButton, setKeyEquivalent, arginfo_class_NSButton_setKeyEquivalent, ZEND_ACC_PUBLIC)
 	ZEND_FE_END
 };
 
@@ -1001,6 +1011,10 @@ static void register_NSControls_symbols(int module_number)
 	REGISTER_LONG_CONSTANT("NSTextAlignmentCenter", NSTextAlignmentCenter, CONST_PERSISTENT);
 	REGISTER_LONG_CONSTANT("NSTextAlignmentJustified", NSTextAlignmentJustified, CONST_PERSISTENT);
 	REGISTER_LONG_CONSTANT("NSTextAlignmentNatural", NSTextAlignmentNatural, CONST_PERSISTENT);
+	REGISTER_LONG_CONSTANT("NSCarriageReturnCharacter", NSCarriageReturnCharacter, CONST_PERSISTENT);
+	REGISTER_LONG_CONSTANT("NSEnterCharacter", NSEnterCharacter, CONST_PERSISTENT);
+	REGISTER_LONG_CONSTANT("NSBackspaceCharacter", NSBackspaceCharacter, CONST_PERSISTENT);
+	REGISTER_LONG_CONSTANT("NSTabCharacter", NSTabCharacter, CONST_PERSISTENT);
 	REGISTER_STRING_CONSTANT("NSLinkAttributeName", appkit_cfstring_constant((CFStringRef) NSLinkAttributeName), CONST_PERSISTENT);
 	REGISTER_STRING_CONSTANT("NSFontAttributeName", appkit_cfstring_constant((CFStringRef) NSFontAttributeName), CONST_PERSISTENT);
 	REGISTER_STRING_CONSTANT("NSParagraphStyleAttributeName", appkit_cfstring_constant((CFStringRef) NSParagraphStyleAttributeName), CONST_PERSISTENT);

@@ -52,6 +52,9 @@ class NSNotification extends NSObject
     public function name(): string {}
 
     public function object(): ?NSObject {}
+
+    /** Null without a dictionary; else each value as appkit marshals a Foundation value: string, int, float, bool, null, NSRect/NSSize/NSPoint, or the boxed object. */
+    public function userInfo(): ?array {}
 }
 
 /**

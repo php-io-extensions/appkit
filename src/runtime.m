@@ -274,7 +274,8 @@ void appkit_return_enum(zval *rv, zend_class_entry *ce, zend_long value, bool in
 {
 	zend_object *case_obj = NULL;
 
-	if (zend_enum_get_case_by_value(&case_obj, ce, value, NULL, int_fallback) == SUCCESS) {
+	/* With try set, Zend answers a value no case has with SUCCESS and no case: that is the fallback. */
+	if (zend_enum_get_case_by_value(&case_obj, ce, value, NULL, int_fallback) == SUCCESS && case_obj != NULL) {
 		ZVAL_OBJ_COPY(rv, case_obj);
 		return;
 	}

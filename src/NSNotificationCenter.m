@@ -23,6 +23,29 @@ void appkit_register_NSNotificationCenter(int module_number)
 ANY_STR_GET(NSNotification, NSNotification, name, name)
 ANY_OBJ_GET(NSNotification, NSNotification, object, object)
 
+ZEND_METHOD(NSNotification, userInfo)
+{
+	ZEND_PARSE_PARAMETERS_NONE();
+
+	APPKIT_BEGIN
+		NSDictionary *info = [SELF(NSNotification) userInfo];
+
+		if (info == nil) {
+			RETURN_NULL();
+		}
+		array_init(return_value);
+		/* Keys are any NSCopying object; a key that is not a string is named by its description. */
+		for (id key in info) {
+			NSString *name = [key isKindOfClass:[NSString class]] ? (NSString *) key : [key description];
+			const char *utf8 = [name UTF8String];
+			zval value;
+
+			appkit_zval_from_id(&value, info[key]);
+			add_assoc_zval_ex(return_value, utf8, strlen(utf8), &value);
+		}
+	APPKIT_END
+}
+
 ZEND_METHOD(NSNotificationCenter, defaultCenter)
 {
 	ZEND_PARSE_PARAMETERS_NONE();

@@ -179,6 +179,32 @@ class NSWindow extends NSResponder
 
     public function firstResponder(): ?NSResponder {}
 
+    /** The view made first responder when the window is first shown; null for none. */
+    public function initialFirstResponder(): ?NSView {}
+
+    public function setInitialFirstResponder(?NSView $initialFirstResponder): void {}
+
+    public function selectNextKeyView(?NSObject $sender): void {}
+
+    public function selectPreviousKeyView(?NSObject $sender): void {}
+
+    /** YES: AppKit builds the key-view loop from the views' geometry and keeps it up to date. */
+    public function setAutorecalculatesKeyViewLoop(bool $autorecalculatesKeyViewLoop): void {}
+
+    /** @param Closure|null $handler called as $handler(int $returnCode) when the sheet ends */
+    public function beginSheetCompletionHandler(NSWindow $sheetWindow, ?Closure $handler): void {}
+
+    public function endSheet(NSWindow $sheetWindow): void {}
+
+    public function endSheetReturnCode(NSWindow $sheetWindow, int $returnCode): void {}
+
+    /** @return list<NSWindow> */
+    public function sheets(): array {}
+
+    public function attachedSheet(): ?NSWindow {}
+
+    public function sheetParent(): ?NSWindow {}
+
     /**
      * The number of the frontmost window, of any app, at $point (screen coordinates, origin at the
      * bottom left of the main screen) below the window numbered $windowNumber (0: from the top).

@@ -9,6 +9,7 @@ void appkit_register_NSTableView(void)
 	APPKIT_MAP(NSTableColumn, appkit_ce_NSObject);
 	APPKIT_MAP(NSTableHeaderView, appkit_ce_NSView);
 	APPKIT_MAP(NSTableView, appkit_ce_NSControl);
+	APPKIT_MAP(NSOutlineView, appkit_ce_NSTableView);
 	APPKIT_MAP(NSCell, appkit_ce_NSObject);
 }
 
@@ -100,6 +101,38 @@ ZEND_METHOD(NSTableView, viewAtColumnRowMakeIfNecessary)
 
 	APPKIT_BEGIN
 		appkit_box_objc(return_value, [SELF(NSTableView) viewAtColumn:(NSInteger) column row:(NSInteger) row makeIfNecessary:make]);
+	APPKIT_END
+}
+
+METHOD(NSTableView, doubleAction, PARSE_NONE, SEL action = [SELF(NSTableView) doubleAction]; if (action == NULL) { RETURN_NULL(); } RETURN_STRING(sel_getName(action));) /* binding:main-thread-nstableview-double-action */
+METHOD(NSTableView, setDoubleAction, PARSE_STR_OR_NULL, [SELF(NSTableView) setDoubleAction:SELECTOR_OR_NULL(v)];) /* binding:main-thread-nstableview-set-double-action */
+LONG_GET(NSTableView, NSTableView, clickedRow, clickedRow) /* binding:main-thread-nstableview-clicked-row */
+LONG_SET(NSTableView, NSTableView, scrollRowToVisible, scrollRowToVisible, NSInteger) /* binding:main-thread-nstableview-scroll-row-to-visible */
+
+/* NSOutlineView */
+OBJ_GET(NSOutlineView, NSOutlineView, outlineTableColumn, outlineTableColumn) /* binding:main-thread-nsoutlineview-outline-table-column */
+OBJ_SET_OR_NULL(NSOutlineView, NSOutlineView, setOutlineTableColumn, setOutlineTableColumn, appkit_ce_NSTableColumn, NSTableColumn *) /* binding:main-thread-nsoutlineview-set-outline-table-column */
+SENDER_METHOD(NSOutlineView, NSOutlineView, expandItem, expandItem) /* binding:main-thread-nsoutlineview-expand-item */
+SENDER_METHOD(NSOutlineView, NSOutlineView, collapseItem, collapseItem) /* binding:main-thread-nsoutlineview-collapse-item */
+METHOD(NSOutlineView, isItemExpanded, PARSE_OBJ_OR_NULL(appkit_ce_NSObject), RETURN_BOOL([SELF(NSOutlineView) isItemExpanded:OPTIONAL_ID(v)]);) /* binding:main-thread-nsoutlineview-is-item-expanded */
+METHOD(NSOutlineView, itemAtRow, PARSE_LONG, appkit_box_objc(return_value, [SELF(NSOutlineView) itemAtRow:(NSInteger) v]);) /* binding:main-thread-nsoutlineview-item-at-row */
+METHOD(NSOutlineView, rowForItem, PARSE_OBJ_OR_NULL(appkit_ce_NSObject), RETURN_LONG((zend_long) [SELF(NSOutlineView) rowForItem:OPTIONAL_ID(v)]);) /* binding:main-thread-nsoutlineview-row-for-item */
+DOUBLE_GET(NSOutlineView, NSOutlineView, indentationPerLevel, indentationPerLevel) /* binding:main-thread-nsoutlineview-indentation-per-level */
+DOUBLE_SET(NSOutlineView, NSOutlineView, setIndentationPerLevel, setIndentationPerLevel) /* binding:main-thread-nsoutlineview-set-indentation-per-level */
+
+ZEND_METHOD(NSOutlineView, reloadItemReloadChildren)
+{
+	zend_object *item = NULL;
+	bool children;
+
+	ZEND_PARSE_PARAMETERS_START(2, 2)
+		Z_PARAM_OBJ_OF_CLASS_OR_NULL(item, appkit_ce_NSObject)
+		Z_PARAM_BOOL(children)
+	ZEND_PARSE_PARAMETERS_END();
+	APPKIT_REQUIRE_MAIN_THREAD(); /* binding:main-thread-nsoutlineview-reload-item */
+
+	APPKIT_BEGIN
+		[SELF(NSOutlineView) reloadItem:OPTIONAL_ID(item) reloadChildren:children];
 	APPKIT_END
 }
 

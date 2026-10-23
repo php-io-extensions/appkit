@@ -1,10 +1,13 @@
 /* This is a generated file, edit the .stub.php file instead.
- * Stub hash: ad460913914f966bce25dd8406b425c2793ad1dd */
+ * Stub hash: efd9355c52f0e4aac8dbd20dea5a886213baa06a */
 
 ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_NSNotification_name, 0, 0, IS_STRING, 0)
 ZEND_END_ARG_INFO()
 
 ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(arginfo_class_NSNotification_object, 0, 0, NSObject, 1)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_NSNotification_userInfo, 0, 0, IS_ARRAY, 1)
 ZEND_END_ARG_INFO()
 
 ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(arginfo_class_NSNotificationCenter_defaultCenter, 0, 0, NSNotificationCenter, 0)
@@ -37,6 +40,7 @@ ZEND_END_ARG_INFO()
 
 ZEND_METHOD(NSNotification, name);
 ZEND_METHOD(NSNotification, object);
+ZEND_METHOD(NSNotification, userInfo);
 ZEND_METHOD(NSNotificationCenter, defaultCenter);
 ZEND_METHOD(NSNotificationCenter, addObserverForNameObjectQueueUsingBlock);
 ZEND_METHOD(NSNotificationCenter, removeObserver);
@@ -48,6 +52,7 @@ ZEND_METHOD(NSOperationQueue, waitUntilAllOperationsAreFinished);
 static const zend_function_entry class_NSNotification_methods[] = {
 	ZEND_ME(NSNotification, name, arginfo_class_NSNotification_name, ZEND_ACC_PUBLIC)
 	ZEND_ME(NSNotification, object, arginfo_class_NSNotification_object, ZEND_ACC_PUBLIC)
+	ZEND_ME(NSNotification, userInfo, arginfo_class_NSNotification_userInfo, ZEND_ACC_PUBLIC)
 	ZEND_FE_END
 };
 

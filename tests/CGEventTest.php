@@ -13,6 +13,17 @@ it('makes a mouse event at a location and carries its integer fields', function 
         ->and($event->getIntegerValueField(kCGMouseEventButtonNumber))->toBe(0);
 });
 
+it('makes a key event for a virtual key, with its flags, that AppKit reads as that key', function (): void {
+    $event = CGEvent::createKeyboardEvent(null, 30, true);
+    $event->setFlags(NSEventModifierFlags::COMMAND->value | NSEventModifierFlags::SHIFT->value);
+    $key = NSEvent::eventWithCGEvent($event);
+
+    expect($event->getFlags())->toBe(NSEventModifierFlags::COMMAND->value | NSEventModifierFlags::SHIFT->value)
+        ->and($key->type())->toBe(NSEventType::KEY_DOWN)
+        ->and($key->keyCode())->toBe(30)
+        ->and($key->charactersIgnoringModifiers())->toBe('}');
+});
+
 it('moves an event to another location', function (): void {
     $event = CGEvent::createScrollWheelEvent2(null, CGScrollEventUnit::LINE, 1, 1, 0, 0);
     $event->setLocation(new NSPoint(50.0, 60.0));

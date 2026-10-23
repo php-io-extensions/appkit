@@ -57,6 +57,32 @@ it('sets item state, enabling, title, tag and key modifiers', function (): void 
     expect($item->state())->toBe(NSControlStateValue::MIXED);
 });
 
+it('performs the item whose key equivalent and mask a key-down event matches', function (): void {
+    $menu = NSMenu::initWithTitle('View');
+    $menu->setAutoenablesItems(false);
+    $item = NSMenuItem::initWithTitleActionKeyEquivalent('Refresh', ObjCTarget::ACTION, mb_chr(NSF5FunctionKey));
+    $item->setKeyEquivalentModifierMask(NSEventModifierFlags::COMMAND->value | NSEventModifierFlags::SHIFT->value);
+    $performed = 0;
+    $target = new ObjCTarget(function () use (&$performed): void {
+        $performed++;
+    });
+    $item->setTarget($target);
+    $menu->addItem($item);
+    // A key event made from a Quartz event, as a key press is: AppKit matches Shift loosely for an
+    // NSEvent made with keyEventWithType…, and exactly for one that carries its Quartz event.
+    $key = function (int $flags): NSEvent {
+        $event = CGEvent::createKeyboardEvent(null, 96, true);
+        $event->setFlags($flags | NSEventModifierFlags::FUNCTION->value);
+
+        return NSEvent::eventWithCGEvent($event);
+    };
+
+    expect($menu->performKeyEquivalent($key(NSEventModifierFlags::COMMAND->value | NSEventModifierFlags::SHIFT->value)))->toBeTrue()
+        ->and($performed)->toBe(1)
+        ->and($menu->performKeyEquivalent($key(NSEventModifierFlags::COMMAND->value)))->toBeFalse()
+        ->and($performed)->toBe(1);
+});
+
 it('calls the target through PHP when an item is performed', function (): void {
     $menu = NSMenu::initWithTitle('View');
     $menu->setAutoenablesItems(false);

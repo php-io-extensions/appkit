@@ -9,6 +9,37 @@ void appkit_register_NSObject(void)
 	appkit_ce_NSObject = register_class_NSObject();
 	appkit_object_setup(appkit_ce_NSObject);
 	appkit_map_objc_class("NSObject", appkit_ce_NSObject);
+
+	appkit_ce_NSString = register_class_NSString(appkit_ce_NSObject);
+	appkit_object_setup(appkit_ce_NSString);
+	appkit_map_objc_class("NSString", appkit_ce_NSString);
+}
+
+ZEND_METHOD(NSString, stringWithString)
+{
+	zend_string *string;
+
+	ZEND_PARSE_PARAMETERS_START(1, 1)
+		Z_PARAM_STR(string)
+	ZEND_PARSE_PARAMETERS_END();
+
+	APPKIT_BEGIN
+		appkit_box_objc(return_value, [(id) appkit_called_class(execute_data) stringWithString:appkit_nsstring(string)]);
+	APPKIT_END
+}
+
+ZEND_METHOD(NSString, UTF8String)
+{
+	ZEND_PARSE_PARAMETERS_NONE();
+
+	APPKIT_BEGIN
+		const char *utf8 = [(NSString *) APPKIT_ID(Z_OBJ_P(ZEND_THIS)) UTF8String];
+
+		if (utf8 == NULL) {
+			RETURN_NULL();
+		}
+		RETURN_STRING(utf8);
+	APPKIT_END
 }
 
 void appkit_register_NSResponder(void)
@@ -39,6 +70,16 @@ ZEND_METHOD(NSResponder, setNextResponder)
 
 	APPKIT_BEGIN
 		[(NSResponder *) APPKIT_ID(Z_OBJ_P(ZEND_THIS)) setNextResponder:(NSResponder *) (next != NULL ? APPKIT_ID(next) : nil)];
+	APPKIT_END
+}
+
+ZEND_METHOD(NSResponder, acceptsFirstResponder)
+{
+	ZEND_PARSE_PARAMETERS_NONE();
+	APPKIT_REQUIRE_MAIN_THREAD(); /* binding:main-thread-nsresponder-accepts-first-responder */
+
+	APPKIT_BEGIN
+		RETURN_BOOL([(NSResponder *) APPKIT_ID(Z_OBJ_P(ZEND_THIS)) acceptsFirstResponder]);
 	APPKIT_END
 }
 

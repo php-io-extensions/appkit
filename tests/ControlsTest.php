@@ -29,6 +29,25 @@ it('fires a button action into PHP and reads its state', function (): void {
         ->and($button->action())->toBeNull();
 });
 
+it('keeps a button key equivalent', function (): void {
+    $button = NSButton::buttonWithTitleTargetAction('OK', null, null);
+    $button->setKeyEquivalent("\r");
+
+    expect($button->keyEquivalent())->toBe("\r");
+});
+
+it('reads whether a view or a view above it is hidden', function (): void {
+    $outer = NSView::initWithFrame(new NSRect(0, 0, 100, 100));
+    $inner = NSView::initWithFrame(new NSRect(0, 0, 10, 10));
+    $outer->addSubview($inner);
+
+    expect($inner->isHiddenOrHasHiddenAncestor())->toBeFalse();
+
+    $outer->setHidden(true);
+    expect($inner->isHiddenOrHasHiddenAncestor())->toBeTrue()
+        ->and($inner->isHidden())->toBeFalse();
+});
+
 it('makes a checkbox that toggles its state', function (): void {
     $box = NSButton::checkboxWithTitleTargetAction('Tick', null, null);
     $box->setState(NSControlStateValue::ON);

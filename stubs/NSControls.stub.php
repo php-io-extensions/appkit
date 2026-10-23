@@ -36,6 +36,38 @@ const NSTextAlignmentJustified = UNKNOWN;
 const NSTextAlignmentNatural = UNKNOWN;
 
 /**
+ * The character a Return key event carries.
+ *
+ * @var int
+ * @cvalue NSCarriageReturnCharacter
+ */
+const NSCarriageReturnCharacter = UNKNOWN;
+
+/**
+ * The character a keypad Enter key event carries.
+ *
+ * @var int
+ * @cvalue NSEnterCharacter
+ */
+const NSEnterCharacter = UNKNOWN;
+
+/**
+ * The character a Backspace key event carries.
+ *
+ * @var int
+ * @cvalue NSBackspaceCharacter
+ */
+const NSBackspaceCharacter = UNKNOWN;
+
+/**
+ * The character a Tab key event carries.
+ *
+ * @var int
+ * @cvalue NSTabCharacter
+ */
+const NSTabCharacter = UNKNOWN;
+
+/**
  * @var string
  * @cvalue appkit_cfstring_constant((CFStringRef) NSLinkAttributeName)
  */
@@ -254,6 +286,10 @@ class NSButton extends NSControl
     public function contentTintColor(): ?NSColor {}
 
     public function setContentTintColor(?NSColor $color): void {}
+
+    public function keyEquivalent(): string {}
+
+    public function setKeyEquivalent(string $keyEquivalent): void {}
 }
 
 /**

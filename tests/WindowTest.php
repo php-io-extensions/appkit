@@ -163,3 +163,40 @@ it('makes a view the first responder, and the window itself again', function ():
 
     $window->close();
 });
+
+it('attaches a sheet and ends it', function (): void {
+    $parent = newWindow(400, 300);
+    $sheet = newWindow(200, 100);
+    $parent->makeKeyAndOrderFront(null);
+    $parent->beginSheetCompletionHandler($sheet, null);
+    pumpFor($this->app, 0.6);
+
+    expect($parent->attachedSheet())->toBe($sheet)
+        ->and($parent->sheets())->toBe([$sheet])
+        ->and($sheet->sheetParent())->toBe($parent);
+
+    $parent->endSheet($sheet);
+    pumpFor($this->app, 0.6);
+
+    expect($parent->attachedSheet())->toBeNull()
+        ->and($parent->sheets())->toBe([]);
+
+    $parent->close();
+});
+
+it('calls the completion handler with the return code', function (): void {
+    $parent = newWindow(400, 300);
+    $sheet = newWindow(200, 100);
+    $codes = [];
+    $parent->makeKeyAndOrderFront(null);
+    $parent->beginSheetCompletionHandler($sheet, function (int $code) use (&$codes): void {
+        $codes[] = $code;
+    });
+    pumpFor($this->app, 0.6);
+    $parent->endSheetReturnCode($sheet, 1000);
+    pumpFor($this->app, 0.6);
+
+    expect($codes)->toBe([1000]);
+
+    $parent->close();
+});

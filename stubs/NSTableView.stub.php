@@ -97,6 +97,46 @@ class NSTableView extends NSControl
 
     /** The view a view-based table shows at (column, row); null when none exists and $makeIfNecessary is false. */
     public function viewAtColumnRowMakeIfNecessary(int $column, int $row, bool $makeIfNecessary): ?NSView {}
+
+    /** The selector sent to the target on a double click, as a string; null when none is set. */
+    public function doubleAction(): ?string {}
+
+    public function setDoubleAction(?string $doubleAction): void {}
+
+    /** The row of the click that sent the action; -1 outside an action. */
+    public function clickedRow(): int {}
+
+    public function scrollRowToVisible(int $row): void {}
+}
+
+/**
+ * Made with initWithFrame(). Items are whatever objects the data source returns; the outline view
+ * neither copies nor retains them.
+ *
+ * @not-serializable
+ */
+class NSOutlineView extends NSTableView
+{
+    public function outlineTableColumn(): ?NSTableColumn {}
+
+    public function setOutlineTableColumn(?NSTableColumn $outlineTableColumn): void {}
+
+    public function expandItem(?NSObject $item): void {}
+
+    public function collapseItem(?NSObject $item): void {}
+
+    public function isItemExpanded(?NSObject $item): bool {}
+
+    public function itemAtRow(int $row): ?NSObject {}
+
+    /** -1 when the item is not shown */
+    public function rowForItem(?NSObject $item): int {}
+
+    public function reloadItemReloadChildren(?NSObject $item, bool $reloadChildren): void {}
+
+    public function indentationPerLevel(): float {}
+
+    public function setIndentationPerLevel(float $indentationPerLevel): void {}
 }
 
 /**

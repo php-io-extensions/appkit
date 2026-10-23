@@ -72,6 +72,39 @@ ZEND_METHOD(CGEvent, createScrollWheelEvent2)
 		(CGScrollEventUnit) appkit_enum_value(units, 0), (uint32_t) count, (int32_t) wheel1, (int32_t) wheel2, (int32_t) wheel3));
 }
 
+ZEND_METHOD(CGEvent, createKeyboardEvent)
+{
+	zend_object *source = NULL;
+	zend_long key;
+	bool down;
+
+	ZEND_PARSE_PARAMETERS_START(3, 3)
+		Z_PARAM_OBJ_OF_CLASS_OR_NULL(source, appkit_ce_CGEventSource)
+		Z_PARAM_LONG(key)
+		Z_PARAM_BOOL(down)
+	ZEND_PARSE_PARAMETERS_END();
+
+	appkit_return_created_event(return_value, CGEventCreateKeyboardEvent(CG_EVENT_SOURCE(source), (CGKeyCode) key, down));
+}
+
+ZEND_METHOD(CGEvent, getFlags)
+{
+	ZEND_PARSE_PARAMETERS_NONE();
+
+	RETURN_LONG((zend_long) CGEventGetFlags(THIS_CG_EVENT));
+}
+
+ZEND_METHOD(CGEvent, setFlags)
+{
+	zend_long flags;
+
+	ZEND_PARSE_PARAMETERS_START(1, 1)
+		Z_PARAM_LONG(flags)
+	ZEND_PARSE_PARAMETERS_END();
+
+	CGEventSetFlags(THIS_CG_EVENT, (CGEventFlags) flags);
+}
+
 ZEND_METHOD(CGEvent, getIntegerValueField)
 {
 	zend_long field;

@@ -249,3 +249,65 @@ it('answers NSWindow\'s own key and main status until a handler answers instead'
 
     $window->close();
 });
+
+it('lets a focus view take first responder only while its handler answers yes', function (): void {
+    $window = NSWindow::initWithContentRectStyleMaskBackingDefer(new NSRect(200.0, 200.0, 160.0, 120.0), NSWindowStyleMask::TITLED, NSBackingStoreType::BUFFERED, false);
+    $window->setReleasedWhenClosed(false);
+    $view = ObjCFocusView::initWithFrame(new NSRect(0.0, 0.0, 100.0, 80.0));
+    $window->contentView()->addSubview($view);
+
+    // No handler: an NSView answers NO. (makeFirstResponder: does not ask; a click and Tab do.)
+    expect($view)->toBeInstanceOf(NSView::class)
+        ->and($view->acceptsFirstResponder())->toBeFalse();
+
+    $asked = 0;
+    $view->on('acceptsFirstResponder', function () use (&$asked): bool {
+        $asked++;
+
+        return true;
+    });
+    expect($view->acceptsFirstResponder())->toBeTrue()
+        ->and($asked)->toBe(1);
+
+    $view->off('acceptsFirstResponder');
+    expect($view->acceptsFirstResponder())->toBeFalse();
+    $window->close();
+});
+
+it('hands a key window\'s keyDown: to PHP, and to NSWindow when PHP declines', function (): void {
+    $app = NSApplication::sharedApplication();
+    $app->finishLaunching();
+    $app->setActivationPolicy(NSApplicationActivationPolicy::REGULAR);
+    $app->activateIgnoringOtherApps(true);
+    $window = ObjCKeyWindow::initWithContentRectStyleMaskBackingDefer(new NSRect(200.0, 200.0, 240.0, 120.0), NSWindowStyleMask::TITLED, NSBackingStoreType::BUFFERED, false);
+    $window->setReleasedWhenClosed(false);
+    $field = NSTextField::initWithFrame(new NSRect(10.0, 40.0, 200.0, 24.0));
+    $window->contentView()->addSubview($field);
+    $window->setAutorecalculatesKeyViewLoop(true);
+    $window->makeKeyAndOrderFront(null);
+    pumpUntil($app, fn (): bool => $window->isKeyWindow(), 2.0);
+    $window->makeFirstResponder(null);
+    $key = static fn (int $code): NSEvent => NSEvent::eventWithCGEvent(CGEvent::createKeyboardEvent(null, $code, true));
+
+    expect($window)->toBeInstanceOf(NSWindow::class);
+
+    $seen = [];
+    $window->on('keyDown:', function (NSEvent $event) use (&$seen): bool {
+        $seen[] = $event->keyCode();
+
+        // Tab (key code 48) is declined: NSWindow moves along the key-view loop.
+        return $event->keyCode() !== 48;
+    });
+    $app->sendEvent($key(96));
+    expect($seen)->toBe([96]);
+
+    $app->sendEvent($key(48));
+    expect($seen)->toBe([96, 48])
+        ->and($window->firstResponder()?->delegate())->toBe($field);
+
+    $window->off('keyDown:');
+    $window->makeFirstResponder(null);
+    $app->sendEvent($key(96));
+    expect($seen)->toBe([96, 48]);
+    $window->close();
+});

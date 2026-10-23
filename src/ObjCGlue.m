@@ -433,6 +433,127 @@ static void appkit_invocation_return(NSInvocation *invocation, zval *value)
 
 @end
 
+/* ---- Handler tables (PHPFocusView, PHPKeyWindow) ------------------------- */
+
+/* Selector name => appkit_callout*, made by the first on(); every record released at dealloc. */
+typedef NSMutableDictionary<NSString *, NSValue *> appkit_handlers;
+
+static void appkit_handlers_set(appkit_handlers **handlers, zend_string *selector_name, zend_fcall_info *fci)
+{
+	NSString *name = appkit_nsstring(selector_name);
+	/* No detach: a callout whose callable is freed at request end goes inert, and dealloc frees the record. */
+	appkit_callout *callout = appkit_callout_new(&fci->function_name, NULL);
+
+	appkit_callout_retain(callout);
+	if (*handlers == nil) {
+		*handlers = [[NSMutableDictionary alloc] init];
+	}
+	/* The pointer first: replacing the entry releases the NSValue holding it. */
+	appkit_callout *replaced = (*handlers)[name] != nil ? [(*handlers)[name] pointerValue] : NULL;
+	(*handlers)[name] = [NSValue valueWithPointer:callout];
+	if (replaced != NULL) {
+		appkit_callout_release(replaced);
+	}
+}
+
+static void appkit_handlers_unset(appkit_handlers *handlers, zend_string *selector_name)
+{
+	NSString *name = appkit_nsstring(selector_name);
+	NSValue *existing = handlers[name];
+
+	if (existing != nil) {
+		/* The pointer first: removing the entry releases the NSValue holding it. */
+		appkit_callout *callout = [existing pointerValue];
+		[handlers removeObjectForKey:name];
+		appkit_callout_release(callout);
+	}
+}
+
+static void appkit_handlers_release(appkit_handlers *handlers)
+{
+	for (NSValue *value in [handlers allValues]) {
+		appkit_callout_release([value pointerValue]);
+	}
+	[handlers release];
+}
+
+/* The handler's bool for $name into *answer; NO when there is none or it did not run. */
+static BOOL appkit_handlers_answer(appkit_handlers *handlers, NSString *name, uint32_t argc, zval *argv, BOOL *answer)
+{
+	NSValue *handler = handlers[name];
+	zval retval;
+	bool called;
+
+	if (handler == nil) {
+		return NO;
+	}
+	called = appkit_callout_call([handler pointerValue], argc, argv, &retval);
+	if (called) {
+		*answer = zend_is_true(&retval) ? YES : NO;
+	}
+	zval_ptr_dtor(&retval);
+
+	return called ? YES : NO;
+}
+
+/* ---- PHPFocusView -------------------------------------------------------- */
+
+@interface PHPFocusView : NSView {
+@public
+	appkit_handlers *handlers;
+}
+@end
+
+@implementation PHPFocusView
+
+- (void)dealloc
+{
+	appkit_handlers_release(handlers);
+	[super dealloc];
+}
+
+- (BOOL)acceptsFirstResponder
+{
+	BOOL answer;
+
+	return appkit_handlers_answer(handlers, @"acceptsFirstResponder", 0, NULL, &answer) ? answer : [super acceptsFirstResponder];
+}
+
+@end
+
+/* ---- PHPKeyWindow -------------------------------------------------------- */
+
+@interface PHPKeyWindow : NSWindow {
+@public
+	appkit_handlers *handlers;
+}
+@end
+
+@implementation PHPKeyWindow
+
+- (void)dealloc
+{
+	appkit_handlers_release(handlers);
+	[super dealloc];
+}
+
+/* PHP's true keeps the key; false, no handler, or a handler that did not run hands it to NSWindow. */
+- (void)keyDown:(NSEvent *)event
+{
+	zval argv[1];
+	BOOL taken = NO;
+	BOOL called;
+
+	appkit_box_objc(&argv[0], event);
+	called = appkit_handlers_answer(handlers, @"keyDown:", 1, argv, &taken);
+	zval_ptr_dtor(&argv[0]);
+	if (!called || !taken) {
+		[super keyDown:event];
+	}
+}
+
+@end
+
 /* ---- PHPDrawView --------------------------------------------------------- */
 
 @interface PHPDrawView : NSView {
@@ -598,6 +719,14 @@ void appkit_register_ObjCGlue(void)
 	appkit_ce_ObjCStageWindow = register_class_ObjCStageWindow(appkit_ce_NSWindow);
 	appkit_object_setup(appkit_ce_ObjCStageWindow);
 	appkit_map_objc_class("PHPStageWindow", appkit_ce_ObjCStageWindow);
+
+	appkit_ce_ObjCKeyWindow = register_class_ObjCKeyWindow(appkit_ce_NSWindow);
+	appkit_object_setup(appkit_ce_ObjCKeyWindow);
+	appkit_map_objc_class("PHPKeyWindow", appkit_ce_ObjCKeyWindow);
+
+	appkit_ce_ObjCFocusView = register_class_ObjCFocusView(appkit_ce_NSView);
+	appkit_object_setup(appkit_ce_ObjCFocusView);
+	appkit_map_objc_class("PHPFocusView", appkit_ce_ObjCFocusView);
 
 	appkit_ce_ObjCDrawView = register_class_ObjCDrawView(appkit_ce_NSView);
 	appkit_object_setup(appkit_ce_ObjCDrawView);
@@ -873,6 +1002,71 @@ ZEND_METHOD(ObjCStageWindow, off)
 			[window->handlers removeObjectForKey:name];
 			appkit_callout_release(callout);
 		}
+	APPKIT_END
+}
+
+#define THIS_FOCUS_VIEW ((PHPFocusView *) APPKIT_ID(Z_OBJ_P(ZEND_THIS)))
+#define THIS_KEY_WINDOW ((PHPKeyWindow *) APPKIT_ID(Z_OBJ_P(ZEND_THIS)))
+
+ZEND_METHOD(ObjCFocusView, on)
+{
+	zend_string *selector_name;
+	zend_fcall_info fci;
+	zend_fcall_info_cache fcc;
+
+	ZEND_PARSE_PARAMETERS_START(2, 2)
+		Z_PARAM_STR(selector_name)
+		Z_PARAM_FUNC(fci, fcc)
+	ZEND_PARSE_PARAMETERS_END();
+	APPKIT_REQUIRE_MAIN_THREAD(); /* binding:main-thread-objcfocusview-on */
+
+	APPKIT_BEGIN
+		appkit_handlers_set(&THIS_FOCUS_VIEW->handlers, selector_name, &fci);
+	APPKIT_END
+}
+
+ZEND_METHOD(ObjCFocusView, off)
+{
+	zend_string *selector_name;
+
+	ZEND_PARSE_PARAMETERS_START(1, 1)
+		Z_PARAM_STR(selector_name)
+	ZEND_PARSE_PARAMETERS_END();
+	APPKIT_REQUIRE_MAIN_THREAD(); /* binding:main-thread-objcfocusview-off */
+
+	APPKIT_BEGIN
+		appkit_handlers_unset(THIS_FOCUS_VIEW->handlers, selector_name);
+	APPKIT_END
+}
+
+ZEND_METHOD(ObjCKeyWindow, on)
+{
+	zend_string *selector_name;
+	zend_fcall_info fci;
+	zend_fcall_info_cache fcc;
+
+	ZEND_PARSE_PARAMETERS_START(2, 2)
+		Z_PARAM_STR(selector_name)
+		Z_PARAM_FUNC(fci, fcc)
+	ZEND_PARSE_PARAMETERS_END();
+	APPKIT_REQUIRE_MAIN_THREAD(); /* binding:main-thread-objckeywindow-on */
+
+	APPKIT_BEGIN
+		appkit_handlers_set(&THIS_KEY_WINDOW->handlers, selector_name, &fci);
+	APPKIT_END
+}
+
+ZEND_METHOD(ObjCKeyWindow, off)
+{
+	zend_string *selector_name;
+
+	ZEND_PARSE_PARAMETERS_START(1, 1)
+		Z_PARAM_STR(selector_name)
+	ZEND_PARSE_PARAMETERS_END();
+	APPKIT_REQUIRE_MAIN_THREAD(); /* binding:main-thread-objckeywindow-off */
+
+	APPKIT_BEGIN
+		appkit_handlers_unset(THIS_KEY_WINDOW->handlers, selector_name);
 	APPKIT_END
 }
 

@@ -1,5 +1,6 @@
 #include "runtime.h"
 #include "controls.h"
+#include "zend_closures.h"
 #include "../stubs/NSWindow_arginfo.h"
 
 _Static_assert(NSWindowCollectionBehaviorDefault == 0 && NSWindowCollectionBehaviorCanJoinAllSpaces == 1 && NSWindowCollectionBehaviorMoveToActiveSpace == 2
@@ -315,6 +316,72 @@ ZEND_METHOD(NSWindow, makeFirstResponder)
 	APPKIT_END
 }
 
+ZEND_METHOD(NSWindow, initialFirstResponder)
+{
+	ZEND_PARSE_PARAMETERS_NONE();
+	APPKIT_REQUIRE_MAIN_THREAD(); /* binding:main-thread-nswindow-initial-first-responder */
+
+	APPKIT_BEGIN
+		appkit_box_objc(return_value, [THIS_WINDOW initialFirstResponder]);
+	APPKIT_END
+}
+
+ZEND_METHOD(NSWindow, setInitialFirstResponder)
+{
+	zend_object *view = NULL;
+
+	ZEND_PARSE_PARAMETERS_START(1, 1)
+		Z_PARAM_OBJ_OF_CLASS_OR_NULL(view, appkit_ce_NSView)
+	ZEND_PARSE_PARAMETERS_END();
+	APPKIT_REQUIRE_MAIN_THREAD(); /* binding:main-thread-nswindow-set-initial-first-responder */
+
+	APPKIT_BEGIN
+		[THIS_WINDOW setInitialFirstResponder:(view != NULL ? (NSView *) APPKIT_ID(view) : nil)];
+	APPKIT_END
+}
+
+ZEND_METHOD(NSWindow, selectNextKeyView)
+{
+	zend_object *sender = NULL;
+
+	ZEND_PARSE_PARAMETERS_START(1, 1)
+		Z_PARAM_OBJ_OF_CLASS_OR_NULL(sender, appkit_ce_NSObject)
+	ZEND_PARSE_PARAMETERS_END();
+	APPKIT_REQUIRE_MAIN_THREAD(); /* binding:main-thread-nswindow-select-next-key-view */
+
+	APPKIT_BEGIN
+		[THIS_WINDOW selectNextKeyView:(sender != NULL ? APPKIT_ID(sender) : nil)];
+	APPKIT_END
+}
+
+ZEND_METHOD(NSWindow, selectPreviousKeyView)
+{
+	zend_object *sender = NULL;
+
+	ZEND_PARSE_PARAMETERS_START(1, 1)
+		Z_PARAM_OBJ_OF_CLASS_OR_NULL(sender, appkit_ce_NSObject)
+	ZEND_PARSE_PARAMETERS_END();
+	APPKIT_REQUIRE_MAIN_THREAD(); /* binding:main-thread-nswindow-select-previous-key-view */
+
+	APPKIT_BEGIN
+		[THIS_WINDOW selectPreviousKeyView:(sender != NULL ? APPKIT_ID(sender) : nil)];
+	APPKIT_END
+}
+
+ZEND_METHOD(NSWindow, setAutorecalculatesKeyViewLoop)
+{
+	bool recalculates;
+
+	ZEND_PARSE_PARAMETERS_START(1, 1)
+		Z_PARAM_BOOL(recalculates)
+	ZEND_PARSE_PARAMETERS_END();
+	APPKIT_REQUIRE_MAIN_THREAD(); /* binding:main-thread-nswindow-set-autorecalculates-key-view-loop */
+
+	APPKIT_BEGIN
+		[THIS_WINDOW setAutorecalculatesKeyViewLoop:recalculates];
+	APPKIT_END
+}
+
 ZEND_METHOD(NSWindow, firstResponder)
 {
 	ZEND_PARSE_PARAMETERS_NONE();
@@ -322,6 +389,103 @@ ZEND_METHOD(NSWindow, firstResponder)
 
 	APPKIT_BEGIN
 		appkit_box_objc(return_value, [THIS_WINDOW firstResponder]);
+	APPKIT_END
+}
+
+ZEND_METHOD(NSWindow, beginSheetCompletionHandler)
+{
+	zend_object *sheet;
+	zend_object *handler = NULL;
+
+	ZEND_PARSE_PARAMETERS_START(2, 2)
+		Z_PARAM_OBJ_OF_CLASS(sheet, appkit_ce_NSWindow)
+		Z_PARAM_OBJ_OF_CLASS_OR_NULL(handler, zend_ce_closure)
+	ZEND_PARSE_PARAMETERS_END();
+	APPKIT_REQUIRE_MAIN_THREAD(); /* binding:main-thread-nswindow-begin-sheet */
+
+	APPKIT_BEGIN
+		if (handler == NULL) {
+			[THIS_WINDOW beginSheet:(NSWindow *) APPKIT_ID(sheet) completionHandler:nil];
+		} else {
+			zval callable;
+			ZVAL_OBJ(&callable, handler);
+			PHPAppKitBlockCallout *holder = [[[PHPAppKitBlockCallout alloc] init] autorelease];
+			holder->callout = appkit_callout_new(&callable, NULL);
+			appkit_callout_retain(holder->callout);
+
+			[THIS_WINDOW beginSheet:(NSWindow *) APPKIT_ID(sheet) completionHandler:^(NSModalResponse code) {
+				if (appkit_callout_can_enter(holder->callout)) {
+					zval arg;
+					ZVAL_LONG(&arg, (zend_long) code);
+					appkit_callout_invoke(holder->callout, 1, &arg);
+				}
+			}];
+		}
+	APPKIT_END
+}
+
+ZEND_METHOD(NSWindow, endSheet)
+{
+	zend_object *sheet;
+
+	ZEND_PARSE_PARAMETERS_START(1, 1)
+		Z_PARAM_OBJ_OF_CLASS(sheet, appkit_ce_NSWindow)
+	ZEND_PARSE_PARAMETERS_END();
+	APPKIT_REQUIRE_MAIN_THREAD(); /* binding:main-thread-nswindow-end-sheet */
+
+	APPKIT_BEGIN
+		[THIS_WINDOW endSheet:(NSWindow *) APPKIT_ID(sheet)];
+	APPKIT_END
+}
+
+ZEND_METHOD(NSWindow, endSheetReturnCode)
+{
+	zend_object *sheet;
+	zend_long code;
+
+	ZEND_PARSE_PARAMETERS_START(2, 2)
+		Z_PARAM_OBJ_OF_CLASS(sheet, appkit_ce_NSWindow)
+		Z_PARAM_LONG(code)
+	ZEND_PARSE_PARAMETERS_END();
+	APPKIT_REQUIRE_MAIN_THREAD(); /* binding:main-thread-nswindow-end-sheet-return-code */
+
+	APPKIT_BEGIN
+		[THIS_WINDOW endSheet:(NSWindow *) APPKIT_ID(sheet) returnCode:(NSModalResponse) code];
+	APPKIT_END
+}
+
+ZEND_METHOD(NSWindow, sheets)
+{
+	ZEND_PARSE_PARAMETERS_NONE();
+	APPKIT_REQUIRE_MAIN_THREAD(); /* binding:main-thread-nswindow-sheets */
+
+	APPKIT_BEGIN
+		array_init(return_value);
+		for (NSWindow *sheet in [THIS_WINDOW sheets]) {
+			zval boxed;
+			appkit_box_objc(&boxed, sheet);
+			add_next_index_zval(return_value, &boxed);
+		}
+	APPKIT_END
+}
+
+ZEND_METHOD(NSWindow, attachedSheet)
+{
+	ZEND_PARSE_PARAMETERS_NONE();
+	APPKIT_REQUIRE_MAIN_THREAD(); /* binding:main-thread-nswindow-attached-sheet */
+
+	APPKIT_BEGIN
+		appkit_box_objc(return_value, [THIS_WINDOW attachedSheet]);
+	APPKIT_END
+}
+
+ZEND_METHOD(NSWindow, sheetParent)
+{
+	ZEND_PARSE_PARAMETERS_NONE();
+	APPKIT_REQUIRE_MAIN_THREAD(); /* binding:main-thread-nswindow-sheet-parent */
+
+	APPKIT_BEGIN
+		appkit_box_objc(return_value, [THIS_WINDOW sheetParent]);
 	APPKIT_END
 }
 
