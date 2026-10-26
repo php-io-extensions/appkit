@@ -71,6 +71,9 @@ class NSTabView extends NSView
 {
     public function addTabViewItem(NSTabViewItem $item): void {}
 
+    /** May raise NSRangeException for an index outside 0..count */
+    public function insertTabViewItemAtIndex(NSTabViewItem $tabViewItem, int $index): void {}
+
     /** An item not in this tab view is left alone */
     public function removeTabViewItem(NSTabViewItem $item): void {}
 

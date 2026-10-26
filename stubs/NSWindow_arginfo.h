@@ -1,5 +1,5 @@
 /* This is a generated file, edit the .stub.php file instead.
- * Stub hash: 1999dcb9c4054729fb48b8c4281aab2ea341f830 */
+ * Stub hash: f8258dfcc9e5e3d5192ed86def493c04483e6d27 */
 
 ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(arginfo_class_NSWindow_initWithContentRectStyleMaskBackingDefer, 0, 4, NSWindow, 0)
 	ZEND_ARG_OBJ_INFO(0, contentRect, NSRect, 0)
@@ -171,13 +171,24 @@ ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(arginfo_class_NSWindow_contentRectForFram
 	ZEND_ARG_OBJ_INFO(0, frame, NSRect, 0)
 ZEND_END_ARG_INFO()
 
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_NSWindow_addChildWindowOrdered, 0, 2, IS_VOID, 0)
+	ZEND_ARG_OBJ_INFO(0, childWin, NSWindow, 0)
+	ZEND_ARG_OBJ_INFO(0, place, NSWindowOrderingMode, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_NSWindow_removeChildWindow, 0, 1, IS_VOID, 0)
+	ZEND_ARG_OBJ_INFO(0, childWin, NSWindow, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(arginfo_class_NSWindow_convertRectToScreen, 0, 1, NSRect, 0)
+	ZEND_ARG_OBJ_INFO(0, rect, NSRect, 0)
+ZEND_END_ARG_INFO()
+
 ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(arginfo_class_NSWindow_frameRectForContentRect, 0, 1, NSRect, 0)
 	ZEND_ARG_OBJ_INFO(0, content, NSRect, 0)
 ZEND_END_ARG_INFO()
 
-ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(arginfo_class_NSWindow_convertRectToBacking, 0, 1, NSRect, 0)
-	ZEND_ARG_OBJ_INFO(0, rect, NSRect, 0)
-ZEND_END_ARG_INFO()
+#define arginfo_class_NSWindow_convertRectToBacking arginfo_class_NSWindow_convertRectToScreen
 
 #define arginfo_class_NSWindow_orderFront arginfo_class_NSWindow_makeKeyAndOrderFront
 
@@ -312,6 +323,9 @@ ZEND_METHOD(NSWindow, setContentAspectRatio);
 ZEND_METHOD(NSWindow, setFrameOrigin);
 ZEND_METHOD(NSWindow, setFrameDisplay);
 ZEND_METHOD(NSWindow, contentRectForFrameRect);
+ZEND_METHOD(NSWindow, addChildWindowOrdered);
+ZEND_METHOD(NSWindow, removeChildWindow);
+ZEND_METHOD(NSWindow, convertRectToScreen);
 ZEND_METHOD(NSWindow, frameRectForContentRect);
 ZEND_METHOD(NSWindow, convertRectToBacking);
 ZEND_METHOD(NSWindow, orderFront);
@@ -398,6 +412,9 @@ static const zend_function_entry class_NSWindow_methods[] = {
 	ZEND_ME(NSWindow, setFrameOrigin, arginfo_class_NSWindow_setFrameOrigin, ZEND_ACC_PUBLIC)
 	ZEND_ME(NSWindow, setFrameDisplay, arginfo_class_NSWindow_setFrameDisplay, ZEND_ACC_PUBLIC)
 	ZEND_ME(NSWindow, contentRectForFrameRect, arginfo_class_NSWindow_contentRectForFrameRect, ZEND_ACC_PUBLIC)
+	ZEND_ME(NSWindow, addChildWindowOrdered, arginfo_class_NSWindow_addChildWindowOrdered, ZEND_ACC_PUBLIC)
+	ZEND_ME(NSWindow, removeChildWindow, arginfo_class_NSWindow_removeChildWindow, ZEND_ACC_PUBLIC)
+	ZEND_ME(NSWindow, convertRectToScreen, arginfo_class_NSWindow_convertRectToScreen, ZEND_ACC_PUBLIC)
 	ZEND_ME(NSWindow, frameRectForContentRect, arginfo_class_NSWindow_frameRectForContentRect, ZEND_ACC_PUBLIC)
 	ZEND_ME(NSWindow, convertRectToBacking, arginfo_class_NSWindow_convertRectToBacking, ZEND_ACC_PUBLIC)
 	ZEND_ME(NSWindow, orderFront, arginfo_class_NSWindow_orderFront, ZEND_ACC_PUBLIC)
@@ -499,6 +516,25 @@ static zend_class_entry *register_class_NSWindowStyleMask(void)
 	zval enum_case_FULL_SIZE_CONTENT_VIEW_value;
 	ZVAL_LONG(&enum_case_FULL_SIZE_CONTENT_VIEW_value, 32768);
 	zend_enum_add_case_cstr(class_entry, "FULL_SIZE_CONTENT_VIEW", &enum_case_FULL_SIZE_CONTENT_VIEW_value);
+
+	return class_entry;
+}
+
+static zend_class_entry *register_class_NSWindowOrderingMode(void)
+{
+	zend_class_entry *class_entry = zend_register_internal_enum("NSWindowOrderingMode", IS_LONG, NULL);
+
+	zval enum_case_ABOVE_value;
+	ZVAL_LONG(&enum_case_ABOVE_value, 1);
+	zend_enum_add_case_cstr(class_entry, "ABOVE", &enum_case_ABOVE_value);
+
+	zval enum_case_BELOW_value;
+	ZVAL_LONG(&enum_case_BELOW_value, -1);
+	zend_enum_add_case_cstr(class_entry, "BELOW", &enum_case_BELOW_value);
+
+	zval enum_case_OUT_value;
+	ZVAL_LONG(&enum_case_OUT_value, 0);
+	zend_enum_add_case_cstr(class_entry, "OUT", &enum_case_OUT_value);
 
 	return class_entry;
 }

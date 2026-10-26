@@ -19,6 +19,13 @@ enum NSWindowStyleMask: int
     case FULL_SIZE_CONTENT_VIEW = 32768;
 }
 
+enum NSWindowOrderingMode: int
+{
+    case ABOVE = 1;
+    case BELOW = -1;
+    case OUT = 0;
+}
+
 /**
  * @var int
  * @cvalue NSNormalWindowLevel
@@ -239,6 +246,14 @@ class NSWindow extends NSResponder
     public function setFrameDisplay(NSRect $frame, bool $display): void {}
 
     public function contentRectForFrameRect(NSRect $frame): NSRect {}
+
+    /** addChildWindow:ordered: — the child moves with this window and stays ordered to it. */
+    public function addChildWindowOrdered(NSWindow $childWin, NSWindowOrderingMode $place): void {}
+
+    public function removeChildWindow(NSWindow $childWin): void {}
+
+    /** $rect in the window's base coordinates, in screen coordinates. */
+    public function convertRectToScreen(NSRect $rect): NSRect {}
 
     public function frameRectForContentRect(NSRect $content): NSRect {}
 

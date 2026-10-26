@@ -11,6 +11,38 @@ enum NSViewLayerContentsRedrawPolicy: int
     case CROSSFADE = 4;
 }
 
+/** NS_OPTIONS: combine the values with |. */
+enum NSTrackingAreaOptions: int
+{
+    case MOUSE_ENTERED_AND_EXITED = 0x01;
+    case MOUSE_MOVED = 0x02;
+    case CURSOR_UPDATE = 0x04;
+    case ACTIVE_WHEN_FIRST_RESPONDER = 0x10;
+    case ACTIVE_IN_KEY_WINDOW = 0x20;
+    case ACTIVE_IN_ACTIVE_APP = 0x40;
+    case ACTIVE_ALWAYS = 0x80;
+    case ASSUME_INSIDE = 0x100;
+    case IN_VISIBLE_RECT = 0x200;
+    case ENABLED_DURING_MOUSE_DRAG = 0x400;
+}
+
+/**
+ * A region of a view whose mouse entered, exited and moved events AppKit sends to its owner.
+ * Any thread may make one; NSView::addTrackingArea() installs it.
+ *
+ * @not-serializable
+ */
+class NSTrackingArea extends NSObject
+{
+    public static function initWithRectOptionsOwnerUserInfo(NSRect $rect, NSTrackingAreaOptions|int $options, ?NSObject $owner, ?array $userInfo): static {}
+
+    public function rect(): NSRect {}
+
+    public function options(): NSTrackingAreaOptions|int {}
+
+    public function owner(): ?NSObject {}
+}
+
 /**
  * @not-serializable
  */
@@ -35,6 +67,13 @@ class NSView extends NSResponder
 
     /** $point in $view's coordinates (the window's base coordinates for null), in this view's. */
     public function convertPointFromView(NSPoint $point, ?NSView $view): NSPoint {}
+
+    /** $rect in this view's coordinates, in $view's (the window's base coordinates for null). */
+    public function convertRectToView(NSRect $rect, ?NSView $view): NSRect {}
+
+    public function addTrackingArea(NSTrackingArea $trackingArea): void {}
+
+    public function removeTrackingArea(NSTrackingArea $trackingArea): void {}
 
     public function isFlipped(): bool {}
 

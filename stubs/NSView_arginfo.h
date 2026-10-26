@@ -1,12 +1,27 @@
 /* This is a generated file, edit the .stub.php file instead.
- * Stub hash: 1197c667cc899085ac531961bfe5f303ffa9c88a */
+ * Stub hash: cc6d215eac1c2c5d992f16e8e0fa07f7d8e552ac */
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_NSTrackingArea_initWithRectOptionsOwnerUserInfo, 0, 4, IS_STATIC, 0)
+	ZEND_ARG_OBJ_INFO(0, rect, NSRect, 0)
+	ZEND_ARG_OBJ_TYPE_MASK(0, options, NSTrackingAreaOptions, MAY_BE_LONG, NULL)
+	ZEND_ARG_OBJ_INFO(0, owner, NSObject, 1)
+	ZEND_ARG_TYPE_INFO(0, userInfo, IS_ARRAY, 1)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(arginfo_class_NSTrackingArea_rect, 0, 0, NSRect, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_OBJ_TYPE_MASK_EX(arginfo_class_NSTrackingArea_options, 0, 0, NSTrackingAreaOptions, MAY_BE_LONG)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(arginfo_class_NSTrackingArea_owner, 0, 0, NSObject, 1)
+ZEND_END_ARG_INFO()
 
 ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_NSView_initWithFrame, 0, 1, IS_STATIC, 0)
 	ZEND_ARG_OBJ_INFO(0, frame, NSRect, 0)
 ZEND_END_ARG_INFO()
 
-ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(arginfo_class_NSView_frame, 0, 0, NSRect, 0)
-ZEND_END_ARG_INFO()
+#define arginfo_class_NSView_frame arginfo_class_NSTrackingArea_rect
 
 ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_NSView_setFrame, 0, 1, IS_VOID, 0)
 	ZEND_ARG_OBJ_INFO(0, frame, NSRect, 0)
@@ -29,6 +44,17 @@ ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(arginfo_class_NSView_convertPointFromView
 	ZEND_ARG_OBJ_INFO(0, point, NSPoint, 0)
 	ZEND_ARG_OBJ_INFO(0, view, NSView, 1)
 ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(arginfo_class_NSView_convertRectToView, 0, 2, NSRect, 0)
+	ZEND_ARG_OBJ_INFO(0, rect, NSRect, 0)
+	ZEND_ARG_OBJ_INFO(0, view, NSView, 1)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_NSView_addTrackingArea, 0, 1, IS_VOID, 0)
+	ZEND_ARG_OBJ_INFO(0, trackingArea, NSTrackingArea, 0)
+ZEND_END_ARG_INFO()
+
+#define arginfo_class_NSView_removeTrackingArea arginfo_class_NSView_addTrackingArea
 
 ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_NSView_isFlipped, 0, 0, _IS_BOOL, 0)
 ZEND_END_ARG_INFO()
@@ -83,7 +109,7 @@ ZEND_END_ARG_INFO()
 
 #define arginfo_class_NSView_layoutSubtreeIfNeeded arginfo_class_NSView_removeFromSuperview
 
-#define arginfo_class_NSView_visibleRect arginfo_class_NSView_frame
+#define arginfo_class_NSView_visibleRect arginfo_class_NSTrackingArea_rect
 
 ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_NSView_scrollPoint, 0, 1, IS_VOID, 0)
 	ZEND_ARG_OBJ_INFO(0, point, NSPoint, 0)
@@ -139,13 +165,13 @@ ZEND_END_ARG_INFO()
 
 #define arginfo_class_NSView_centerYAnchor arginfo_class_NSView_topAnchor
 
-#define arginfo_class_NSView_bounds arginfo_class_NSView_frame
+#define arginfo_class_NSView_bounds arginfo_class_NSTrackingArea_rect
 
 ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(arginfo_class_NSView_convertRectToBacking, 0, 1, NSRect, 0)
 	ZEND_ARG_OBJ_INFO(0, rect, NSRect, 0)
 ZEND_END_ARG_INFO()
 
-#define arginfo_class_NSView_safeAreaRect arginfo_class_NSView_frame
+#define arginfo_class_NSView_safeAreaRect arginfo_class_NSTrackingArea_rect
 
 ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(arginfo_class_NSView_convertSizeToBacking, 0, 1, NSSize, 0)
 	ZEND_ARG_OBJ_INFO(0, size, NSSize, 0)
@@ -169,6 +195,10 @@ ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(arginfo_class_NSView_displayLinkWithTarge
 	ZEND_ARG_TYPE_INFO(0, selector, IS_STRING, 0)
 ZEND_END_ARG_INFO()
 
+ZEND_METHOD(NSTrackingArea, initWithRectOptionsOwnerUserInfo);
+ZEND_METHOD(NSTrackingArea, rect);
+ZEND_METHOD(NSTrackingArea, options);
+ZEND_METHOD(NSTrackingArea, owner);
 ZEND_METHOD(NSView, initWithFrame);
 ZEND_METHOD(NSView, frame);
 ZEND_METHOD(NSView, setFrame);
@@ -177,6 +207,9 @@ ZEND_METHOD(NSView, menu);
 ZEND_METHOD(NSView, superview);
 ZEND_METHOD(NSView, hitTest);
 ZEND_METHOD(NSView, convertPointFromView);
+ZEND_METHOD(NSView, convertRectToView);
+ZEND_METHOD(NSView, addTrackingArea);
+ZEND_METHOD(NSView, removeTrackingArea);
 ZEND_METHOD(NSView, isFlipped);
 ZEND_METHOD(NSView, subviews);
 ZEND_METHOD(NSView, addSubview);
@@ -229,6 +262,14 @@ ZEND_METHOD(NSView, layerContentsRedrawPolicy);
 ZEND_METHOD(NSView, setLayerContentsRedrawPolicy);
 ZEND_METHOD(NSView, displayLinkWithTargetSelector);
 
+static const zend_function_entry class_NSTrackingArea_methods[] = {
+	ZEND_ME(NSTrackingArea, initWithRectOptionsOwnerUserInfo, arginfo_class_NSTrackingArea_initWithRectOptionsOwnerUserInfo, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	ZEND_ME(NSTrackingArea, rect, arginfo_class_NSTrackingArea_rect, ZEND_ACC_PUBLIC)
+	ZEND_ME(NSTrackingArea, options, arginfo_class_NSTrackingArea_options, ZEND_ACC_PUBLIC)
+	ZEND_ME(NSTrackingArea, owner, arginfo_class_NSTrackingArea_owner, ZEND_ACC_PUBLIC)
+	ZEND_FE_END
+};
+
 static const zend_function_entry class_NSView_methods[] = {
 	ZEND_ME(NSView, initWithFrame, arginfo_class_NSView_initWithFrame, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
 	ZEND_ME(NSView, frame, arginfo_class_NSView_frame, ZEND_ACC_PUBLIC)
@@ -238,6 +279,9 @@ static const zend_function_entry class_NSView_methods[] = {
 	ZEND_ME(NSView, superview, arginfo_class_NSView_superview, ZEND_ACC_PUBLIC)
 	ZEND_ME(NSView, hitTest, arginfo_class_NSView_hitTest, ZEND_ACC_PUBLIC)
 	ZEND_ME(NSView, convertPointFromView, arginfo_class_NSView_convertPointFromView, ZEND_ACC_PUBLIC)
+	ZEND_ME(NSView, convertRectToView, arginfo_class_NSView_convertRectToView, ZEND_ACC_PUBLIC)
+	ZEND_ME(NSView, addTrackingArea, arginfo_class_NSView_addTrackingArea, ZEND_ACC_PUBLIC)
+	ZEND_ME(NSView, removeTrackingArea, arginfo_class_NSView_removeTrackingArea, ZEND_ACC_PUBLIC)
 	ZEND_ME(NSView, isFlipped, arginfo_class_NSView_isFlipped, ZEND_ACC_PUBLIC)
 	ZEND_ME(NSView, subviews, arginfo_class_NSView_subviews, ZEND_ACC_PUBLIC)
 	ZEND_ME(NSView, addSubview, arginfo_class_NSView_addSubview, ZEND_ACC_PUBLIC)
@@ -315,6 +359,63 @@ static zend_class_entry *register_class_NSViewLayerContentsRedrawPolicy(void)
 	zval enum_case_CROSSFADE_value;
 	ZVAL_LONG(&enum_case_CROSSFADE_value, 4);
 	zend_enum_add_case_cstr(class_entry, "CROSSFADE", &enum_case_CROSSFADE_value);
+
+	return class_entry;
+}
+
+static zend_class_entry *register_class_NSTrackingAreaOptions(void)
+{
+	zend_class_entry *class_entry = zend_register_internal_enum("NSTrackingAreaOptions", IS_LONG, NULL);
+
+	zval enum_case_MOUSE_ENTERED_AND_EXITED_value;
+	ZVAL_LONG(&enum_case_MOUSE_ENTERED_AND_EXITED_value, 0x1);
+	zend_enum_add_case_cstr(class_entry, "MOUSE_ENTERED_AND_EXITED", &enum_case_MOUSE_ENTERED_AND_EXITED_value);
+
+	zval enum_case_MOUSE_MOVED_value;
+	ZVAL_LONG(&enum_case_MOUSE_MOVED_value, 0x2);
+	zend_enum_add_case_cstr(class_entry, "MOUSE_MOVED", &enum_case_MOUSE_MOVED_value);
+
+	zval enum_case_CURSOR_UPDATE_value;
+	ZVAL_LONG(&enum_case_CURSOR_UPDATE_value, 0x4);
+	zend_enum_add_case_cstr(class_entry, "CURSOR_UPDATE", &enum_case_CURSOR_UPDATE_value);
+
+	zval enum_case_ACTIVE_WHEN_FIRST_RESPONDER_value;
+	ZVAL_LONG(&enum_case_ACTIVE_WHEN_FIRST_RESPONDER_value, 0x10);
+	zend_enum_add_case_cstr(class_entry, "ACTIVE_WHEN_FIRST_RESPONDER", &enum_case_ACTIVE_WHEN_FIRST_RESPONDER_value);
+
+	zval enum_case_ACTIVE_IN_KEY_WINDOW_value;
+	ZVAL_LONG(&enum_case_ACTIVE_IN_KEY_WINDOW_value, 0x20);
+	zend_enum_add_case_cstr(class_entry, "ACTIVE_IN_KEY_WINDOW", &enum_case_ACTIVE_IN_KEY_WINDOW_value);
+
+	zval enum_case_ACTIVE_IN_ACTIVE_APP_value;
+	ZVAL_LONG(&enum_case_ACTIVE_IN_ACTIVE_APP_value, 0x40);
+	zend_enum_add_case_cstr(class_entry, "ACTIVE_IN_ACTIVE_APP", &enum_case_ACTIVE_IN_ACTIVE_APP_value);
+
+	zval enum_case_ACTIVE_ALWAYS_value;
+	ZVAL_LONG(&enum_case_ACTIVE_ALWAYS_value, 0x80);
+	zend_enum_add_case_cstr(class_entry, "ACTIVE_ALWAYS", &enum_case_ACTIVE_ALWAYS_value);
+
+	zval enum_case_ASSUME_INSIDE_value;
+	ZVAL_LONG(&enum_case_ASSUME_INSIDE_value, 0x100);
+	zend_enum_add_case_cstr(class_entry, "ASSUME_INSIDE", &enum_case_ASSUME_INSIDE_value);
+
+	zval enum_case_IN_VISIBLE_RECT_value;
+	ZVAL_LONG(&enum_case_IN_VISIBLE_RECT_value, 0x200);
+	zend_enum_add_case_cstr(class_entry, "IN_VISIBLE_RECT", &enum_case_IN_VISIBLE_RECT_value);
+
+	zval enum_case_ENABLED_DURING_MOUSE_DRAG_value;
+	ZVAL_LONG(&enum_case_ENABLED_DURING_MOUSE_DRAG_value, 0x400);
+	zend_enum_add_case_cstr(class_entry, "ENABLED_DURING_MOUSE_DRAG", &enum_case_ENABLED_DURING_MOUSE_DRAG_value);
+
+	return class_entry;
+}
+
+static zend_class_entry *register_class_NSTrackingArea(zend_class_entry *class_entry_NSObject)
+{
+	zend_class_entry ce, *class_entry;
+
+	INIT_CLASS_ENTRY(ce, "NSTrackingArea", class_NSTrackingArea_methods);
+	class_entry = zend_register_internal_class_with_flags(&ce, class_entry_NSObject, ZEND_ACC_NOT_SERIALIZABLE);
 
 	return class_entry;
 }

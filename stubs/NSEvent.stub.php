@@ -2,6 +2,18 @@
 
 /** @generate-class-entries */
 
+/** NS_OPTIONS: a phase may combine values with |. */
+enum NSEventPhase: int
+{
+    case NONE = 0;
+    case BEGAN = 1;
+    case STATIONARY = 2;
+    case CHANGED = 4;
+    case ENDED = 8;
+    case CANCELLED = 16;
+    case MAY_BEGIN = 32;
+}
+
 enum NSEventType: int
 {
     case LEFT_MOUSE_DOWN = 1;
@@ -164,6 +176,15 @@ class NSEvent extends NSObject
     public function scrollingDeltaY(): float {}
 
     public function hasPreciseScrollingDeltas(): bool {}
+
+    /** A scroll's gesture phase: NSEventPhase values combined with |. */
+    public function phase(): NSEventPhase|int {}
+
+    /** A scroll's momentum phase: NSEventPhase values combined with |. */
+    public function momentumPhase(): NSEventPhase|int {}
+
+    /** The tracking area of a mouse entered, exited or cursor-update event; AppKit raises for any other event. */
+    public function trackingArea(): ?NSTrackingArea {}
 
     public function isDirectionInvertedFromDevice(): bool {}
 

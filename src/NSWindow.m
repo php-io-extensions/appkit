@@ -21,6 +21,7 @@ void appkit_register_NSWindow(int module_number)
 	appkit_ce_NSWindowOcclusionState = register_class_NSWindowOcclusionState();
 	appkit_ce_NSWindowStyleMask = register_class_NSWindowStyleMask();
 	appkit_ce_NSBackingStoreType = register_class_NSBackingStoreType();
+	appkit_ce_NSWindowOrderingMode = register_class_NSWindowOrderingMode();
 	appkit_ce_NSWindow = register_class_NSWindow(appkit_ce_NSResponder);
 	appkit_object_setup(appkit_ce_NSWindow);
 	appkit_map_objc_class("NSWindow", appkit_ce_NSWindow);
@@ -568,6 +569,23 @@ ZEND_METHOD(NSWindow, setFrameDisplay)
 METHOD(NSWindow, contentRectForFrameRect, PARSE_RECT, appkit_return_rect(return_value, [THIS_WINDOW contentRectForFrameRect:v]);)
 METHOD(NSWindow, frameRectForContentRect, PARSE_RECT, appkit_return_rect(return_value, [THIS_WINDOW frameRectForContentRect:v]);)
 METHOD(NSWindow, convertRectToBacking, PARSE_RECT, appkit_return_rect(return_value, [THIS_WINDOW convertRectToBacking:v]);)
+METHOD(NSWindow, convertRectToScreen, PARSE_RECT, appkit_return_rect(return_value, [THIS_WINDOW convertRectToScreen:v]);) /* binding:main-thread-nswindow-convert-rect-to-screen */
+OBJ_SET(NSWindow, NSWindow, removeChildWindow, removeChildWindow, appkit_ce_NSWindow, NSWindow *) /* binding:main-thread-nswindow-remove-child-window */
+
+ZEND_METHOD(NSWindow, addChildWindowOrdered)
+{
+	zend_object *child, *place;
+
+	ZEND_PARSE_PARAMETERS_START(2, 2)
+		Z_PARAM_OBJ_OF_CLASS(child, appkit_ce_NSWindow)
+		Z_PARAM_OBJ_OF_CLASS(place, appkit_ce_NSWindowOrderingMode)
+	ZEND_PARSE_PARAMETERS_END();
+	APPKIT_REQUIRE_MAIN_THREAD(); /* binding:main-thread-nswindow-add-child-window-ordered */
+
+	APPKIT_BEGIN
+		[THIS_WINDOW addChildWindow:(NSWindow *) APPKIT_ID(child) ordered:(NSWindowOrderingMode) appkit_enum_value(place, 0)];
+	APPKIT_END
+}
 
 APPKIT_SENDER_METHOD(orderFront, orderFront)
 APPKIT_SENDER_METHOD(zoom, zoom)

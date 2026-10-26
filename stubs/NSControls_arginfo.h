@@ -1,5 +1,5 @@
 /* This is a generated file, edit the .stub.php file instead.
- * Stub hash: 66e159dea460ef081ad277665f707a72bde59080 */
+ * Stub hash: 90e10acf4dffb8c518dd4b590d4e4c050196ef4c */
 
 ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_NSControl_isEnabled, 0, 0, _IS_BOOL, 0)
 ZEND_END_ARG_INFO()
@@ -67,6 +67,12 @@ ZEND_END_ARG_INFO()
 ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_NSControl_sendActionTo, 0, 2, _IS_BOOL, 0)
 	ZEND_ARG_TYPE_INFO(0, action, IS_STRING, 1)
 	ZEND_ARG_OBJ_INFO(0, target, NSObject, 1)
+ZEND_END_ARG_INFO()
+
+#define arginfo_class_NSControl_refusesFirstResponder arginfo_class_NSControl_isEnabled
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_NSControl_setRefusesFirstResponder, 0, 1, IS_VOID, 0)
+	ZEND_ARG_TYPE_INFO(0, refusesFirstResponder, _IS_BOOL, 0)
 ZEND_END_ARG_INFO()
 
 ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_NSTextField_labelWithString, 0, 1, IS_STATIC, 0)
@@ -193,6 +199,26 @@ ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_NSButton_setKeyEquivalent,
 	ZEND_ARG_TYPE_INFO(0, keyEquivalent, IS_STRING, 0)
 ZEND_END_ARG_INFO()
 
+ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(arginfo_class_NSButton_image, 0, 0, NSImage, 1)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_NSButton_setImage, 0, 1, IS_VOID, 0)
+	ZEND_ARG_OBJ_INFO(0, image, NSImage, 1)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(arginfo_class_NSButton_imagePosition, 0, 0, NSCellImagePosition, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_NSButton_setImagePosition, 0, 1, IS_VOID, 0)
+	ZEND_ARG_OBJ_INFO(0, imagePosition, NSCellImagePosition, 0)
+ZEND_END_ARG_INFO()
+
+#define arginfo_class_NSButton_isBordered arginfo_class_NSControl_isEnabled
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_NSButton_setBordered, 0, 1, IS_VOID, 0)
+	ZEND_ARG_TYPE_INFO(0, bordered, _IS_BOOL, 0)
+ZEND_END_ARG_INFO()
+
 #define arginfo_class_NSSwitch_state arginfo_class_NSButton_state
 
 #define arginfo_class_NSSwitch_setState arginfo_class_NSButton_setState
@@ -243,6 +269,55 @@ ZEND_END_ARG_INFO()
 #define arginfo_class_NSPopUpButton_titleOfSelectedItem arginfo_class_NSControl_action
 
 ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_NSPopUpButton_itemTitles, 0, 0, IS_ARRAY, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_NSComboBox_addItemWithObjectValue, 0, 1, IS_VOID, 0)
+	ZEND_ARG_TYPE_INFO(0, object, IS_STRING, 0)
+ZEND_END_ARG_INFO()
+
+#define arginfo_class_NSComboBox_removeAllItems arginfo_class_NSControl_sizeToFit
+
+#define arginfo_class_NSComboBox_numberOfItems arginfo_class_NSControl_integerValue
+
+#define arginfo_class_NSComboBox_indexOfSelectedItem arginfo_class_NSControl_integerValue
+
+#define arginfo_class_NSComboBox_selectItemAtIndex arginfo_class_NSPopUpButton_selectItemAtIndex
+
+#define arginfo_class_NSComboBox_deselectItemAtIndex arginfo_class_NSPopUpButton_selectItemAtIndex
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_NSComboBox_setNumberOfVisibleItems, 0, 1, IS_VOID, 0)
+	ZEND_ARG_TYPE_INFO(0, numberOfVisibleItems, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_NSScroller_scrollerWidthForControlSizeScrollerStyle, 0, 2, IS_DOUBLE, 0)
+	ZEND_ARG_OBJ_INFO(0, controlSize, NSControlSize, 0)
+	ZEND_ARG_OBJ_INFO(0, scrollerStyle, NSScrollerStyle, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(arginfo_class_NSScroller_preferredScrollerStyle, 0, 0, NSScrollerStyle, 0)
+ZEND_END_ARG_INFO()
+
+#define arginfo_class_NSScroller_scrollerStyle arginfo_class_NSScroller_preferredScrollerStyle
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_NSScroller_setScrollerStyle, 0, 1, IS_VOID, 0)
+	ZEND_ARG_OBJ_INFO(0, scrollerStyle, NSScrollerStyle, 0)
+ZEND_END_ARG_INFO()
+
+#define arginfo_class_NSScroller_knobProportion arginfo_class_NSControl_doubleValue
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_NSScroller_setKnobProportion, 0, 1, IS_VOID, 0)
+	ZEND_ARG_TYPE_INFO(0, knobProportion, IS_DOUBLE, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_OBJ_TYPE_MASK_EX(arginfo_class_NSScroller_hitPart, 0, 0, NSScrollerPart, MAY_BE_LONG)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(arginfo_class_NSScroller_rectForPart, 0, 1, NSRect, 0)
+	ZEND_ARG_OBJ_INFO(0, partCode, NSScrollerPart, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_OBJ_TYPE_MASK_EX(arginfo_class_NSScroller_testPart, 0, 1, NSScrollerPart, MAY_BE_LONG)
+	ZEND_ARG_OBJ_INFO(0, point, NSPoint, 0)
 ZEND_END_ARG_INFO()
 
 ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(arginfo_class_NSTimeZone_timeZoneWithName, 0, 1, NSTimeZone, 1)
@@ -396,12 +471,9 @@ ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_NSImageView_imageViewWithI
 	ZEND_ARG_OBJ_INFO(0, image, NSImage, 0)
 ZEND_END_ARG_INFO()
 
-ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(arginfo_class_NSImageView_image, 0, 0, NSImage, 1)
-ZEND_END_ARG_INFO()
+#define arginfo_class_NSImageView_image arginfo_class_NSButton_image
 
-ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_NSImageView_setImage, 0, 1, IS_VOID, 0)
-	ZEND_ARG_OBJ_INFO(0, image, NSImage, 1)
-ZEND_END_ARG_INFO()
+#define arginfo_class_NSImageView_setImage arginfo_class_NSButton_setImage
 
 ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(arginfo_class_NSImageView_imageScaling, 0, 0, NSImageScaling, 0)
 ZEND_END_ARG_INFO()
@@ -572,6 +644,8 @@ ZEND_METHOD(NSControl, setAlignment);
 ZEND_METHOD(NSControl, sizeToFit);
 ZEND_METHOD(NSControl, performClick);
 ZEND_METHOD(NSControl, sendActionTo);
+ZEND_METHOD(NSControl, refusesFirstResponder);
+ZEND_METHOD(NSControl, setRefusesFirstResponder);
 ZEND_METHOD(NSTextField, labelWithString);
 ZEND_METHOD(NSTextField, labelWithAttributedString);
 ZEND_METHOD(NSTextField, attributedStringValue);
@@ -612,6 +686,12 @@ ZEND_METHOD(NSButton, contentTintColor);
 ZEND_METHOD(NSButton, setContentTintColor);
 ZEND_METHOD(NSButton, keyEquivalent);
 ZEND_METHOD(NSButton, setKeyEquivalent);
+ZEND_METHOD(NSButton, image);
+ZEND_METHOD(NSButton, setImage);
+ZEND_METHOD(NSButton, imagePosition);
+ZEND_METHOD(NSButton, setImagePosition);
+ZEND_METHOD(NSButton, isBordered);
+ZEND_METHOD(NSButton, setBordered);
 ZEND_METHOD(NSSwitch, state);
 ZEND_METHOD(NSSwitch, setState);
 ZEND_METHOD(NSSlider, sliderWithValueMinValueMaxValueTargetAction);
@@ -630,6 +710,22 @@ ZEND_METHOD(NSPopUpButton, indexOfSelectedItem);
 ZEND_METHOD(NSPopUpButton, selectItemAtIndex);
 ZEND_METHOD(NSPopUpButton, titleOfSelectedItem);
 ZEND_METHOD(NSPopUpButton, itemTitles);
+ZEND_METHOD(NSComboBox, addItemWithObjectValue);
+ZEND_METHOD(NSComboBox, removeAllItems);
+ZEND_METHOD(NSComboBox, numberOfItems);
+ZEND_METHOD(NSComboBox, indexOfSelectedItem);
+ZEND_METHOD(NSComboBox, selectItemAtIndex);
+ZEND_METHOD(NSComboBox, deselectItemAtIndex);
+ZEND_METHOD(NSComboBox, setNumberOfVisibleItems);
+ZEND_METHOD(NSScroller, scrollerWidthForControlSizeScrollerStyle);
+ZEND_METHOD(NSScroller, preferredScrollerStyle);
+ZEND_METHOD(NSScroller, scrollerStyle);
+ZEND_METHOD(NSScroller, setScrollerStyle);
+ZEND_METHOD(NSScroller, knobProportion);
+ZEND_METHOD(NSScroller, setKnobProportion);
+ZEND_METHOD(NSScroller, hitPart);
+ZEND_METHOD(NSScroller, rectForPart);
+ZEND_METHOD(NSScroller, testPart);
 ZEND_METHOD(NSTimeZone, timeZoneWithName);
 ZEND_METHOD(NSTimeZone, name);
 ZEND_METHOD(NSDatePicker, dateValue);
@@ -753,6 +849,8 @@ static const zend_function_entry class_NSControl_methods[] = {
 	ZEND_ME(NSControl, sizeToFit, arginfo_class_NSControl_sizeToFit, ZEND_ACC_PUBLIC)
 	ZEND_ME(NSControl, performClick, arginfo_class_NSControl_performClick, ZEND_ACC_PUBLIC)
 	ZEND_ME(NSControl, sendActionTo, arginfo_class_NSControl_sendActionTo, ZEND_ACC_PUBLIC)
+	ZEND_ME(NSControl, refusesFirstResponder, arginfo_class_NSControl_refusesFirstResponder, ZEND_ACC_PUBLIC)
+	ZEND_ME(NSControl, setRefusesFirstResponder, arginfo_class_NSControl_setRefusesFirstResponder, ZEND_ACC_PUBLIC)
 	ZEND_FE_END
 };
 
@@ -801,6 +899,12 @@ static const zend_function_entry class_NSButton_methods[] = {
 	ZEND_ME(NSButton, setContentTintColor, arginfo_class_NSButton_setContentTintColor, ZEND_ACC_PUBLIC)
 	ZEND_ME(NSButton, keyEquivalent, arginfo_class_NSButton_keyEquivalent, ZEND_ACC_PUBLIC)
 	ZEND_ME(NSButton, setKeyEquivalent, arginfo_class_NSButton_setKeyEquivalent, ZEND_ACC_PUBLIC)
+	ZEND_ME(NSButton, image, arginfo_class_NSButton_image, ZEND_ACC_PUBLIC)
+	ZEND_ME(NSButton, setImage, arginfo_class_NSButton_setImage, ZEND_ACC_PUBLIC)
+	ZEND_ME(NSButton, imagePosition, arginfo_class_NSButton_imagePosition, ZEND_ACC_PUBLIC)
+	ZEND_ME(NSButton, setImagePosition, arginfo_class_NSButton_setImagePosition, ZEND_ACC_PUBLIC)
+	ZEND_ME(NSButton, isBordered, arginfo_class_NSButton_isBordered, ZEND_ACC_PUBLIC)
+	ZEND_ME(NSButton, setBordered, arginfo_class_NSButton_setBordered, ZEND_ACC_PUBLIC)
 	ZEND_FE_END
 };
 
@@ -831,6 +935,30 @@ static const zend_function_entry class_NSPopUpButton_methods[] = {
 	ZEND_ME(NSPopUpButton, selectItemAtIndex, arginfo_class_NSPopUpButton_selectItemAtIndex, ZEND_ACC_PUBLIC)
 	ZEND_ME(NSPopUpButton, titleOfSelectedItem, arginfo_class_NSPopUpButton_titleOfSelectedItem, ZEND_ACC_PUBLIC)
 	ZEND_ME(NSPopUpButton, itemTitles, arginfo_class_NSPopUpButton_itemTitles, ZEND_ACC_PUBLIC)
+	ZEND_FE_END
+};
+
+static const zend_function_entry class_NSComboBox_methods[] = {
+	ZEND_ME(NSComboBox, addItemWithObjectValue, arginfo_class_NSComboBox_addItemWithObjectValue, ZEND_ACC_PUBLIC)
+	ZEND_ME(NSComboBox, removeAllItems, arginfo_class_NSComboBox_removeAllItems, ZEND_ACC_PUBLIC)
+	ZEND_ME(NSComboBox, numberOfItems, arginfo_class_NSComboBox_numberOfItems, ZEND_ACC_PUBLIC)
+	ZEND_ME(NSComboBox, indexOfSelectedItem, arginfo_class_NSComboBox_indexOfSelectedItem, ZEND_ACC_PUBLIC)
+	ZEND_ME(NSComboBox, selectItemAtIndex, arginfo_class_NSComboBox_selectItemAtIndex, ZEND_ACC_PUBLIC)
+	ZEND_ME(NSComboBox, deselectItemAtIndex, arginfo_class_NSComboBox_deselectItemAtIndex, ZEND_ACC_PUBLIC)
+	ZEND_ME(NSComboBox, setNumberOfVisibleItems, arginfo_class_NSComboBox_setNumberOfVisibleItems, ZEND_ACC_PUBLIC)
+	ZEND_FE_END
+};
+
+static const zend_function_entry class_NSScroller_methods[] = {
+	ZEND_ME(NSScroller, scrollerWidthForControlSizeScrollerStyle, arginfo_class_NSScroller_scrollerWidthForControlSizeScrollerStyle, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	ZEND_ME(NSScroller, preferredScrollerStyle, arginfo_class_NSScroller_preferredScrollerStyle, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	ZEND_ME(NSScroller, scrollerStyle, arginfo_class_NSScroller_scrollerStyle, ZEND_ACC_PUBLIC)
+	ZEND_ME(NSScroller, setScrollerStyle, arginfo_class_NSScroller_setScrollerStyle, ZEND_ACC_PUBLIC)
+	ZEND_ME(NSScroller, knobProportion, arginfo_class_NSScroller_knobProportion, ZEND_ACC_PUBLIC)
+	ZEND_ME(NSScroller, setKnobProportion, arginfo_class_NSScroller_setKnobProportion, ZEND_ACC_PUBLIC)
+	ZEND_ME(NSScroller, hitPart, arginfo_class_NSScroller_hitPart, ZEND_ACC_PUBLIC)
+	ZEND_ME(NSScroller, rectForPart, arginfo_class_NSScroller_rectForPart, ZEND_ACC_PUBLIC)
+	ZEND_ME(NSScroller, testPart, arginfo_class_NSScroller_testPart, ZEND_ACC_PUBLIC)
 	ZEND_FE_END
 };
 
@@ -1020,6 +1148,7 @@ static void register_NSControls_symbols(int module_number)
 	REGISTER_STRING_CONSTANT("NSParagraphStyleAttributeName", appkit_cfstring_constant((CFStringRef) NSParagraphStyleAttributeName), CONST_PERSISTENT);
 	REGISTER_STRING_CONSTANT("NSForegroundColorAttributeName", appkit_cfstring_constant((CFStringRef) NSForegroundColorAttributeName), CONST_PERSISTENT);
 	REGISTER_STRING_CONSTANT("NSBackgroundColorAttributeName", appkit_cfstring_constant((CFStringRef) NSBackgroundColorAttributeName), CONST_PERSISTENT);
+	REGISTER_STRING_CONSTANT("NSPreferredScrollerStyleDidChangeNotification", appkit_cfstring_constant((CFStringRef) NSPreferredScrollerStyleDidChangeNotification), CONST_PERSISTENT);
 }
 
 static zend_class_entry *register_class_NSTextBlockValueType(void)
@@ -1213,6 +1342,49 @@ static zend_class_entry *register_class_NSButton(zend_class_entry *class_entry_N
 	return class_entry;
 }
 
+static zend_class_entry *register_class_NSCellImagePosition(void)
+{
+	zend_class_entry *class_entry = zend_register_internal_enum("NSCellImagePosition", IS_LONG, NULL);
+
+	zval enum_case_NO_IMAGE_value;
+	ZVAL_LONG(&enum_case_NO_IMAGE_value, 0);
+	zend_enum_add_case_cstr(class_entry, "NO_IMAGE", &enum_case_NO_IMAGE_value);
+
+	zval enum_case_IMAGE_ONLY_value;
+	ZVAL_LONG(&enum_case_IMAGE_ONLY_value, 1);
+	zend_enum_add_case_cstr(class_entry, "IMAGE_ONLY", &enum_case_IMAGE_ONLY_value);
+
+	zval enum_case_IMAGE_LEFT_value;
+	ZVAL_LONG(&enum_case_IMAGE_LEFT_value, 2);
+	zend_enum_add_case_cstr(class_entry, "IMAGE_LEFT", &enum_case_IMAGE_LEFT_value);
+
+	zval enum_case_IMAGE_RIGHT_value;
+	ZVAL_LONG(&enum_case_IMAGE_RIGHT_value, 3);
+	zend_enum_add_case_cstr(class_entry, "IMAGE_RIGHT", &enum_case_IMAGE_RIGHT_value);
+
+	zval enum_case_IMAGE_BELOW_value;
+	ZVAL_LONG(&enum_case_IMAGE_BELOW_value, 4);
+	zend_enum_add_case_cstr(class_entry, "IMAGE_BELOW", &enum_case_IMAGE_BELOW_value);
+
+	zval enum_case_IMAGE_ABOVE_value;
+	ZVAL_LONG(&enum_case_IMAGE_ABOVE_value, 5);
+	zend_enum_add_case_cstr(class_entry, "IMAGE_ABOVE", &enum_case_IMAGE_ABOVE_value);
+
+	zval enum_case_IMAGE_OVERLAPS_value;
+	ZVAL_LONG(&enum_case_IMAGE_OVERLAPS_value, 6);
+	zend_enum_add_case_cstr(class_entry, "IMAGE_OVERLAPS", &enum_case_IMAGE_OVERLAPS_value);
+
+	zval enum_case_IMAGE_LEADING_value;
+	ZVAL_LONG(&enum_case_IMAGE_LEADING_value, 7);
+	zend_enum_add_case_cstr(class_entry, "IMAGE_LEADING", &enum_case_IMAGE_LEADING_value);
+
+	zval enum_case_IMAGE_TRAILING_value;
+	ZVAL_LONG(&enum_case_IMAGE_TRAILING_value, 8);
+	zend_enum_add_case_cstr(class_entry, "IMAGE_TRAILING", &enum_case_IMAGE_TRAILING_value);
+
+	return class_entry;
+}
+
 static zend_class_entry *register_class_NSSwitch(zend_class_entry *class_entry_NSControl)
 {
 	zend_class_entry ce, *class_entry;
@@ -1233,11 +1405,96 @@ static zend_class_entry *register_class_NSSlider(zend_class_entry *class_entry_N
 	return class_entry;
 }
 
-static zend_class_entry *register_class_NSPopUpButton(zend_class_entry *class_entry_NSControl)
+static zend_class_entry *register_class_NSPopUpButton(zend_class_entry *class_entry_NSButton)
 {
 	zend_class_entry ce, *class_entry;
 
 	INIT_CLASS_ENTRY(ce, "NSPopUpButton", class_NSPopUpButton_methods);
+	class_entry = zend_register_internal_class_with_flags(&ce, class_entry_NSButton, ZEND_ACC_NOT_SERIALIZABLE);
+
+	return class_entry;
+}
+
+static zend_class_entry *register_class_NSComboBox(zend_class_entry *class_entry_NSTextField)
+{
+	zend_class_entry ce, *class_entry;
+
+	INIT_CLASS_ENTRY(ce, "NSComboBox", class_NSComboBox_methods);
+	class_entry = zend_register_internal_class_with_flags(&ce, class_entry_NSTextField, ZEND_ACC_NOT_SERIALIZABLE);
+
+	return class_entry;
+}
+
+static zend_class_entry *register_class_NSControlSize(void)
+{
+	zend_class_entry *class_entry = zend_register_internal_enum("NSControlSize", IS_LONG, NULL);
+
+	zval enum_case_REGULAR_value;
+	ZVAL_LONG(&enum_case_REGULAR_value, 0);
+	zend_enum_add_case_cstr(class_entry, "REGULAR", &enum_case_REGULAR_value);
+
+	zval enum_case_SMALL_value;
+	ZVAL_LONG(&enum_case_SMALL_value, 1);
+	zend_enum_add_case_cstr(class_entry, "SMALL", &enum_case_SMALL_value);
+
+	zval enum_case_MINI_value;
+	ZVAL_LONG(&enum_case_MINI_value, 2);
+	zend_enum_add_case_cstr(class_entry, "MINI", &enum_case_MINI_value);
+
+	zval enum_case_LARGE_value;
+	ZVAL_LONG(&enum_case_LARGE_value, 3);
+	zend_enum_add_case_cstr(class_entry, "LARGE", &enum_case_LARGE_value);
+
+	return class_entry;
+}
+
+static zend_class_entry *register_class_NSScrollerStyle(void)
+{
+	zend_class_entry *class_entry = zend_register_internal_enum("NSScrollerStyle", IS_LONG, NULL);
+
+	zval enum_case_LEGACY_value;
+	ZVAL_LONG(&enum_case_LEGACY_value, 0);
+	zend_enum_add_case_cstr(class_entry, "LEGACY", &enum_case_LEGACY_value);
+
+	zval enum_case_OVERLAY_value;
+	ZVAL_LONG(&enum_case_OVERLAY_value, 1);
+	zend_enum_add_case_cstr(class_entry, "OVERLAY", &enum_case_OVERLAY_value);
+
+	return class_entry;
+}
+
+static zend_class_entry *register_class_NSScrollerPart(void)
+{
+	zend_class_entry *class_entry = zend_register_internal_enum("NSScrollerPart", IS_LONG, NULL);
+
+	zval enum_case_NO_PART_value;
+	ZVAL_LONG(&enum_case_NO_PART_value, 0);
+	zend_enum_add_case_cstr(class_entry, "NO_PART", &enum_case_NO_PART_value);
+
+	zval enum_case_DECREMENT_PAGE_value;
+	ZVAL_LONG(&enum_case_DECREMENT_PAGE_value, 1);
+	zend_enum_add_case_cstr(class_entry, "DECREMENT_PAGE", &enum_case_DECREMENT_PAGE_value);
+
+	zval enum_case_KNOB_value;
+	ZVAL_LONG(&enum_case_KNOB_value, 2);
+	zend_enum_add_case_cstr(class_entry, "KNOB", &enum_case_KNOB_value);
+
+	zval enum_case_INCREMENT_PAGE_value;
+	ZVAL_LONG(&enum_case_INCREMENT_PAGE_value, 3);
+	zend_enum_add_case_cstr(class_entry, "INCREMENT_PAGE", &enum_case_INCREMENT_PAGE_value);
+
+	zval enum_case_KNOB_SLOT_value;
+	ZVAL_LONG(&enum_case_KNOB_SLOT_value, 6);
+	zend_enum_add_case_cstr(class_entry, "KNOB_SLOT", &enum_case_KNOB_SLOT_value);
+
+	return class_entry;
+}
+
+static zend_class_entry *register_class_NSScroller(zend_class_entry *class_entry_NSControl)
+{
+	zend_class_entry ce, *class_entry;
+
+	INIT_CLASS_ENTRY(ce, "NSScroller", class_NSScroller_methods);
 	class_entry = zend_register_internal_class_with_flags(&ce, class_entry_NSControl, ZEND_ACC_NOT_SERIALIZABLE);
 
 	return class_entry;

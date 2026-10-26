@@ -11,6 +11,7 @@ void appkit_register_NSEvent(int module_number)
 	appkit_ce_NSEventType = register_class_NSEventType();
 	appkit_ce_NSEventMask = register_class_NSEventMask();
 	appkit_ce_NSEventModifierFlags = register_class_NSEventModifierFlags();
+	appkit_ce_NSEventPhase = register_class_NSEventPhase();
 	appkit_ce_NSEvent = register_class_NSEvent(appkit_ce_NSObject);
 	appkit_object_setup(appkit_ce_NSEvent);
 	appkit_map_objc_class("NSEvent", appkit_ce_NSEvent);
@@ -265,6 +266,9 @@ ANY_DOUBLE_GET(NSEvent, NSEvent, deltaY, deltaY)
 ANY_DOUBLE_GET(NSEvent, NSEvent, scrollingDeltaX, scrollingDeltaX)
 ANY_DOUBLE_GET(NSEvent, NSEvent, scrollingDeltaY, scrollingDeltaY)
 ANY_BOOL_GET(NSEvent, NSEvent, hasPreciseScrollingDeltas, hasPreciseScrollingDeltas)
+ANY_ENUM_GET(NSEvent, NSEvent, phase, phase, appkit_ce_NSEventPhase, true)
+ANY_ENUM_GET(NSEvent, NSEvent, momentumPhase, momentumPhase, appkit_ce_NSEventPhase, true)
+ANY_OBJ_GET(NSEvent, NSEvent, trackingArea, trackingArea)
 ANY_BOOL_GET(NSEvent, NSEvent, isDirectionInvertedFromDevice, isDirectionInvertedFromDevice)
 ANY_OBJ_GET(NSEvent, NSEvent, window, window)
 

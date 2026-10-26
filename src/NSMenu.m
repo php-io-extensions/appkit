@@ -473,6 +473,30 @@ ZEND_METHOD(NSMenuItem, keyEquivalent)
 	APPKIT_END
 }
 
+ZEND_METHOD(NSMenuItem, image)
+{
+	ZEND_PARSE_PARAMETERS_NONE();
+	APPKIT_REQUIRE_MAIN_THREAD(); /* binding:main-thread-nsmenuitem-image */
+
+	APPKIT_BEGIN
+		appkit_box_objc(return_value, [THIS_ITEM image]);
+	APPKIT_END
+}
+
+ZEND_METHOD(NSMenuItem, setImage)
+{
+	zend_object *image = NULL;
+
+	ZEND_PARSE_PARAMETERS_START(1, 1)
+		Z_PARAM_OBJ_OF_CLASS_OR_NULL(image, appkit_ce_NSImage)
+	ZEND_PARSE_PARAMETERS_END();
+	APPKIT_REQUIRE_MAIN_THREAD(); /* binding:main-thread-nsmenuitem-set-image */
+
+	APPKIT_BEGIN
+		[THIS_ITEM setImage:(image != NULL ? (NSImage *) APPKIT_ID(image) : nil)];
+	APPKIT_END
+}
+
 ZEND_METHOD(NSMenuItem, setKeyEquivalent)
 {
 	zend_string *key_equivalent;

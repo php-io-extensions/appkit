@@ -473,3 +473,80 @@ it('refuses a colour attribute value of another class, and passes the other attr
         ->and($storage->attributeAtIndexEffectiveRange('VenusianAnything', 0)[0]->pointSize())->toBe(12.0)
         ->and(round($plain->attributeAtIndexEffectiveRange('VenusianAnything', 0)[0]->redComponent(), 2))->toBe(1.0);
 });
+
+function controlsImage(int $pixels, float $points): NSImage
+{
+    $provider = CGDataProvider::createWithCFData(CFData::create(null, str_repeat("\x20\x40\xff\xff", $pixels * $pixels), $pixels * $pixels * 4));
+    $cg = CGImage::create($pixels, $pixels, 8, 32, $pixels * 4, CGColorSpace::createWithName(kCGColorSpaceSRGB), kCGImageAlphaLast | kCGBitmapByteOrder32Big, $provider, null, false, kCGRenderingIntentDefault);
+
+    return NSImage::initWithCGImageSize($cg, new NSSize($points, $points));
+}
+
+it('gives a button an image, an image position and no bezel', function (): void {
+    $button = NSButton::buttonWithTitleTargetAction('Open', null, null);
+    $image = controlsImage(32, 16.0);
+
+    $button->setImage($image);
+    $button->setImagePosition(NSCellImagePosition::IMAGE_ABOVE);
+    $button->setBordered(false);
+
+    expect($button->image())->toBe($image)
+        ->and($button->image()->size()->width)->toBe(16.0)
+        ->and($button->imagePosition())->toBe(NSCellImagePosition::IMAGE_ABOVE)
+        ->and($button->isBordered())->toBeFalse();
+
+    $button->setImage(null);
+    expect($button->image())->toBeNull();
+});
+
+it('draws a pull-down flat: a pop-up button is a button', function (): void {
+    $pull = NSPopUpButton::initWithFramePullsDown(new NSRect(0.0, 0.0, 150.0, 30.0), true);
+    $pull->setBordered(false);
+
+    expect($pull)->toBeInstanceOf(NSButton::class)
+        ->and($pull->isBordered())->toBeFalse();
+});
+
+it('keeps a control from taking first responder', function (): void {
+    $table = NSTableView::initWithFrame(new NSRect(0.0, 0.0, 100.0, 100.0));
+    $table->setRefusesFirstResponder(true);
+
+    expect($table->refusesFirstResponder())->toBeTrue();
+});
+
+it('moves a child window with its parent until it is removed', function (): void {
+    $parent = newWindow(300, 200);
+    $child = NSWindow::initWithContentRectStyleMaskBackingDefer(new NSRect(100.0, 100.0, 120.0, 60.0), NSWindowStyleMask::BORDERLESS->value, NSBackingStoreType::BUFFERED, false);
+    $child->setReleasedWhenClosed(false);
+    $parent->setFrameOrigin(new NSPoint(200.0, 300.0));
+    $child->setFrameOrigin(new NSPoint(220.0, 280.0));
+    $parent->makeKeyAndOrderFront(null);
+
+    $parent->addChildWindowOrdered($child, NSWindowOrderingMode::ABOVE);
+    $parent->setFrameOrigin(new NSPoint(250.0, 320.0));
+    expect($child->frame()->x)->toBe(270.0)
+        ->and($child->frame()->y)->toBe(300.0);
+
+    $parent->removeChildWindow($child);
+    $parent->setFrameOrigin(new NSPoint(200.0, 300.0));
+    expect($child->frame()->x)->toBe(270.0);
+
+    $child->close();
+    $parent->close();
+});
+
+it('converts a view rect to the window and the window rect to the screen', function (): void {
+    $window = newWindow(300, 200);
+    $window->setFrameOrigin(new NSPoint(200.0, 300.0));
+    $view = NSView::initWithFrame(new NSRect(20.0, 30.0, 50.0, 40.0));
+    $window->contentView()->addSubview($view);
+
+    $inWindow = $view->convertRectToView($view->bounds(), null);
+    $onScreen = $window->convertRectToScreen($inWindow);
+
+    expect($inWindow->x)->toBe(20.0)
+        ->and($inWindow->y)->toBe(30.0)
+        ->and($onScreen->x)->toBe(220.0)
+        ->and($onScreen->y)->toBe(330.0);
+    $window->close();
+});

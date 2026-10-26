@@ -1,5 +1,13 @@
 # Log
 
+## 2026-10-24
+
+* `NSScroller` `rectForPart:` (scroller coordinates) and `testPart:` (window coordinates, as an event's `locationInWindow`): a scroller that tracks its own knob drag, so the app's loop runs during it.
+
+## 2026-10-23
+
+* `NSComboBox` (object values as strings), `NSScroller` (style, knob proportion, hit part, width per style, the preferred-style notification), `NSTrackingArea`, `NSButton` image, image position (`NSCellImagePosition`) and bordered, `NSMenuItem` image, `NSControl` refusesFirstResponder, `NSView` convertRect:toView: and tracking areas, `NSEvent` phase / momentumPhase / trackingArea (`NSEventPhase`), `NSWindow` child windows (`NSWindowOrderingMode`) and convertRectToScreen:, `NSTabView` insertTabViewItem:atIndex:. `NSPopUpButton` extends `NSButton`, as the header declares. Each new UI method has its own main-thread site; NSEvent and NSTrackingArea readers have none. 655 / 7210. [surface](api/surface.md)
+
 ## 2026-10-22
 
 * Key-view loop: `NSView` nextKeyView (+set); `NSWindow` initialFirstResponder (+set), selectNextKeyView:, selectPreviousKeyView:, setAutorecalculatesKeyViewLoop:; `NSResponder` acceptsFirstResponder; glue `ObjCFocusView` (acceptsFirstResponder handler) and `ObjCKeyWindow` (keyDown: handler; false = NSWindow's own). Each with its own main-thread site. [surface](api/surface.md), [glue](architecture/glue.md)
@@ -22,12 +30,12 @@
 ## 2026-10-16
 
 * 1:1 remediation, 0.10.2. Names and types native: `CMTime::make` / `makeWithSeconds` / `getSeconds`, `CFType::copyDescription`, `NSRequestUserAttentionType::*_REQUEST`, `NSTextBlockValueType::*_VALUE_TYPE`, `glyphRangeForCharacterRangeActualCharacterRange`, `?CFAllocator` on CF creators, `?CGEventSource` on CGEvent creators, `?NSGraphicsContext` on NSEvent constructors, every struct field required. New 1:1 bindings: `CGColor`, `CFAllocator`, `CGEventSource::create`, `NSError`, `NSLayoutDimension` / `NSLayoutXAxisAnchor` / `NSLayoutYAxisAnchor` (the `…ToConstant` methods on the dimension), CALayer backgroundColor / contents / contentsGravity / masksToBounds, `NSColor` CGColor / colorWithCGColor: / colorUsingColorSpace:, `NSWindow` canBecomeKeyWindow / canBecomeMainWindow, `NSGridCell::emptyContentView`, `ObjCObserver::OPTION_PRIOR`, `kCGError*`, `kIOReturnSuccess`. Pass-through: CGError / IOReturn returned as `int` (out-parameters by reference), null from CF/CG creates, AppKit's clamps and exceptions, availability through the unrecognized-selector exception; the main-thread gate only on AppKit UI classes. Kept refusals only at eight probed crash sites, each `/* binding:<id> */` with a `tests/Probes` test and the `--enable-appkit-probes` build. Glue forwards only: `ObjCOpenGLView` hands `(view, dirty)` with no make-current/flush, `ObjCStageWindow` `on`/`off` handlers for both overrides, `ObjCObserver` native options + context + whole change dictionary, local monitor return passed to AppKit, delegate structs and `char` marshalled both ways, `createDirect` untagged. Invented API removed: NSView `layer*` helpers and `setLayer:` wantsLayer toggling, `NSAttributedString::attributeAtIndex`, NSColor sRGB conversion, NSGridView null ↔ empty cell, `ObjCStageWindow::canBecomeKey` / `setCanBecomeKey`, `CMTime::withSeconds` / `seconds`, `CFType::description`. AGENTS.md. [surface](api/surface.md), [glue](architecture/glue.md), [errors and threads](architecture/errors-and-threads.md)
-* NSSplitView (divider style, positions, arranged subviews, holding priorities), NSTabView and NSTabViewItem, NSEvent local event monitors (compare-app split and tabs, C2). 0.10.2. [surface](api/surface.md)
+* NSSplitView (divider style, positions, arranged subviews, holding priorities), NSTabView and NSTabViewItem, NSEvent local event monitors. 0.10.2. [surface](api/surface.md)
 
 ## 2026-10-14
 
-* Text storage attributes (NSMutableAttributedString, NSTextStorage, foreground and background colour names), NSTextBlock and paragraph text blocks, NSClipView scrolling and bounds notifications, NSTextView selection, resizing and max size, NSTextContainer size and width tracking, NSLayoutManager glyph ranges and rects, the monospaced system font; NSRange returned (compare-app text panes, C1). 0.10.1. [surface](api/surface.md)
-* attribute:atIndex:effectiveRange:; colour, paragraph-style, font and link attribute values of the wrong class refused with TypeError instead of failing at draw time (C1 final review). [surface](api/surface.md)
+* Text storage attributes (NSMutableAttributedString, NSTextStorage, foreground and background colour names), NSTextBlock and paragraph text blocks, NSClipView scrolling and bounds notifications, NSTextView selection, resizing and max size, NSTextContainer size and width tracking, NSLayoutManager glyph ranges and rects, the monospaced system font; NSRange returned. 0.10.1. [surface](api/surface.md)
+* attribute:atIndex:effectiveRange:; colour, paragraph-style, font and link attribute values of the wrong class refused with TypeError instead of failing at draw time. [surface](api/surface.md)
 
 ## 2026-10-10
 

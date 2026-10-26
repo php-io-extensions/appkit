@@ -1,5 +1,5 @@
 /* This is a generated file, edit the .stub.php file instead.
- * Stub hash: 5fc6d36953812cc52b6062bb0f790f43eaf7daf1 */
+ * Stub hash: f60f71fe3d7845c9c7338eae2342370a25e358d7 */
 
 ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(arginfo_class_NSEvent_otherEventWithTypeLocationModifierFlagsTimestampWindowNumberContextSubtypeData1Data2, 0, 9, NSEvent, 1)
 	ZEND_ARG_OBJ_INFO(0, type, NSEventType, 0)
@@ -99,6 +99,14 @@ ZEND_END_ARG_INFO()
 
 #define arginfo_class_NSEvent_hasPreciseScrollingDeltas arginfo_class_NSEvent_isARepeat
 
+ZEND_BEGIN_ARG_WITH_RETURN_OBJ_TYPE_MASK_EX(arginfo_class_NSEvent_phase, 0, 0, NSEventPhase, MAY_BE_LONG)
+ZEND_END_ARG_INFO()
+
+#define arginfo_class_NSEvent_momentumPhase arginfo_class_NSEvent_phase
+
+ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(arginfo_class_NSEvent_trackingArea, 0, 0, NSTrackingArea, 1)
+ZEND_END_ARG_INFO()
+
 #define arginfo_class_NSEvent_isDirectionInvertedFromDevice arginfo_class_NSEvent_isARepeat
 
 ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(arginfo_class_NSEvent_window, 0, 0, NSWindow, 1)
@@ -131,6 +139,9 @@ ZEND_METHOD(NSEvent, deltaY);
 ZEND_METHOD(NSEvent, scrollingDeltaX);
 ZEND_METHOD(NSEvent, scrollingDeltaY);
 ZEND_METHOD(NSEvent, hasPreciseScrollingDeltas);
+ZEND_METHOD(NSEvent, phase);
+ZEND_METHOD(NSEvent, momentumPhase);
+ZEND_METHOD(NSEvent, trackingArea);
 ZEND_METHOD(NSEvent, isDirectionInvertedFromDevice);
 ZEND_METHOD(NSEvent, window);
 
@@ -162,6 +173,9 @@ static const zend_function_entry class_NSEvent_methods[] = {
 	ZEND_ME(NSEvent, scrollingDeltaX, arginfo_class_NSEvent_scrollingDeltaX, ZEND_ACC_PUBLIC)
 	ZEND_ME(NSEvent, scrollingDeltaY, arginfo_class_NSEvent_scrollingDeltaY, ZEND_ACC_PUBLIC)
 	ZEND_ME(NSEvent, hasPreciseScrollingDeltas, arginfo_class_NSEvent_hasPreciseScrollingDeltas, ZEND_ACC_PUBLIC)
+	ZEND_ME(NSEvent, phase, arginfo_class_NSEvent_phase, ZEND_ACC_PUBLIC)
+	ZEND_ME(NSEvent, momentumPhase, arginfo_class_NSEvent_momentumPhase, ZEND_ACC_PUBLIC)
+	ZEND_ME(NSEvent, trackingArea, arginfo_class_NSEvent_trackingArea, ZEND_ACC_PUBLIC)
 	ZEND_ME(NSEvent, isDirectionInvertedFromDevice, arginfo_class_NSEvent_isDirectionInvertedFromDevice, ZEND_ACC_PUBLIC)
 	ZEND_ME(NSEvent, window, arginfo_class_NSEvent_window, ZEND_ACC_PUBLIC)
 	ZEND_FE_END
@@ -190,6 +204,41 @@ static void register_NSEvent_symbols(int module_number)
 	REGISTER_LONG_CONSTANT("NSEndFunctionKey", NSEndFunctionKey, CONST_PERSISTENT);
 	REGISTER_LONG_CONSTANT("NSPageUpFunctionKey", NSPageUpFunctionKey, CONST_PERSISTENT);
 	REGISTER_LONG_CONSTANT("NSPageDownFunctionKey", NSPageDownFunctionKey, CONST_PERSISTENT);
+}
+
+static zend_class_entry *register_class_NSEventPhase(void)
+{
+	zend_class_entry *class_entry = zend_register_internal_enum("NSEventPhase", IS_LONG, NULL);
+
+	zval enum_case_NONE_value;
+	ZVAL_LONG(&enum_case_NONE_value, 0);
+	zend_enum_add_case_cstr(class_entry, "NONE", &enum_case_NONE_value);
+
+	zval enum_case_BEGAN_value;
+	ZVAL_LONG(&enum_case_BEGAN_value, 1);
+	zend_enum_add_case_cstr(class_entry, "BEGAN", &enum_case_BEGAN_value);
+
+	zval enum_case_STATIONARY_value;
+	ZVAL_LONG(&enum_case_STATIONARY_value, 2);
+	zend_enum_add_case_cstr(class_entry, "STATIONARY", &enum_case_STATIONARY_value);
+
+	zval enum_case_CHANGED_value;
+	ZVAL_LONG(&enum_case_CHANGED_value, 4);
+	zend_enum_add_case_cstr(class_entry, "CHANGED", &enum_case_CHANGED_value);
+
+	zval enum_case_ENDED_value;
+	ZVAL_LONG(&enum_case_ENDED_value, 8);
+	zend_enum_add_case_cstr(class_entry, "ENDED", &enum_case_ENDED_value);
+
+	zval enum_case_CANCELLED_value;
+	ZVAL_LONG(&enum_case_CANCELLED_value, 16);
+	zend_enum_add_case_cstr(class_entry, "CANCELLED", &enum_case_CANCELLED_value);
+
+	zval enum_case_MAY_BEGIN_value;
+	ZVAL_LONG(&enum_case_MAY_BEGIN_value, 32);
+	zend_enum_add_case_cstr(class_entry, "MAY_BEGIN", &enum_case_MAY_BEGIN_value);
+
+	return class_entry;
 }
 
 static zend_class_entry *register_class_NSEventType(void)

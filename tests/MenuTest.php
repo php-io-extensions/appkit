@@ -152,3 +152,16 @@ it('validates an autoenabling menu on update: an item no responder takes greys o
 
     expect($copy->isEnabled())->toBeFalse();
 });
+
+it('holds a menu item image', function (): void {
+    $provider = CGDataProvider::createWithCFData(CFData::create(null, str_repeat("\xff\x80\x00\xff", 16 * 16), 16 * 16 * 4));
+    $cg = CGImage::create(16, 16, 8, 32, 64, CGColorSpace::createWithName(kCGColorSpaceSRGB), kCGImageAlphaPremultipliedLast | kCGBitmapByteOrder32Big, $provider, null, false, kCGRenderingIntentDefault);
+    $image = NSImage::initWithCGImageSize($cg, new NSSize(16.0, 16.0));
+    $item = NSMenuItem::initWithTitleActionKeyEquivalent('Ignore case', null, '');
+
+    $item->setImage($image);
+    expect($item->image())->toBe($image);
+
+    $item->setImage(null);
+    expect($item->image())->toBeNull();
+});

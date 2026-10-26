@@ -98,6 +98,10 @@ class NSMenuItem extends NSObject
 
     public function setKeyEquivalent(string $keyEquivalent): void {}
 
+    public function image(): ?NSImage {}
+
+    public function setImage(?NSImage $image): void {}
+
     public function keyEquivalentModifierMask(): int {}
 
     public function setKeyEquivalentModifierMask(NSEventModifierFlags|int $mask): void {}

@@ -176,6 +176,10 @@ class NSControl extends NSView
 
     /** sendAction:to: — false when there is no action or nothing handled it. */
     public function sendActionTo(?string $action, ?NSObject $target): bool {}
+
+    public function refusesFirstResponder(): bool {}
+
+    public function setRefusesFirstResponder(bool $refusesFirstResponder): void {}
 }
 
 /**
@@ -290,6 +294,31 @@ class NSButton extends NSControl
     public function keyEquivalent(): string {}
 
     public function setKeyEquivalent(string $keyEquivalent): void {}
+
+    public function image(): ?NSImage {}
+
+    public function setImage(?NSImage $image): void {}
+
+    public function imagePosition(): NSCellImagePosition {}
+
+    public function setImagePosition(NSCellImagePosition $imagePosition): void {}
+
+    public function isBordered(): bool {}
+
+    public function setBordered(bool $bordered): void {}
+}
+
+enum NSCellImagePosition: int
+{
+    case NO_IMAGE = 0;
+    case IMAGE_ONLY = 1;
+    case IMAGE_LEFT = 2;
+    case IMAGE_RIGHT = 3;
+    case IMAGE_BELOW = 4;
+    case IMAGE_ABOVE = 5;
+    case IMAGE_OVERLAPS = 6;
+    case IMAGE_LEADING = 7;
+    case IMAGE_TRAILING = 8;
 }
 
 /**
@@ -325,7 +354,7 @@ class NSSlider extends NSControl
 /**
  * @not-serializable
  */
-class NSPopUpButton extends NSControl
+class NSPopUpButton extends NSButton
 {
     public static function initWithFramePullsDown(NSRect $frame, bool $pullsDown): static {}
 
@@ -346,6 +375,87 @@ class NSPopUpButton extends NSControl
 
     /** @return string[] */
     public function itemTitles(): array {}
+}
+
+/**
+ * An NSTextField with a dropdown list of object values (strings here).
+ *
+ * @not-serializable
+ */
+class NSComboBox extends NSTextField
+{
+    public function addItemWithObjectValue(string $object): void {}
+
+    public function removeAllItems(): void {}
+
+    public function numberOfItems(): int {}
+
+    public function indexOfSelectedItem(): int {}
+
+    public function selectItemAtIndex(int $index): void {}
+
+    public function deselectItemAtIndex(int $index): void {}
+
+    public function setNumberOfVisibleItems(int $numberOfVisibleItems): void {}
+}
+
+enum NSControlSize: int
+{
+    case REGULAR = 0;
+    case SMALL = 1;
+    case MINI = 2;
+    case LARGE = 3;
+}
+
+enum NSScrollerStyle: int
+{
+    case LEGACY = 0;
+    case OVERLAY = 1;
+}
+
+/** The deprecated line parts (DecrementLine 4, IncrementLine 5) are not bound. */
+enum NSScrollerPart: int
+{
+    case NO_PART = 0;
+    case DECREMENT_PAGE = 1;
+    case KNOB = 2;
+    case INCREMENT_PAGE = 3;
+    case KNOB_SLOT = 6;
+}
+
+/**
+ * @var string
+ * @cvalue appkit_cfstring_constant((CFStringRef) NSPreferredScrollerStyleDidChangeNotification)
+ */
+const NSPreferredScrollerStyleDidChangeNotification = UNKNOWN;
+
+/**
+ * A scroll bar. Made with NSView::initWithFrame() on the class; doubleValue, target and action
+ * are NSControl's.
+ *
+ * @not-serializable
+ */
+class NSScroller extends NSControl
+{
+    public static function scrollerWidthForControlSizeScrollerStyle(NSControlSize $controlSize, NSScrollerStyle $scrollerStyle): float {}
+
+    public static function preferredScrollerStyle(): NSScrollerStyle {}
+
+    public function scrollerStyle(): NSScrollerStyle {}
+
+    public function setScrollerStyle(NSScrollerStyle $scrollerStyle): void {}
+
+    public function knobProportion(): float {}
+
+    public function setKnobProportion(float $knobProportion): void {}
+
+    public function hitPart(): NSScrollerPart|int {}
+
+    /** In the scroller's coordinates. */
+    public function rectForPart(NSScrollerPart $partCode): NSRect {}
+
+    /** The part under $point, in the scroller's window's coordinates (as an event's locationInWindow). */
+    public function testPart(NSPoint $point): NSScrollerPart|int {}
 }
 
 enum NSDatePickerStyle: int

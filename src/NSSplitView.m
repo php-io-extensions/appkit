@@ -94,6 +94,21 @@ ZEND_METHOD(NSSplitView, setHoldingPriorityForSubviewAtIndex)
 
 /* NSTabView */
 OBJ_SET(NSTabView, NSTabView, addTabViewItem, addTabViewItem, appkit_ce_NSTabViewItem, NSTabViewItem *)
+ZEND_METHOD(NSTabView, insertTabViewItemAtIndex)
+{
+	zend_object *item;
+	zend_long index;
+
+	ZEND_PARSE_PARAMETERS_START(2, 2)
+		Z_PARAM_OBJ_OF_CLASS(item, appkit_ce_NSTabViewItem)
+		Z_PARAM_LONG(index)
+	ZEND_PARSE_PARAMETERS_END();
+	APPKIT_REQUIRE_MAIN_THREAD(); /* binding:main-thread-nstabview-insert-tab-view-item-at-index */
+
+	APPKIT_BEGIN
+		[SELF(NSTabView) insertTabViewItem:(NSTabViewItem *) APPKIT_ID(item) atIndex:(NSInteger) index];
+	APPKIT_END
+}
 LONG_GET(NSTabView, NSTabView, numberOfTabViewItems, numberOfTabViewItems)
 OBJ_GET(NSTabView, NSTabView, selectedTabViewItem, selectedTabViewItem)
 OBJ_GET(NSTabView, NSTabView, delegate, delegate)

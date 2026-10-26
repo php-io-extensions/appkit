@@ -433,6 +433,20 @@ it('splits views, places dividers and reads them back', function (): void {
         ->and($split->arrangedSubviews()[0])->toBe($first);
 });
 
+it('inserts a tab view item at an index', function (): void {
+    $tabs = NSTabView::initWithFrame(new NSRect(0, 0, 200, 100));
+    foreach (['one', 'two', 'three'] as $id) {
+        $tabs->addTabViewItem(NSTabViewItem::initWithIdentifier($id));
+    }
+    $item = NSTabViewItem::initWithIdentifier('new');
+
+    $tabs->insertTabViewItemAtIndex($item, 1);
+
+    expect($tabs->indexOfTabViewItemWithIdentifier('new'))->toBe(1)
+        ->and($tabs->numberOfTabViewItems())->toBe(4)
+        ->and(fn () => $tabs->insertTabViewItemAtIndex(NSTabViewItem::initWithIdentifier('far'), 9))->toThrow(AppKitException::class);
+});
+
 it('holds tab view items by identifier, labels them and selects them', function (): void {
     $tabs = NSTabView::initWithFrame(new NSRect(0, 0, 200, 100));
     foreach (['one' => 'First', 'two' => 'Second'] as $id => $label) {

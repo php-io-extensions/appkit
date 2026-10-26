@@ -12,6 +12,11 @@ void appkit_register_NSView(int module_number)
 	appkit_ce_NSView = register_class_NSView(appkit_ce_NSResponder);
 	appkit_object_setup(appkit_ce_NSView);
 	appkit_map_objc_class("NSView", appkit_ce_NSView);
+
+	appkit_ce_NSTrackingAreaOptions = register_class_NSTrackingAreaOptions();
+	appkit_ce_NSTrackingArea = register_class_NSTrackingArea(appkit_ce_NSObject);
+	appkit_object_setup(appkit_ce_NSTrackingArea);
+	appkit_map_objc_class("NSTrackingArea", appkit_ce_NSTrackingArea);
 }
 
 #define THIS_VIEW ((NSView *) APPKIT_ID(Z_OBJ_P(ZEND_THIS)))
@@ -312,6 +317,60 @@ METHOD(NSView, setNeedsDisplayInRect, PARSE_RECT, [THIS_VIEW setNeedsDisplayInRe
 VOID_METHOD(NSView, NSView, displayIfNeeded, displayIfNeeded)
 ENUM_GET(NSView, NSView, layerContentsRedrawPolicy, layerContentsRedrawPolicy, appkit_ce_NSViewLayerContentsRedrawPolicy, false)
 ENUM_SET(NSView, NSView, setLayerContentsRedrawPolicy, setLayerContentsRedrawPolicy, appkit_ce_NSViewLayerContentsRedrawPolicy, NSViewLayerContentsRedrawPolicy)
+OBJ_SET(NSView, NSView, addTrackingArea, addTrackingArea, appkit_ce_NSTrackingArea, NSTrackingArea *) /* binding:main-thread-nsview-add-tracking-area */
+OBJ_SET(NSView, NSView, removeTrackingArea, removeTrackingArea, appkit_ce_NSTrackingArea, NSTrackingArea *) /* binding:main-thread-nsview-remove-tracking-area */
+
+ZEND_METHOD(NSView, convertRectToView)
+{
+	zend_object *rect_obj;
+	zend_object *view = NULL;
+	NSRect rect;
+
+	ZEND_PARSE_PARAMETERS_START(2, 2)
+		Z_PARAM_OBJ_OF_CLASS(rect_obj, appkit_ce_NSRect)
+		Z_PARAM_OBJ_OF_CLASS_OR_NULL(view, appkit_ce_NSView)
+	ZEND_PARSE_PARAMETERS_END();
+	APPKIT_REQUIRE_MAIN_THREAD(); /* binding:main-thread-nsview-convert-rect-to-view */
+	if (!appkit_rect_from(rect_obj, 1, &rect)) {
+		RETURN_THROWS();
+	}
+
+	APPKIT_BEGIN
+		appkit_return_rect(return_value, [THIS_VIEW convertRect:rect toView:(view != NULL ? (NSView *) APPKIT_ID(view) : nil)]);
+	APPKIT_END
+}
+
+/* NSTrackingArea: a value AppKit reads on the main thread; any thread may make one. */
+ZEND_METHOD(NSTrackingArea, initWithRectOptionsOwnerUserInfo)
+{
+	zend_object *rect_obj, *options_case = NULL, *owner = NULL;
+	zend_long options_long = 0;
+	HashTable *user_info = NULL;
+	NSRect rect;
+
+	ZEND_PARSE_PARAMETERS_START(4, 4)
+		Z_PARAM_OBJ_OF_CLASS(rect_obj, appkit_ce_NSRect)
+		Z_PARAM_OBJ_OF_CLASS_OR_LONG(options_case, appkit_ce_NSTrackingAreaOptions, options_long)
+		Z_PARAM_OBJ_OF_CLASS_OR_NULL(owner, appkit_ce_NSObject)
+		Z_PARAM_ARRAY_HT_OR_NULL(user_info)
+	ZEND_PARSE_PARAMETERS_END();
+	if (!appkit_rect_from(rect_obj, 1, &rect)) {
+		RETURN_THROWS();
+	}
+
+	APPKIT_BEGIN
+		NSDictionary *info = user_info != NULL ? appkit_nsdictionary(user_info, 4) : nil;
+		NSTrackingArea *area = [[(Class) appkit_called_class(execute_data) alloc] initWithRect:rect
+			options:(NSTrackingAreaOptions) appkit_enum_value(options_case, options_long)
+			owner:(owner != NULL ? APPKIT_ID(owner) : nil)
+			userInfo:info];
+		appkit_box_objc(return_value, area);
+		[area release];
+	APPKIT_END
+}
+ANY_METHOD(NSTrackingArea, rect, PARSE_NONE, appkit_return_rect(return_value, [SELF(NSTrackingArea) rect]);)
+ANY_ENUM_GET(NSTrackingArea, NSTrackingArea, options, options, appkit_ce_NSTrackingAreaOptions, true)
+ANY_OBJ_GET(NSTrackingArea, NSTrackingArea, owner, owner)
 
 ZEND_METHOD(NSView, displayLinkWithTargetSelector)
 {

@@ -1,5 +1,5 @@
 /* This is a generated file, edit the .stub.php file instead.
- * Stub hash: 2b317e9e6705e5fb9c81cab0e52714a6c16d4285 */
+ * Stub hash: 17fa59ef50905bb321df9fd1da0c1a2618c25a52 */
 
 ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_NSSplitView_isVertical, 0, 0, _IS_BOOL, 0)
 ZEND_END_ARG_INFO()
@@ -61,6 +61,11 @@ ZEND_END_ARG_INFO()
 
 ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_NSTabView_addTabViewItem, 0, 1, IS_VOID, 0)
 	ZEND_ARG_OBJ_INFO(0, item, NSTabViewItem, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_NSTabView_insertTabViewItemAtIndex, 0, 2, IS_VOID, 0)
+	ZEND_ARG_OBJ_INFO(0, tabViewItem, NSTabViewItem, 0)
+	ZEND_ARG_TYPE_INFO(0, index, IS_LONG, 0)
 ZEND_END_ARG_INFO()
 
 #define arginfo_class_NSTabView_removeTabViewItem arginfo_class_NSTabView_addTabViewItem
@@ -129,6 +134,7 @@ ZEND_METHOD(NSSplitView, isSubviewCollapsed);
 ZEND_METHOD(NSSplitView, holdingPriorityForSubviewAtIndex);
 ZEND_METHOD(NSSplitView, setHoldingPriorityForSubviewAtIndex);
 ZEND_METHOD(NSTabView, addTabViewItem);
+ZEND_METHOD(NSTabView, insertTabViewItemAtIndex);
 ZEND_METHOD(NSTabView, removeTabViewItem);
 ZEND_METHOD(NSTabView, tabViewItems);
 ZEND_METHOD(NSTabView, numberOfTabViewItems);
@@ -167,6 +173,7 @@ static const zend_function_entry class_NSSplitView_methods[] = {
 
 static const zend_function_entry class_NSTabView_methods[] = {
 	ZEND_ME(NSTabView, addTabViewItem, arginfo_class_NSTabView_addTabViewItem, ZEND_ACC_PUBLIC)
+	ZEND_ME(NSTabView, insertTabViewItemAtIndex, arginfo_class_NSTabView_insertTabViewItemAtIndex, ZEND_ACC_PUBLIC)
 	ZEND_ME(NSTabView, removeTabViewItem, arginfo_class_NSTabView_removeTabViewItem, ZEND_ACC_PUBLIC)
 	ZEND_ME(NSTabView, tabViewItems, arginfo_class_NSTabView_tabViewItems, ZEND_ACC_PUBLIC)
 	ZEND_ME(NSTabView, numberOfTabViewItems, arginfo_class_NSTabView_numberOfTabViewItems, ZEND_ACC_PUBLIC)

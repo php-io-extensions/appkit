@@ -20,6 +20,12 @@ _Static_assert(NSTextBlockAbsoluteValueType == 0 && NSTextBlockPercentageValueTy
 _Static_assert(NSTextBlockWidth == 0 && NSTextBlockMinimumWidth == 1 && NSTextBlockMaximumWidth == 2
 	&& NSTextBlockHeight == 4 && NSTextBlockMinimumHeight == 5 && NSTextBlockMaximumHeight == 6, "NSTextBlockDimension values moved");
 _Static_assert(NSBoxPrimary == 0 && NSBoxSeparator == 2 && NSBoxCustom == 4, "NSBoxType values moved");
+_Static_assert(NSNoImage == 0 && NSImageOnly == 1 && NSImageLeft == 2 && NSImageRight == 3 && NSImageBelow == 4
+	&& NSImageAbove == 5 && NSImageOverlaps == 6 && NSImageLeading == 7 && NSImageTrailing == 8, "NSCellImagePosition values moved");
+_Static_assert(NSControlSizeRegular == 0 && NSControlSizeSmall == 1 && NSControlSizeMini == 2 && NSControlSizeLarge == 3, "NSControlSize values moved");
+_Static_assert(NSScrollerStyleLegacy == 0 && NSScrollerStyleOverlay == 1, "NSScrollerStyle values moved");
+_Static_assert(NSScrollerNoPart == 0 && NSScrollerDecrementPage == 1 && NSScrollerKnob == 2 && NSScrollerIncrementPage == 3
+	&& NSScrollerKnobSlot == 6, "NSScrollerPart values moved");
 
 void appkit_register_NSControls(int module_number)
 {
@@ -35,6 +41,10 @@ void appkit_register_NSControls(int module_number)
 	appkit_ce_NSBoxType = register_class_NSBoxType();
 	appkit_ce_NSTextBlockValueType = register_class_NSTextBlockValueType();
 	appkit_ce_NSTextBlockDimension = register_class_NSTextBlockDimension();
+	appkit_ce_NSCellImagePosition = register_class_NSCellImagePosition();
+	appkit_ce_NSControlSize = register_class_NSControlSize();
+	appkit_ce_NSScrollerStyle = register_class_NSScrollerStyle();
+	appkit_ce_NSScrollerPart = register_class_NSScrollerPart();
 
 	APPKIT_MAP(NSControl, appkit_ce_NSView);
 	APPKIT_MAP(NSTextField, appkit_ce_NSControl);
@@ -42,7 +52,9 @@ void appkit_register_NSControls(int module_number)
 	APPKIT_MAP(NSButton, appkit_ce_NSControl);
 	APPKIT_MAP(NSSwitch, appkit_ce_NSControl);
 	APPKIT_MAP(NSSlider, appkit_ce_NSControl);
-	APPKIT_MAP(NSPopUpButton, appkit_ce_NSControl);
+	APPKIT_MAP(NSPopUpButton, appkit_ce_NSButton);
+	APPKIT_MAP(NSComboBox, appkit_ce_NSTextField);
+	APPKIT_MAP(NSScroller, appkit_ce_NSControl);
 	APPKIT_MAP(NSTimeZone, appkit_ce_NSObject);
 	APPKIT_MAP(NSDatePicker, appkit_ce_NSControl);
 	APPKIT_MAP(NSProgressIndicator, appkit_ce_NSView);
@@ -97,6 +109,8 @@ ZEND_METHOD(NSControl, sendActionTo)
 		RETURN_BOOL([SELF(NSControl) sendAction:SELECTOR_OR_NULL(action) to:OPTIONAL_ID(target)]);
 	APPKIT_END
 }
+BOOL_GET(NSControl, NSControl, refusesFirstResponder, refusesFirstResponder) /* binding:main-thread-nscontrol-refuses-first-responder */
+BOOL_SET(NSControl, NSControl, setRefusesFirstResponder, setRefusesFirstResponder) /* binding:main-thread-nscontrol-set-refuses-first-responder */
 
 /* NSTextField */
 METHOD(NSTextField, labelWithString, PARSE_STR, appkit_box_objc(return_value, [CALLED labelWithString:appkit_nsstring(v)]);)
@@ -140,6 +154,12 @@ ENUM_SET(NSButton, NSButton, setState, setState, appkit_ce_NSControlStateValue, 
 OBJ_GET(NSButton, NSButton, contentTintColor, contentTintColor)
 STR_GET(NSButton, NSButton, keyEquivalent, keyEquivalent) /* binding:main-thread-nsbutton-key-equivalent */
 STR_SET(NSButton, NSButton, setKeyEquivalent, setKeyEquivalent) /* binding:main-thread-nsbutton-set-key-equivalent */
+OBJ_GET(NSButton, NSButton, image, image) /* binding:main-thread-nsbutton-image */
+OBJ_SET_OR_NULL(NSButton, NSButton, setImage, setImage, appkit_ce_NSImage, NSImage *) /* binding:main-thread-nsbutton-set-image */
+ENUM_GET(NSButton, NSButton, imagePosition, imagePosition, appkit_ce_NSCellImagePosition, false) /* binding:main-thread-nsbutton-image-position */
+ENUM_SET(NSButton, NSButton, setImagePosition, setImagePosition, appkit_ce_NSCellImagePosition, NSCellImagePosition) /* binding:main-thread-nsbutton-set-image-position */
+BOOL_GET(NSButton, NSButton, isBordered, isBordered) /* binding:main-thread-nsbutton-is-bordered */
+BOOL_SET(NSButton, NSButton, setBordered, setBordered) /* binding:main-thread-nsbutton-set-bordered */
 OBJ_SET_OR_NULL(NSButton, NSButton, setContentTintColor, setContentTintColor, appkit_ce_NSColor, NSColor *)
 
 /* NSSwitch */
@@ -230,6 +250,55 @@ METHOD(NSPopUpButton, itemTitles, PARSE_NONE,
 		add_next_index_str(return_value, appkit_zend_string((CFStringRef) title));
 	}
 )
+
+/* NSComboBox */
+STR_SET(NSComboBox, NSComboBox, addItemWithObjectValue, addItemWithObjectValue) /* binding:main-thread-nscombobox-add-item-with-object-value */
+VOID_METHOD(NSComboBox, NSComboBox, removeAllItems, removeAllItems) /* binding:main-thread-nscombobox-remove-all-items */
+LONG_GET(NSComboBox, NSComboBox, numberOfItems, numberOfItems) /* binding:main-thread-nscombobox-number-of-items */
+LONG_GET(NSComboBox, NSComboBox, indexOfSelectedItem, indexOfSelectedItem) /* binding:main-thread-nscombobox-index-of-selected-item */
+LONG_SET(NSComboBox, NSComboBox, selectItemAtIndex, selectItemAtIndex, NSInteger) /* binding:main-thread-nscombobox-select-item-at-index */
+LONG_SET(NSComboBox, NSComboBox, deselectItemAtIndex, deselectItemAtIndex, NSInteger) /* binding:main-thread-nscombobox-deselect-item-at-index */
+LONG_SET(NSComboBox, NSComboBox, setNumberOfVisibleItems, setNumberOfVisibleItems, NSInteger) /* binding:main-thread-nscombobox-set-number-of-visible-items */
+
+/* NSScroller */
+ZEND_METHOD(NSScroller, scrollerWidthForControlSizeScrollerStyle)
+{
+	zend_object *size, *style;
+
+	ZEND_PARSE_PARAMETERS_START(2, 2)
+		Z_PARAM_OBJ_OF_CLASS(size, appkit_ce_NSControlSize)
+		Z_PARAM_OBJ_OF_CLASS(style, appkit_ce_NSScrollerStyle)
+	ZEND_PARSE_PARAMETERS_END();
+	APPKIT_REQUIRE_MAIN_THREAD(); /* binding:main-thread-nsscroller-scroller-width-for-control-size-scroller-style */
+
+	APPKIT_BEGIN
+		RETURN_DOUBLE([NSScroller scrollerWidthForControlSize:(NSControlSize) appkit_enum_value(size, 0) scrollerStyle:(NSScrollerStyle) appkit_enum_value(style, 0)]);
+	APPKIT_END
+}
+METHOD(NSScroller, preferredScrollerStyle, PARSE_NONE, appkit_return_enum(return_value, appkit_ce_NSScrollerStyle, (zend_long) [NSScroller preferredScrollerStyle], false);) /* binding:main-thread-nsscroller-preferred-scroller-style */
+ENUM_GET(NSScroller, NSScroller, scrollerStyle, scrollerStyle, appkit_ce_NSScrollerStyle, false) /* binding:main-thread-nsscroller-scroller-style */
+ENUM_SET(NSScroller, NSScroller, setScrollerStyle, setScrollerStyle, appkit_ce_NSScrollerStyle, NSScrollerStyle) /* binding:main-thread-nsscroller-set-scroller-style */
+DOUBLE_GET(NSScroller, NSScroller, knobProportion, knobProportion) /* binding:main-thread-nsscroller-knob-proportion */
+DOUBLE_SET(NSScroller, NSScroller, setKnobProportion, setKnobProportion) /* binding:main-thread-nsscroller-set-knob-proportion */
+ENUM_GET(NSScroller, NSScroller, hitPart, hitPart, appkit_ce_NSScrollerPart, true) /* binding:main-thread-nsscroller-hit-part */
+METHOD(NSScroller, rectForPart, PARSE_OBJ(appkit_ce_NSScrollerPart), appkit_return_rect(return_value, [SELF(NSScroller) rectForPart:(NSScrollerPart) appkit_enum_value(v, 0)]);) /* binding:main-thread-nsscroller-rect-for-part */
+ZEND_METHOD(NSScroller, testPart)
+{
+	zend_object *point_obj;
+	NSPoint point;
+
+	ZEND_PARSE_PARAMETERS_START(1, 1)
+		Z_PARAM_OBJ_OF_CLASS(point_obj, appkit_ce_NSPoint)
+	ZEND_PARSE_PARAMETERS_END();
+	APPKIT_REQUIRE_MAIN_THREAD(); /* binding:main-thread-nsscroller-test-part */
+	if (!appkit_point_from(point_obj, 1, &point)) {
+		RETURN_THROWS();
+	}
+
+	APPKIT_BEGIN
+		appkit_return_enum(return_value, appkit_ce_NSScrollerPart, (zend_long) [SELF(NSScroller) testPart:point], true);
+	APPKIT_END
+}
 
 /* NSTimeZone */
 ANY_METHOD(NSTimeZone, timeZoneWithName, PARSE_STR, appkit_box_objc(return_value, [NSTimeZone timeZoneWithName:appkit_nsstring(v)]);)

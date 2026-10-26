@@ -1,5 +1,5 @@
 /* This is a generated file, edit the .stub.php file instead.
- * Stub hash: 1edf87cd1ab8a3ec722ff51d22225a49829d3317 */
+ * Stub hash: fc0e2fd2b7f202e358fb19572f91d85eaaf129ac */
 
 ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(arginfo_class_NSMenu_initWithTitle, 0, 1, NSMenu, 0)
 	ZEND_ARG_TYPE_INFO(0, title, IS_STRING, 0)
@@ -123,6 +123,13 @@ ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_NSMenuItem_setKeyEquivalen
 	ZEND_ARG_TYPE_INFO(0, keyEquivalent, IS_STRING, 0)
 ZEND_END_ARG_INFO()
 
+ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(arginfo_class_NSMenuItem_image, 0, 0, NSImage, 1)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_NSMenuItem_setImage, 0, 1, IS_VOID, 0)
+	ZEND_ARG_OBJ_INFO(0, image, NSImage, 1)
+ZEND_END_ARG_INFO()
+
 #define arginfo_class_NSMenuItem_keyEquivalentModifierMask arginfo_class_NSMenu_numberOfItems
 
 ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_NSMenuItem_setKeyEquivalentModifierMask, 0, 1, IS_VOID, 0)
@@ -171,6 +178,8 @@ ZEND_METHOD(NSMenuItem, isEnabled);
 ZEND_METHOD(NSMenuItem, setEnabled);
 ZEND_METHOD(NSMenuItem, keyEquivalent);
 ZEND_METHOD(NSMenuItem, setKeyEquivalent);
+ZEND_METHOD(NSMenuItem, image);
+ZEND_METHOD(NSMenuItem, setImage);
 ZEND_METHOD(NSMenuItem, keyEquivalentModifierMask);
 ZEND_METHOD(NSMenuItem, setKeyEquivalentModifierMask);
 ZEND_METHOD(NSMenuItem, tag);
@@ -217,6 +226,8 @@ static const zend_function_entry class_NSMenuItem_methods[] = {
 	ZEND_ME(NSMenuItem, setEnabled, arginfo_class_NSMenuItem_setEnabled, ZEND_ACC_PUBLIC)
 	ZEND_ME(NSMenuItem, keyEquivalent, arginfo_class_NSMenuItem_keyEquivalent, ZEND_ACC_PUBLIC)
 	ZEND_ME(NSMenuItem, setKeyEquivalent, arginfo_class_NSMenuItem_setKeyEquivalent, ZEND_ACC_PUBLIC)
+	ZEND_ME(NSMenuItem, image, arginfo_class_NSMenuItem_image, ZEND_ACC_PUBLIC)
+	ZEND_ME(NSMenuItem, setImage, arginfo_class_NSMenuItem_setImage, ZEND_ACC_PUBLIC)
 	ZEND_ME(NSMenuItem, keyEquivalentModifierMask, arginfo_class_NSMenuItem_keyEquivalentModifierMask, ZEND_ACC_PUBLIC)
 	ZEND_ME(NSMenuItem, setKeyEquivalentModifierMask, arginfo_class_NSMenuItem_setKeyEquivalentModifierMask, ZEND_ACC_PUBLIC)
 	ZEND_ME(NSMenuItem, tag, arginfo_class_NSMenuItem_tag, ZEND_ACC_PUBLIC)
