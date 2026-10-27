@@ -311,3 +311,147 @@ it('hands a key window\'s keyDown: to PHP, and to NSWindow when PHP declines', f
     expect($seen)->toBe([96, 48]);
     $window->close();
 });
+
+/** A key window with a focus view as first responder, the app active; [$app, $window, $view]. */
+function focusViewWindow(): array
+{
+    $app = NSApplication::sharedApplication();
+    $app->finishLaunching();
+    $app->setActivationPolicy(NSApplicationActivationPolicy::REGULAR);
+    $app->activateIgnoringOtherApps(true);
+    $window = ObjCKeyWindow::initWithContentRectStyleMaskBackingDefer(new NSRect(200.0, 200.0, 240.0, 120.0), NSWindowStyleMask::TITLED, NSBackingStoreType::BUFFERED, false);
+    $window->setReleasedWhenClosed(false);
+    $view = ObjCFocusView::initWithFrame(new NSRect(0.0, 0.0, 200.0, 100.0));
+    $window->contentView()->addSubview($view);
+    $view->on('acceptsFirstResponder', static fn (): bool => true);
+    $window->makeKeyAndOrderFront(null);
+    pumpUntil($app, fn (): bool => $window->isKeyWindow(), 2.0);
+    $window->makeFirstResponder($view);
+    // The view's input context activates on the next run-loop pass; before that, interpretKeyEvents: inserts nothing.
+    pumpFor($app, 0.1);
+
+    return [$app, $window, $view];
+}
+
+/** A key event from Quartz: code, flags, down or up. */
+function focusViewKey(int $code, int $flags = 0, bool $down = true): NSEvent
+{
+    $event = CGEvent::createKeyboardEvent(null, $code, $down);
+    $event->setFlags($flags);
+
+    return NSEvent::eventWithCGEvent($event);
+}
+
+it('hands a focus view\'s keyDown: to PHP, and to the window when PHP declines', function (): void {
+    [$app, $window, $view] = focusViewWindow();
+    $seen = [];
+    $window_saw = [];
+    $view->on('keyDown:', function (NSEvent $event) use (&$seen): bool {
+        $seen[] = $event->keyCode();
+
+        return $event->keyCode() !== 48;
+    });
+    $window->on('keyDown:', function (NSEvent $event) use (&$window_saw): bool {
+        $window_saw[] = $event->keyCode();
+
+        return true;
+    });
+
+    $app->sendEvent(focusViewKey(0));
+    expect($seen)->toBe([0])
+        ->and($window_saw)->toBe([]);
+
+    // Declined: NSView's keyDown: passes it up the responder chain to the window.
+    $app->sendEvent(focusViewKey(48));
+    expect($seen)->toBe([0, 48])
+        ->and($window_saw)->toBe([48]);
+
+    $view->off('keyDown:');
+    $app->sendEvent(focusViewKey(0));
+    expect($seen)->toBe([0, 48])
+        ->and($window_saw)->toBe([48, 0]);
+    $window->off('keyDown:');
+    $window->close();
+});
+
+it('hands a focus view\'s keyUp: and flagsChanged: to PHP', function (): void {
+    [$app, $window, $view] = focusViewWindow();
+    $ups = [];
+    $flags = [];
+    $view->on('keyUp:', function (NSEvent $event) use (&$ups): bool {
+        $ups[] = $event->keyCode();
+
+        return true;
+    });
+    $view->on('flagsChanged:', function (NSEvent $event) use (&$flags): bool {
+        $flags[] = [$event->keyCode(), $event->modifierFlags() & NSEventModifierFlags::SHIFT->value];
+
+        return true;
+    });
+
+    $app->sendEvent(focusViewKey(0, 0, false));
+    expect($ups)->toBe([0]);
+
+    $app->sendEvent(focusViewKey(56, NSEventModifierFlags::SHIFT->value));
+    $app->sendEvent(focusViewKey(56, 0, false));
+    expect($flags)->toBe([[56, NSEventModifierFlags::SHIFT->value], [56, 0]]);
+
+    $view->off('keyUp:');
+    $view->off('flagsChanged:');
+    $window->close();
+});
+
+it('composes a dead key through the focus view\'s marked text and commits the result to insertText:', function (): void {
+    [$app, $window, $view] = focusViewWindow();
+    $text = [];
+    $view->on('keyDown:', function (NSEvent $event) use ($view): bool {
+        $view->interpretKeyEvents([$event]);
+
+        return true;
+    });
+    $view->on('insertText:replacementRange:', function (string $string) use (&$text): bool {
+        $text[] = $string;
+
+        return true;
+    });
+    // Option+e: the acute dead key is held as marked text inside the glue; nothing commits yet.
+    $app->sendEvent(focusViewKey(14, NSEventModifierFlags::OPTION->value));
+    expect($text)->toBe([]);
+
+    $app->sendEvent(focusViewKey(14));
+    expect($text)->toBe(['é']);
+
+    $view->off('keyDown:');
+    $view->off('insertText:replacementRange:');
+    $window->close();
+});
+
+it('answers a standard edit action only while PHP handles it, and hands it to PHP with its sender', function (string $action): void {
+    [$app, $window, $view] = focusViewWindow();
+    $window->makeFirstResponder($view);
+    $menu = NSMenu::initWithTitle('Edit');
+    $item = NSMenuItem::initWithTitleActionKeyEquivalent('Item', $action, '');
+    $menu->addItem($item);
+
+    // No handler: the view does not answer the action, so AppKit greys an item that sends it.
+    $menu->update();
+    expect($view->respondsToSelector($action))->toBeFalse()
+        ->and($item->isEnabled())->toBeFalse();
+
+    $senders = [];
+    $view->on($action, function (?NSObject $sender) use (&$senders): bool {
+        $senders[] = $sender;
+
+        return true;
+    });
+    $menu->update();
+    $menu->performActionForItemAtIndex(0);
+
+    expect($view->respondsToSelector($action))->toBeTrue()
+        ->and($item->isEnabled())->toBeTrue()
+        ->and($senders)->toHaveCount(1)
+        ->and($senders[0])->toBe($item);
+
+    $view->off($action);
+    $window->close();
+})->with(['cut:', 'copy:', 'paste:', 'selectAll:', 'undo:', 'redo:']);

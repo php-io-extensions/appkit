@@ -12,4 +12,7 @@ class NSResponder extends NSObject
     public function setNextResponder(?NSResponder $nextResponder): void {}
 
     public function acceptsFirstResponder(): bool {}
+
+    /** @param NSEvent[] $eventArray */
+    public function interpretKeyEvents(array $eventArray): void {}
 }

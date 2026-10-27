@@ -1,5 +1,5 @@
 /* This is a generated file, edit the .stub.php file instead.
- * Stub hash: f428fa061ac12fa3f89d00b62b194d9fcc536c28 */
+ * Stub hash: 4409f5c2fcd101a67b82d615c9779e41c22cea87 */
 
 ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(arginfo_class_NSResponder_nextResponder, 0, 0, NSResponder, 1)
 ZEND_END_ARG_INFO()
@@ -11,14 +11,20 @@ ZEND_END_ARG_INFO()
 ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_NSResponder_acceptsFirstResponder, 0, 0, _IS_BOOL, 0)
 ZEND_END_ARG_INFO()
 
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_NSResponder_interpretKeyEvents, 0, 1, IS_VOID, 0)
+	ZEND_ARG_TYPE_INFO(0, eventArray, IS_ARRAY, 0)
+ZEND_END_ARG_INFO()
+
 ZEND_METHOD(NSResponder, nextResponder);
 ZEND_METHOD(NSResponder, setNextResponder);
 ZEND_METHOD(NSResponder, acceptsFirstResponder);
+ZEND_METHOD(NSResponder, interpretKeyEvents);
 
 static const zend_function_entry class_NSResponder_methods[] = {
 	ZEND_ME(NSResponder, nextResponder, arginfo_class_NSResponder_nextResponder, ZEND_ACC_PUBLIC)
 	ZEND_ME(NSResponder, setNextResponder, arginfo_class_NSResponder_setNextResponder, ZEND_ACC_PUBLIC)
 	ZEND_ME(NSResponder, acceptsFirstResponder, arginfo_class_NSResponder_acceptsFirstResponder, ZEND_ACC_PUBLIC)
+	ZEND_ME(NSResponder, interpretKeyEvents, arginfo_class_NSResponder_interpretKeyEvents, ZEND_ACC_PUBLIC)
 	ZEND_FE_END
 };
 

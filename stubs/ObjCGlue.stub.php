@@ -116,18 +116,28 @@ final class ObjCStageWindow extends NSWindow
 }
 
 /**
- * An NSView whose acceptsFirstResponder override asks a PHP handler, and answers NSView's own (NO)
- * while none is set or it did not run. Made with initWithFrame().
+ * An NSView whose overrides ask PHP handlers: acceptsFirstResponder (answers NSView's own, NO,
+ * while none is set or it did not run); keyDown:, keyUp:, flagsChanged: with the NSEvent;
+ * insertText:replacementRange: with the text; doCommandBySelector: with the selector's name. For
+ * the five, false, no handler, or a handler that did not run calls NSView's own. The view conforms
+ * to NSTextInputClient, so interpretKeyEvents() composes dead keys through its input context; it
+ * holds the marked text itself and sends PHP only what is committed. Made with initWithFrame().
  *
  * @not-serializable
  */
 final class ObjCFocusView extends NSView
 {
     /**
-     * Sets the handler for 'acceptsFirstResponder', replacing one set before. The override asks
-     * only that name; a handler under any other name is kept and never called.
+     * Sets the handler for one of the twelve selector names, replacing one set before. The overrides
+     * ask only those names; a handler under any other name is kept and never called. The view
+     * answers respondsToSelector: for 'cut:', 'copy:', 'paste:', 'selectAll:', 'undo:' and 'redo:'
+     * only while a handler is set under that name; PHP's false passes the action to the next responder.
      *
-     * @param callable $handler called as $handler(): bool
+     * @param callable $handler called as $handler(): bool for 'acceptsFirstResponder';
+     *                          $handler(NSEvent $event): bool for 'keyDown:', 'keyUp:', 'flagsChanged:';
+     *                          $handler(string $text): bool for 'insertText:replacementRange:';
+     *                          $handler(string $selector): bool for 'doCommandBySelector:';
+     *                          $handler(?NSObject $sender): bool for 'cut:', 'copy:', 'paste:', 'selectAll:', 'undo:', 'redo:'
      */
     public function on(string $selector, callable $handler): void {}
 

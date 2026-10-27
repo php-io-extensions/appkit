@@ -498,9 +498,10 @@ static BOOL appkit_handlers_answer(appkit_handlers *handlers, NSString *name, ui
 
 /* ---- PHPFocusView -------------------------------------------------------- */
 
-@interface PHPFocusView : NSView {
+@interface PHPFocusView : NSView <NSTextInputClient> {
 @public
 	appkit_handlers *handlers;
+	NSString *marked;
 }
 @end
 
@@ -509,6 +510,7 @@ static BOOL appkit_handlers_answer(appkit_handlers *handlers, NSString *name, ui
 - (void)dealloc
 {
 	appkit_handlers_release(handlers);
+	[marked release];
 	[super dealloc];
 }
 
@@ -517,6 +519,172 @@ static BOOL appkit_handlers_answer(appkit_handlers *handlers, NSString *name, ui
 	BOOL answer;
 
 	return appkit_handlers_answer(handlers, @"acceptsFirstResponder", 0, NULL, &answer) ? answer : [super acceptsFirstResponder];
+}
+
+/* PHP's true takes the event; false, no handler, or a handler that did not run calls NSView's own. */
+- (BOOL)forwardEvent:(NSEvent *)event to:(NSString *)name
+{
+	zval argv[1];
+	BOOL taken = NO;
+	BOOL called;
+
+	appkit_box_objc(&argv[0], event);
+	called = appkit_handlers_answer(handlers, name, 1, argv, &taken);
+	zval_ptr_dtor(&argv[0]);
+
+	return called && taken;
+}
+
+- (void)keyDown:(NSEvent *)event
+{
+	if (![self forwardEvent:event to:@"keyDown:"]) {
+		[super keyDown:event];
+	}
+}
+
+- (void)keyUp:(NSEvent *)event
+{
+	if (![self forwardEvent:event to:@"keyUp:"]) {
+		[super keyUp:event];
+	}
+}
+
+- (void)flagsChanged:(NSEvent *)event
+{
+	if (![self forwardEvent:event to:@"flagsChanged:"]) {
+		[super flagsChanged:event];
+	}
+}
+
+/* NSTextInputClient: the two that reach PHP. */
+
+- (void)insertText:(id)string replacementRange:(NSRange)replacementRange
+{
+	NSString *text = [string isKindOfClass:[NSAttributedString class]] ? [string string] : string;
+	zval argv[1];
+	BOOL taken = NO;
+	BOOL called;
+
+	[marked release];
+	marked = nil;
+	ZVAL_STR(&argv[0], appkit_zend_string((CFStringRef) text));
+	called = appkit_handlers_answer(handlers, @"insertText:replacementRange:", 1, argv, &taken);
+	zval_ptr_dtor(&argv[0]);
+	if (!called || !taken) {
+		[super insertText:string];
+	}
+}
+
+/* The key binding manager's plain insertText: (no input context active): the same handler, the whole text. */
+- (void)insertText:(id)string
+{
+	[self insertText:string replacementRange:NSMakeRange(NSNotFound, 0)];
+}
+
+- (void)doCommandBySelector:(SEL)selector
+{
+	zval argv[1];
+	BOOL taken = NO;
+	BOOL called;
+
+	ZVAL_STR(&argv[0], appkit_zend_string((CFStringRef) NSStringFromSelector(selector)));
+	called = appkit_handlers_answer(handlers, @"doCommandBySelector:", 1, argv, &taken);
+	zval_ptr_dtor(&argv[0]);
+	if (!called || !taken) {
+		[super doCommandBySelector:selector];
+	}
+}
+
+/* The standard edit actions: answered only while PHP holds a handler under the action's name, so
+ * AppKit enables an item that sends one only then. PHP's false passes the action up the chain. */
+
+static BOOL appkit_focus_view_action(SEL selector)
+{
+	return selector == @selector(cut:) || selector == @selector(copy:) || selector == @selector(paste:)
+		|| selector == @selector(selectAll:) || selector == @selector(undo:) || selector == @selector(redo:);
+}
+
+- (BOOL)respondsToSelector:(SEL)selector
+{
+	if (appkit_focus_view_action(selector)) {
+		return handlers[NSStringFromSelector(selector)] != nil;
+	}
+
+	return [super respondsToSelector:selector];
+}
+
+- (void)forwardAction:(SEL)action sender:(id)sender
+{
+	zval argv[1];
+	BOOL taken = NO;
+	BOOL called;
+
+	appkit_box_objc(&argv[0], sender);
+	called = appkit_handlers_answer(handlers, NSStringFromSelector(action), 1, argv, &taken);
+	zval_ptr_dtor(&argv[0]);
+	if (!called || !taken) {
+		[[self nextResponder] tryToPerform:action with:sender];
+	}
+}
+
+- (void)cut:(id)sender { [self forwardAction:_cmd sender:sender]; }
+- (void)copy:(id)sender { [self forwardAction:_cmd sender:sender]; }
+- (void)paste:(id)sender { [self forwardAction:_cmd sender:sender]; }
+- (void)selectAll:(id)sender { [self forwardAction:_cmd sender:sender]; }
+- (void)undo:(id)sender { [self forwardAction:_cmd sender:sender]; }
+- (void)redo:(id)sender { [self forwardAction:_cmd sender:sender]; }
+
+/* NSTextInputClient: the rest, answered here. The marked text is held, never shown or sent to PHP. */
+
+- (void)setMarkedText:(id)string selectedRange:(NSRange)selectedRange replacementRange:(NSRange)replacementRange
+{
+	NSString *text = [string isKindOfClass:[NSAttributedString class]] ? [string string] : string;
+
+	[marked release];
+	marked = [text copy];
+}
+
+- (void)unmarkText
+{
+	[marked release];
+	marked = nil;
+}
+
+- (NSRange)selectedRange
+{
+	return NSMakeRange(NSNotFound, 0);
+}
+
+- (NSRange)markedRange
+{
+	return marked != nil ? NSMakeRange(0, [marked length]) : NSMakeRange(NSNotFound, 0);
+}
+
+- (BOOL)hasMarkedText
+{
+	return marked != nil;
+}
+
+- (NSAttributedString *)attributedSubstringForProposedRange:(NSRange)range actualRange:(NSRangePointer)actualRange
+{
+	return nil;
+}
+
+- (NSArray<NSAttributedStringKey> *)validAttributesForMarkedText
+{
+	return @[];
+}
+
+- (NSRect)firstRectForCharacterRange:(NSRange)range actualRange:(NSRangePointer)actualRange
+{
+	NSRect rect = [self convertRect:[self bounds] toView:nil];
+
+	return [self window] != nil ? [[self window] convertRectToScreen:rect] : rect;
+}
+
+- (NSUInteger)characterIndexForPoint:(NSPoint)point
+{
+	return 0;
 }
 
 @end

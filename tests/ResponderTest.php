@@ -71,3 +71,46 @@ it('reads and sets the key-view loop and the initial first responder, and moves 
         ->and($window->initialFirstResponder())->toBeNull();
     $window->close();
 });
+
+it('interprets key events into insertText: and doCommandBySelector: on a first-responder focus view', function (): void {
+    $app = NSApplication::sharedApplication();
+    $app->finishLaunching();
+    $app->setActivationPolicy(NSApplicationActivationPolicy::REGULAR);
+    $app->activateIgnoringOtherApps(true);
+    $window = NSWindow::initWithContentRectStyleMaskBackingDefer(new NSRect(200.0, 200.0, 240.0, 120.0), NSWindowStyleMask::TITLED, NSBackingStoreType::BUFFERED, false);
+    $window->setReleasedWhenClosed(false);
+    $view = ObjCFocusView::initWithFrame(new NSRect(0.0, 0.0, 200.0, 100.0));
+    $window->contentView()->addSubview($view);
+    $view->on('acceptsFirstResponder', static fn (): bool => true);
+    $window->makeKeyAndOrderFront(null);
+    pumpUntil($app, fn (): bool => $window->isKeyWindow(), 2.0);
+    $window->makeFirstResponder($view);
+    // The view's input context activates on the next run-loop pass; before that, interpretKeyEvents: inserts nothing.
+    pumpFor($app, 0.1);
+    $key = static fn (int $code): NSEvent => NSEvent::eventWithCGEvent(CGEvent::createKeyboardEvent(null, $code, true));
+
+    $text = [];
+    $commands = [];
+    $view->on('insertText:replacementRange:', function (string $string) use (&$text): bool {
+        $text[] = $string;
+
+        return true;
+    });
+    $view->on('doCommandBySelector:', function (string $selector) use (&$commands): bool {
+        $commands[] = $selector;
+
+        return true;
+    });
+
+    $view->interpretKeyEvents([$key(0)]);
+    expect($text)->toBe(['a'])
+        ->and($commands)->toBe([]);
+
+    $view->interpretKeyEvents([$key(123)]);
+    expect($commands)->toBe(['moveLeft:'])
+        ->and($text)->toBe(['a']);
+
+    $view->off('insertText:replacementRange:');
+    $view->off('doCommandBySelector:');
+    $window->close();
+});

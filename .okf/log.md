@@ -1,5 +1,10 @@
 # Log
 
+## 2026-10-26
+
+* `NSResponder::interpretKeyEvents` (its own main-thread site); glue `ObjCFocusView` forwards `keyDown:`, `keyUp:`, `flagsChanged:`, `insertText:replacementRange:` and `doCommandBySelector:` to PHP handlers (false = NSView's own) and conforms to `NSTextInputClient`, holding a dead key's marked text itself. 658 / 7210. [glue](architecture/glue.md)
+* Glue `ObjCFocusView` forwards the standard edit actions `cut:`, `copy:`, `paste:`, `selectAll:`, `undo:`, `redo:` with their sender (false = next responder), answering `respondsToSelector:` for each only while a handler is set. [glue](architecture/glue.md)
+
 ## 2026-10-24
 
 * `NSScroller` `rectForPart:` (scroller coordinates) and `testPart:` (window coordinates, as an event's `locationInWindow`): a scroller that tracks its own knob drag, so the app's loop runs during it.

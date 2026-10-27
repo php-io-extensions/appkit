@@ -83,6 +83,29 @@ ZEND_METHOD(NSResponder, acceptsFirstResponder)
 	APPKIT_END
 }
 
+ZEND_METHOD(NSResponder, interpretKeyEvents)
+{
+	HashTable *events;
+	zval *entry;
+
+	ZEND_PARSE_PARAMETERS_START(1, 1)
+		Z_PARAM_ARRAY_HT(events)
+	ZEND_PARSE_PARAMETERS_END();
+	APPKIT_REQUIRE_MAIN_THREAD(); /* binding:main-thread-nsresponder-interpret-key-events */
+
+	APPKIT_BEGIN
+		/* The list's NSEvents, as given; an entry that is no AppKit object is left out. */
+		NSMutableArray *list = [NSMutableArray arrayWithCapacity:zend_hash_num_elements(events)];
+		ZEND_HASH_FOREACH_VAL(events, entry) {
+			ZVAL_DEREF(entry);
+			if (Z_TYPE_P(entry) == IS_OBJECT && instanceof_function(Z_OBJCE_P(entry), appkit_ce_NSObject)) {
+				[list addObject:APPKIT_ID(Z_OBJ_P(entry))];
+			}
+		} ZEND_HASH_FOREACH_END();
+		[(NSResponder *) APPKIT_ID(Z_OBJ_P(ZEND_THIS)) interpretKeyEvents:list];
+	APPKIT_END
+}
+
 ZEND_METHOD(NSObject, __construct)
 {
 	ZEND_PARSE_PARAMETERS_NONE();
