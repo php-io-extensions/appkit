@@ -1,5 +1,5 @@
 /* This is a generated file, edit the .stub.php file instead.
- * Stub hash: 1269113f8bf8dbf6af5525ab66bbd6467db5f226 */
+ * Stub hash: f3138ae245a01438e0d8c937f7cba78bc8544886 */
 
 ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(arginfo_class_NSPasteboard_generalPasteboard, 0, 0, NSPasteboard, 0)
 ZEND_END_ARG_INFO()
@@ -16,16 +16,26 @@ ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_NSPasteboard_stringForType
 	ZEND_ARG_TYPE_INFO(0, dataType, IS_STRING, 0)
 ZEND_END_ARG_INFO()
 
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_NSPasteboard_availableTypeFromArray, 0, 1, IS_STRING, 1)
+	ZEND_ARG_TYPE_INFO(0, types, IS_ARRAY, 0)
+ZEND_END_ARG_INFO()
+
+#define arginfo_class_NSPasteboard_changeCount arginfo_class_NSPasteboard_clearContents
+
 ZEND_METHOD(NSPasteboard, generalPasteboard);
 ZEND_METHOD(NSPasteboard, clearContents);
 ZEND_METHOD(NSPasteboard, setStringForType);
 ZEND_METHOD(NSPasteboard, stringForType);
+ZEND_METHOD(NSPasteboard, availableTypeFromArray);
+ZEND_METHOD(NSPasteboard, changeCount);
 
 static const zend_function_entry class_NSPasteboard_methods[] = {
 	ZEND_ME(NSPasteboard, generalPasteboard, arginfo_class_NSPasteboard_generalPasteboard, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
 	ZEND_ME(NSPasteboard, clearContents, arginfo_class_NSPasteboard_clearContents, ZEND_ACC_PUBLIC)
 	ZEND_ME(NSPasteboard, setStringForType, arginfo_class_NSPasteboard_setStringForType, ZEND_ACC_PUBLIC)
 	ZEND_ME(NSPasteboard, stringForType, arginfo_class_NSPasteboard_stringForType, ZEND_ACC_PUBLIC)
+	ZEND_ME(NSPasteboard, availableTypeFromArray, arginfo_class_NSPasteboard_availableTypeFromArray, ZEND_ACC_PUBLIC)
+	ZEND_ME(NSPasteboard, changeCount, arginfo_class_NSPasteboard_changeCount, ZEND_ACC_PUBLIC)
 	ZEND_FE_END
 };
 

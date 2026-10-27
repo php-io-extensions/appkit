@@ -8,11 +8,13 @@
 #include "../stubs/NSPanel_arginfo.h"
 
 _Static_assert(NSAlertFirstButtonReturn == 1000 && NSModalResponseOK == 1 && NSModalResponseCancel == 0, "NSModalResponse values moved");
+_Static_assert(NSAlertStyleWarning == 0 && NSAlertStyleInformational == 1 && NSAlertStyleCritical == 2, "NSAlertStyle values moved");
 
 void appkit_register_NSPanel(int module_number)
 {
 	register_NSPanel_symbols(module_number);
 
+	appkit_ce_NSAlertStyle = register_class_NSAlertStyle();
 	APPKIT_MAP(NSPanel, appkit_ce_NSWindow);
 	APPKIT_MAP(NSAlert, appkit_ce_NSObject);
 	APPKIT_MAP(NSSavePanel, appkit_ce_NSPanel);
@@ -54,6 +56,11 @@ STR_GET(NSAlert, NSAlert, informativeText, informativeText) /* binding:main-thre
 STR_SET(NSAlert, NSAlert, setInformativeText, setInformativeText) /* binding:main-thread-nsalert-set-informative-text */
 METHOD(NSAlert, addButtonWithTitle, PARSE_STR, appkit_box_objc(return_value, [SELF(NSAlert) addButtonWithTitle:appkit_nsstring(v)]);) /* binding:main-thread-nsalert-add-button-with-title */
 OBJ_GET(NSAlert, NSAlert, window, window) /* binding:main-thread-nsalert-window */
+ENUM_GET(NSAlert, NSAlert, alertStyle, alertStyle, appkit_ce_NSAlertStyle, false) /* binding:main-thread-nsalert-alert-style */
+ENUM_SET(NSAlert, NSAlert, setAlertStyle, setAlertStyle, appkit_ce_NSAlertStyle, NSAlertStyle) /* binding:main-thread-nsalert-set-alert-style */
+BOOL_GET(NSAlert, NSAlert, showsSuppressionButton, showsSuppressionButton) /* binding:main-thread-nsalert-shows-suppression-button */
+BOOL_SET(NSAlert, NSAlert, setShowsSuppressionButton, setShowsSuppressionButton) /* binding:main-thread-nsalert-set-shows-suppression-button */
+OBJ_GET(NSAlert, NSAlert, suppressionButton, suppressionButton) /* binding:main-thread-nsalert-suppression-button */
 
 ZEND_METHOD(NSAlert, buttons)
 {
@@ -101,6 +108,45 @@ STR_GET(NSSavePanel, NSSavePanel, nameFieldStringValue, nameFieldStringValue) /*
 STR_SET(NSSavePanel, NSSavePanel, setNameFieldStringValue, setNameFieldStringValue) /* binding:main-thread-nssavepanel-set-name-field-string-value */
 METHOD(NSSavePanel, message, PARSE_NONE, NSString *s = [SELF(NSSavePanel) message]; RETURN_STR(appkit_zend_string((CFStringRef) (s != nil ? s : @"")));) /* binding:main-thread-nssavepanel-message */
 STR_SET_OR_NULL(NSSavePanel, NSSavePanel, setMessage, setMessage) /* binding:main-thread-nssavepanel-set-message */
+BOOL_GET(NSSavePanel, NSSavePanel, showsHiddenFiles, showsHiddenFiles) /* binding:main-thread-nssavepanel-shows-hidden-files */
+BOOL_SET(NSSavePanel, NSSavePanel, setShowsHiddenFiles, setShowsHiddenFiles) /* binding:main-thread-nssavepanel-set-shows-hidden-files */
+
+ZEND_METHOD(NSSavePanel, allowedContentTypes)
+{
+	ZEND_PARSE_PARAMETERS_NONE();
+	APPKIT_REQUIRE_MAIN_THREAD(); /* binding:main-thread-nssavepanel-allowed-content-types */
+
+	APPKIT_BEGIN
+		array_init(return_value);
+		for (id type in [SELF(NSSavePanel) allowedContentTypes]) {
+			zval boxed;
+			appkit_box_objc(&boxed, type);
+			add_next_index_zval(return_value, &boxed);
+		}
+	APPKIT_END
+}
+
+ZEND_METHOD(NSSavePanel, setAllowedContentTypes)
+{
+	HashTable *ht;
+	zval *entry;
+
+	ZEND_PARSE_PARAMETERS_START(1, 1)
+		Z_PARAM_ARRAY_HT(ht)
+	ZEND_PARSE_PARAMETERS_END();
+	APPKIT_REQUIRE_MAIN_THREAD(); /* binding:main-thread-nssavepanel-set-allowed-content-types */
+
+	APPKIT_BEGIN
+		NSMutableArray *types = [NSMutableArray arrayWithCapacity:zend_hash_num_elements(ht)];
+		ZEND_HASH_FOREACH_VAL(ht, entry) {
+			ZVAL_DEREF(entry);
+			if (Z_TYPE_P(entry) == IS_OBJECT && instanceof_function(Z_OBJCE_P(entry), appkit_ce_UTType)) {
+				[types addObject:APPKIT_ID(Z_OBJ_P(entry))];
+			}
+		} ZEND_HASH_FOREACH_END();
+		[SELF(NSSavePanel) setAllowedContentTypes:types];
+	APPKIT_END
+}
 
 ZEND_METHOD(NSSavePanel, beginSheetModalForWindowCompletionHandler)
 {

@@ -1,5 +1,9 @@
 # Log
 
+## 2026-10-27
+
+* `NSAlert` alertStyle (`NSAlertStyle`), showsSuppressionButton and suppressionButton (+set); `NSSavePanel` allowedContentTypes and showsHiddenFiles (+set), each with its own main-thread site; `UTType` typeWithFilenameExtension: and identifier (UniformTypeIdentifiers framework, any thread); `NSPasteboard` availableTypeFromArray: and changeCount. Array setters skip entries of the wrong type. 669 / 7210.
+
 ## 2026-10-26
 
 * `NSResponder::interpretKeyEvents` (its own main-thread site); glue `ObjCFocusView` forwards `keyDown:`, `keyUp:`, `flagsChanged:`, `insertText:replacementRange:` and `doCommandBySelector:` to PHP handlers (false = NSView's own) and conforms to `NSTextInputClient`, holding a dead key's marked text itself. 658 / 7210. [glue](architecture/glue.md)

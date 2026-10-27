@@ -25,3 +25,16 @@ it('puts text on the general pasteboard and reads it back', function (): void {
         ->and($board->stringForType(NSPasteboardTypeString))->toBe($text)
         ->and($board->clearContents())->toBeGreaterThan($before);
 });
+
+it('reports the type it holds and counts each change', function (): void {
+    $board = NSPasteboard::generalPasteboard();
+    $before = $board->changeCount();
+    $board->clearContents();
+    $board->setStringForType('x', NSPasteboardTypeString);
+
+    expect($board->availableTypeFromArray([NSPasteboardTypeString]))->toBe(NSPasteboardTypeString)
+        ->and($board->changeCount())->toBeGreaterThan($before);
+
+    $board->clearContents();
+    expect($board->availableTypeFromArray([NSPasteboardTypeString]))->toBeNull();
+});

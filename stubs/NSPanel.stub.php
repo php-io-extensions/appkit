@@ -20,6 +20,13 @@ const NSModalResponseOK = UNKNOWN;
  */
 const NSModalResponseCancel = UNKNOWN;
 
+enum NSAlertStyle: int
+{
+    case WARNING = 0;
+    case INFORMATIONAL = 1;
+    case CRITICAL = 2;
+}
+
 /**
  * @not-serializable
  */
@@ -42,6 +49,17 @@ class NSAlert extends NSObject
     public function informativeText(): string {}
 
     public function setInformativeText(string $informativeText): void {}
+
+    public function alertStyle(): NSAlertStyle {}
+
+    public function setAlertStyle(NSAlertStyle $alertStyle): void {}
+
+    public function showsSuppressionButton(): bool {}
+
+    public function setShowsSuppressionButton(bool $showsSuppressionButton): void {}
+
+    /** The "Do not show this message again" checkbox; its title can be set. Read its state() once the sheet ends. */
+    public function suppressionButton(): ?NSButton {}
 
     /** AppKit gives the first button the key equivalent Return, and a button titled Cancel Esc. */
     public function addButtonWithTitle(string $title): NSButton {}
@@ -81,6 +99,16 @@ class NSSavePanel extends NSPanel
     public function message(): string {}
 
     public function setMessage(?string $message): void {}
+
+    /** @return UTType[] the types the panel allows; [] allows every type */
+    public function allowedContentTypes(): array {}
+
+    /** @param UTType[] $allowedContentTypes entries that are not UTType objects are skipped */
+    public function setAllowedContentTypes(array $allowedContentTypes): void {}
+
+    public function showsHiddenFiles(): bool {}
+
+    public function setShowsHiddenFiles(bool $showsHiddenFiles): void {}
 
     /**
      * Shows the panel as a sheet on $window and returns at once.

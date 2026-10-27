@@ -125,6 +125,8 @@ zend_class_entry *appkit_ce_NSAlert;
 zend_class_entry *appkit_ce_NSSavePanel;
 zend_class_entry *appkit_ce_NSOpenPanel;
 zend_class_entry *appkit_ce_NSPasteboard;
+zend_class_entry *appkit_ce_NSAlertStyle;
+zend_class_entry *appkit_ce_UTType;
 zend_class_entry *appkit_ce_NSImageScaling;
 zend_class_entry *appkit_ce_NSImageView;
 zend_class_entry *appkit_ce_NSBoxType;
@@ -234,6 +236,7 @@ PHP_MINIT_FUNCTION(appkit)
 	appkit_register_NSWindow(module_number);
 	appkit_register_NSPanel(module_number);
 	appkit_register_NSPasteboard(module_number);
+	appkit_register_UTType();
 	appkit_register_NSScreen();
 	appkit_register_NSGraphicsContext();
 	appkit_register_CADisplayLink();

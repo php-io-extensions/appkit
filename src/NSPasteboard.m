@@ -30,6 +30,31 @@ ZEND_METHOD(NSPasteboard, setStringForType)
 	APPKIT_END
 }
 
+ANY_LONG_GET(NSPasteboard, NSPasteboard, changeCount, changeCount)
+
+ZEND_METHOD(NSPasteboard, availableTypeFromArray)
+{
+	HashTable *ht;
+	zval *entry;
+
+	ZEND_PARSE_PARAMETERS_START(1, 1)
+		Z_PARAM_ARRAY_HT(ht)
+	ZEND_PARSE_PARAMETERS_END();
+
+	APPKIT_BEGIN
+		NSMutableArray *types = [NSMutableArray arrayWithCapacity:zend_hash_num_elements(ht)];
+		ZEND_HASH_FOREACH_VAL(ht, entry) {
+			ZVAL_DEREF(entry);
+			if (Z_TYPE_P(entry) == IS_STRING) {
+				[types addObject:appkit_nsstring(Z_STR_P(entry))];
+			}
+		} ZEND_HASH_FOREACH_END();
+		NSString *type = [SELF(NSPasteboard) availableTypeFromArray:types];
+		if (type == nil) { RETURN_NULL(); }
+		RETURN_STR(appkit_zend_string((CFStringRef) type));
+	APPKIT_END
+}
+
 ANY_METHOD(NSPasteboard, stringForType, PARSE_STR,
 	NSString *s = [SELF(NSPasteboard) stringForType:appkit_nsstring(v)];
 	if (s == nil) { RETURN_NULL(); }

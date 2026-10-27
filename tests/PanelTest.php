@@ -32,6 +32,48 @@ it('adds alert buttons in order', function (): void {
         ->and($alert->window())->toBeInstanceOf(NSPanel::class);
 });
 
+it('sets and reads back an alert\'s style', function (): void {
+    $alert = NSAlert::init();
+    expect($alert->alertStyle())->toBe(NSAlertStyle::WARNING);
+
+    $alert->setAlertStyle(NSAlertStyle::CRITICAL);
+    expect($alert->alertStyle())->toBe(NSAlertStyle::CRITICAL);
+});
+
+it('shows an alert\'s suppression button and reads it back', function (): void {
+    $alert = NSAlert::init();
+    expect($alert->showsSuppressionButton())->toBeFalse();
+
+    $alert->setShowsSuppressionButton(true);
+    $button = $alert->suppressionButton();
+    $button->setTitle('Don\'t ask again');
+
+    expect($alert->showsSuppressionButton())->toBeTrue()
+        ->and($button)->toBeInstanceOf(NSButton::class)
+        ->and($button->title())->toBe('Don\'t ask again')
+        ->and($button->state())->toBe(NSControlStateValue::OFF);
+});
+
+it('sets and reads back a save panel\'s content types', function (): void {
+    $panel = NSSavePanel::savePanel();
+    $panel->setAllowedContentTypes([UTType::typeWithFilenameExtension('txt')]);
+    $types = $panel->allowedContentTypes();
+
+    expect($types)->toHaveCount(1)
+        ->and($types[0])->toBeInstanceOf(UTType::class)
+        ->and($types[0]->identifier())->toBe('public.plain-text');
+
+    $panel->setAllowedContentTypes([]);
+    expect($panel->allowedContentTypes())->toBe([]);
+});
+
+it('sets and reads back a save panel\'s hidden files', function (): void {
+    $panel = NSSavePanel::savePanel();
+    $panel->setShowsHiddenFiles(true);
+
+    expect($panel->showsHiddenFiles())->toBeTrue();
+});
+
 it('sets and reads back a save panel', function (): void {
     $dir = realpath(__DIR__);
     $panel = NSSavePanel::savePanel();

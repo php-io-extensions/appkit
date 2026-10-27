@@ -1,5 +1,5 @@
 /* This is a generated file, edit the .stub.php file instead.
- * Stub hash: 16c29cd71394d79828eb4b06385a69f77e3bb39a */
+ * Stub hash: 01bafd1fe86268d303c0039686ba15c90acc1edf */
 
 ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_NSAlert_init, 0, 0, IS_STATIC, 0)
 ZEND_END_ARG_INFO()
@@ -15,6 +15,23 @@ ZEND_END_ARG_INFO()
 
 ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_NSAlert_setInformativeText, 0, 1, IS_VOID, 0)
 	ZEND_ARG_TYPE_INFO(0, informativeText, IS_STRING, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(arginfo_class_NSAlert_alertStyle, 0, 0, NSAlertStyle, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_NSAlert_setAlertStyle, 0, 1, IS_VOID, 0)
+	ZEND_ARG_OBJ_INFO(0, alertStyle, NSAlertStyle, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_NSAlert_showsSuppressionButton, 0, 0, _IS_BOOL, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_NSAlert_setShowsSuppressionButton, 0, 1, IS_VOID, 0)
+	ZEND_ARG_TYPE_INFO(0, showsSuppressionButton, _IS_BOOL, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(arginfo_class_NSAlert_suppressionButton, 0, 0, NSButton, 1)
 ZEND_END_ARG_INFO()
 
 ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(arginfo_class_NSAlert_addButtonWithTitle, 0, 1, NSButton, 0)
@@ -56,6 +73,18 @@ ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_NSSavePanel_setMessage, 0,
 	ZEND_ARG_TYPE_INFO(0, message, IS_STRING, 1)
 ZEND_END_ARG_INFO()
 
+#define arginfo_class_NSSavePanel_allowedContentTypes arginfo_class_NSAlert_buttons
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_NSSavePanel_setAllowedContentTypes, 0, 1, IS_VOID, 0)
+	ZEND_ARG_TYPE_INFO(0, allowedContentTypes, IS_ARRAY, 0)
+ZEND_END_ARG_INFO()
+
+#define arginfo_class_NSSavePanel_showsHiddenFiles arginfo_class_NSAlert_showsSuppressionButton
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_NSSavePanel_setShowsHiddenFiles, 0, 1, IS_VOID, 0)
+	ZEND_ARG_TYPE_INFO(0, showsHiddenFiles, _IS_BOOL, 0)
+ZEND_END_ARG_INFO()
+
 ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_NSSavePanel_beginSheetModalForWindowCompletionHandler, 0, 2, IS_VOID, 0)
 	ZEND_ARG_OBJ_INFO(0, window, NSWindow, 0)
 	ZEND_ARG_TYPE_INFO(0, handler, IS_CALLABLE, 0)
@@ -66,20 +95,19 @@ ZEND_END_ARG_INFO()
 
 #define arginfo_class_NSOpenPanel_URLs arginfo_class_NSAlert_buttons
 
-ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_NSOpenPanel_canChooseFiles, 0, 0, _IS_BOOL, 0)
-ZEND_END_ARG_INFO()
+#define arginfo_class_NSOpenPanel_canChooseFiles arginfo_class_NSAlert_showsSuppressionButton
 
 ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_NSOpenPanel_setCanChooseFiles, 0, 1, IS_VOID, 0)
 	ZEND_ARG_TYPE_INFO(0, canChooseFiles, _IS_BOOL, 0)
 ZEND_END_ARG_INFO()
 
-#define arginfo_class_NSOpenPanel_canChooseDirectories arginfo_class_NSOpenPanel_canChooseFiles
+#define arginfo_class_NSOpenPanel_canChooseDirectories arginfo_class_NSAlert_showsSuppressionButton
 
 ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_NSOpenPanel_setCanChooseDirectories, 0, 1, IS_VOID, 0)
 	ZEND_ARG_TYPE_INFO(0, canChooseDirectories, _IS_BOOL, 0)
 ZEND_END_ARG_INFO()
 
-#define arginfo_class_NSOpenPanel_allowsMultipleSelection arginfo_class_NSOpenPanel_canChooseFiles
+#define arginfo_class_NSOpenPanel_allowsMultipleSelection arginfo_class_NSAlert_showsSuppressionButton
 
 ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_NSOpenPanel_setAllowsMultipleSelection, 0, 1, IS_VOID, 0)
 	ZEND_ARG_TYPE_INFO(0, allowsMultipleSelection, _IS_BOOL, 0)
@@ -90,6 +118,11 @@ ZEND_METHOD(NSAlert, messageText);
 ZEND_METHOD(NSAlert, setMessageText);
 ZEND_METHOD(NSAlert, informativeText);
 ZEND_METHOD(NSAlert, setInformativeText);
+ZEND_METHOD(NSAlert, alertStyle);
+ZEND_METHOD(NSAlert, setAlertStyle);
+ZEND_METHOD(NSAlert, showsSuppressionButton);
+ZEND_METHOD(NSAlert, setShowsSuppressionButton);
+ZEND_METHOD(NSAlert, suppressionButton);
 ZEND_METHOD(NSAlert, addButtonWithTitle);
 ZEND_METHOD(NSAlert, buttons);
 ZEND_METHOD(NSAlert, beginSheetModalForWindowCompletionHandler);
@@ -102,6 +135,10 @@ ZEND_METHOD(NSSavePanel, nameFieldStringValue);
 ZEND_METHOD(NSSavePanel, setNameFieldStringValue);
 ZEND_METHOD(NSSavePanel, message);
 ZEND_METHOD(NSSavePanel, setMessage);
+ZEND_METHOD(NSSavePanel, allowedContentTypes);
+ZEND_METHOD(NSSavePanel, setAllowedContentTypes);
+ZEND_METHOD(NSSavePanel, showsHiddenFiles);
+ZEND_METHOD(NSSavePanel, setShowsHiddenFiles);
 ZEND_METHOD(NSSavePanel, beginSheetModalForWindowCompletionHandler);
 ZEND_METHOD(NSOpenPanel, openPanel);
 ZEND_METHOD(NSOpenPanel, URLs);
@@ -118,6 +155,11 @@ static const zend_function_entry class_NSAlert_methods[] = {
 	ZEND_ME(NSAlert, setMessageText, arginfo_class_NSAlert_setMessageText, ZEND_ACC_PUBLIC)
 	ZEND_ME(NSAlert, informativeText, arginfo_class_NSAlert_informativeText, ZEND_ACC_PUBLIC)
 	ZEND_ME(NSAlert, setInformativeText, arginfo_class_NSAlert_setInformativeText, ZEND_ACC_PUBLIC)
+	ZEND_ME(NSAlert, alertStyle, arginfo_class_NSAlert_alertStyle, ZEND_ACC_PUBLIC)
+	ZEND_ME(NSAlert, setAlertStyle, arginfo_class_NSAlert_setAlertStyle, ZEND_ACC_PUBLIC)
+	ZEND_ME(NSAlert, showsSuppressionButton, arginfo_class_NSAlert_showsSuppressionButton, ZEND_ACC_PUBLIC)
+	ZEND_ME(NSAlert, setShowsSuppressionButton, arginfo_class_NSAlert_setShowsSuppressionButton, ZEND_ACC_PUBLIC)
+	ZEND_ME(NSAlert, suppressionButton, arginfo_class_NSAlert_suppressionButton, ZEND_ACC_PUBLIC)
 	ZEND_ME(NSAlert, addButtonWithTitle, arginfo_class_NSAlert_addButtonWithTitle, ZEND_ACC_PUBLIC)
 	ZEND_ME(NSAlert, buttons, arginfo_class_NSAlert_buttons, ZEND_ACC_PUBLIC)
 	ZEND_ME(NSAlert, beginSheetModalForWindowCompletionHandler, arginfo_class_NSAlert_beginSheetModalForWindowCompletionHandler, ZEND_ACC_PUBLIC)
@@ -134,6 +176,10 @@ static const zend_function_entry class_NSSavePanel_methods[] = {
 	ZEND_ME(NSSavePanel, setNameFieldStringValue, arginfo_class_NSSavePanel_setNameFieldStringValue, ZEND_ACC_PUBLIC)
 	ZEND_ME(NSSavePanel, message, arginfo_class_NSSavePanel_message, ZEND_ACC_PUBLIC)
 	ZEND_ME(NSSavePanel, setMessage, arginfo_class_NSSavePanel_setMessage, ZEND_ACC_PUBLIC)
+	ZEND_ME(NSSavePanel, allowedContentTypes, arginfo_class_NSSavePanel_allowedContentTypes, ZEND_ACC_PUBLIC)
+	ZEND_ME(NSSavePanel, setAllowedContentTypes, arginfo_class_NSSavePanel_setAllowedContentTypes, ZEND_ACC_PUBLIC)
+	ZEND_ME(NSSavePanel, showsHiddenFiles, arginfo_class_NSSavePanel_showsHiddenFiles, ZEND_ACC_PUBLIC)
+	ZEND_ME(NSSavePanel, setShowsHiddenFiles, arginfo_class_NSSavePanel_setShowsHiddenFiles, ZEND_ACC_PUBLIC)
 	ZEND_ME(NSSavePanel, beginSheetModalForWindowCompletionHandler, arginfo_class_NSSavePanel_beginSheetModalForWindowCompletionHandler, ZEND_ACC_PUBLIC)
 	ZEND_FE_END
 };
@@ -155,6 +201,25 @@ static void register_NSPanel_symbols(int module_number)
 	REGISTER_LONG_CONSTANT("NSAlertFirstButtonReturn", NSAlertFirstButtonReturn, CONST_PERSISTENT);
 	REGISTER_LONG_CONSTANT("NSModalResponseOK", NSModalResponseOK, CONST_PERSISTENT);
 	REGISTER_LONG_CONSTANT("NSModalResponseCancel", NSModalResponseCancel, CONST_PERSISTENT);
+}
+
+static zend_class_entry *register_class_NSAlertStyle(void)
+{
+	zend_class_entry *class_entry = zend_register_internal_enum("NSAlertStyle", IS_LONG, NULL);
+
+	zval enum_case_WARNING_value;
+	ZVAL_LONG(&enum_case_WARNING_value, 0);
+	zend_enum_add_case_cstr(class_entry, "WARNING", &enum_case_WARNING_value);
+
+	zval enum_case_INFORMATIONAL_value;
+	ZVAL_LONG(&enum_case_INFORMATIONAL_value, 1);
+	zend_enum_add_case_cstr(class_entry, "INFORMATIONAL", &enum_case_INFORMATIONAL_value);
+
+	zval enum_case_CRITICAL_value;
+	ZVAL_LONG(&enum_case_CRITICAL_value, 2);
+	zend_enum_add_case_cstr(class_entry, "CRITICAL", &enum_case_CRITICAL_value);
+
+	return class_entry;
 }
 
 static zend_class_entry *register_class_NSPanel(zend_class_entry *class_entry_NSWindow)
