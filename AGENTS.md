@@ -14,4 +14,4 @@
 9. **The stub is the declaration.** Edit `stubs/*.stub.php`, regenerate with `php84 /opt/homebrew/opt/php@8.4/lib/php/build/gen_stub.php stubs`, commit both. Never hand-edit `*_arginfo.h`. Enum values come from the SDK and are `_Static_assert`-checked; constants via `@cvalue`.
 10. **Build.** `bash install-macos.sh` into Homebrew `php@8.4` (`php84`) and `php@8.4-zts` (`zhp`). Pest v4 at `-d memory_limit=128M`, `XDEBUG_MODE=off` for any timing, in a logged-in GUI session. Run the test files a change touches; gate a commit on the run's exit code. Probe steps: [`.okf/runbooks/build.md`](.okf/runbooks/build.md).
 11. **Durable facts go in `.okf`.** Update the matching concept, bump its `generated.at`, append `.okf/log.md`. The bundle documents the package, never a session.
-12. **Version** is `PHP_APPKIT_VERSION` in `php_appkit.h`: 0.10.5. It moves only past a published tag; tags drive Packagist. `os-families`: darwin.
+12. **Version** is `PHP_APPKIT_VERSION` in `php_appkit.h`: 0.11.0. It moves only past a published tag; tags drive Packagist. `os-families`: darwin.

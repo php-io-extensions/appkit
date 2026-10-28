@@ -1,5 +1,9 @@
 # Log
 
+## 2026-10-28
+
+* **Version**: 0.11.0 in `PHP_APPKIT_VERSION` (`php_appkit.h`); `branch-alias` `dev-main` is `0.11.x-dev`. Promoted with the Venusian 0.11 ecosystem. No API or behaviour change. SurfaceTest expects `NSPopUpButton`'s parent `NSButton`, as the 2026-10-23 surface change declared. Built and loaded on Homebrew PHP 8.4 NTS and ZTS: 347 passed, 10 skipped on each.
+
 ## 2026-10-27
 
 * `NSAlert` alertStyle (`NSAlertStyle`), showsSuppressionButton and suppressionButton (+set); `NSSavePanel` allowedContentTypes and showsHiddenFiles (+set), each with its own main-thread site; `UTType` typeWithFilenameExtension: and identifier (UniformTypeIdentifiers framework, any thread); `NSPasteboard` availableTypeFromArray: and changeCount. Array setters skip entries of the wrong type. 669 / 7210.

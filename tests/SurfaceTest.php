@@ -37,7 +37,7 @@ it('exposes every class, enum and method the stubs declare', function (): void {
 });
 
 it('reports its version', function (): void {
-    expect(phpversion('appkit'))->toBe('0.10.5');
+    expect(phpversion('appkit'))->toBe('0.11.0');
 });
 
 it('keeps the native class hierarchy', function (): void {
@@ -66,7 +66,7 @@ it('keeps the native class hierarchy', function (): void {
         ->and(get_parent_class(NSButton::class))->toBe(NSControl::class)
         ->and(get_parent_class(NSSwitch::class))->toBe(NSControl::class)
         ->and(get_parent_class(NSSlider::class))->toBe(NSControl::class)
-        ->and(get_parent_class(NSPopUpButton::class))->toBe(NSControl::class)
+        ->and(get_parent_class(NSPopUpButton::class))->toBe(NSButton::class)
         ->and(get_parent_class(NSDatePicker::class))->toBe(NSControl::class)
         ->and(get_parent_class(NSTimeZone::class))->toBe(NSObject::class)
         ->and(get_parent_class(NSProgressIndicator::class))->toBe(NSView::class)
