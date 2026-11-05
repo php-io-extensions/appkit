@@ -1,5 +1,5 @@
 /* This is a generated file, edit the .stub.php file instead.
- * Stub hash: 90e10acf4dffb8c518dd4b590d4e4c050196ef4c */
+ * Stub hash: 6cf80c4c571cbc97dd63d28ef21712a478c6af2b */
 
 ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_NSControl_isEnabled, 0, 0, _IS_BOOL, 0)
 ZEND_END_ARG_INFO()
@@ -452,12 +452,24 @@ ZEND_END_ARG_INFO()
 
 #define arginfo_class_NSParagraphStyle_textBlocks arginfo_class_NSPopUpButton_itemTitles
 
+#define arginfo_class_NSParagraphStyle_defaultTabInterval arginfo_class_NSControl_doubleValue
+
+#define arginfo_class_NSParagraphStyle_tabStops arginfo_class_NSPopUpButton_itemTitles
+
 #define arginfo_class_NSMutableParagraphStyle_init arginfo_class_NSTextBlock_init
 
 #define arginfo_class_NSMutableParagraphStyle_setAlignment arginfo_class_NSControl_setAlignment
 
 ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_NSMutableParagraphStyle_setTextBlocks, 0, 1, IS_VOID, 0)
 	ZEND_ARG_TYPE_INFO(0, blocks, IS_ARRAY, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_NSMutableParagraphStyle_setDefaultTabInterval, 0, 1, IS_VOID, 0)
+	ZEND_ARG_TYPE_INFO(0, defaultTabInterval, IS_DOUBLE, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_NSMutableParagraphStyle_setTabStops, 0, 1, IS_VOID, 0)
+	ZEND_ARG_TYPE_INFO(0, tabStops, IS_ARRAY, 0)
 ZEND_END_ARG_INFO()
 
 ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(arginfo_class_NSWorkspace_sharedWorkspace, 0, 0, NSWorkspace, 0)
@@ -592,6 +604,17 @@ ZEND_END_ARG_INFO()
 
 ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_NSTextView_setMaxSize, 0, 1, IS_VOID, 0)
 	ZEND_ARG_OBJ_INFO(0, size, NSSize, 0)
+ZEND_END_ARG_INFO()
+
+#define arginfo_class_NSTextView_alignment arginfo_class_NSControl_alignment
+
+#define arginfo_class_NSTextView_setAlignment arginfo_class_NSControl_setAlignment
+
+ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(arginfo_class_NSTextView_defaultParagraphStyle, 0, 0, NSParagraphStyle, 1)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_NSTextView_setDefaultParagraphStyle, 0, 1, IS_VOID, 0)
+	ZEND_ARG_OBJ_INFO(0, defaultParagraphStyle, NSParagraphStyle, 1)
 ZEND_END_ARG_INFO()
 
 #define arginfo_class_NSTextContainer_widthTracksTextView arginfo_class_NSControl_isEnabled
@@ -767,9 +790,13 @@ ZEND_METHOD(NSTextBlock, valueForDimension);
 ZEND_METHOD(NSTextBlock, valueTypeForDimension);
 ZEND_METHOD(NSParagraphStyle, alignment);
 ZEND_METHOD(NSParagraphStyle, textBlocks);
+ZEND_METHOD(NSParagraphStyle, defaultTabInterval);
+ZEND_METHOD(NSParagraphStyle, tabStops);
 ZEND_METHOD(NSMutableParagraphStyle, init);
 ZEND_METHOD(NSMutableParagraphStyle, setAlignment);
 ZEND_METHOD(NSMutableParagraphStyle, setTextBlocks);
+ZEND_METHOD(NSMutableParagraphStyle, setDefaultTabInterval);
+ZEND_METHOD(NSMutableParagraphStyle, setTabStops);
 ZEND_METHOD(NSWorkspace, sharedWorkspace);
 ZEND_METHOD(NSWorkspace, openURL);
 ZEND_METHOD(NSImageView, imageViewWithImage);
@@ -818,6 +845,10 @@ ZEND_METHOD(NSTextView, isHorizontallyResizable);
 ZEND_METHOD(NSTextView, setHorizontallyResizable);
 ZEND_METHOD(NSTextView, maxSize);
 ZEND_METHOD(NSTextView, setMaxSize);
+ZEND_METHOD(NSTextView, alignment);
+ZEND_METHOD(NSTextView, setAlignment);
+ZEND_METHOD(NSTextView, defaultParagraphStyle);
+ZEND_METHOD(NSTextView, setDefaultParagraphStyle);
 ZEND_METHOD(NSTextContainer, widthTracksTextView);
 ZEND_METHOD(NSTextContainer, setWidthTracksTextView);
 ZEND_METHOD(NSTextContainer, size);
@@ -1032,6 +1063,8 @@ static const zend_function_entry class_NSTextBlock_methods[] = {
 static const zend_function_entry class_NSParagraphStyle_methods[] = {
 	ZEND_ME(NSParagraphStyle, alignment, arginfo_class_NSParagraphStyle_alignment, ZEND_ACC_PUBLIC)
 	ZEND_ME(NSParagraphStyle, textBlocks, arginfo_class_NSParagraphStyle_textBlocks, ZEND_ACC_PUBLIC)
+	ZEND_ME(NSParagraphStyle, defaultTabInterval, arginfo_class_NSParagraphStyle_defaultTabInterval, ZEND_ACC_PUBLIC)
+	ZEND_ME(NSParagraphStyle, tabStops, arginfo_class_NSParagraphStyle_tabStops, ZEND_ACC_PUBLIC)
 	ZEND_FE_END
 };
 
@@ -1039,6 +1072,8 @@ static const zend_function_entry class_NSMutableParagraphStyle_methods[] = {
 	ZEND_ME(NSMutableParagraphStyle, init, arginfo_class_NSMutableParagraphStyle_init, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
 	ZEND_ME(NSMutableParagraphStyle, setAlignment, arginfo_class_NSMutableParagraphStyle_setAlignment, ZEND_ACC_PUBLIC)
 	ZEND_ME(NSMutableParagraphStyle, setTextBlocks, arginfo_class_NSMutableParagraphStyle_setTextBlocks, ZEND_ACC_PUBLIC)
+	ZEND_ME(NSMutableParagraphStyle, setDefaultTabInterval, arginfo_class_NSMutableParagraphStyle_setDefaultTabInterval, ZEND_ACC_PUBLIC)
+	ZEND_ME(NSMutableParagraphStyle, setTabStops, arginfo_class_NSMutableParagraphStyle_setTabStops, ZEND_ACC_PUBLIC)
 	ZEND_FE_END
 };
 
@@ -1111,6 +1146,10 @@ static const zend_function_entry class_NSTextView_methods[] = {
 	ZEND_ME(NSTextView, setHorizontallyResizable, arginfo_class_NSTextView_setHorizontallyResizable, ZEND_ACC_PUBLIC)
 	ZEND_ME(NSTextView, maxSize, arginfo_class_NSTextView_maxSize, ZEND_ACC_PUBLIC)
 	ZEND_ME(NSTextView, setMaxSize, arginfo_class_NSTextView_setMaxSize, ZEND_ACC_PUBLIC)
+	ZEND_ME(NSTextView, alignment, arginfo_class_NSTextView_alignment, ZEND_ACC_PUBLIC)
+	ZEND_ME(NSTextView, setAlignment, arginfo_class_NSTextView_setAlignment, ZEND_ACC_PUBLIC)
+	ZEND_ME(NSTextView, defaultParagraphStyle, arginfo_class_NSTextView_defaultParagraphStyle, ZEND_ACC_PUBLIC)
+	ZEND_ME(NSTextView, setDefaultParagraphStyle, arginfo_class_NSTextView_setDefaultParagraphStyle, ZEND_ACC_PUBLIC)
 	ZEND_FE_END
 };
 
@@ -1148,7 +1187,52 @@ static void register_NSControls_symbols(int module_number)
 	REGISTER_STRING_CONSTANT("NSParagraphStyleAttributeName", appkit_cfstring_constant((CFStringRef) NSParagraphStyleAttributeName), CONST_PERSISTENT);
 	REGISTER_STRING_CONSTANT("NSForegroundColorAttributeName", appkit_cfstring_constant((CFStringRef) NSForegroundColorAttributeName), CONST_PERSISTENT);
 	REGISTER_STRING_CONSTANT("NSBackgroundColorAttributeName", appkit_cfstring_constant((CFStringRef) NSBackgroundColorAttributeName), CONST_PERSISTENT);
+	REGISTER_STRING_CONSTANT("NSUnderlineStyleAttributeName", appkit_cfstring_constant((CFStringRef) NSUnderlineStyleAttributeName), CONST_PERSISTENT);
+	REGISTER_STRING_CONSTANT("NSStrikethroughStyleAttributeName", appkit_cfstring_constant((CFStringRef) NSStrikethroughStyleAttributeName), CONST_PERSISTENT);
 	REGISTER_STRING_CONSTANT("NSPreferredScrollerStyleDidChangeNotification", appkit_cfstring_constant((CFStringRef) NSPreferredScrollerStyleDidChangeNotification), CONST_PERSISTENT);
+}
+
+static zend_class_entry *register_class_NSUnderlineStyle(void)
+{
+	zend_class_entry *class_entry = zend_register_internal_enum("NSUnderlineStyle", IS_LONG, NULL);
+
+	zval enum_case_NONE_value;
+	ZVAL_LONG(&enum_case_NONE_value, 0x0);
+	zend_enum_add_case_cstr(class_entry, "NONE", &enum_case_NONE_value);
+
+	zval enum_case_SINGLE_value;
+	ZVAL_LONG(&enum_case_SINGLE_value, 0x1);
+	zend_enum_add_case_cstr(class_entry, "SINGLE", &enum_case_SINGLE_value);
+
+	zval enum_case_THICK_value;
+	ZVAL_LONG(&enum_case_THICK_value, 0x2);
+	zend_enum_add_case_cstr(class_entry, "THICK", &enum_case_THICK_value);
+
+	zval enum_case_DOUBLE_value;
+	ZVAL_LONG(&enum_case_DOUBLE_value, 0x9);
+	zend_enum_add_case_cstr(class_entry, "DOUBLE", &enum_case_DOUBLE_value);
+
+	zval enum_case_PATTERN_DOT_value;
+	ZVAL_LONG(&enum_case_PATTERN_DOT_value, 0x100);
+	zend_enum_add_case_cstr(class_entry, "PATTERN_DOT", &enum_case_PATTERN_DOT_value);
+
+	zval enum_case_PATTERN_DASH_value;
+	ZVAL_LONG(&enum_case_PATTERN_DASH_value, 0x200);
+	zend_enum_add_case_cstr(class_entry, "PATTERN_DASH", &enum_case_PATTERN_DASH_value);
+
+	zval enum_case_PATTERN_DASH_DOT_value;
+	ZVAL_LONG(&enum_case_PATTERN_DASH_DOT_value, 0x300);
+	zend_enum_add_case_cstr(class_entry, "PATTERN_DASH_DOT", &enum_case_PATTERN_DASH_DOT_value);
+
+	zval enum_case_PATTERN_DASH_DOT_DOT_value;
+	ZVAL_LONG(&enum_case_PATTERN_DASH_DOT_DOT_value, 0x400);
+	zend_enum_add_case_cstr(class_entry, "PATTERN_DASH_DOT_DOT", &enum_case_PATTERN_DASH_DOT_DOT_value);
+
+	zval enum_case_BY_WORD_value;
+	ZVAL_LONG(&enum_case_BY_WORD_value, 0x8000);
+	zend_enum_add_case_cstr(class_entry, "BY_WORD", &enum_case_BY_WORD_value);
+
+	return class_entry;
 }
 
 static zend_class_entry *register_class_NSTextBlockValueType(void)

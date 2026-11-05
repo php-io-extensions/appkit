@@ -44,4 +44,17 @@ class NSString extends NSObject
 
     /** null when the string has no UTF-8 form */
     public function UTF8String(): ?string {}
+
+    /** The size the string takes drawn with these attributes (NSFontAttributeName and the others). */
+    public function sizeWithAttributes(array $attrs): NSSize {}
+}
+
+/**
+ * @not-serializable
+ */
+class NSNumber extends NSObject
+{
+    public static function numberWithInteger(int $value): NSNumber {}
+
+    public function integerValue(): int {}
 }

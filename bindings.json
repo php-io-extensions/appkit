@@ -44,6 +44,10 @@
     ]
   },
   "sites": {
+    "main-thread-nstextview-default-paragraph-style": {"kind": "refusal", "outcome": 2, "probe": "tests/Probes/MainThreadTest.php"},
+    "main-thread-nstextview-set-default-paragraph-style": {"kind": "refusal", "outcome": 2, "probe": "tests/Probes/MainThreadTest.php"},
+    "main-thread-nstextview-alignment": {"kind": "refusal", "outcome": 2, "probe": "tests/Probes/MainThreadTest.php"},
+    "main-thread-nstextview-set-alignment": {"kind": "refusal", "outcome": 2, "probe": "tests/Probes/MainThreadTest.php"},
     "main-thread-nsalert-init": {"kind": "refusal", "outcome": 2, "probe": "tests/Probes/MainThreadTest.php"},
     "main-thread-nsalert-message-text": {"kind": "refusal", "outcome": 2, "probe": "tests/Probes/MainThreadTest.php"},
     "main-thread-nsalert-set-message-text": {"kind": "refusal", "outcome": 2, "probe": "tests/Probes/MainThreadTest.php"},

@@ -18,6 +18,12 @@ it('registers the alert and modal responses and the string pasteboard type', fun
         ->and(NSPasteboardTypeString)->toBe('public.utf8-plain-text');
 });
 
+it('registers the underline and strikethrough keys and the single line style', function (): void {
+    expect(NSUnderlineStyleAttributeName)->toBe('NSUnderline')
+        ->and(NSStrikethroughStyleAttributeName)->toBe('NSStrikethrough')
+        ->and(NSUnderlineStyle::SINGLE->value)->toBe(1);
+});
+
 it('registers the return and enter characters a key event carries', function (): void {
     expect(NSCarriageReturnCharacter)->toBe(13)
         ->and(NSEnterCharacter)->toBe(3);

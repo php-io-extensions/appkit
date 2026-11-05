@@ -45,7 +45,29 @@ class NSFont extends NSObject
     public function pointSize(): float {}
 
     public function familyName(): ?string {}
+
+    /** Points above the baseline. */
+    public function ascender(): float {}
+
+    /** Points below the baseline, negative. */
+    public function descender(): float {}
+
+    public function leading(): float {}
+
+    public function isFixedPitch(): bool {}
 }
+
+/**
+ * @var int
+ * @cvalue NSItalicFontMask
+ */
+const NSItalicFontMask = UNKNOWN;
+
+/**
+ * @var int
+ * @cvalue NSBoldFontMask
+ */
+const NSBoldFontMask = UNKNOWN;
 
 /**
  * @not-serializable
@@ -61,4 +83,10 @@ class NSFontManager extends NSObject
     public function fontWithFamilyTraitsWeightSize(string $family, int $traits, int $weight, float $size): ?NSFont {}
 
     public function weightOfFont(NSFont $font): int {}
+
+    /** convertFont:toHaveTrait:; $trait is an NSFontTraitMask. The font itself when no face has the trait. */
+    public function convertFontToHaveTrait(NSFont $fontObj, int $trait): NSFont {}
+
+    /** An NSFontTraitMask. */
+    public function traitsOfFont(NSFont $fontObj): int {}
 }

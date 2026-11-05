@@ -226,6 +226,26 @@ it('scrolls a text view', function (): void {
     expect($other->documentView())->toBeInstanceOf(NSTextView::class);
 });
 
+it('sets a paragraph style tab interval with no explicit stops', function (): void {
+    $style = NSMutableParagraphStyle::init();
+    $style->setDefaultTabInterval(28.0);
+    $style->setTabStops([]);
+
+    expect($style->defaultTabInterval())->toBe(28.0)
+        ->and($style->tabStops())->toBe([]);
+});
+
+it('gives a text view a default paragraph style and an alignment', function (): void {
+    $text = NSTextView::initWithFrame(new NSRect(0, 0, 50, 50));
+    $style = NSMutableParagraphStyle::init();
+    $style->setDefaultTabInterval(28.0);
+    $text->setDefaultParagraphStyle($style);
+    $text->setAlignment(NSTextAlignment::RIGHT);
+
+    expect($text->defaultParagraphStyle()->defaultTabInterval())->toBe(28.0)
+        ->and($text->alignment())->toBe(NSTextAlignment::RIGHT);
+});
+
 it('sends a control action to a target', function (): void {
     $hits = 0;
     $target = new ObjCTarget(function () use (&$hits): void {

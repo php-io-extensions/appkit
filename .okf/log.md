@@ -1,5 +1,9 @@
 # Log
 
+## 2026-11-04
+
+* `NSFont` ascender, descender, leading and isFixedPitch; `NSFontManager` convertFont:toHaveTrait: and traitsOfFont:, with `NSItalicFontMask` and `NSBoldFontMask` (registered with the module's constants); `NSString` sizeWithAttributes:; `NSNumber` numberWithInteger: and integerValue (any thread); `NSUnderlineStyleAttributeName`, `NSStrikethroughStyleAttributeName` and `NSUnderlineStyle`; `NSParagraphStyle` defaultTabInterval and tabStops, `NSMutableParagraphStyle` setDefaultTabInterval: and setTabStops: (entries that are not NSTextTab are left out); `NSTextView` alignment and defaultParagraphStyle (+set), each with its own main-thread site. 684 / 7210.
+
 ## 2026-10-28
 
 * **Version**: 0.11.0 in `PHP_APPKIT_VERSION` (`php_appkit.h`); `branch-alias` `dev-main` is `0.11.x-dev`. Promoted with the Venusian 0.11 ecosystem. No API or behaviour change. SurfaceTest expects `NSPopUpButton`'s parent `NSButton`, as the 2026-10-23 surface change declared. Built and loaded on Homebrew PHP 8.4 NTS and ZTS: 347 passed, 10 skipped on each.

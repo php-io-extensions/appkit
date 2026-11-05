@@ -13,6 +13,10 @@ void appkit_register_NSObject(void)
 	appkit_ce_NSString = register_class_NSString(appkit_ce_NSObject);
 	appkit_object_setup(appkit_ce_NSString);
 	appkit_map_objc_class("NSString", appkit_ce_NSString);
+
+	appkit_ce_NSNumber = register_class_NSNumber(appkit_ce_NSObject);
+	appkit_object_setup(appkit_ce_NSNumber);
+	appkit_map_objc_class("NSNumber", appkit_ce_NSNumber);
 }
 
 ZEND_METHOD(NSString, stringWithString)
@@ -39,6 +43,45 @@ ZEND_METHOD(NSString, UTF8String)
 			RETURN_NULL();
 		}
 		RETURN_STRING(utf8);
+	APPKIT_END
+}
+
+ZEND_METHOD(NSString, sizeWithAttributes)
+{
+	HashTable *attributes;
+
+	ZEND_PARSE_PARAMETERS_START(1, 1)
+		Z_PARAM_ARRAY_HT(attributes)
+	ZEND_PARSE_PARAMETERS_END();
+
+	APPKIT_BEGIN
+		NSDictionary *dictionary = appkit_nsdictionary(attributes, 1);
+		if (dictionary == nil) {
+			RETURN_THROWS();
+		}
+		appkit_return_size(return_value, [(NSString *) APPKIT_ID(Z_OBJ_P(ZEND_THIS)) sizeWithAttributes:dictionary]);
+	APPKIT_END
+}
+
+ZEND_METHOD(NSNumber, numberWithInteger)
+{
+	zend_long value;
+
+	ZEND_PARSE_PARAMETERS_START(1, 1)
+		Z_PARAM_LONG(value)
+	ZEND_PARSE_PARAMETERS_END();
+
+	APPKIT_BEGIN
+		appkit_box_objc(return_value, [NSNumber numberWithInteger:(NSInteger) value]);
+	APPKIT_END
+}
+
+ZEND_METHOD(NSNumber, integerValue)
+{
+	ZEND_PARSE_PARAMETERS_NONE();
+
+	APPKIT_BEGIN
+		RETURN_LONG((zend_long) [(NSNumber *) APPKIT_ID(Z_OBJ_P(ZEND_THIS)) integerValue]);
 	APPKIT_END
 }
 

@@ -1,5 +1,5 @@
 /* This is a generated file, edit the .stub.php file instead.
- * Stub hash: d4733c7701caaebb3403e328138238576676a4ac */
+ * Stub hash: 21cea0d506064620e3395d7593abc2c06c0dbd29 */
 
 ZEND_BEGIN_ARG_INFO_EX(arginfo_class_NSObject___construct, 0, 0, 0)
 ZEND_END_ARG_INFO()
@@ -37,6 +37,16 @@ ZEND_END_ARG_INFO()
 ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_NSString_UTF8String, 0, 0, IS_STRING, 1)
 ZEND_END_ARG_INFO()
 
+ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(arginfo_class_NSString_sizeWithAttributes, 0, 1, NSSize, 0)
+	ZEND_ARG_TYPE_INFO(0, attrs, IS_ARRAY, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(arginfo_class_NSNumber_numberWithInteger, 0, 1, NSNumber, 0)
+	ZEND_ARG_TYPE_INFO(0, value, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+#define arginfo_class_NSNumber_integerValue arginfo_class_NSObject_hash
+
 ZEND_METHOD(NSObject, __construct);
 ZEND_METHOD(NSObject, className);
 ZEND_METHOD(NSObject, isKindOfClass);
@@ -48,6 +58,9 @@ ZEND_METHOD(NSObject, pointer);
 ZEND_METHOD(NSObject, fromPointer);
 ZEND_METHOD(NSString, stringWithString);
 ZEND_METHOD(NSString, UTF8String);
+ZEND_METHOD(NSString, sizeWithAttributes);
+ZEND_METHOD(NSNumber, numberWithInteger);
+ZEND_METHOD(NSNumber, integerValue);
 
 static const zend_function_entry class_NSObject_methods[] = {
 	ZEND_ME(NSObject, __construct, arginfo_class_NSObject___construct, ZEND_ACC_PRIVATE)
@@ -65,6 +78,13 @@ static const zend_function_entry class_NSObject_methods[] = {
 static const zend_function_entry class_NSString_methods[] = {
 	ZEND_ME(NSString, stringWithString, arginfo_class_NSString_stringWithString, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
 	ZEND_ME(NSString, UTF8String, arginfo_class_NSString_UTF8String, ZEND_ACC_PUBLIC)
+	ZEND_ME(NSString, sizeWithAttributes, arginfo_class_NSString_sizeWithAttributes, ZEND_ACC_PUBLIC)
+	ZEND_FE_END
+};
+
+static const zend_function_entry class_NSNumber_methods[] = {
+	ZEND_ME(NSNumber, numberWithInteger, arginfo_class_NSNumber_numberWithInteger, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	ZEND_ME(NSNumber, integerValue, arginfo_class_NSNumber_integerValue, ZEND_ACC_PUBLIC)
 	ZEND_FE_END
 };
 
@@ -83,6 +103,16 @@ static zend_class_entry *register_class_NSString(zend_class_entry *class_entry_N
 	zend_class_entry ce, *class_entry;
 
 	INIT_CLASS_ENTRY(ce, "NSString", class_NSString_methods);
+	class_entry = zend_register_internal_class_with_flags(&ce, class_entry_NSObject, ZEND_ACC_NOT_SERIALIZABLE);
+
+	return class_entry;
+}
+
+static zend_class_entry *register_class_NSNumber(zend_class_entry *class_entry_NSObject)
+{
+	zend_class_entry ce, *class_entry;
+
+	INIT_CLASS_ENTRY(ce, "NSNumber", class_NSNumber_methods);
 	class_entry = zend_register_internal_class_with_flags(&ce, class_entry_NSObject, ZEND_ACC_NOT_SERIALIZABLE);
 
 	return class_entry;

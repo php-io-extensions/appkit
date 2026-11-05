@@ -1,8 +1,10 @@
 #include "runtime.h"
 #include "../stubs/NSFont_arginfo.h"
 
-void appkit_register_NSFont(void)
+void appkit_register_NSFont(int module_number)
 {
+	register_NSFont_symbols(module_number);
+
 	appkit_ce_NSFont = register_class_NSFont(appkit_ce_NSObject);
 	appkit_object_setup(appkit_ce_NSFont);
 	appkit_map_objc_class("NSFont", appkit_ce_NSFont);
@@ -79,6 +81,42 @@ ZEND_METHOD(NSFont, familyName)
 	APPKIT_END
 }
 
+ZEND_METHOD(NSFont, ascender)
+{
+	ZEND_PARSE_PARAMETERS_NONE();
+
+	APPKIT_BEGIN
+		RETURN_DOUBLE([THIS_FONT ascender]);
+	APPKIT_END
+}
+
+ZEND_METHOD(NSFont, descender)
+{
+	ZEND_PARSE_PARAMETERS_NONE();
+
+	APPKIT_BEGIN
+		RETURN_DOUBLE([THIS_FONT descender]);
+	APPKIT_END
+}
+
+ZEND_METHOD(NSFont, leading)
+{
+	ZEND_PARSE_PARAMETERS_NONE();
+
+	APPKIT_BEGIN
+		RETURN_DOUBLE([THIS_FONT leading]);
+	APPKIT_END
+}
+
+ZEND_METHOD(NSFont, isFixedPitch)
+{
+	ZEND_PARSE_PARAMETERS_NONE();
+
+	APPKIT_BEGIN
+		RETURN_BOOL([THIS_FONT isFixedPitch]);
+	APPKIT_END
+}
+
 #define THIS_FONT_MANAGER ((NSFontManager *) APPKIT_ID(Z_OBJ_P(ZEND_THIS)))
 
 ZEND_METHOD(NSFontManager, sharedFontManager)
@@ -118,5 +156,33 @@ ZEND_METHOD(NSFontManager, weightOfFont)
 
 	APPKIT_BEGIN
 		RETURN_LONG((zend_long) [THIS_FONT_MANAGER weightOfFont:(NSFont *) APPKIT_ID(font)]);
+	APPKIT_END
+}
+
+ZEND_METHOD(NSFontManager, convertFontToHaveTrait)
+{
+	zend_object *font;
+	zend_long trait;
+
+	ZEND_PARSE_PARAMETERS_START(2, 2)
+		Z_PARAM_OBJ_OF_CLASS(font, appkit_ce_NSFont)
+		Z_PARAM_LONG(trait)
+	ZEND_PARSE_PARAMETERS_END();
+
+	APPKIT_BEGIN
+		appkit_box_objc(return_value, [THIS_FONT_MANAGER convertFont:(NSFont *) APPKIT_ID(font) toHaveTrait:(NSFontTraitMask) trait]);
+	APPKIT_END
+}
+
+ZEND_METHOD(NSFontManager, traitsOfFont)
+{
+	zend_object *font;
+
+	ZEND_PARSE_PARAMETERS_START(1, 1)
+		Z_PARAM_OBJ_OF_CLASS(font, appkit_ce_NSFont)
+	ZEND_PARSE_PARAMETERS_END();
+
+	APPKIT_BEGIN
+		RETURN_LONG((zend_long) [THIS_FONT_MANAGER traitsOfFont:(NSFont *) APPKIT_ID(font)]);
 	APPKIT_END
 }

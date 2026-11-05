@@ -97,6 +97,32 @@ const NSForegroundColorAttributeName = UNKNOWN;
  */
 const NSBackgroundColorAttributeName = UNKNOWN;
 
+/**
+ * @var string
+ * @cvalue appkit_cfstring_constant((CFStringRef) NSUnderlineStyleAttributeName)
+ */
+const NSUnderlineStyleAttributeName = UNKNOWN;
+
+/**
+ * @var string
+ * @cvalue appkit_cfstring_constant((CFStringRef) NSStrikethroughStyleAttributeName)
+ */
+const NSStrikethroughStyleAttributeName = UNKNOWN;
+
+/** NSUnderlineStyle: the value of NSUnderlineStyleAttributeName and NSStrikethroughStyleAttributeName, as an NSNumber. A line style ORs with a pattern and BY_WORD. */
+enum NSUnderlineStyle: int
+{
+    case NONE = 0x00;
+    case SINGLE = 0x01;
+    case THICK = 0x02;
+    case DOUBLE = 0x09;
+    case PATTERN_DOT = 0x0100;
+    case PATTERN_DASH = 0x0200;
+    case PATTERN_DASH_DOT = 0x0300;
+    case PATTERN_DASH_DOT_DOT = 0x0400;
+    case BY_WORD = 0x8000;
+}
+
 enum NSTextBlockValueType: int
 {
     case ABSOLUTE_VALUE_TYPE = 0;
@@ -656,6 +682,12 @@ class NSParagraphStyle extends NSObject
 
     /** The blocks the paragraph is laid out in, outermost first. */
     public function textBlocks(): array {}
+
+    /** Points between the default tab stops after the explicit ones; 0 = no default stops. */
+    public function defaultTabInterval(): float {}
+
+    /** The explicit NSTextTab stops, as NSObject. */
+    public function tabStops(): array {}
 }
 
 /**
@@ -670,6 +702,11 @@ class NSMutableParagraphStyle extends NSParagraphStyle
 
     /** @param NSTextBlock[] $blocks */
     public function setTextBlocks(array $blocks): void {}
+
+    public function setDefaultTabInterval(float $defaultTabInterval): void {}
+
+    /** @param NSObject[] $tabStops NSTextTab objects; entries of another class are left out */
+    public function setTabStops(array $tabStops): void {}
 }
 
 /**
@@ -823,6 +860,17 @@ class NSTextView extends NSView
     public function maxSize(): NSSize {}
 
     public function setMaxSize(NSSize $size): void {}
+
+    /** NSText's. */
+    public function alignment(): NSTextAlignment {}
+
+    /** NSText's: the whole text's alignment. */
+    public function setAlignment(NSTextAlignment $alignment): void {}
+
+    /** The style typed and inserted text gets; null = the default paragraph style. */
+    public function defaultParagraphStyle(): ?NSParagraphStyle {}
+
+    public function setDefaultParagraphStyle(?NSParagraphStyle $defaultParagraphStyle): void {}
 }
 
 /**

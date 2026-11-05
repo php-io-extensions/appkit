@@ -41,6 +41,7 @@ void appkit_register_NSControls(int module_number)
 	appkit_ce_NSBoxType = register_class_NSBoxType();
 	appkit_ce_NSTextBlockValueType = register_class_NSTextBlockValueType();
 	appkit_ce_NSTextBlockDimension = register_class_NSTextBlockDimension();
+	register_class_NSUnderlineStyle();
 	appkit_ce_NSCellImagePosition = register_class_NSCellImagePosition();
 	appkit_ce_NSControlSize = register_class_NSControlSize();
 	appkit_ce_NSScrollerStyle = register_class_NSScrollerStyle();
@@ -489,6 +490,22 @@ ANY_METHOD(NSTextBlock, valueTypeForDimension, PARSE_OBJ(appkit_ce_NSTextBlockDi
 
 /* NSParagraphStyle */
 ANY_ENUM_GET(NSParagraphStyle, NSParagraphStyle, alignment, alignment, appkit_ce_NSTextAlignment, false)
+ANY_DOUBLE_GET(NSParagraphStyle, NSParagraphStyle, defaultTabInterval, defaultTabInterval)
+
+ZEND_METHOD(NSParagraphStyle, tabStops)
+{
+	ZEND_PARSE_PARAMETERS_NONE();
+
+	APPKIT_BEGIN
+		NSArray *stops = [SELF(NSParagraphStyle) tabStops];
+		array_init_size(return_value, (uint32_t) [stops count]);
+		for (NSTextTab *stop in stops) {
+			zval boxed;
+			appkit_box_objc(&boxed, stop);
+			add_next_index_zval(return_value, &boxed);
+		}
+	APPKIT_END
+}
 
 ZEND_METHOD(NSParagraphStyle, textBlocks)
 {
@@ -533,6 +550,30 @@ ZEND_METHOD(NSMutableParagraphStyle, setTextBlocks)
 			[list addObject:APPKIT_ID(Z_OBJ_P(entry))];
 		} ZEND_HASH_FOREACH_END();
 		[SELF(NSMutableParagraphStyle) setTextBlocks:list];
+	APPKIT_END
+}
+
+ANY_DOUBLE_SET(NSMutableParagraphStyle, NSMutableParagraphStyle, setDefaultTabInterval, setDefaultTabInterval)
+
+ZEND_METHOD(NSMutableParagraphStyle, setTabStops)
+{
+	HashTable *stops;
+	zval *entry;
+
+	ZEND_PARSE_PARAMETERS_START(1, 1)
+		Z_PARAM_ARRAY_HT(stops)
+	ZEND_PARSE_PARAMETERS_END();
+
+	APPKIT_BEGIN
+		NSMutableArray *list = [NSMutableArray arrayWithCapacity:zend_hash_num_elements(stops)];
+		ZEND_HASH_FOREACH_VAL(stops, entry) {
+			ZVAL_DEREF(entry);
+			if (Z_TYPE_P(entry) == IS_OBJECT && instanceof_function(Z_OBJCE_P(entry), appkit_ce_NSObject)
+				&& [APPKIT_ID(Z_OBJ_P(entry)) isKindOfClass:[NSTextTab class]]) {
+				[list addObject:APPKIT_ID(Z_OBJ_P(entry))];
+			}
+		} ZEND_HASH_FOREACH_END();
+		[SELF(NSMutableParagraphStyle) setTabStops:list];
 	APPKIT_END
 }
 
@@ -598,6 +639,10 @@ OBJ_GET(NSTextView, NSTextView, backgroundColor, backgroundColor)
 OBJ_SET(NSTextView, NSTextView, setBackgroundColor, setBackgroundColor, appkit_ce_NSColor, NSColor *)
 BOOL_GET(NSTextView, NSTextView, drawsBackground, drawsBackground)
 BOOL_SET(NSTextView, NSTextView, setDrawsBackground, setDrawsBackground)
+ENUM_GET(NSTextView, NSTextView, alignment, alignment, appkit_ce_NSTextAlignment, false) /* binding:main-thread-nstextview-alignment */
+ENUM_SET(NSTextView, NSTextView, setAlignment, setAlignment, appkit_ce_NSTextAlignment, NSTextAlignment) /* binding:main-thread-nstextview-set-alignment */
+OBJ_GET(NSTextView, NSTextView, defaultParagraphStyle, defaultParagraphStyle) /* binding:main-thread-nstextview-default-paragraph-style */
+OBJ_SET_OR_NULL(NSTextView, NSTextView, setDefaultParagraphStyle, setDefaultParagraphStyle, appkit_ce_NSParagraphStyle, NSParagraphStyle *) /* binding:main-thread-nstextview-set-default-paragraph-style */
 OBJ_GET(NSTextView, NSTextView, layoutManager, layoutManager)
 OBJ_GET(NSTextView, NSTextView, textContainer, textContainer)
 SIZE_GET(NSTextView, NSTextView, textContainerInset, textContainerInset)

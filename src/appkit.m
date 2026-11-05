@@ -151,6 +151,7 @@ zend_class_entry *appkit_ce_NSTableHeaderView;
 zend_class_entry *appkit_ce_NSTableView;
 zend_class_entry *appkit_ce_NSOutlineView;
 zend_class_entry *appkit_ce_NSString;
+zend_class_entry *appkit_ce_NSNumber;
 zend_class_entry *appkit_ce_NSWindowCollectionBehavior;
 zend_class_entry *appkit_ce_NSWindowTitleVisibility;
 zend_class_entry *appkit_ce_NSWindowOcclusionState;
@@ -224,7 +225,7 @@ PHP_MINIT_FUNCTION(appkit)
 	appkit_register_NSOpenGL(module_number);
 	appkit_register_NSLayout();
 	appkit_register_NSColor();
-	appkit_register_NSFont();
+	appkit_register_NSFont(module_number);
 	appkit_register_NSStackView();
 	appkit_register_NSGridView();
 	appkit_register_NSControls(module_number);

@@ -1,5 +1,5 @@
 /* This is a generated file, edit the .stub.php file instead.
- * Stub hash: d20060b953056ce01966d4c66b1074577910b397 */
+ * Stub hash: d0b3207b7a1a0f6aae0bd01950981045f832a0fd */
 
 ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(arginfo_class_NSFont_systemFontOfSizeWeight, 0, 2, NSFont, 0)
 	ZEND_ARG_TYPE_INFO(0, size, IS_DOUBLE, 0)
@@ -19,6 +19,15 @@ ZEND_END_ARG_INFO()
 ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_NSFont_familyName, 0, 0, IS_STRING, 1)
 ZEND_END_ARG_INFO()
 
+#define arginfo_class_NSFont_ascender arginfo_class_NSFont_pointSize
+
+#define arginfo_class_NSFont_descender arginfo_class_NSFont_pointSize
+
+#define arginfo_class_NSFont_leading arginfo_class_NSFont_pointSize
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_NSFont_isFixedPitch, 0, 0, _IS_BOOL, 0)
+ZEND_END_ARG_INFO()
+
 ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(arginfo_class_NSFontManager_sharedFontManager, 0, 0, NSFontManager, 0)
 ZEND_END_ARG_INFO()
 
@@ -33,14 +42,29 @@ ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_NSFontManager_weightOfFont
 	ZEND_ARG_OBJ_INFO(0, font, NSFont, 0)
 ZEND_END_ARG_INFO()
 
+ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(arginfo_class_NSFontManager_convertFontToHaveTrait, 0, 2, NSFont, 0)
+	ZEND_ARG_OBJ_INFO(0, fontObj, NSFont, 0)
+	ZEND_ARG_TYPE_INFO(0, trait, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_NSFontManager_traitsOfFont, 0, 1, IS_LONG, 0)
+	ZEND_ARG_OBJ_INFO(0, fontObj, NSFont, 0)
+ZEND_END_ARG_INFO()
+
 ZEND_METHOD(NSFont, systemFontOfSizeWeight);
 ZEND_METHOD(NSFont, monospacedSystemFontOfSizeWeight);
 ZEND_METHOD(NSFont, fontWithNameSize);
 ZEND_METHOD(NSFont, pointSize);
 ZEND_METHOD(NSFont, familyName);
+ZEND_METHOD(NSFont, ascender);
+ZEND_METHOD(NSFont, descender);
+ZEND_METHOD(NSFont, leading);
+ZEND_METHOD(NSFont, isFixedPitch);
 ZEND_METHOD(NSFontManager, sharedFontManager);
 ZEND_METHOD(NSFontManager, fontWithFamilyTraitsWeightSize);
 ZEND_METHOD(NSFontManager, weightOfFont);
+ZEND_METHOD(NSFontManager, convertFontToHaveTrait);
+ZEND_METHOD(NSFontManager, traitsOfFont);
 
 static const zend_function_entry class_NSFont_methods[] = {
 	ZEND_ME(NSFont, systemFontOfSizeWeight, arginfo_class_NSFont_systemFontOfSizeWeight, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
@@ -48,6 +72,10 @@ static const zend_function_entry class_NSFont_methods[] = {
 	ZEND_ME(NSFont, fontWithNameSize, arginfo_class_NSFont_fontWithNameSize, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
 	ZEND_ME(NSFont, pointSize, arginfo_class_NSFont_pointSize, ZEND_ACC_PUBLIC)
 	ZEND_ME(NSFont, familyName, arginfo_class_NSFont_familyName, ZEND_ACC_PUBLIC)
+	ZEND_ME(NSFont, ascender, arginfo_class_NSFont_ascender, ZEND_ACC_PUBLIC)
+	ZEND_ME(NSFont, descender, arginfo_class_NSFont_descender, ZEND_ACC_PUBLIC)
+	ZEND_ME(NSFont, leading, arginfo_class_NSFont_leading, ZEND_ACC_PUBLIC)
+	ZEND_ME(NSFont, isFixedPitch, arginfo_class_NSFont_isFixedPitch, ZEND_ACC_PUBLIC)
 	ZEND_FE_END
 };
 
@@ -55,8 +83,16 @@ static const zend_function_entry class_NSFontManager_methods[] = {
 	ZEND_ME(NSFontManager, sharedFontManager, arginfo_class_NSFontManager_sharedFontManager, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
 	ZEND_ME(NSFontManager, fontWithFamilyTraitsWeightSize, arginfo_class_NSFontManager_fontWithFamilyTraitsWeightSize, ZEND_ACC_PUBLIC)
 	ZEND_ME(NSFontManager, weightOfFont, arginfo_class_NSFontManager_weightOfFont, ZEND_ACC_PUBLIC)
+	ZEND_ME(NSFontManager, convertFontToHaveTrait, arginfo_class_NSFontManager_convertFontToHaveTrait, ZEND_ACC_PUBLIC)
+	ZEND_ME(NSFontManager, traitsOfFont, arginfo_class_NSFontManager_traitsOfFont, ZEND_ACC_PUBLIC)
 	ZEND_FE_END
 };
+
+static void register_NSFont_symbols(int module_number)
+{
+	REGISTER_LONG_CONSTANT("NSItalicFontMask", NSItalicFontMask, CONST_PERSISTENT);
+	REGISTER_LONG_CONSTANT("NSBoldFontMask", NSBoldFontMask, CONST_PERSISTENT);
+}
 
 static zend_class_entry *register_class_NSFont(zend_class_entry *class_entry_NSObject)
 {
