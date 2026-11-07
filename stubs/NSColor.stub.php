@@ -9,6 +9,9 @@ class NSColor extends NSObject
 {
     public static function colorWithRedGreenBlueAlpha(float $red, float $green, float $blue, float $alpha): NSColor {}
 
+    /** +controlAccentColor: a catalog colour; convert it (colorUsingColorSpace:) before reading components. */
+    public static function controlAccentColor(): NSColor {}
+
     public function redComponent(): float {}
 
     public function greenComponent(): float {}

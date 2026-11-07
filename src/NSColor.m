@@ -29,6 +29,15 @@ ZEND_METHOD(NSColor, colorWithRedGreenBlueAlpha)
 	APPKIT_END
 }
 
+ZEND_METHOD(NSColor, controlAccentColor)
+{
+	ZEND_PARSE_PARAMETERS_NONE();
+
+	APPKIT_BEGIN
+		appkit_box_objc(return_value, [NSColor controlAccentColor]);
+	APPKIT_END
+}
+
 /* The component of the colour as it is: AppKit raises for a colour without RGB components (translated). */
 #define APPKIT_COLOR_COMPONENT(name, sel) \
 ZEND_METHOD(NSColor, name) \

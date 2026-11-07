@@ -1,5 +1,9 @@
 # Log
 
+## 2026-11-07
+
+* `NSColor` controlAccentColor (+[NSColor controlAccentColor], a catalog colour: `colorUsingColorSpace:` sRGB before reading components). No refusal site: the call returns a colour and raises nothing. 685 / 7210.
+
 ## 2026-11-04
 
 * `NSFont` ascender, descender, leading and isFixedPitch; `NSFontManager` convertFont:toHaveTrait: and traitsOfFont:, with `NSItalicFontMask` and `NSBoldFontMask` (registered with the module's constants); `NSString` sizeWithAttributes:; `NSNumber` numberWithInteger: and integerValue (any thread); `NSUnderlineStyleAttributeName`, `NSStrikethroughStyleAttributeName` and `NSUnderlineStyle`; `NSParagraphStyle` defaultTabInterval and tabStops, `NSMutableParagraphStyle` setDefaultTabInterval: and setTabStops: (entries that are not NSTextTab are left out); `NSTextView` alignment and defaultParagraphStyle (+set), each with its own main-thread site. 684 / 7210.

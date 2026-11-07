@@ -166,6 +166,15 @@ it('reads the components of a colour as it is, and of a catalog colour once conv
         ->and($catalog->colorUsingColorSpace(NSColorSpace::sRGBColorSpace())->redComponent())->toBeFloat();
 });
 
+it('gives the system accent as a catalog colour that reads once converted to sRGB', function (): void {
+    $accent = NSColor::controlAccentColor();
+    $srgb = $accent->colorUsingColorSpace(NSColorSpace::sRGBColorSpace());
+
+    expect(fn () => $accent->redComponent())->toThrow(AppKitException::class, 'NSInvalidArgumentException')
+        ->and($srgb->alphaComponent())->toBe(1.0)
+        ->and([$srgb->redComponent(), $srgb->greenComponent(), $srgb->blueComponent()])->each->toBeBetween(0.0, 1.0);
+});
+
 it('stacks arranged subviews and reorders them', function (): void {
     $a = NSView::initWithFrame(new NSRect(0, 0, 10, 10));
     $b = NSView::initWithFrame(new NSRect(0, 0, 10, 10));
