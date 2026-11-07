@@ -23,7 +23,7 @@
     "GCController": {"methods": ["startWirelessControllerDiscoveryWithCompletionHandler"], "forwards": "completion block"},
     "CGDataProvider": {"methods": ["createDirect"], "forwards": "CGDataProviderDirectCallbacks.getBytePointer"},
     "NSObject": {"methods": ["pointer", "fromPointer"], "forwards": "address hand-off (kept, Angel 2026-10-16)"},
-    "CFType": {"methods": ["pointer"], "forwards": "address hand-off (kept, Angel 2026-10-16)"}
+    "CFType": {"methods": ["pointer", "fromPointer"], "forwards": "address hand-off (kept, Angel 2026-10-16)"}
   },
   "helpers": {
     "marshal": [

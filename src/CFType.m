@@ -47,6 +47,17 @@ ZEND_METHOD(CFType, pointer)
 	RETURN_LONG((zend_long) (uintptr_t) THIS_CF);
 }
 
+ZEND_METHOD(CFType, fromPointer)
+{
+	zend_long pointer;
+
+	ZEND_PARSE_PARAMETERS_START(1, 1)
+		Z_PARAM_LONG(pointer)
+	ZEND_PARSE_PARAMETERS_END();
+
+	appkit_box_cf(return_value, (CFTypeRef) (uintptr_t) pointer);
+}
+
 ZEND_METHOD(CFAllocator, getDefault)
 {
 	ZEND_PARSE_PARAMETERS_NONE();

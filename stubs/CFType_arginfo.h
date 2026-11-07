@@ -1,5 +1,5 @@
 /* This is a generated file, edit the .stub.php file instead.
- * Stub hash: fef9609cb9dc102be9b27af4391a6d7234ce94b6 */
+ * Stub hash: 527f64c9e4c96b0eee76dd2f181484a658b11a1c */
 
 ZEND_BEGIN_ARG_INFO_EX(arginfo_class_CFType___construct, 0, 0, 0)
 ZEND_END_ARG_INFO()
@@ -14,6 +14,10 @@ ZEND_END_ARG_INFO()
 
 #define arginfo_class_CFType_pointer arginfo_class_CFType_getTypeID
 
+ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(arginfo_class_CFType_fromPointer, 0, 1, CFType, 1)
+	ZEND_ARG_TYPE_INFO(0, pointer, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
 ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(arginfo_class_CFAllocator_getDefault, 0, 0, CFAllocator, 0)
 ZEND_END_ARG_INFO()
 
@@ -22,6 +26,7 @@ ZEND_METHOD(CFType, getTypeID);
 ZEND_METHOD(CFType, hash);
 ZEND_METHOD(CFType, copyDescription);
 ZEND_METHOD(CFType, pointer);
+ZEND_METHOD(CFType, fromPointer);
 ZEND_METHOD(CFAllocator, getDefault);
 
 static const zend_function_entry class_CFType_methods[] = {
@@ -30,6 +35,7 @@ static const zend_function_entry class_CFType_methods[] = {
 	ZEND_ME(CFType, hash, arginfo_class_CFType_hash, ZEND_ACC_PUBLIC)
 	ZEND_ME(CFType, copyDescription, arginfo_class_CFType_copyDescription, ZEND_ACC_PUBLIC)
 	ZEND_ME(CFType, pointer, arginfo_class_CFType_pointer, ZEND_ACC_PUBLIC)
+	ZEND_ME(CFType, fromPointer, arginfo_class_CFType_fromPointer, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
 	ZEND_FE_END
 };
 

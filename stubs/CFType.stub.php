@@ -17,6 +17,12 @@ class CFType
 
     /** The object's address, for handing it to another extension. */
     public function pointer(): int {}
+
+    /**
+     * The CF object at $pointer (another extension's pointer()), boxed as the class its CFTypeID names; 0 is null.
+     * The address is trusted to hold a CF object.
+     */
+    public static function fromPointer(int $pointer): ?CFType {}
 }
 
 /**
