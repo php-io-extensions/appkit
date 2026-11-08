@@ -13,4 +13,7 @@ class NSRunLoop extends NSObject
 
     /** getCFRunLoop */
     public function getCFRunLoop(): CFRunLoop {}
+
+    /** Give a timer from NSTimer::timerWithTimeInterval…() to this loop in $mode (NSRunLoopCommonModes: every mode, a modal session included). */
+    public function addTimerForMode(NSTimer $timer, string $mode): void {}
 }

@@ -24,6 +24,7 @@ zend_class_entry *appkit_ce_NSEventType;
 zend_class_entry *appkit_ce_NSEventMask;
 zend_class_entry *appkit_ce_NSEventModifierFlags;
 zend_class_entry *appkit_ce_NSDate;
+zend_class_entry *appkit_ce_NSTimer;
 zend_class_entry *appkit_ce_NSError;
 zend_class_entry *appkit_ce_NSPoint;
 zend_class_entry *appkit_ce_CFType;
@@ -218,6 +219,7 @@ PHP_MINIT_FUNCTION(appkit)
 	appkit_register_NSApplication();
 	appkit_register_NSEvent(module_number);
 	appkit_register_NSDate();
+	appkit_register_NSTimer();
 	appkit_register_NSError();
 	appkit_register_NSPoint();
 	appkit_register_NSGeometry();

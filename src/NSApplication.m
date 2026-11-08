@@ -200,6 +200,28 @@ ZEND_METHOD(NSApplication, sendEvent)
 	APPKIT_END
 }
 
+ZEND_METHOD(NSApplication, stopModalWithCode)
+{
+	zend_long code;
+
+	ZEND_PARSE_PARAMETERS_START(1, 1)
+		Z_PARAM_LONG(code)
+	ZEND_PARSE_PARAMETERS_END();
+
+	APPKIT_BEGIN
+		[THIS_APP stopModalWithCode:(NSModalResponse) code];
+	APPKIT_END
+}
+
+ZEND_METHOD(NSApplication, modalWindow)
+{
+	ZEND_PARSE_PARAMETERS_NONE();
+
+	APPKIT_BEGIN
+		appkit_box_objc(return_value, [THIS_APP modalWindow]);
+	APPKIT_END
+}
+
 /* AppKit allows posting from any thread: no main-thread requirement here. */
 ZEND_METHOD(NSApplication, postEventAtStart)
 {

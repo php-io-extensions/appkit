@@ -48,6 +48,10 @@ class NSApplication extends NSResponder
 
     public function sendEvent(NSEvent $event): void {}
 
+    public function stopModalWithCode(int $returnCode): void {}
+
+    public function modalWindow(): ?NSWindow {}
+
     public function postEventAtStart(NSEvent $event, bool $atStart): void {}
 
     public function currentEvent(): ?NSEvent {}

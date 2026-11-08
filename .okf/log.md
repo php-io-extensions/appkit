@@ -1,5 +1,11 @@
 # Log
 
+## 2026-11-08
+
+* **Version**: 0.11.1 in `PHP_APPKIT_VERSION` (`php_appkit.h`) and the version test; nothing else changed.
+
+* `NSTimer` (scheduledTimerWithTimeInterval:target:selector:userInfo:repeats:, invalidate, isValid) and `NSApplication` `stopModalWithCode:` and `modalWindow`. They carry no main-thread refusal: AppKit answers a call off the main thread. `tests/NSTimerTest.php` (3 passed on a scratch build, ZTS): a repeating timer fires into PHP through an `ObjCTarget` while the run loop runs and stops after `invalidate`, a one-shot fires once, and `modalWindow` is null outside a modal session. `tests/PartialRedrawTest.php` takes its pinned buffer from ext-posi (`posi_mem_alloc`), not FFI.
+
 ## 2026-11-07
 
 * `NSColor` controlAccentColor (+[NSColor controlAccentColor], a catalog colour: `colorUsingColorSpace:` sRGB before reading components). No refusal site: the call returns a colour and raises nothing. 685 / 7210.

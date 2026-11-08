@@ -1,5 +1,5 @@
 /* This is a generated file, edit the .stub.php file instead.
- * Stub hash: cbf9bd7fc92eeebc9be65f0e616ff12cb1445811 */
+ * Stub hash: 93e968027397791e4bddb11d1fb0822f0f3e754c */
 
 ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(arginfo_class_NSApplication_sharedApplication, 0, 0, NSApplication, 0)
 ZEND_END_ARG_INFO()
@@ -49,6 +49,13 @@ ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_NSApplication_sendEvent, 0
 	ZEND_ARG_OBJ_INFO(0, event, NSEvent, 0)
 ZEND_END_ARG_INFO()
 
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_NSApplication_stopModalWithCode, 0, 1, IS_VOID, 0)
+	ZEND_ARG_TYPE_INFO(0, returnCode, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(arginfo_class_NSApplication_modalWindow, 0, 0, NSWindow, 1)
+ZEND_END_ARG_INFO()
+
 ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_NSApplication_postEventAtStart, 0, 2, IS_VOID, 0)
 	ZEND_ARG_OBJ_INFO(0, event, NSEvent, 0)
 	ZEND_ARG_TYPE_INFO(0, atStart, _IS_BOOL, 0)
@@ -73,10 +80,9 @@ ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_NSApplication_setMainMenu,
 	ZEND_ARG_OBJ_INFO(0, mainMenu, NSMenu, 1)
 ZEND_END_ARG_INFO()
 
-ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(arginfo_class_NSApplication_keyWindow, 0, 0, NSWindow, 1)
-ZEND_END_ARG_INFO()
+#define arginfo_class_NSApplication_keyWindow arginfo_class_NSApplication_modalWindow
 
-#define arginfo_class_NSApplication_mainWindow arginfo_class_NSApplication_keyWindow
+#define arginfo_class_NSApplication_mainWindow arginfo_class_NSApplication_modalWindow
 
 ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_NSApplication_windows, 0, 0, IS_ARRAY, 0)
 ZEND_END_ARG_INFO()
@@ -116,6 +122,8 @@ ZEND_METHOD(NSApplication, deactivate);
 ZEND_METHOD(NSApplication, nextEventMatchingMaskUntilDateInModeDequeue);
 ZEND_METHOD(NSApplication, discardEventsMatchingMaskBeforeEvent);
 ZEND_METHOD(NSApplication, sendEvent);
+ZEND_METHOD(NSApplication, stopModalWithCode);
+ZEND_METHOD(NSApplication, modalWindow);
 ZEND_METHOD(NSApplication, postEventAtStart);
 ZEND_METHOD(NSApplication, currentEvent);
 ZEND_METHOD(NSApplication, updateWindows);
@@ -148,6 +156,8 @@ static const zend_function_entry class_NSApplication_methods[] = {
 	ZEND_ME(NSApplication, nextEventMatchingMaskUntilDateInModeDequeue, arginfo_class_NSApplication_nextEventMatchingMaskUntilDateInModeDequeue, ZEND_ACC_PUBLIC)
 	ZEND_ME(NSApplication, discardEventsMatchingMaskBeforeEvent, arginfo_class_NSApplication_discardEventsMatchingMaskBeforeEvent, ZEND_ACC_PUBLIC)
 	ZEND_ME(NSApplication, sendEvent, arginfo_class_NSApplication_sendEvent, ZEND_ACC_PUBLIC)
+	ZEND_ME(NSApplication, stopModalWithCode, arginfo_class_NSApplication_stopModalWithCode, ZEND_ACC_PUBLIC)
+	ZEND_ME(NSApplication, modalWindow, arginfo_class_NSApplication_modalWindow, ZEND_ACC_PUBLIC)
 	ZEND_ME(NSApplication, postEventAtStart, arginfo_class_NSApplication_postEventAtStart, ZEND_ACC_PUBLIC)
 	ZEND_ME(NSApplication, currentEvent, arginfo_class_NSApplication_currentEvent, ZEND_ACC_PUBLIC)
 	ZEND_ME(NSApplication, updateWindows, arginfo_class_NSApplication_updateWindows, ZEND_ACC_PUBLIC)

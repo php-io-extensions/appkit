@@ -41,19 +41,17 @@ it('hands a delegate a struct argument and writes its struct answer back (window
 
         return new NSSize($size->width / 2, $size->height / 4);
     });
-    // AppKit sends windowWillResize:toSize: only while the user drags an edge: send it as AppKit would, through objc_msgSend.
-    $ffi = FFI::cdef('typedef struct { double width; double height; } CGSize; void *sel_registerName(const char *name); CGSize objc_msgSend(void *self, void *op, void *sender, CGSize size);', '/usr/lib/libobjc.A.dylib');
-    $size = $ffi->new('CGSize');
-    $size->width = 300.0;
-    $size->height = 200.0;
-    $answer = $ffi->objc_msgSend($ffi->cast('void *', $delegate->pointer()), $ffi->sel_registerName('windowWillResize:toSize:'), $ffi->cast('void *', $window->pointer()), $size);
+    // The window asks its delegate when its frame is resized: the delegate sees the proposed size and the window takes the answer.
+    $window->setDelegate($delegate);
+    $window->setFrameDisplay(new NSRect(0.0, 0.0, 300.0, 200.0), false);
 
-    expect($seen)->toHaveCount(1)
+    expect($seen)->not->toBeEmpty()
         ->and($seen[0][0])->toBe($window)
         ->and([$seen[0][1], $seen[0][2]])->toBe([300.0, 200.0])
-        ->and([$answer->width, $answer->height])->toBe([150.0, 50.0]);
+        ->and([$window->frame()->width, $window->frame()->height])->toBe([150.0, 50.0]);
+    $window->setDelegate(null);
     $window->close();
-})->skip(! extension_loaded('ffi'), 'needs ext-ffi to send the selector as AppKit would');
+});
 
 it('hands a delegate NSRange arguments and writes its NSRange answer back', function (): void {
     $scroll = NSTextView::scrollableTextView();

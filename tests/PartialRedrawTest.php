@@ -3,17 +3,17 @@
 declare(strict_types=1);
 
 beforeEach(function (): void {
+    extension_loaded('posi') || $this->markTestSkipped('needs ext-posi for a buffer that stays put');
     $this->app = NSApplication::sharedApplication();
     $this->app->finishLaunching();
 });
 
-/** $bytes of zeroed memory that stays put, and its address: a stand-in for an ext-fb buffer. */
+/** $bytes of zeroed memory that stays put, and its address (twice, for posi_mem_free()): a stand-in for an ext-fb buffer. */
 function pinnedBytes(int $bytes): array
 {
-    $ffi = FFI::cdef();
-    $memory = $ffi->new("uint8_t[{$bytes}]", false);
+    $address = posi_mem_alloc($bytes);
 
-    return [$memory, $ffi->cast('uintptr_t', FFI::addr($memory))->cdata];
+    return [$address, $address];
 }
 
 /** A width x height RGBX image over the memory at $address, rows $stride bytes apart. */
@@ -30,7 +30,7 @@ it('reads an image straight from memory it does not copy', function (): void {
     expect(CGDataProvider::createDirect($address, 64))->toBeInstanceOf(CGDataProvider::class)
         ->and([$image->getWidth(), $image->getHeight()])->toBe([16, 8]);
 
-    FFI::free($memory);
+    posi_mem_free($memory);
 });
 
 it('describes a sub-rect of a frame by its stride, the last row without the padding', function (): void {
@@ -43,7 +43,7 @@ it('describes a sub-rect of a frame by its stride, the last row without the padd
     expect([$rect->getWidth(), $rect->getHeight()])->toBe([4, 2])
         ->and(imageAt($address + $offset, 64 + 15, 4, 2, 64))->toBeNull();
 
-    FFI::free($memory);
+    posi_mem_free($memory);
 });
 
 it('passes a provider\'s address and size to Core Graphics, which makes none for a size below 1', function (): void {
@@ -115,7 +115,7 @@ it('draws a dirty rect from memory through the context, nearest-neighbour', func
         ->and($drawn[1])->toBe(CGInterpolationQuality::NONE);
 
     $window->close();
-    FFI::free($memory);
+    posi_mem_free($memory);
 });
 
 it('measures a view and converts it to backing pixels', function (): void {
