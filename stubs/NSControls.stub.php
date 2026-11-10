@@ -360,6 +360,48 @@ class NSSwitch extends NSControl
 /**
  * @not-serializable
  */
+class NSSegmentedControl extends NSControl
+{
+    public function segmentCount(): int {}
+
+    public function setSegmentCount(int $segmentCount): void {}
+
+    public function selectedSegment(): int {}
+
+    public function setSelectedSegment(int $selectedSegment): void {}
+
+    public function labelForSegment(int $segment): ?string {}
+
+    public function setLabelForSegment(string $label, int $segment): void {}
+
+    public function imageForSegment(int $segment): ?NSImage {}
+
+    public function setImageForSegment(?NSImage $image, int $segment): void {}
+
+    public function widthForSegment(int $segment): float {}
+
+    public function setWidthForSegment(float $width, int $segment): void {}
+
+    public function isEnabledForSegment(int $segment): bool {}
+
+    public function setEnabledForSegment(bool $enabled, int $segment): void {}
+
+    public function trackingMode(): NSSegmentSwitchTracking|int {}
+
+    public function setTrackingMode(NSSegmentSwitchTracking $trackingMode): void {}
+
+    public function segmentStyle(): NSSegmentStyle|int {}
+
+    public function setSegmentStyle(NSSegmentStyle $segmentStyle): void {}
+
+    public function segmentDistribution(): NSSegmentDistribution|int {}
+
+    public function setSegmentDistribution(NSSegmentDistribution $segmentDistribution): void {}
+}
+
+/**
+ * @not-serializable
+ */
 class NSSlider extends NSControl
 {
     public static function sliderWithValueMinValueMaxValueTargetAction(float $value, float $minValue, float $maxValue, ?NSObject $target, ?string $action): static {}
@@ -431,6 +473,34 @@ enum NSControlSize: int
     case SMALL = 1;
     case MINI = 2;
     case LARGE = 3;
+}
+
+enum NSSegmentSwitchTracking: int
+{
+    case SELECT_ONE = 0;
+    case SELECT_ANY = 1;
+    case MOMENTARY = 2;
+    case MOMENTARY_ACCELERATOR = 3;
+}
+
+enum NSSegmentStyle: int
+{
+    case AUTOMATIC = 0;
+    case ROUNDED = 1;
+    case TEXTURED_ROUNDED = 2;
+    case ROUND_RECT = 3;
+    case TEXTURED_SQUARE = 4;
+    case CAPSULE = 5;
+    case SMALL_SQUARE = 6;
+    case SEPARATED = 8;
+}
+
+enum NSSegmentDistribution: int
+{
+    case FIT = 0;
+    case FILL = 1;
+    case FILL_EQUALLY = 2;
+    case FILL_PROPORTIONALLY = 3;
 }
 
 enum NSScrollerStyle: int

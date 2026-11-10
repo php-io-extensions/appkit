@@ -95,6 +95,11 @@ class CALayer extends NSObject
 
     public function setBackgroundColor(?CGColor $backgroundColor): void {}
 
+    public function opacity(): float {}
+
+    /** A copy of the layer as it is drawn now, mid-animation values included; null before the layer is committed. */
+    public function presentationLayer(): ?CALayer {}
+
     /** The contents object: a CGImageRef comes back as CGImage, any other object boxed as its class. */
     public function contents(): NSObject|CFType|null {}
 
@@ -109,4 +114,8 @@ class CALayer extends NSObject
     public function masksToBounds(): bool {}
 
     public function setMasksToBounds(bool $masksToBounds): void {}
+
+    public function cornerRadius(): float {}
+
+    public function setCornerRadius(float $cornerRadius): void {}
 }

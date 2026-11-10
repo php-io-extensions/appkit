@@ -302,6 +302,14 @@ class NSWindow extends NSResponder
 
     public function setTitleVisibility(NSWindowTitleVisibility $visibility): void {}
 
+    public function toolbar(): ?NSToolbar {}
+
+    public function setToolbar(?NSToolbar $toolbar): void {}
+
+    public function toolbarStyle(): NSWindowToolbarStyle {}
+
+    public function setToolbarStyle(NSWindowToolbarStyle $toolbarStyle): void {}
+
     public function ignoresMouseEvents(): bool {}
 
     public function setIgnoresMouseEvents(bool $ignores): void {}

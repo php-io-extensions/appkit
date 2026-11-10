@@ -31,24 +31,26 @@ it('accepts a selector outside the protocol, which nothing sends, and rejects no
         ->and(fn () => new ObjCTarget('no_such_function'))->toThrow(TypeError::class);
 });
 
-it('hands a delegate a struct argument and writes its struct answer back (windowWillResize:toSize:)', function (): void {
+it('hands a delegate a struct argument and writes its struct answer back (windowWillUseStandardFrame:defaultFrame:)', function (): void {
     NSApplication::sharedApplication();
     $window = newWindow(200, 100);
     $delegate = new ObjCDelegate('NSWindowDelegate');
     $seen = [];
-    $delegate->on('windowWillResize:toSize:', function (NSWindow $sender, NSSize $size) use (&$seen): NSSize {
-        $seen[] = [$sender, $size->width, $size->height];
+    $delegate->on('windowWillUseStandardFrame:defaultFrame:', function (NSWindow $sender, NSRect $default) use (&$seen): NSRect {
+        $seen[] = [$sender, $default];
 
-        return new NSSize($size->width / 2, $size->height / 4);
+        return new NSRect(40.0, 60.0, 360.0, 240.0);
     });
-    // The window asks its delegate when its frame is resized: the delegate sees the proposed size and the window takes the answer.
+    // zoom: asks the delegate for the standard frame (windowWillResize:toSize: is sent only during a live resize by the user):
+    // the delegate sees AppKit's default frame and the window takes the frame it answers.
     $window->setDelegate($delegate);
-    $window->setFrameDisplay(new NSRect(0.0, 0.0, 300.0, 200.0), false);
+    $window->zoom(null);
 
     expect($seen)->not->toBeEmpty()
         ->and($seen[0][0])->toBe($window)
-        ->and([$seen[0][1], $seen[0][2]])->toBe([300.0, 200.0])
-        ->and([$window->frame()->width, $window->frame()->height])->toBe([150.0, 50.0]);
+        ->and($seen[0][1])->toBeInstanceOf(NSRect::class)
+        ->and($seen[0][1]->width)->toBeGreaterThan(0.0)
+        ->and([$window->frame()->x, $window->frame()->y, $window->frame()->width, $window->frame()->height])->toBe([40.0, 60.0, 360.0, 240.0]);
     $window->setDelegate(null);
     $window->close();
 });

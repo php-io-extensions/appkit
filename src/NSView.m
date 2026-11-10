@@ -69,6 +69,80 @@ ZEND_METHOD(NSView, setFrame)
 	APPKIT_END
 }
 
+ZEND_METHOD(NSView, setBoundsOrigin)
+{
+	zend_object *origin;
+	NSPoint point;
+
+	ZEND_PARSE_PARAMETERS_START(1, 1)
+		Z_PARAM_OBJ_OF_CLASS(origin, appkit_ce_NSPoint)
+	ZEND_PARSE_PARAMETERS_END();
+	if (!appkit_point_from(origin, 1, &point)) {
+		RETURN_THROWS();
+	}
+
+	APPKIT_BEGIN
+		[THIS_VIEW setBoundsOrigin:point];
+	APPKIT_END
+}
+
+ZEND_METHOD(NSView, alphaValue)
+{
+	ZEND_PARSE_PARAMETERS_NONE();
+
+	APPKIT_BEGIN
+		RETURN_DOUBLE((double) [THIS_VIEW alphaValue]);
+	APPKIT_END
+}
+
+ZEND_METHOD(NSView, setAlphaValue)
+{
+	double alpha;
+
+	ZEND_PARSE_PARAMETERS_START(1, 1)
+		Z_PARAM_DOUBLE(alpha)
+	ZEND_PARSE_PARAMETERS_END();
+
+	APPKIT_BEGIN
+		[THIS_VIEW setAlphaValue:(CGFloat) alpha];
+	APPKIT_END
+}
+
+ZEND_METHOD(NSView, animator)
+{
+	ZEND_PARSE_PARAMETERS_NONE();
+
+	APPKIT_BEGIN
+		appkit_box_objc(return_value, [THIS_VIEW animator]);
+	APPKIT_END
+}
+
+ZEND_METHOD(NSView, identifier)
+{
+	ZEND_PARSE_PARAMETERS_NONE();
+
+	APPKIT_BEGIN
+		NSString *identifier = [THIS_VIEW identifier];
+		if (identifier == nil) {
+			RETURN_NULL();
+		}
+		RETURN_STR(appkit_zend_string((CFStringRef) identifier));
+	APPKIT_END
+}
+
+ZEND_METHOD(NSView, setIdentifier)
+{
+	zend_string *identifier = NULL;
+
+	ZEND_PARSE_PARAMETERS_START(1, 1)
+		Z_PARAM_STR_OR_NULL(identifier)
+	ZEND_PARSE_PARAMETERS_END();
+
+	APPKIT_BEGIN
+		[THIS_VIEW setIdentifier:(identifier != NULL ? appkit_nsstring(identifier) : nil)];
+	APPKIT_END
+}
+
 ZEND_METHOD(NSView, window)
 {
 	ZEND_PARSE_PARAMETERS_NONE();

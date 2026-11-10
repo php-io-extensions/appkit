@@ -55,6 +55,21 @@ class NSView extends NSResponder
 
     public function setFrame(NSRect $frame): void {}
 
+    /** Inside an NSAnimationContext group with allowsImplicitAnimation, a layer-backed view animates the change. */
+    public function setBoundsOrigin(NSPoint $newOrigin): void {}
+
+    public function alphaValue(): float {}
+
+    /** Inside an NSAnimationContext group with allowsImplicitAnimation, a layer-backed view animates the change. */
+    public function setAlphaValue(float $alphaValue): void {}
+
+    /** The view's animator proxy, boxed as the view's class: a call made through it inside an NSAnimationContext group animates. */
+    public function animator(): static {}
+
+    public function identifier(): ?string {}
+
+    public function setIdentifier(?string $identifier): void {}
+
     public function window(): ?NSWindow {}
 
     /** The view's context menu; an NSPopUpButton's is the menu it pops up. */

@@ -1,5 +1,5 @@
 /* This is a generated file, edit the .stub.php file instead.
- * Stub hash: 6cf80c4c571cbc97dd63d28ef21712a478c6af2b */
+ * Stub hash: ec7903b297b0a8a0ad00a97aa7bcc5c8447747b1 */
 
 ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_NSControl_isEnabled, 0, 0, _IS_BOOL, 0)
 ZEND_END_ARG_INFO()
@@ -222,6 +222,75 @@ ZEND_END_ARG_INFO()
 #define arginfo_class_NSSwitch_state arginfo_class_NSButton_state
 
 #define arginfo_class_NSSwitch_setState arginfo_class_NSButton_setState
+
+#define arginfo_class_NSSegmentedControl_segmentCount arginfo_class_NSControl_integerValue
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_NSSegmentedControl_setSegmentCount, 0, 1, IS_VOID, 0)
+	ZEND_ARG_TYPE_INFO(0, segmentCount, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+#define arginfo_class_NSSegmentedControl_selectedSegment arginfo_class_NSControl_integerValue
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_NSSegmentedControl_setSelectedSegment, 0, 1, IS_VOID, 0)
+	ZEND_ARG_TYPE_INFO(0, selectedSegment, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_NSSegmentedControl_labelForSegment, 0, 1, IS_STRING, 1)
+	ZEND_ARG_TYPE_INFO(0, segment, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_NSSegmentedControl_setLabelForSegment, 0, 2, IS_VOID, 0)
+	ZEND_ARG_TYPE_INFO(0, label, IS_STRING, 0)
+	ZEND_ARG_TYPE_INFO(0, segment, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(arginfo_class_NSSegmentedControl_imageForSegment, 0, 1, NSImage, 1)
+	ZEND_ARG_TYPE_INFO(0, segment, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_NSSegmentedControl_setImageForSegment, 0, 2, IS_VOID, 0)
+	ZEND_ARG_OBJ_INFO(0, image, NSImage, 1)
+	ZEND_ARG_TYPE_INFO(0, segment, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_NSSegmentedControl_widthForSegment, 0, 1, IS_DOUBLE, 0)
+	ZEND_ARG_TYPE_INFO(0, segment, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_NSSegmentedControl_setWidthForSegment, 0, 2, IS_VOID, 0)
+	ZEND_ARG_TYPE_INFO(0, width, IS_DOUBLE, 0)
+	ZEND_ARG_TYPE_INFO(0, segment, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_NSSegmentedControl_isEnabledForSegment, 0, 1, _IS_BOOL, 0)
+	ZEND_ARG_TYPE_INFO(0, segment, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_NSSegmentedControl_setEnabledForSegment, 0, 2, IS_VOID, 0)
+	ZEND_ARG_TYPE_INFO(0, enabled, _IS_BOOL, 0)
+	ZEND_ARG_TYPE_INFO(0, segment, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_OBJ_TYPE_MASK_EX(arginfo_class_NSSegmentedControl_trackingMode, 0, 0, NSSegmentSwitchTracking, MAY_BE_LONG)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_NSSegmentedControl_setTrackingMode, 0, 1, IS_VOID, 0)
+	ZEND_ARG_OBJ_INFO(0, trackingMode, NSSegmentSwitchTracking, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_OBJ_TYPE_MASK_EX(arginfo_class_NSSegmentedControl_segmentStyle, 0, 0, NSSegmentStyle, MAY_BE_LONG)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_NSSegmentedControl_setSegmentStyle, 0, 1, IS_VOID, 0)
+	ZEND_ARG_OBJ_INFO(0, segmentStyle, NSSegmentStyle, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_OBJ_TYPE_MASK_EX(arginfo_class_NSSegmentedControl_segmentDistribution, 0, 0, NSSegmentDistribution, MAY_BE_LONG)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_NSSegmentedControl_setSegmentDistribution, 0, 1, IS_VOID, 0)
+	ZEND_ARG_OBJ_INFO(0, segmentDistribution, NSSegmentDistribution, 0)
+ZEND_END_ARG_INFO()
 
 ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_NSSlider_sliderWithValueMinValueMaxValueTargetAction, 0, 5, IS_STATIC, 0)
 	ZEND_ARG_TYPE_INFO(0, value, IS_DOUBLE, 0)
@@ -717,6 +786,24 @@ ZEND_METHOD(NSButton, isBordered);
 ZEND_METHOD(NSButton, setBordered);
 ZEND_METHOD(NSSwitch, state);
 ZEND_METHOD(NSSwitch, setState);
+ZEND_METHOD(NSSegmentedControl, segmentCount);
+ZEND_METHOD(NSSegmentedControl, setSegmentCount);
+ZEND_METHOD(NSSegmentedControl, selectedSegment);
+ZEND_METHOD(NSSegmentedControl, setSelectedSegment);
+ZEND_METHOD(NSSegmentedControl, labelForSegment);
+ZEND_METHOD(NSSegmentedControl, setLabelForSegment);
+ZEND_METHOD(NSSegmentedControl, imageForSegment);
+ZEND_METHOD(NSSegmentedControl, setImageForSegment);
+ZEND_METHOD(NSSegmentedControl, widthForSegment);
+ZEND_METHOD(NSSegmentedControl, setWidthForSegment);
+ZEND_METHOD(NSSegmentedControl, isEnabledForSegment);
+ZEND_METHOD(NSSegmentedControl, setEnabledForSegment);
+ZEND_METHOD(NSSegmentedControl, trackingMode);
+ZEND_METHOD(NSSegmentedControl, setTrackingMode);
+ZEND_METHOD(NSSegmentedControl, segmentStyle);
+ZEND_METHOD(NSSegmentedControl, setSegmentStyle);
+ZEND_METHOD(NSSegmentedControl, segmentDistribution);
+ZEND_METHOD(NSSegmentedControl, setSegmentDistribution);
 ZEND_METHOD(NSSlider, sliderWithValueMinValueMaxValueTargetAction);
 ZEND_METHOD(NSSlider, minValue);
 ZEND_METHOD(NSSlider, setMinValue);
@@ -942,6 +1029,28 @@ static const zend_function_entry class_NSButton_methods[] = {
 static const zend_function_entry class_NSSwitch_methods[] = {
 	ZEND_ME(NSSwitch, state, arginfo_class_NSSwitch_state, ZEND_ACC_PUBLIC)
 	ZEND_ME(NSSwitch, setState, arginfo_class_NSSwitch_setState, ZEND_ACC_PUBLIC)
+	ZEND_FE_END
+};
+
+static const zend_function_entry class_NSSegmentedControl_methods[] = {
+	ZEND_ME(NSSegmentedControl, segmentCount, arginfo_class_NSSegmentedControl_segmentCount, ZEND_ACC_PUBLIC)
+	ZEND_ME(NSSegmentedControl, setSegmentCount, arginfo_class_NSSegmentedControl_setSegmentCount, ZEND_ACC_PUBLIC)
+	ZEND_ME(NSSegmentedControl, selectedSegment, arginfo_class_NSSegmentedControl_selectedSegment, ZEND_ACC_PUBLIC)
+	ZEND_ME(NSSegmentedControl, setSelectedSegment, arginfo_class_NSSegmentedControl_setSelectedSegment, ZEND_ACC_PUBLIC)
+	ZEND_ME(NSSegmentedControl, labelForSegment, arginfo_class_NSSegmentedControl_labelForSegment, ZEND_ACC_PUBLIC)
+	ZEND_ME(NSSegmentedControl, setLabelForSegment, arginfo_class_NSSegmentedControl_setLabelForSegment, ZEND_ACC_PUBLIC)
+	ZEND_ME(NSSegmentedControl, imageForSegment, arginfo_class_NSSegmentedControl_imageForSegment, ZEND_ACC_PUBLIC)
+	ZEND_ME(NSSegmentedControl, setImageForSegment, arginfo_class_NSSegmentedControl_setImageForSegment, ZEND_ACC_PUBLIC)
+	ZEND_ME(NSSegmentedControl, widthForSegment, arginfo_class_NSSegmentedControl_widthForSegment, ZEND_ACC_PUBLIC)
+	ZEND_ME(NSSegmentedControl, setWidthForSegment, arginfo_class_NSSegmentedControl_setWidthForSegment, ZEND_ACC_PUBLIC)
+	ZEND_ME(NSSegmentedControl, isEnabledForSegment, arginfo_class_NSSegmentedControl_isEnabledForSegment, ZEND_ACC_PUBLIC)
+	ZEND_ME(NSSegmentedControl, setEnabledForSegment, arginfo_class_NSSegmentedControl_setEnabledForSegment, ZEND_ACC_PUBLIC)
+	ZEND_ME(NSSegmentedControl, trackingMode, arginfo_class_NSSegmentedControl_trackingMode, ZEND_ACC_PUBLIC)
+	ZEND_ME(NSSegmentedControl, setTrackingMode, arginfo_class_NSSegmentedControl_setTrackingMode, ZEND_ACC_PUBLIC)
+	ZEND_ME(NSSegmentedControl, segmentStyle, arginfo_class_NSSegmentedControl_segmentStyle, ZEND_ACC_PUBLIC)
+	ZEND_ME(NSSegmentedControl, setSegmentStyle, arginfo_class_NSSegmentedControl_setSegmentStyle, ZEND_ACC_PUBLIC)
+	ZEND_ME(NSSegmentedControl, segmentDistribution, arginfo_class_NSSegmentedControl_segmentDistribution, ZEND_ACC_PUBLIC)
+	ZEND_ME(NSSegmentedControl, setSegmentDistribution, arginfo_class_NSSegmentedControl_setSegmentDistribution, ZEND_ACC_PUBLIC)
 	ZEND_FE_END
 };
 
@@ -1479,6 +1588,16 @@ static zend_class_entry *register_class_NSSwitch(zend_class_entry *class_entry_N
 	return class_entry;
 }
 
+static zend_class_entry *register_class_NSSegmentedControl(zend_class_entry *class_entry_NSControl)
+{
+	zend_class_entry ce, *class_entry;
+
+	INIT_CLASS_ENTRY(ce, "NSSegmentedControl", class_NSSegmentedControl_methods);
+	class_entry = zend_register_internal_class_with_flags(&ce, class_entry_NSControl, ZEND_ACC_NOT_SERIALIZABLE);
+
+	return class_entry;
+}
+
 static zend_class_entry *register_class_NSSlider(zend_class_entry *class_entry_NSControl)
 {
 	zend_class_entry ce, *class_entry;
@@ -1528,6 +1647,91 @@ static zend_class_entry *register_class_NSControlSize(void)
 	zval enum_case_LARGE_value;
 	ZVAL_LONG(&enum_case_LARGE_value, 3);
 	zend_enum_add_case_cstr(class_entry, "LARGE", &enum_case_LARGE_value);
+
+	return class_entry;
+}
+
+static zend_class_entry *register_class_NSSegmentSwitchTracking(void)
+{
+	zend_class_entry *class_entry = zend_register_internal_enum("NSSegmentSwitchTracking", IS_LONG, NULL);
+
+	zval enum_case_SELECT_ONE_value;
+	ZVAL_LONG(&enum_case_SELECT_ONE_value, 0);
+	zend_enum_add_case_cstr(class_entry, "SELECT_ONE", &enum_case_SELECT_ONE_value);
+
+	zval enum_case_SELECT_ANY_value;
+	ZVAL_LONG(&enum_case_SELECT_ANY_value, 1);
+	zend_enum_add_case_cstr(class_entry, "SELECT_ANY", &enum_case_SELECT_ANY_value);
+
+	zval enum_case_MOMENTARY_value;
+	ZVAL_LONG(&enum_case_MOMENTARY_value, 2);
+	zend_enum_add_case_cstr(class_entry, "MOMENTARY", &enum_case_MOMENTARY_value);
+
+	zval enum_case_MOMENTARY_ACCELERATOR_value;
+	ZVAL_LONG(&enum_case_MOMENTARY_ACCELERATOR_value, 3);
+	zend_enum_add_case_cstr(class_entry, "MOMENTARY_ACCELERATOR", &enum_case_MOMENTARY_ACCELERATOR_value);
+
+	return class_entry;
+}
+
+static zend_class_entry *register_class_NSSegmentStyle(void)
+{
+	zend_class_entry *class_entry = zend_register_internal_enum("NSSegmentStyle", IS_LONG, NULL);
+
+	zval enum_case_AUTOMATIC_value;
+	ZVAL_LONG(&enum_case_AUTOMATIC_value, 0);
+	zend_enum_add_case_cstr(class_entry, "AUTOMATIC", &enum_case_AUTOMATIC_value);
+
+	zval enum_case_ROUNDED_value;
+	ZVAL_LONG(&enum_case_ROUNDED_value, 1);
+	zend_enum_add_case_cstr(class_entry, "ROUNDED", &enum_case_ROUNDED_value);
+
+	zval enum_case_TEXTURED_ROUNDED_value;
+	ZVAL_LONG(&enum_case_TEXTURED_ROUNDED_value, 2);
+	zend_enum_add_case_cstr(class_entry, "TEXTURED_ROUNDED", &enum_case_TEXTURED_ROUNDED_value);
+
+	zval enum_case_ROUND_RECT_value;
+	ZVAL_LONG(&enum_case_ROUND_RECT_value, 3);
+	zend_enum_add_case_cstr(class_entry, "ROUND_RECT", &enum_case_ROUND_RECT_value);
+
+	zval enum_case_TEXTURED_SQUARE_value;
+	ZVAL_LONG(&enum_case_TEXTURED_SQUARE_value, 4);
+	zend_enum_add_case_cstr(class_entry, "TEXTURED_SQUARE", &enum_case_TEXTURED_SQUARE_value);
+
+	zval enum_case_CAPSULE_value;
+	ZVAL_LONG(&enum_case_CAPSULE_value, 5);
+	zend_enum_add_case_cstr(class_entry, "CAPSULE", &enum_case_CAPSULE_value);
+
+	zval enum_case_SMALL_SQUARE_value;
+	ZVAL_LONG(&enum_case_SMALL_SQUARE_value, 6);
+	zend_enum_add_case_cstr(class_entry, "SMALL_SQUARE", &enum_case_SMALL_SQUARE_value);
+
+	zval enum_case_SEPARATED_value;
+	ZVAL_LONG(&enum_case_SEPARATED_value, 8);
+	zend_enum_add_case_cstr(class_entry, "SEPARATED", &enum_case_SEPARATED_value);
+
+	return class_entry;
+}
+
+static zend_class_entry *register_class_NSSegmentDistribution(void)
+{
+	zend_class_entry *class_entry = zend_register_internal_enum("NSSegmentDistribution", IS_LONG, NULL);
+
+	zval enum_case_FIT_value;
+	ZVAL_LONG(&enum_case_FIT_value, 0);
+	zend_enum_add_case_cstr(class_entry, "FIT", &enum_case_FIT_value);
+
+	zval enum_case_FILL_value;
+	ZVAL_LONG(&enum_case_FILL_value, 1);
+	zend_enum_add_case_cstr(class_entry, "FILL", &enum_case_FILL_value);
+
+	zval enum_case_FILL_EQUALLY_value;
+	ZVAL_LONG(&enum_case_FILL_EQUALLY_value, 2);
+	zend_enum_add_case_cstr(class_entry, "FILL_EQUALLY", &enum_case_FILL_EQUALLY_value);
+
+	zval enum_case_FILL_PROPORTIONALLY_value;
+	ZVAL_LONG(&enum_case_FILL_PROPORTIONALLY_value, 3);
+	zend_enum_add_case_cstr(class_entry, "FILL_PROPORTIONALLY", &enum_case_FILL_PROPORTIONALLY_value);
 
 	return class_entry;
 }

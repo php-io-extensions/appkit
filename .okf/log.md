@@ -1,5 +1,20 @@
 # Log
 
+## 2026-11-10
+
+* `NSTableView` rowHeight (+set), makeViewWithIdentifier:owner:, insertRowsAtIndexes:withAnimation:, removeRowsAtIndexes:withAnimation:, reloadDataForRowIndexes:columnIndexes:, noteNumberOfRowsChanged; `NSTableView::ANIMATION_*` (`NSTableViewAnimationOptions`, `@cvalue`). No refusal. A view-based table's cells come from an `ObjCDelegate('NSTableViewDelegate')` answering `tableView:viewForTableColumn:row:`. `tests/TableRowsTest.php` (3 passed, NTS, no window).
+* Boxing: an `NSProxy` is mapped to its PHP class through `[obj class]` (the class it stands for), not its private runtime class. `NSView::animator()`: a collection view's animator is an `NSCollectionView`, and `deleteItemsAtIndexPaths:` through it inside an `NSAnimationContext` group animates.
+* `NSCollectionViewItem` view / setView; `NSCollectionView` insert, delete, reload and scroll-to items (a PHP array of `NSIndexPath` as an `NSSet`, through the new marshal helper `appkit_object_array`), `NSCollectionViewScrollPosition*` constants. New source `src/NSArray.m`: `NSArray` count, objectAtIndex (an NSString as a string), `NSMutableArray` array, addObject (a string as an NSString). New source `src/NSToolbar.m`: `NSToolbar` (initWithIdentifier, delegate, display mode, visible, customization, insert and remove items, selected item identifier), `NSToolbarItem` (initWithItemIdentifier, label, view, bordered), enums `NSToolbarDisplayMode`, `NSWindowToolbarStyle`, constants `NSToolbarFlexibleSpaceItemIdentifier`, `NSToolbarSpaceItemIdentifier`. `NSWindow` toolbar, toolbarStyle (+set). `NSView` identifier (+set). A toolbar delegate returns its identifier lists as `NSMutableArray`; it gets item identifiers as `NSString`. No refusal. `tests/SegmentedAndCollectionTest.php` (6 passed, NTS). `GlueTest` "struct argument" fails here with and without this change (windowWillResize:toSize: not sent to an unshown window).
+* `NSSegmentedControl` (segment count, selection, label, image, width and enabled per segment, tracking mode, style, distribution; enums `NSSegmentSwitchTracking`, `NSSegmentStyle`, `NSSegmentDistribution`, `_Static_assert`-checked). New source `src/NSCollectionView.m`: `NSIndexPath` (`indexPathForItem:inSection:`, item, section), `NSCollectionViewLayout` invalidateLayout, `NSCollectionViewFlowLayout` (init, item size, spacings, section inset), `NSCollectionViewItem` (init, isSelected, collectionView), `NSCollectionView` (layout, data source, delegate, reloadData, sections and items, selectable, multiple selection, registerClass:forItemWithIdentifier:, makeItemWithIdentifier:forIndexPath:, itemAtIndexPath:, indexPathForItemAtPoint:). No refusal. The data source is an `ObjCDelegate('NSCollectionViewDataSource')`. `tests/SegmentedAndCollectionTest.php` (3 passed, NTS). Not yet bound: `NSViewController` view / setView (the guard does not read `IBOutlet`), and the `NSSet<NSIndexPath>` calls (insert, delete, reload, scroll to items).
+
+## 2026-11-09
+
+* `CALayer` `cornerRadius` / `setCornerRadius:`, no refusal. `tests/AnimationTest.php` (5 passed, ZTS): a layer starts at radius 0 and keeps the radius it is given.
+
+* `CALayer` `opacity` and `presentationLayer`, no refusal: the layer as Core Animation draws it now, mid-animation values included; null before the layer is committed.
+
+* `NSAnimationContext` (+beginGrouping, +endGrouping, +currentContext, duration, allowsImplicitAnimation, each with its setter) and `NSView` `alphaValue` / `setAlphaValue:` / `setBoundsOrigin:`. No block API (runAnimationGroup:, completionHandler) is bound; a group is opened and closed by hand. They carry no main-thread refusal. `tests/AnimationTest.php` (3 passed, NTS): a group's context keeps its duration and implicit-animation flag, a view takes the alpha it is set to, and a bounds origin moves without moving the frame.
+
 ## 2026-11-08
 
 * **Version**: 0.11.1 in `PHP_APPKIT_VERSION` (`php_appkit.h`) and the version test; nothing else changed.

@@ -54,6 +54,37 @@ class NSTableHeaderView extends NSView
  */
 class NSTableView extends NSControl
 {
+    /** @cvalue NSTableViewAnimationEffectNone */
+    public const int ANIMATION_EFFECT_NONE = UNKNOWN;
+    /** @cvalue NSTableViewAnimationEffectFade */
+    public const int ANIMATION_EFFECT_FADE = UNKNOWN;
+    /** @cvalue NSTableViewAnimationEffectGap */
+    public const int ANIMATION_EFFECT_GAP = UNKNOWN;
+    /** @cvalue NSTableViewAnimationSlideUp */
+    public const int ANIMATION_SLIDE_UP = UNKNOWN;
+    /** @cvalue NSTableViewAnimationSlideDown */
+    public const int ANIMATION_SLIDE_DOWN = UNKNOWN;
+    /** @cvalue NSTableViewAnimationSlideLeft */
+    public const int ANIMATION_SLIDE_LEFT = UNKNOWN;
+    /** @cvalue NSTableViewAnimationSlideRight */
+    public const int ANIMATION_SLIDE_RIGHT = UNKNOWN;
+
+    public function rowHeight(): float {}
+
+    public function setRowHeight(float $rowHeight): void {}
+
+    public function makeViewWithIdentifierOwner(string $identifier, ?NSObject $owner): ?NSView {}
+
+    /** $animationOptions: NSTableView::ANIMATION_* combined with |. */
+    public function insertRowsAtIndexesWithAnimation(NSIndexSet $indexes, int $animationOptions): void {}
+
+    /** $animationOptions: NSTableView::ANIMATION_* combined with |. */
+    public function removeRowsAtIndexesWithAnimation(NSIndexSet $indexes, int $animationOptions): void {}
+
+    public function reloadDataForRowIndexesColumnIndexes(NSIndexSet $rowIndexes, NSIndexSet $columnIndexes): void {}
+
+    public function noteNumberOfRowsChanged(): void {}
+
     public function addTableColumn(NSTableColumn $column): void {}
 
     public function removeTableColumn(NSTableColumn $column): void {}

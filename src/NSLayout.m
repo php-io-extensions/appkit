@@ -312,3 +312,21 @@ NSArray *appkit_view_array(HashTable *ht, uint32_t arg_num, id null_placeholder)
 
 	return views;
 }
+
+/* A PHP array of wrappers of class ce as an autoreleased NSArray. nil after a type error. */
+NSArray *appkit_object_array(HashTable *ht, zend_class_entry *ce, uint32_t arg_num)
+{
+	NSMutableArray *objects = [NSMutableArray arrayWithCapacity:zend_hash_num_elements(ht)];
+	zval *value;
+
+	ZEND_HASH_FOREACH_VAL(ht, value) {
+		ZVAL_DEREF(value);
+		if (Z_TYPE_P(value) != IS_OBJECT || !instanceof_function(Z_OBJCE_P(value), ce)) {
+			zend_argument_type_error(arg_num, "must contain only %s objects, %s given", ZSTR_VAL(ce->name), zend_zval_value_name(value));
+			return nil;
+		}
+		[objects addObject:APPKIT_ID(Z_OBJ_P(value))];
+	} ZEND_HASH_FOREACH_END();
+
+	return objects;
+}

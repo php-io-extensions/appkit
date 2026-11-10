@@ -1,5 +1,5 @@
 /* This is a generated file, edit the .stub.php file instead.
- * Stub hash: e602a1b5d5639b08451e73a476298fbdfc4c4068 */
+ * Stub hash: 6729f56b28a4d02d8292a6ba0720829607e6eac2 */
 
 ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(arginfo_class_CALayer_layer, 0, 0, CALayer, 0)
 ZEND_END_ARG_INFO()
@@ -25,6 +25,11 @@ ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_CALayer_setBackgroundColor
 	ZEND_ARG_OBJ_INFO(0, backgroundColor, CGColor, 1)
 ZEND_END_ARG_INFO()
 
+#define arginfo_class_CALayer_opacity arginfo_class_CALayer_contentsScale
+
+ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(arginfo_class_CALayer_presentationLayer, 0, 0, CALayer, 1)
+ZEND_END_ARG_INFO()
+
 ZEND_BEGIN_ARG_WITH_RETURN_OBJ_TYPE_MASK_EX(arginfo_class_CALayer_contents, 0, 0, NSObject|CFType, MAY_BE_NULL)
 ZEND_END_ARG_INFO()
 
@@ -46,6 +51,12 @@ ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_CALayer_setMasksToBounds, 
 	ZEND_ARG_TYPE_INFO(0, masksToBounds, _IS_BOOL, 0)
 ZEND_END_ARG_INFO()
 
+#define arginfo_class_CALayer_cornerRadius arginfo_class_CALayer_contentsScale
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_CALayer_setCornerRadius, 0, 1, IS_VOID, 0)
+	ZEND_ARG_TYPE_INFO(0, cornerRadius, IS_DOUBLE, 0)
+ZEND_END_ARG_INFO()
+
 ZEND_METHOD(CALayer, layer);
 ZEND_METHOD(CALayer, contentsScale);
 ZEND_METHOD(CALayer, setContentsScale);
@@ -53,12 +64,16 @@ ZEND_METHOD(CALayer, sublayers);
 ZEND_METHOD(CALayer, addSublayer);
 ZEND_METHOD(CALayer, backgroundColor);
 ZEND_METHOD(CALayer, setBackgroundColor);
+ZEND_METHOD(CALayer, opacity);
+ZEND_METHOD(CALayer, presentationLayer);
 ZEND_METHOD(CALayer, contents);
 ZEND_METHOD(CALayer, setContents);
 ZEND_METHOD(CALayer, contentsGravity);
 ZEND_METHOD(CALayer, setContentsGravity);
 ZEND_METHOD(CALayer, masksToBounds);
 ZEND_METHOD(CALayer, setMasksToBounds);
+ZEND_METHOD(CALayer, cornerRadius);
+ZEND_METHOD(CALayer, setCornerRadius);
 
 static const zend_function_entry class_CALayer_methods[] = {
 	ZEND_ME(CALayer, layer, arginfo_class_CALayer_layer, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
@@ -68,12 +83,16 @@ static const zend_function_entry class_CALayer_methods[] = {
 	ZEND_ME(CALayer, addSublayer, arginfo_class_CALayer_addSublayer, ZEND_ACC_PUBLIC)
 	ZEND_ME(CALayer, backgroundColor, arginfo_class_CALayer_backgroundColor, ZEND_ACC_PUBLIC)
 	ZEND_ME(CALayer, setBackgroundColor, arginfo_class_CALayer_setBackgroundColor, ZEND_ACC_PUBLIC)
+	ZEND_ME(CALayer, opacity, arginfo_class_CALayer_opacity, ZEND_ACC_PUBLIC)
+	ZEND_ME(CALayer, presentationLayer, arginfo_class_CALayer_presentationLayer, ZEND_ACC_PUBLIC)
 	ZEND_ME(CALayer, contents, arginfo_class_CALayer_contents, ZEND_ACC_PUBLIC)
 	ZEND_ME(CALayer, setContents, arginfo_class_CALayer_setContents, ZEND_ACC_PUBLIC)
 	ZEND_ME(CALayer, contentsGravity, arginfo_class_CALayer_contentsGravity, ZEND_ACC_PUBLIC)
 	ZEND_ME(CALayer, setContentsGravity, arginfo_class_CALayer_setContentsGravity, ZEND_ACC_PUBLIC)
 	ZEND_ME(CALayer, masksToBounds, arginfo_class_CALayer_masksToBounds, ZEND_ACC_PUBLIC)
 	ZEND_ME(CALayer, setMasksToBounds, arginfo_class_CALayer_setMasksToBounds, ZEND_ACC_PUBLIC)
+	ZEND_ME(CALayer, cornerRadius, arginfo_class_CALayer_cornerRadius, ZEND_ACC_PUBLIC)
+	ZEND_ME(CALayer, setCornerRadius, arginfo_class_CALayer_setCornerRadius, ZEND_ACC_PUBLIC)
 	ZEND_FE_END
 };
 

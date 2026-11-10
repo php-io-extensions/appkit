@@ -92,6 +92,24 @@ ZEND_METHOD(CALayer, setBackgroundColor)
 	APPKIT_END
 }
 
+ZEND_METHOD(CALayer, opacity)
+{
+	ZEND_PARSE_PARAMETERS_NONE();
+
+	APPKIT_BEGIN
+		RETURN_DOUBLE((double) THIS_LAYER.opacity);
+	APPKIT_END
+}
+
+ZEND_METHOD(CALayer, presentationLayer)
+{
+	ZEND_PARSE_PARAMETERS_NONE();
+
+	APPKIT_BEGIN
+		appkit_box_objc(return_value, [THIS_LAYER presentationLayer]);
+	APPKIT_END
+}
+
 /* A CGImageRef is a CF object: it comes back as its CF class, any other contents object as its Objective-C class. */
 ZEND_METHOD(CALayer, contents)
 {
@@ -167,5 +185,27 @@ ZEND_METHOD(CALayer, setMasksToBounds)
 
 	APPKIT_BEGIN
 		THIS_LAYER.masksToBounds = flag;
+	APPKIT_END
+}
+
+ZEND_METHOD(CALayer, cornerRadius)
+{
+	ZEND_PARSE_PARAMETERS_NONE();
+
+	APPKIT_BEGIN
+		RETURN_DOUBLE((double) THIS_LAYER.cornerRadius);
+	APPKIT_END
+}
+
+ZEND_METHOD(CALayer, setCornerRadius)
+{
+	double radius;
+
+	ZEND_PARSE_PARAMETERS_START(1, 1)
+		Z_PARAM_DOUBLE(radius)
+	ZEND_PARSE_PARAMETERS_END();
+
+	APPKIT_BEGIN
+		THIS_LAYER.cornerRadius = (CGFloat) radius;
 	APPKIT_END
 }

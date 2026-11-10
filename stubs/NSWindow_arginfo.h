@@ -1,5 +1,5 @@
 /* This is a generated file, edit the .stub.php file instead.
- * Stub hash: f8258dfcc9e5e3d5192ed86def493c04483e6d27 */
+ * Stub hash: 4e187b3cd67c2f0b0a4b903e1317fad5769e0062 */
 
 ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(arginfo_class_NSWindow_initWithContentRectStyleMaskBackingDefer, 0, 4, NSWindow, 0)
 	ZEND_ARG_OBJ_INFO(0, contentRect, NSRect, 0)
@@ -249,6 +249,20 @@ ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_NSWindow_setTitleVisibilit
 	ZEND_ARG_OBJ_INFO(0, visibility, NSWindowTitleVisibility, 0)
 ZEND_END_ARG_INFO()
 
+ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(arginfo_class_NSWindow_toolbar, 0, 0, NSToolbar, 1)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_NSWindow_setToolbar, 0, 1, IS_VOID, 0)
+	ZEND_ARG_OBJ_INFO(0, toolbar, NSToolbar, 1)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(arginfo_class_NSWindow_toolbarStyle, 0, 0, NSWindowToolbarStyle, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_NSWindow_setToolbarStyle, 0, 1, IS_VOID, 0)
+	ZEND_ARG_OBJ_INFO(0, toolbarStyle, NSWindowToolbarStyle, 0)
+ZEND_END_ARG_INFO()
+
 #define arginfo_class_NSWindow_ignoresMouseEvents arginfo_class_NSWindow_isVisible
 
 ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_NSWindow_setIgnoresMouseEvents, 0, 1, IS_VOID, 0)
@@ -349,6 +363,10 @@ ZEND_METHOD(NSWindow, titlebarAppearsTransparent);
 ZEND_METHOD(NSWindow, setTitlebarAppearsTransparent);
 ZEND_METHOD(NSWindow, titleVisibility);
 ZEND_METHOD(NSWindow, setTitleVisibility);
+ZEND_METHOD(NSWindow, toolbar);
+ZEND_METHOD(NSWindow, setToolbar);
+ZEND_METHOD(NSWindow, toolbarStyle);
+ZEND_METHOD(NSWindow, setToolbarStyle);
 ZEND_METHOD(NSWindow, ignoresMouseEvents);
 ZEND_METHOD(NSWindow, setIgnoresMouseEvents);
 ZEND_METHOD(NSWindow, isMovableByWindowBackground);
@@ -438,6 +456,10 @@ static const zend_function_entry class_NSWindow_methods[] = {
 	ZEND_ME(NSWindow, setTitlebarAppearsTransparent, arginfo_class_NSWindow_setTitlebarAppearsTransparent, ZEND_ACC_PUBLIC)
 	ZEND_ME(NSWindow, titleVisibility, arginfo_class_NSWindow_titleVisibility, ZEND_ACC_PUBLIC)
 	ZEND_ME(NSWindow, setTitleVisibility, arginfo_class_NSWindow_setTitleVisibility, ZEND_ACC_PUBLIC)
+	ZEND_ME(NSWindow, toolbar, arginfo_class_NSWindow_toolbar, ZEND_ACC_PUBLIC)
+	ZEND_ME(NSWindow, setToolbar, arginfo_class_NSWindow_setToolbar, ZEND_ACC_PUBLIC)
+	ZEND_ME(NSWindow, toolbarStyle, arginfo_class_NSWindow_toolbarStyle, ZEND_ACC_PUBLIC)
+	ZEND_ME(NSWindow, setToolbarStyle, arginfo_class_NSWindow_setToolbarStyle, ZEND_ACC_PUBLIC)
 	ZEND_ME(NSWindow, ignoresMouseEvents, arginfo_class_NSWindow_ignoresMouseEvents, ZEND_ACC_PUBLIC)
 	ZEND_ME(NSWindow, setIgnoresMouseEvents, arginfo_class_NSWindow_setIgnoresMouseEvents, ZEND_ACC_PUBLIC)
 	ZEND_ME(NSWindow, isMovableByWindowBackground, arginfo_class_NSWindow_isMovableByWindowBackground, ZEND_ACC_PUBLIC)

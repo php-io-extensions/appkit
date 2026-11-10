@@ -612,6 +612,50 @@ APPKIT_BOOL_GETTER(titlebarAppearsTransparent, titlebarAppearsTransparent)
 BOOL_SET(NSWindow, NSWindow, setTitlebarAppearsTransparent, setTitlebarAppearsTransparent)
 ENUM_GET(NSWindow, NSWindow, titleVisibility, titleVisibility, appkit_ce_NSWindowTitleVisibility, false)
 ENUM_SET(NSWindow, NSWindow, setTitleVisibility, setTitleVisibility, appkit_ce_NSWindowTitleVisibility, NSWindowTitleVisibility)
+
+ZEND_METHOD(NSWindow, toolbar)
+{
+	ZEND_PARSE_PARAMETERS_NONE();
+
+	APPKIT_BEGIN
+		appkit_box_objc(return_value, [SELF(NSWindow) toolbar]);
+	APPKIT_END
+}
+
+ZEND_METHOD(NSWindow, setToolbar)
+{
+	zend_object *toolbar = NULL;
+
+	ZEND_PARSE_PARAMETERS_START(1, 1)
+		Z_PARAM_OBJ_OF_CLASS_OR_NULL(toolbar, appkit_ce_NSToolbar)
+	ZEND_PARSE_PARAMETERS_END();
+
+	APPKIT_BEGIN
+		[SELF(NSWindow) setToolbar:(NSToolbar *) OPTIONAL_ID(toolbar)];
+	APPKIT_END
+}
+
+ZEND_METHOD(NSWindow, toolbarStyle)
+{
+	ZEND_PARSE_PARAMETERS_NONE();
+
+	APPKIT_BEGIN
+		appkit_return_enum(return_value, appkit_ce_NSWindowToolbarStyle, (zend_long) [SELF(NSWindow) toolbarStyle], false);
+	APPKIT_END
+}
+
+ZEND_METHOD(NSWindow, setToolbarStyle)
+{
+	zend_object *style;
+
+	ZEND_PARSE_PARAMETERS_START(1, 1)
+		Z_PARAM_OBJ_OF_CLASS(style, appkit_ce_NSWindowToolbarStyle)
+	ZEND_PARSE_PARAMETERS_END();
+
+	APPKIT_BEGIN
+		[SELF(NSWindow) setToolbarStyle:(NSWindowToolbarStyle) appkit_enum_value(style, 0)];
+	APPKIT_END
+}
 APPKIT_BOOL_GETTER(ignoresMouseEvents, ignoresMouseEvents)
 BOOL_SET(NSWindow, NSWindow, setIgnoresMouseEvents, setIgnoresMouseEvents)
 APPKIT_BOOL_GETTER(isMovableByWindowBackground, isMovableByWindowBackground)

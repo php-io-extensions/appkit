@@ -1,5 +1,5 @@
 /* This is a generated file, edit the .stub.php file instead.
- * Stub hash: cc6d215eac1c2c5d992f16e8e0fa07f7d8e552ac */
+ * Stub hash: 2014dd9c76784f6a3692f0f5d02dc460e834e608 */
 
 ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_NSTrackingArea_initWithRectOptionsOwnerUserInfo, 0, 4, IS_STATIC, 0)
 	ZEND_ARG_OBJ_INFO(0, rect, NSRect, 0)
@@ -25,6 +25,27 @@ ZEND_END_ARG_INFO()
 
 ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_NSView_setFrame, 0, 1, IS_VOID, 0)
 	ZEND_ARG_OBJ_INFO(0, frame, NSRect, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_NSView_setBoundsOrigin, 0, 1, IS_VOID, 0)
+	ZEND_ARG_OBJ_INFO(0, newOrigin, NSPoint, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_NSView_alphaValue, 0, 0, IS_DOUBLE, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_NSView_setAlphaValue, 0, 1, IS_VOID, 0)
+	ZEND_ARG_TYPE_INFO(0, alphaValue, IS_DOUBLE, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_NSView_animator, 0, 0, IS_STATIC, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_NSView_identifier, 0, 0, IS_STRING, 1)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_NSView_setIdentifier, 0, 1, IS_VOID, 0)
+	ZEND_ARG_TYPE_INFO(0, identifier, IS_STRING, 1)
 ZEND_END_ARG_INFO()
 
 ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(arginfo_class_NSView_window, 0, 0, NSWindow, 1)
@@ -202,6 +223,12 @@ ZEND_METHOD(NSTrackingArea, owner);
 ZEND_METHOD(NSView, initWithFrame);
 ZEND_METHOD(NSView, frame);
 ZEND_METHOD(NSView, setFrame);
+ZEND_METHOD(NSView, setBoundsOrigin);
+ZEND_METHOD(NSView, alphaValue);
+ZEND_METHOD(NSView, setAlphaValue);
+ZEND_METHOD(NSView, animator);
+ZEND_METHOD(NSView, identifier);
+ZEND_METHOD(NSView, setIdentifier);
 ZEND_METHOD(NSView, window);
 ZEND_METHOD(NSView, menu);
 ZEND_METHOD(NSView, superview);
@@ -274,6 +301,12 @@ static const zend_function_entry class_NSView_methods[] = {
 	ZEND_ME(NSView, initWithFrame, arginfo_class_NSView_initWithFrame, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
 	ZEND_ME(NSView, frame, arginfo_class_NSView_frame, ZEND_ACC_PUBLIC)
 	ZEND_ME(NSView, setFrame, arginfo_class_NSView_setFrame, ZEND_ACC_PUBLIC)
+	ZEND_ME(NSView, setBoundsOrigin, arginfo_class_NSView_setBoundsOrigin, ZEND_ACC_PUBLIC)
+	ZEND_ME(NSView, alphaValue, arginfo_class_NSView_alphaValue, ZEND_ACC_PUBLIC)
+	ZEND_ME(NSView, setAlphaValue, arginfo_class_NSView_setAlphaValue, ZEND_ACC_PUBLIC)
+	ZEND_ME(NSView, animator, arginfo_class_NSView_animator, ZEND_ACC_PUBLIC)
+	ZEND_ME(NSView, identifier, arginfo_class_NSView_identifier, ZEND_ACC_PUBLIC)
+	ZEND_ME(NSView, setIdentifier, arginfo_class_NSView_setIdentifier, ZEND_ACC_PUBLIC)
 	ZEND_ME(NSView, window, arginfo_class_NSView_window, ZEND_ACC_PUBLIC)
 	ZEND_ME(NSView, menu, arginfo_class_NSView_menu, ZEND_ACC_PUBLIC)
 	ZEND_ME(NSView, superview, arginfo_class_NSView_superview, ZEND_ACC_PUBLIC)

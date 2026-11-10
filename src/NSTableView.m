@@ -109,6 +109,69 @@ METHOD(NSTableView, setDoubleAction, PARSE_STR_OR_NULL, [SELF(NSTableView) setDo
 LONG_GET(NSTableView, NSTableView, clickedRow, clickedRow) /* binding:main-thread-nstableview-clicked-row */
 LONG_SET(NSTableView, NSTableView, scrollRowToVisible, scrollRowToVisible, NSInteger) /* binding:main-thread-nstableview-scroll-row-to-visible */
 
+ANY_DOUBLE_GET(NSTableView, NSTableView, rowHeight, rowHeight)
+ANY_DOUBLE_SET(NSTableView, NSTableView, setRowHeight, setRowHeight)
+ANY_VOID_METHOD(NSTableView, NSTableView, noteNumberOfRowsChanged, noteNumberOfRowsChanged)
+
+ZEND_METHOD(NSTableView, makeViewWithIdentifierOwner)
+{
+	zend_string *identifier;
+	zend_object *owner = NULL;
+
+	ZEND_PARSE_PARAMETERS_START(2, 2)
+		Z_PARAM_STR(identifier)
+		Z_PARAM_OBJ_OF_CLASS_OR_NULL(owner, appkit_ce_NSObject)
+	ZEND_PARSE_PARAMETERS_END();
+
+	APPKIT_BEGIN
+		appkit_box_objc(return_value, [SELF(NSTableView) makeViewWithIdentifier:appkit_nsstring(identifier) owner:OPTIONAL_ID(owner)]);
+	APPKIT_END
+}
+
+ZEND_METHOD(NSTableView, insertRowsAtIndexesWithAnimation)
+{
+	zend_object *indexes;
+	zend_long options;
+
+	ZEND_PARSE_PARAMETERS_START(2, 2)
+		Z_PARAM_OBJ_OF_CLASS(indexes, appkit_ce_NSIndexSet)
+		Z_PARAM_LONG(options)
+	ZEND_PARSE_PARAMETERS_END();
+
+	APPKIT_BEGIN
+		[SELF(NSTableView) insertRowsAtIndexes:(NSIndexSet *) APPKIT_ID(indexes) withAnimation:(NSTableViewAnimationOptions) options];
+	APPKIT_END
+}
+
+ZEND_METHOD(NSTableView, removeRowsAtIndexesWithAnimation)
+{
+	zend_object *indexes;
+	zend_long options;
+
+	ZEND_PARSE_PARAMETERS_START(2, 2)
+		Z_PARAM_OBJ_OF_CLASS(indexes, appkit_ce_NSIndexSet)
+		Z_PARAM_LONG(options)
+	ZEND_PARSE_PARAMETERS_END();
+
+	APPKIT_BEGIN
+		[SELF(NSTableView) removeRowsAtIndexes:(NSIndexSet *) APPKIT_ID(indexes) withAnimation:(NSTableViewAnimationOptions) options];
+	APPKIT_END
+}
+
+ZEND_METHOD(NSTableView, reloadDataForRowIndexesColumnIndexes)
+{
+	zend_object *rows, *columns;
+
+	ZEND_PARSE_PARAMETERS_START(2, 2)
+		Z_PARAM_OBJ_OF_CLASS(rows, appkit_ce_NSIndexSet)
+		Z_PARAM_OBJ_OF_CLASS(columns, appkit_ce_NSIndexSet)
+	ZEND_PARSE_PARAMETERS_END();
+
+	APPKIT_BEGIN
+		[SELF(NSTableView) reloadDataForRowIndexes:(NSIndexSet *) APPKIT_ID(rows) columnIndexes:(NSIndexSet *) APPKIT_ID(columns)];
+	APPKIT_END
+}
+
 /* NSOutlineView */
 OBJ_GET(NSOutlineView, NSOutlineView, outlineTableColumn, outlineTableColumn) /* binding:main-thread-nsoutlineview-outline-table-column */
 OBJ_SET_OR_NULL(NSOutlineView, NSOutlineView, setOutlineTableColumn, setOutlineTableColumn, appkit_ce_NSTableColumn, NSTableColumn *) /* binding:main-thread-nsoutlineview-set-outline-table-column */

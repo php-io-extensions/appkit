@@ -1,5 +1,5 @@
 /* This is a generated file, edit the .stub.php file instead.
- * Stub hash: d6b3becc973337d58ba31146b0a4f325d41cc98f */
+ * Stub hash: 5f510964a6ca568585d3a8858ae804251c1923c5 */
 
 ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_NSIndexSet_indexSetWithIndex, 0, 1, IS_STATIC, 0)
 	ZEND_ARG_TYPE_INFO(0, index, IS_LONG, 0)
@@ -34,6 +34,32 @@ ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_NSTableColumn_setResizingM
 	ZEND_ARG_TYPE_INFO(0, mask, IS_LONG, 0)
 ZEND_END_ARG_INFO()
 
+#define arginfo_class_NSTableView_rowHeight arginfo_class_NSTableColumn_width
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_NSTableView_setRowHeight, 0, 1, IS_VOID, 0)
+	ZEND_ARG_TYPE_INFO(0, rowHeight, IS_DOUBLE, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(arginfo_class_NSTableView_makeViewWithIdentifierOwner, 0, 2, NSView, 1)
+	ZEND_ARG_TYPE_INFO(0, identifier, IS_STRING, 0)
+	ZEND_ARG_OBJ_INFO(0, owner, NSObject, 1)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_NSTableView_insertRowsAtIndexesWithAnimation, 0, 2, IS_VOID, 0)
+	ZEND_ARG_OBJ_INFO(0, indexes, NSIndexSet, 0)
+	ZEND_ARG_TYPE_INFO(0, animationOptions, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+#define arginfo_class_NSTableView_removeRowsAtIndexesWithAnimation arginfo_class_NSTableView_insertRowsAtIndexesWithAnimation
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_NSTableView_reloadDataForRowIndexesColumnIndexes, 0, 2, IS_VOID, 0)
+	ZEND_ARG_OBJ_INFO(0, rowIndexes, NSIndexSet, 0)
+	ZEND_ARG_OBJ_INFO(0, columnIndexes, NSIndexSet, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_NSTableView_noteNumberOfRowsChanged, 0, 0, IS_VOID, 0)
+ZEND_END_ARG_INFO()
+
 ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_NSTableView_addTableColumn, 0, 1, IS_VOID, 0)
 	ZEND_ARG_OBJ_INFO(0, column, NSTableColumn, 0)
 ZEND_END_ARG_INFO()
@@ -56,8 +82,7 @@ ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_NSTableView_setDelegate, 0
 	ZEND_ARG_OBJ_INFO(0, delegate, NSObject, 1)
 ZEND_END_ARG_INFO()
 
-ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_NSTableView_reloadData, 0, 0, IS_VOID, 0)
-ZEND_END_ARG_INFO()
+#define arginfo_class_NSTableView_reloadData arginfo_class_NSTableView_noteNumberOfRowsChanged
 
 #define arginfo_class_NSTableView_numberOfRows arginfo_class_NSIndexSet_firstIndex
 
@@ -167,6 +192,13 @@ ZEND_METHOD(NSTableColumn, setTitle);
 ZEND_METHOD(NSTableColumn, width);
 ZEND_METHOD(NSTableColumn, setWidth);
 ZEND_METHOD(NSTableColumn, setResizingMask);
+ZEND_METHOD(NSTableView, rowHeight);
+ZEND_METHOD(NSTableView, setRowHeight);
+ZEND_METHOD(NSTableView, makeViewWithIdentifierOwner);
+ZEND_METHOD(NSTableView, insertRowsAtIndexesWithAnimation);
+ZEND_METHOD(NSTableView, removeRowsAtIndexesWithAnimation);
+ZEND_METHOD(NSTableView, reloadDataForRowIndexesColumnIndexes);
+ZEND_METHOD(NSTableView, noteNumberOfRowsChanged);
 ZEND_METHOD(NSTableView, addTableColumn);
 ZEND_METHOD(NSTableView, removeTableColumn);
 ZEND_METHOD(NSTableView, tableColumns);
@@ -222,6 +254,13 @@ static const zend_function_entry class_NSTableColumn_methods[] = {
 };
 
 static const zend_function_entry class_NSTableView_methods[] = {
+	ZEND_ME(NSTableView, rowHeight, arginfo_class_NSTableView_rowHeight, ZEND_ACC_PUBLIC)
+	ZEND_ME(NSTableView, setRowHeight, arginfo_class_NSTableView_setRowHeight, ZEND_ACC_PUBLIC)
+	ZEND_ME(NSTableView, makeViewWithIdentifierOwner, arginfo_class_NSTableView_makeViewWithIdentifierOwner, ZEND_ACC_PUBLIC)
+	ZEND_ME(NSTableView, insertRowsAtIndexesWithAnimation, arginfo_class_NSTableView_insertRowsAtIndexesWithAnimation, ZEND_ACC_PUBLIC)
+	ZEND_ME(NSTableView, removeRowsAtIndexesWithAnimation, arginfo_class_NSTableView_removeRowsAtIndexesWithAnimation, ZEND_ACC_PUBLIC)
+	ZEND_ME(NSTableView, reloadDataForRowIndexesColumnIndexes, arginfo_class_NSTableView_reloadDataForRowIndexesColumnIndexes, ZEND_ACC_PUBLIC)
+	ZEND_ME(NSTableView, noteNumberOfRowsChanged, arginfo_class_NSTableView_noteNumberOfRowsChanged, ZEND_ACC_PUBLIC)
 	ZEND_ME(NSTableView, addTableColumn, arginfo_class_NSTableView_addTableColumn, ZEND_ACC_PUBLIC)
 	ZEND_ME(NSTableView, removeTableColumn, arginfo_class_NSTableView_removeTableColumn, ZEND_ACC_PUBLIC)
 	ZEND_ME(NSTableView, tableColumns, arginfo_class_NSTableView_tableColumns, ZEND_ACC_PUBLIC)
@@ -322,6 +361,48 @@ static zend_class_entry *register_class_NSTableView(zend_class_entry *class_entr
 
 	INIT_CLASS_ENTRY(ce, "NSTableView", class_NSTableView_methods);
 	class_entry = zend_register_internal_class_with_flags(&ce, class_entry_NSControl, ZEND_ACC_NOT_SERIALIZABLE);
+
+	zval const_ANIMATION_EFFECT_NONE_value;
+	ZVAL_LONG(&const_ANIMATION_EFFECT_NONE_value, NSTableViewAnimationEffectNone);
+	zend_string *const_ANIMATION_EFFECT_NONE_name = zend_string_init_interned("ANIMATION_EFFECT_NONE", sizeof("ANIMATION_EFFECT_NONE") - 1, 1);
+	zend_declare_typed_class_constant(class_entry, const_ANIMATION_EFFECT_NONE_name, &const_ANIMATION_EFFECT_NONE_value, ZEND_ACC_PUBLIC, NULL, (zend_type) ZEND_TYPE_INIT_MASK(MAY_BE_LONG));
+	zend_string_release(const_ANIMATION_EFFECT_NONE_name);
+
+	zval const_ANIMATION_EFFECT_FADE_value;
+	ZVAL_LONG(&const_ANIMATION_EFFECT_FADE_value, NSTableViewAnimationEffectFade);
+	zend_string *const_ANIMATION_EFFECT_FADE_name = zend_string_init_interned("ANIMATION_EFFECT_FADE", sizeof("ANIMATION_EFFECT_FADE") - 1, 1);
+	zend_declare_typed_class_constant(class_entry, const_ANIMATION_EFFECT_FADE_name, &const_ANIMATION_EFFECT_FADE_value, ZEND_ACC_PUBLIC, NULL, (zend_type) ZEND_TYPE_INIT_MASK(MAY_BE_LONG));
+	zend_string_release(const_ANIMATION_EFFECT_FADE_name);
+
+	zval const_ANIMATION_EFFECT_GAP_value;
+	ZVAL_LONG(&const_ANIMATION_EFFECT_GAP_value, NSTableViewAnimationEffectGap);
+	zend_string *const_ANIMATION_EFFECT_GAP_name = zend_string_init_interned("ANIMATION_EFFECT_GAP", sizeof("ANIMATION_EFFECT_GAP") - 1, 1);
+	zend_declare_typed_class_constant(class_entry, const_ANIMATION_EFFECT_GAP_name, &const_ANIMATION_EFFECT_GAP_value, ZEND_ACC_PUBLIC, NULL, (zend_type) ZEND_TYPE_INIT_MASK(MAY_BE_LONG));
+	zend_string_release(const_ANIMATION_EFFECT_GAP_name);
+
+	zval const_ANIMATION_SLIDE_UP_value;
+	ZVAL_LONG(&const_ANIMATION_SLIDE_UP_value, NSTableViewAnimationSlideUp);
+	zend_string *const_ANIMATION_SLIDE_UP_name = zend_string_init_interned("ANIMATION_SLIDE_UP", sizeof("ANIMATION_SLIDE_UP") - 1, 1);
+	zend_declare_typed_class_constant(class_entry, const_ANIMATION_SLIDE_UP_name, &const_ANIMATION_SLIDE_UP_value, ZEND_ACC_PUBLIC, NULL, (zend_type) ZEND_TYPE_INIT_MASK(MAY_BE_LONG));
+	zend_string_release(const_ANIMATION_SLIDE_UP_name);
+
+	zval const_ANIMATION_SLIDE_DOWN_value;
+	ZVAL_LONG(&const_ANIMATION_SLIDE_DOWN_value, NSTableViewAnimationSlideDown);
+	zend_string *const_ANIMATION_SLIDE_DOWN_name = zend_string_init_interned("ANIMATION_SLIDE_DOWN", sizeof("ANIMATION_SLIDE_DOWN") - 1, 1);
+	zend_declare_typed_class_constant(class_entry, const_ANIMATION_SLIDE_DOWN_name, &const_ANIMATION_SLIDE_DOWN_value, ZEND_ACC_PUBLIC, NULL, (zend_type) ZEND_TYPE_INIT_MASK(MAY_BE_LONG));
+	zend_string_release(const_ANIMATION_SLIDE_DOWN_name);
+
+	zval const_ANIMATION_SLIDE_LEFT_value;
+	ZVAL_LONG(&const_ANIMATION_SLIDE_LEFT_value, NSTableViewAnimationSlideLeft);
+	zend_string *const_ANIMATION_SLIDE_LEFT_name = zend_string_init_interned("ANIMATION_SLIDE_LEFT", sizeof("ANIMATION_SLIDE_LEFT") - 1, 1);
+	zend_declare_typed_class_constant(class_entry, const_ANIMATION_SLIDE_LEFT_name, &const_ANIMATION_SLIDE_LEFT_value, ZEND_ACC_PUBLIC, NULL, (zend_type) ZEND_TYPE_INIT_MASK(MAY_BE_LONG));
+	zend_string_release(const_ANIMATION_SLIDE_LEFT_name);
+
+	zval const_ANIMATION_SLIDE_RIGHT_value;
+	ZVAL_LONG(&const_ANIMATION_SLIDE_RIGHT_value, NSTableViewAnimationSlideRight);
+	zend_string *const_ANIMATION_SLIDE_RIGHT_name = zend_string_init_interned("ANIMATION_SLIDE_RIGHT", sizeof("ANIMATION_SLIDE_RIGHT") - 1, 1);
+	zend_declare_typed_class_constant(class_entry, const_ANIMATION_SLIDE_RIGHT_name, &const_ANIMATION_SLIDE_RIGHT_value, ZEND_ACC_PUBLIC, NULL, (zend_type) ZEND_TYPE_INIT_MASK(MAY_BE_LONG));
+	zend_string_release(const_ANIMATION_SLIDE_RIGHT_name);
 
 	return class_entry;
 }

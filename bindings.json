@@ -37,7 +37,8 @@
       "appkit_double_props",
       "appkit_constraints_from",
       "appkit_cmtime_from",
-      "appkit_edge_insets_from"
+      "appkit_edge_insets_from",
+      "appkit_object_array"
     ],
     "translate": [
       "appkit_throw_nsexception"

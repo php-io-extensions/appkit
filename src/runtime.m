@@ -108,7 +108,10 @@ void appkit_box_objc(zval *rv, id obj)
 
 	zend_class_entry *ce = appkit_ce_NSObject;
 
-	for (Class cls = object_getClass(obj); cls != Nil; cls = class_getSuperclass(cls)) {
+	/* An NSProxy (a view's animator) stands for another object: map it by the class it answers. */
+	Class start = [obj isProxy] ? [obj class] : object_getClass(obj);
+
+	for (Class cls = start; cls != Nil; cls = class_getSuperclass(cls)) {
 		const char *name = class_getName(cls);
 		zend_class_entry *mapped = zend_hash_str_find_ptr(&appkit_objc_classes, name, strlen(name));
 

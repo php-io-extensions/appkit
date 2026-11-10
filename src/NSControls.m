@@ -26,6 +26,13 @@ _Static_assert(NSControlSizeRegular == 0 && NSControlSizeSmall == 1 && NSControl
 _Static_assert(NSScrollerStyleLegacy == 0 && NSScrollerStyleOverlay == 1, "NSScrollerStyle values moved");
 _Static_assert(NSScrollerNoPart == 0 && NSScrollerDecrementPage == 1 && NSScrollerKnob == 2 && NSScrollerIncrementPage == 3
 	&& NSScrollerKnobSlot == 6, "NSScrollerPart values moved");
+_Static_assert(NSSegmentSwitchTrackingSelectOne == 0 && NSSegmentSwitchTrackingSelectAny == 1 && NSSegmentSwitchTrackingMomentary == 2
+	&& NSSegmentSwitchTrackingMomentaryAccelerator == 3, "NSSegmentSwitchTracking values moved");
+_Static_assert(NSSegmentStyleAutomatic == 0 && NSSegmentStyleRounded == 1 && NSSegmentStyleTexturedRounded == 2 && NSSegmentStyleRoundRect == 3
+	&& NSSegmentStyleTexturedSquare == 4 && NSSegmentStyleCapsule == 5 && NSSegmentStyleSmallSquare == 6 && NSSegmentStyleSeparated == 8,
+	"NSSegmentStyle values moved");
+_Static_assert(NSSegmentDistributionFit == 0 && NSSegmentDistributionFill == 1 && NSSegmentDistributionFillEqually == 2
+	&& NSSegmentDistributionFillProportionally == 3, "NSSegmentDistribution values moved");
 
 void appkit_register_NSControls(int module_number)
 {
@@ -46,12 +53,16 @@ void appkit_register_NSControls(int module_number)
 	appkit_ce_NSControlSize = register_class_NSControlSize();
 	appkit_ce_NSScrollerStyle = register_class_NSScrollerStyle();
 	appkit_ce_NSScrollerPart = register_class_NSScrollerPart();
+	appkit_ce_NSSegmentSwitchTracking = register_class_NSSegmentSwitchTracking();
+	appkit_ce_NSSegmentStyle = register_class_NSSegmentStyle();
+	appkit_ce_NSSegmentDistribution = register_class_NSSegmentDistribution();
 
 	APPKIT_MAP(NSControl, appkit_ce_NSView);
 	APPKIT_MAP(NSTextField, appkit_ce_NSControl);
 	APPKIT_MAP(NSSecureTextField, appkit_ce_NSTextField);
 	APPKIT_MAP(NSButton, appkit_ce_NSControl);
 	APPKIT_MAP(NSSwitch, appkit_ce_NSControl);
+	APPKIT_MAP(NSSegmentedControl, appkit_ce_NSControl);
 	APPKIT_MAP(NSSlider, appkit_ce_NSControl);
 	APPKIT_MAP(NSPopUpButton, appkit_ce_NSButton);
 	APPKIT_MAP(NSComboBox, appkit_ce_NSTextField);
@@ -166,6 +177,235 @@ OBJ_SET_OR_NULL(NSButton, NSButton, setContentTintColor, setContentTintColor, ap
 /* NSSwitch */
 ENUM_GET(NSSwitch, NSSwitch, state, state, appkit_ce_NSControlStateValue, true)
 ENUM_SET(NSSwitch, NSSwitch, setState, setState, appkit_ce_NSControlStateValue, NSControlStateValue)
+
+/* NSSegmentedControl */
+#define THIS_SEGMENTED SELF(NSSegmentedControl)
+
+ZEND_METHOD(NSSegmentedControl, segmentCount)
+{
+	ZEND_PARSE_PARAMETERS_NONE();
+
+	APPKIT_BEGIN
+		RETURN_LONG((zend_long) [THIS_SEGMENTED segmentCount]);
+	APPKIT_END
+}
+
+ZEND_METHOD(NSSegmentedControl, setSegmentCount)
+{
+	zend_long count;
+
+	ZEND_PARSE_PARAMETERS_START(1, 1)
+		Z_PARAM_LONG(count)
+	ZEND_PARSE_PARAMETERS_END();
+
+	APPKIT_BEGIN
+		[THIS_SEGMENTED setSegmentCount:(NSInteger) count];
+	APPKIT_END
+}
+
+ZEND_METHOD(NSSegmentedControl, selectedSegment)
+{
+	ZEND_PARSE_PARAMETERS_NONE();
+
+	APPKIT_BEGIN
+		RETURN_LONG((zend_long) [THIS_SEGMENTED selectedSegment]);
+	APPKIT_END
+}
+
+ZEND_METHOD(NSSegmentedControl, setSelectedSegment)
+{
+	zend_long segment;
+
+	ZEND_PARSE_PARAMETERS_START(1, 1)
+		Z_PARAM_LONG(segment)
+	ZEND_PARSE_PARAMETERS_END();
+
+	APPKIT_BEGIN
+		[THIS_SEGMENTED setSelectedSegment:(NSInteger) segment];
+	APPKIT_END
+}
+
+ZEND_METHOD(NSSegmentedControl, labelForSegment)
+{
+	zend_long segment;
+
+	ZEND_PARSE_PARAMETERS_START(1, 1)
+		Z_PARAM_LONG(segment)
+	ZEND_PARSE_PARAMETERS_END();
+
+	APPKIT_BEGIN
+		NSString *label = [THIS_SEGMENTED labelForSegment:(NSInteger) segment];
+		if (label == nil) {
+			RETURN_NULL();
+		}
+		RETURN_STR(appkit_zend_string((CFStringRef) label));
+	APPKIT_END
+}
+
+ZEND_METHOD(NSSegmentedControl, setLabelForSegment)
+{
+	zend_string *label;
+	zend_long segment;
+
+	ZEND_PARSE_PARAMETERS_START(2, 2)
+		Z_PARAM_STR(label)
+		Z_PARAM_LONG(segment)
+	ZEND_PARSE_PARAMETERS_END();
+
+	APPKIT_BEGIN
+		[THIS_SEGMENTED setLabel:appkit_nsstring(label) forSegment:(NSInteger) segment];
+	APPKIT_END
+}
+
+ZEND_METHOD(NSSegmentedControl, imageForSegment)
+{
+	zend_long segment;
+
+	ZEND_PARSE_PARAMETERS_START(1, 1)
+		Z_PARAM_LONG(segment)
+	ZEND_PARSE_PARAMETERS_END();
+
+	APPKIT_BEGIN
+		appkit_box_objc(return_value, [THIS_SEGMENTED imageForSegment:(NSInteger) segment]);
+	APPKIT_END
+}
+
+ZEND_METHOD(NSSegmentedControl, setImageForSegment)
+{
+	zend_object *image = NULL;
+	zend_long segment;
+
+	ZEND_PARSE_PARAMETERS_START(2, 2)
+		Z_PARAM_OBJ_OF_CLASS_OR_NULL(image, appkit_ce_NSImage)
+		Z_PARAM_LONG(segment)
+	ZEND_PARSE_PARAMETERS_END();
+
+	APPKIT_BEGIN
+		[THIS_SEGMENTED setImage:(NSImage *) OPTIONAL_ID(image) forSegment:(NSInteger) segment];
+	APPKIT_END
+}
+
+ZEND_METHOD(NSSegmentedControl, widthForSegment)
+{
+	zend_long segment;
+
+	ZEND_PARSE_PARAMETERS_START(1, 1)
+		Z_PARAM_LONG(segment)
+	ZEND_PARSE_PARAMETERS_END();
+
+	APPKIT_BEGIN
+		RETURN_DOUBLE((double) [THIS_SEGMENTED widthForSegment:(NSInteger) segment]);
+	APPKIT_END
+}
+
+ZEND_METHOD(NSSegmentedControl, setWidthForSegment)
+{
+	double width;
+	zend_long segment;
+
+	ZEND_PARSE_PARAMETERS_START(2, 2)
+		Z_PARAM_DOUBLE(width)
+		Z_PARAM_LONG(segment)
+	ZEND_PARSE_PARAMETERS_END();
+
+	APPKIT_BEGIN
+		[THIS_SEGMENTED setWidth:(CGFloat) width forSegment:(NSInteger) segment];
+	APPKIT_END
+}
+
+ZEND_METHOD(NSSegmentedControl, isEnabledForSegment)
+{
+	zend_long segment;
+
+	ZEND_PARSE_PARAMETERS_START(1, 1)
+		Z_PARAM_LONG(segment)
+	ZEND_PARSE_PARAMETERS_END();
+
+	APPKIT_BEGIN
+		RETURN_BOOL([THIS_SEGMENTED isEnabledForSegment:(NSInteger) segment]);
+	APPKIT_END
+}
+
+ZEND_METHOD(NSSegmentedControl, setEnabledForSegment)
+{
+	bool enabled;
+	zend_long segment;
+
+	ZEND_PARSE_PARAMETERS_START(2, 2)
+		Z_PARAM_BOOL(enabled)
+		Z_PARAM_LONG(segment)
+	ZEND_PARSE_PARAMETERS_END();
+
+	APPKIT_BEGIN
+		[THIS_SEGMENTED setEnabled:enabled forSegment:(NSInteger) segment];
+	APPKIT_END
+}
+
+ZEND_METHOD(NSSegmentedControl, trackingMode)
+{
+	ZEND_PARSE_PARAMETERS_NONE();
+
+	APPKIT_BEGIN
+		appkit_return_enum(return_value, appkit_ce_NSSegmentSwitchTracking, (zend_long) [THIS_SEGMENTED trackingMode], true);
+	APPKIT_END
+}
+
+ZEND_METHOD(NSSegmentedControl, setTrackingMode)
+{
+	zend_object *mode;
+
+	ZEND_PARSE_PARAMETERS_START(1, 1)
+		Z_PARAM_OBJ_OF_CLASS(mode, appkit_ce_NSSegmentSwitchTracking)
+	ZEND_PARSE_PARAMETERS_END();
+
+	APPKIT_BEGIN
+		[THIS_SEGMENTED setTrackingMode:(NSSegmentSwitchTracking) appkit_enum_value(mode, 0)];
+	APPKIT_END
+}
+
+ZEND_METHOD(NSSegmentedControl, segmentStyle)
+{
+	ZEND_PARSE_PARAMETERS_NONE();
+
+	APPKIT_BEGIN
+		appkit_return_enum(return_value, appkit_ce_NSSegmentStyle, (zend_long) [THIS_SEGMENTED segmentStyle], true);
+	APPKIT_END
+}
+
+ZEND_METHOD(NSSegmentedControl, setSegmentStyle)
+{
+	zend_object *style;
+
+	ZEND_PARSE_PARAMETERS_START(1, 1)
+		Z_PARAM_OBJ_OF_CLASS(style, appkit_ce_NSSegmentStyle)
+	ZEND_PARSE_PARAMETERS_END();
+
+	APPKIT_BEGIN
+		[THIS_SEGMENTED setSegmentStyle:(NSSegmentStyle) appkit_enum_value(style, 0)];
+	APPKIT_END
+}
+
+ZEND_METHOD(NSSegmentedControl, segmentDistribution)
+{
+	ZEND_PARSE_PARAMETERS_NONE();
+
+	APPKIT_BEGIN
+		appkit_return_enum(return_value, appkit_ce_NSSegmentDistribution, (zend_long) [THIS_SEGMENTED segmentDistribution], true);
+	APPKIT_END
+}
+
+ZEND_METHOD(NSSegmentedControl, setSegmentDistribution)
+{
+	zend_object *distribution;
+
+	ZEND_PARSE_PARAMETERS_START(1, 1)
+		Z_PARAM_OBJ_OF_CLASS(distribution, appkit_ce_NSSegmentDistribution)
+	ZEND_PARSE_PARAMETERS_END();
+
+	APPKIT_BEGIN
+		[THIS_SEGMENTED setSegmentDistribution:(NSSegmentDistribution) appkit_enum_value(distribution, 0)];
+	APPKIT_END
+}
 
 /* NSSlider */
 ZEND_METHOD(NSSlider, sliderWithValueMinValueMaxValueTargetAction)
