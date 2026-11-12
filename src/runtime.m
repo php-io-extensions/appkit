@@ -210,6 +210,21 @@ void appkit_box_cf(zval *rv, CFTypeRef ref)
 	appkit_box_new(rv, ce, (void *) CFRetain(ref), true);
 }
 
+/* A CF object as the given CFType subclass, for a type appkit_box_cf does not know; retained like appkit_box_cf. */
+void appkit_box_cf_as(zval *rv, CFTypeRef ref, zend_class_entry *ce)
+{
+	if (ref == NULL) {
+		ZVAL_NULL(rv);
+		return;
+	}
+
+	if (appkit_box_existing(rv, ref)) {
+		return;
+	}
+
+	appkit_box_new(rv, ce, (void *) CFRetain(ref), true);
+}
+
 NSString *appkit_nsstring(zend_string *str)
 {
 	return [[[NSString alloc] initWithBytes:ZSTR_VAL(str) length:ZSTR_LEN(str) encoding:NSUTF8StringEncoding] autorelease];

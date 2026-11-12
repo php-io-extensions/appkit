@@ -1,5 +1,5 @@
 /* This is a generated file, edit the .stub.php file instead.
- * Stub hash: a1c5d7b0fdcbba4cb46bb1ab796c458bc6da377e */
+ * Stub hash: edc0bf5eb9344fcf00f1e66876fc0125a2ae2f47 */
 
 ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(arginfo_class_NSIndexPath_indexPathForItemInSection, 0, 2, NSIndexPath, 0)
 	ZEND_ARG_TYPE_INFO(0, item, IS_LONG, 0)
@@ -113,17 +113,26 @@ ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(arginfo_class_NSCollectionView_itemAtInde
 	ZEND_ARG_OBJ_INFO(0, indexPath, NSIndexPath, 0)
 ZEND_END_ARG_INFO()
 
+ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(arginfo_class_NSCollectionView_indexPathForItem, 0, 1, NSIndexPath, 1)
+	ZEND_ARG_OBJ_INFO(0, item, NSCollectionViewItem, 0)
+ZEND_END_ARG_INFO()
+
 ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(arginfo_class_NSCollectionView_indexPathForItemAtPoint, 0, 1, NSIndexPath, 1)
 	ZEND_ARG_OBJ_INFO(0, point, NSPoint, 0)
 ZEND_END_ARG_INFO()
 
-ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_NSCollectionView_insertItemsAtIndexPaths, 0, 1, IS_VOID, 0)
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_NSCollectionView_selectionIndexPaths, 0, 0, IS_ARRAY, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_NSCollectionView_deselectItemsAtIndexPaths, 0, 1, IS_VOID, 0)
 	ZEND_ARG_TYPE_INFO(0, indexPaths, IS_ARRAY, 0)
 ZEND_END_ARG_INFO()
 
-#define arginfo_class_NSCollectionView_deleteItemsAtIndexPaths arginfo_class_NSCollectionView_insertItemsAtIndexPaths
+#define arginfo_class_NSCollectionView_insertItemsAtIndexPaths arginfo_class_NSCollectionView_deselectItemsAtIndexPaths
 
-#define arginfo_class_NSCollectionView_reloadItemsAtIndexPaths arginfo_class_NSCollectionView_insertItemsAtIndexPaths
+#define arginfo_class_NSCollectionView_deleteItemsAtIndexPaths arginfo_class_NSCollectionView_deselectItemsAtIndexPaths
+
+#define arginfo_class_NSCollectionView_reloadItemsAtIndexPaths arginfo_class_NSCollectionView_deselectItemsAtIndexPaths
 
 ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_NSCollectionView_scrollToItemsAtIndexPathsScrollPosition, 0, 2, IS_VOID, 0)
 	ZEND_ARG_TYPE_INFO(0, indexPaths, IS_ARRAY, 0)
@@ -164,7 +173,10 @@ ZEND_METHOD(NSCollectionView, setAllowsMultipleSelection);
 ZEND_METHOD(NSCollectionView, registerClassForItemWithIdentifier);
 ZEND_METHOD(NSCollectionView, makeItemWithIdentifierForIndexPath);
 ZEND_METHOD(NSCollectionView, itemAtIndexPath);
+ZEND_METHOD(NSCollectionView, indexPathForItem);
 ZEND_METHOD(NSCollectionView, indexPathForItemAtPoint);
+ZEND_METHOD(NSCollectionView, selectionIndexPaths);
+ZEND_METHOD(NSCollectionView, deselectItemsAtIndexPaths);
 ZEND_METHOD(NSCollectionView, insertItemsAtIndexPaths);
 ZEND_METHOD(NSCollectionView, deleteItemsAtIndexPaths);
 ZEND_METHOD(NSCollectionView, reloadItemsAtIndexPaths);
@@ -221,7 +233,10 @@ static const zend_function_entry class_NSCollectionView_methods[] = {
 	ZEND_ME(NSCollectionView, registerClassForItemWithIdentifier, arginfo_class_NSCollectionView_registerClassForItemWithIdentifier, ZEND_ACC_PUBLIC)
 	ZEND_ME(NSCollectionView, makeItemWithIdentifierForIndexPath, arginfo_class_NSCollectionView_makeItemWithIdentifierForIndexPath, ZEND_ACC_PUBLIC)
 	ZEND_ME(NSCollectionView, itemAtIndexPath, arginfo_class_NSCollectionView_itemAtIndexPath, ZEND_ACC_PUBLIC)
+	ZEND_ME(NSCollectionView, indexPathForItem, arginfo_class_NSCollectionView_indexPathForItem, ZEND_ACC_PUBLIC)
 	ZEND_ME(NSCollectionView, indexPathForItemAtPoint, arginfo_class_NSCollectionView_indexPathForItemAtPoint, ZEND_ACC_PUBLIC)
+	ZEND_ME(NSCollectionView, selectionIndexPaths, arginfo_class_NSCollectionView_selectionIndexPaths, ZEND_ACC_PUBLIC)
+	ZEND_ME(NSCollectionView, deselectItemsAtIndexPaths, arginfo_class_NSCollectionView_deselectItemsAtIndexPaths, ZEND_ACC_PUBLIC)
 	ZEND_ME(NSCollectionView, insertItemsAtIndexPaths, arginfo_class_NSCollectionView_insertItemsAtIndexPaths, ZEND_ACC_PUBLIC)
 	ZEND_ME(NSCollectionView, deleteItemsAtIndexPaths, arginfo_class_NSCollectionView_deleteItemsAtIndexPaths, ZEND_ACC_PUBLIC)
 	ZEND_ME(NSCollectionView, reloadItemsAtIndexPaths, arginfo_class_NSCollectionView_reloadItemsAtIndexPaths, ZEND_ACC_PUBLIC)

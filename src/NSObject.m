@@ -1,4 +1,5 @@
 #include "runtime.h"
+#include "controls.h"
 #include "../stubs/NSObject_arginfo.h"
 #include "../stubs/NSResponder_arginfo.h"
 
@@ -17,6 +18,7 @@ void appkit_register_NSObject(void)
 	appkit_ce_NSNumber = register_class_NSNumber(appkit_ce_NSObject);
 	appkit_object_setup(appkit_ce_NSNumber);
 	appkit_map_objc_class("NSNumber", appkit_ce_NSNumber);
+	APPKIT_MAP(NSURL, appkit_ce_NSObject);
 }
 
 ZEND_METHOD(NSString, stringWithString)
@@ -84,6 +86,12 @@ ZEND_METHOD(NSNumber, integerValue)
 		RETURN_LONG((zend_long) [(NSNumber *) APPKIT_ID(Z_OBJ_P(ZEND_THIS)) integerValue]);
 	APPKIT_END
 }
+
+/* NSURL */
+ANY_METHOD(NSURL, fileURLWithPath, PARSE_STR, appkit_box_objc(return_value, [NSURL fileURLWithPath:appkit_nsstring(v)]);)
+ANY_STR_GET_OR_NULL(NSURL, NSURL, path, path)
+ANY_METHOD(NSURL, URLWithString, PARSE_STR, appkit_box_objc(return_value, [NSURL URLWithString:appkit_nsstring(v)]);)
+ANY_STR_GET_OR_NULL(NSURL, NSURL, absoluteString, absoluteString)
 
 void appkit_register_NSResponder(void)
 {

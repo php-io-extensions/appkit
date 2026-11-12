@@ -1,6 +1,16 @@
 # Log
 
+## 2026-11-11
+
+* 0.11.2: `CMTime`, `AVPlayerItem`, `AVPlayer`, `AVPlayerView`, their enums and `AVPlayerItemDidPlayToEndTimeNotification` are no longer bound here; `src/AVKit.m`, the AVKit stub, `tests/VideoTest.php` and its clip are gone, and AVKit, AVFoundation and CoreMedia are no longer linked. `NSURL` stays, now in `src/NSObject.m`. `SurfaceTest` checks a bare appkit has none of the AV classes.
+* The installer and `PHP_INSTALL_HEADERS` put `php_appkit.h`, `php_appkit_api.h`, `src/runtime.h` and `src/controls.h` under `$(php-config --include-dir)/ext/appkit`, for an extension whose classes extend appkit's (`appkit_object_setup`, `appkit_map_objc_class`). `tests/ApiHeaderTest.php`.
+* `appkit_box_cf_as(rv, ref, ce)`: boxes a CF object as a given `CFType` subclass, for CF types `appkit_box_cf`'s type table does not know (one PHP object per native object, retained as `appkit_box_cf` does).
+
 ## 2026-11-10
+
+* WebKit (framework linked): `WKWebView` initWithFrame:configuration:, setNavigationDelegate:, loadRequest:, loadHTMLString:baseURL:, title, URL, isLoading, canGoBack/canGoForward, goBack/goForward, reload, stopLoading; `WKWebViewConfiguration` init; `NSURLRequest` requestWithURL:, URL; `WKNavigation`. Each WKWebView call keeps the main-thread refusal (`main-thread-wkwebview-*`, probe `tests/Probes/MainThreadTest.php`). `tests/WebKitTest.php` (2 passed, ZTS).
+
+* `NSTableView::rowForView:`; `NSCollectionView` indexPathForItem:, selectionIndexPaths (the NSSet as an array), deselectItemsAtIndexPaths:. No refusal. Tests in `tests/TableRowsTest.php` and `tests/SegmentedAndCollectionTest.php` (12 passed, ZTS, no window).
 
 * `NSTableView` rowHeight (+set), makeViewWithIdentifier:owner:, insertRowsAtIndexes:withAnimation:, removeRowsAtIndexes:withAnimation:, reloadDataForRowIndexes:columnIndexes:, noteNumberOfRowsChanged; `NSTableView::ANIMATION_*` (`NSTableViewAnimationOptions`, `@cvalue`). No refusal. A view-based table's cells come from an `ObjCDelegate('NSTableViewDelegate')` answering `tableView:viewForTableColumn:row:`. `tests/TableRowsTest.php` (3 passed, NTS, no window).
 * Boxing: an `NSProxy` is mapped to its PHP class through `[obj class]` (the class it stands for), not its private runtime class. `NSView::animator()`: a collection view's animator is an `NSCollectionView`, and `deleteItemsAtIndexPaths:` through it inside an `NSAnimationContext` group animates.

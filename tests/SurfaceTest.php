@@ -98,19 +98,23 @@ it('keeps the native class hierarchy', function (): void {
         ->and(get_parent_class(NSCell::class))->toBe(NSObject::class)
         ->and(get_parent_class(CALayer::class))->toBe(NSObject::class)
         ->and(get_parent_class(NSURL::class))->toBe(NSObject::class)
-        ->and(get_parent_class(AVPlayerItem::class))->toBe(NSObject::class)
-        ->and(get_parent_class(AVPlayer::class))->toBe(NSObject::class)
-        ->and(get_parent_class(AVPlayerView::class))->toBe(NSView::class)
         ->and(get_parent_class(AppKitException::class))->toBe(RuntimeException::class);
 });
 
 it('cannot construct native wrappers from PHP', function (string $class): void {
     expect(fn () => new $class())->toThrow(Error::class);
-})->with([NSObject::class, NSApplication::class, NSEvent::class, NSDate::class, CFType::class, CFRunLoop::class, CFFileDescriptor::class, NSWindow::class, NSView::class, NSMenu::class, NSMenuItem::class, NSLayoutAnchor::class, NSLayoutConstraint::class, NSColor::class, NSFont::class, NSStackView::class, NSGridView::class, NSGridCell::class, NSGridRow::class, NSGridColumn::class, NSControl::class, NSTextField::class, NSButton::class, NSImage::class, NSScrollView::class, NSTextView::class, NSTableView::class, NSTableColumn::class, NSIndexSet::class, NSNotification::class, NSNotificationCenter::class, NSURL::class, AVPlayerItem::class, AVPlayer::class, AVPlayerView::class, NSOperationQueue::class, NSCell::class, CALayer::class, NSMutableAttributedString::class, NSTextStorage::class, NSTextBlock::class, NSClipView::class, NSSplitView::class, NSTabView::class, NSTabViewItem::class]);
+})->with([NSObject::class, NSApplication::class, NSEvent::class, NSDate::class, CFType::class, CFRunLoop::class, CFFileDescriptor::class, NSWindow::class, NSView::class, NSMenu::class, NSMenuItem::class, NSLayoutAnchor::class, NSLayoutConstraint::class, NSColor::class, NSFont::class, NSStackView::class, NSGridView::class, NSGridCell::class, NSGridRow::class, NSGridColumn::class, NSControl::class, NSTextField::class, NSButton::class, NSImage::class, NSScrollView::class, NSTextView::class, NSTableView::class, NSTableColumn::class, NSIndexSet::class, NSNotification::class, NSNotificationCenter::class, NSURL::class, NSOperationQueue::class, NSCell::class, CALayer::class, NSMutableAttributedString::class, NSTextStorage::class, NSTextBlock::class, NSClipView::class, NSSplitView::class, NSTabView::class, NSTabViewItem::class]);
 
 it('refuses to clone or serialize a native wrapper', function (): void {
     $date = NSDate::date();
 
     expect(fn () => clone $date)->toThrow(Error::class)
         ->and(fn () => serialize($date))->toThrow(Exception::class);
+});
+
+it('binds no AVFoundation, AVKit or CoreMedia class of its own', function (): void {
+    $output = shell_exec(escapeshellarg(PHP_BINARY).' -n -d extension='.escapeshellarg(ini_get('extension_dir').'/appkit.so')
+        .' -r '.escapeshellarg('echo json_encode([class_exists("NSURL"), class_exists("AVPlayer"), class_exists("CMTime"), defined("AVPlayerItemDidPlayToEndTimeNotification")]);'));
+
+    expect($output)->toBe('[true,false,false,false]');
 });

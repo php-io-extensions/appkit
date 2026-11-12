@@ -74,3 +74,18 @@ it('inserts and removes rows with an animation, and reloads one row', function (
     $table->setDelegate(null);
     $table->setDataSource(null);
 });
+
+it('finds the row that holds a view, and -1 for a view in none', function (): void {
+    $rows = 3;
+    $made = [];
+    [$table, $source, $delegate] = rowsTable($rows, $made);
+    $table->reloadData();
+
+    $cell = $table->viewAtColumnRowMakeIfNecessary(0, 2, true);
+
+    expect($table->rowForView($cell))->toBe(2)
+        ->and($table->rowForView(NSView::initWithFrame(new NSRect(0.0, 0.0, 1.0, 1.0))))->toBe(-1);
+
+    $table->setDelegate(null);
+    $table->setDataSource(null);
+});

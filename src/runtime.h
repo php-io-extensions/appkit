@@ -102,14 +102,10 @@ extern zend_class_entry *appkit_ce_NSNotificationCenter;
 extern zend_class_entry *appkit_ce_NSOperationQueue;
 extern zend_class_entry *appkit_ce_NSCell;
 extern zend_class_entry *appkit_ce_NSURL;
-extern zend_class_entry *appkit_ce_CMTime;
-extern zend_class_entry *appkit_ce_AVPlayerItemStatus;
-extern zend_class_entry *appkit_ce_AVPlayerItem;
-extern zend_class_entry *appkit_ce_AVPlayerTimeControlStatus;
-extern zend_class_entry *appkit_ce_AVPlayer;
-extern zend_class_entry *appkit_ce_AVPlayerActionAtItemEnd;
-extern zend_class_entry *appkit_ce_AVPlayerViewControlsStyle;
-extern zend_class_entry *appkit_ce_AVPlayerView;
+extern zend_class_entry *appkit_ce_NSURLRequest;
+extern zend_class_entry *appkit_ce_WKNavigation;
+extern zend_class_entry *appkit_ce_WKWebViewConfiguration;
+extern zend_class_entry *appkit_ce_WKWebView;
 extern zend_class_entry *appkit_ce_NSEdgeInsets;
 extern zend_class_entry *appkit_ce_NSLayoutAnchor;
 extern zend_class_entry *appkit_ce_NSLayoutDimension;
@@ -292,13 +288,14 @@ void appkit_register_NSCollectionView(int module_number);
 void appkit_register_NSArray(void);
 void appkit_register_NSToolbar(int module_number);
 void appkit_register_NSNotificationCenter(int module_number);
-void appkit_register_AVKit(int module_number);
+void appkit_register_WebKit(void);
 
 /* Object model. */
 void appkit_object_setup(zend_class_entry *ce);
 void appkit_map_objc_class(const char *objc_class, zend_class_entry *ce);
 void appkit_box_objc(zval *rv, id obj);
 void appkit_box_cf(zval *rv, CFTypeRef ref);
+void appkit_box_cf_as(zval *rv, CFTypeRef ref, zend_class_entry *ce);
 void appkit_adopt_objc(zend_object *wrapper, id retained);
 Class appkit_called_class(zend_execute_data *execute_data);
 

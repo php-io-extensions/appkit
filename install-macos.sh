@@ -12,7 +12,7 @@
 set -Eeuo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-SOURCES=(config.m4 php_appkit.h src stubs)
+SOURCES=(config.m4 php_appkit.h php_appkit_api.h src stubs)
 INI_NAME="30-appkit.ini"
 
 die() { printf '✖ %s\n' "$*" >&2; exit 1; }
@@ -59,6 +59,12 @@ for PHP_BIN in "${PHP_BINS[@]}"; do
     install -m 0755 "${BUILD_DIR}/modules/appkit.so" "${EXT_DIR}/appkit.so"
     codesign --force --sign - "${EXT_DIR}/appkit.so" >/dev/null 2>&1
     printf 'extension=appkit\n' > "${SCAN_DIR}/${INI_NAME}"
+
+    # The headers an extension built on appkit compiles against (php_appkit_api.h).
+    INC_DIR="$("$PHP_CONFIG" --include-dir)/ext/appkit"
+    install -d "${INC_DIR}/src"
+    install -m 0644 "${SCRIPT_DIR}/php_appkit.h" "${SCRIPT_DIR}/php_appkit_api.h" "${INC_DIR}/"
+    install -m 0644 "${SCRIPT_DIR}/src/runtime.h" "${SCRIPT_DIR}/src/controls.h" "${INC_DIR}/src/"
 
     "$PHP_BIN" -r 'exit(extension_loaded("appkit") ? 0 : 1);' || die "appkit did not load in ${PHP_BIN}"
     step "Installed ${EXT_DIR}/appkit.so, enabled by ${SCAN_DIR}/${INI_NAME}"

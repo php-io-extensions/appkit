@@ -187,6 +187,33 @@ ZEND_METHOD(NSCollectionView, itemAtIndexPath)
 	APPKIT_END
 }
 
+ZEND_METHOD(NSCollectionView, indexPathForItem)
+{
+	zend_object *item;
+
+	ZEND_PARSE_PARAMETERS_START(1, 1)
+		Z_PARAM_OBJ_OF_CLASS(item, appkit_ce_NSCollectionViewItem)
+	ZEND_PARSE_PARAMETERS_END();
+
+	APPKIT_BEGIN
+		appkit_box_objc(return_value, [THIS_COLLECTION indexPathForItem:(NSCollectionViewItem *) APPKIT_ID(item)]);
+	APPKIT_END
+}
+
+ZEND_METHOD(NSCollectionView, selectionIndexPaths)
+{
+	ZEND_PARSE_PARAMETERS_NONE();
+
+	APPKIT_BEGIN
+		array_init(return_value);
+		for (NSIndexPath *path in [THIS_COLLECTION selectionIndexPaths]) {
+			zval boxed;
+			appkit_box_objc(&boxed, path);
+			add_next_index_zval(return_value, &boxed);
+		}
+	APPKIT_END
+}
+
 ZEND_METHOD(NSCollectionView, indexPathForItemAtPoint)
 {
 	zend_object *point_obj;
@@ -224,6 +251,7 @@ ZEND_METHOD(NSCollectionView, name) \
 INDEX_PATHS_METHOD(insertItemsAtIndexPaths, insertItemsAtIndexPaths)
 INDEX_PATHS_METHOD(deleteItemsAtIndexPaths, deleteItemsAtIndexPaths)
 INDEX_PATHS_METHOD(reloadItemsAtIndexPaths, reloadItemsAtIndexPaths)
+INDEX_PATHS_METHOD(deselectItemsAtIndexPaths, deselectItemsAtIndexPaths)
 
 ZEND_METHOD(NSCollectionView, scrollToItemsAtIndexPathsScrollPosition)
 {

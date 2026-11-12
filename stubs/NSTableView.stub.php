@@ -138,6 +138,9 @@ class NSTableView extends NSControl
     public function clickedRow(): int {}
 
     public function scrollRowToVisible(int $row): void {}
+
+    /** The row holding $view; -1 when it is not in one. */
+    public function rowForView(NSView $view): int {}
 }
 
 /**

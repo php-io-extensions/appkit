@@ -1,5 +1,5 @@
 /* This is a generated file, edit the .stub.php file instead.
- * Stub hash: 5f510964a6ca568585d3a8858ae804251c1923c5 */
+ * Stub hash: 5a1fe8cfe7bc1383807a8c97da3ee1d6f547b1c2 */
 
 ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_NSIndexSet_indexSetWithIndex, 0, 1, IS_STATIC, 0)
 	ZEND_ARG_TYPE_INFO(0, index, IS_LONG, 0)
@@ -143,6 +143,10 @@ ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_NSTableView_scrollRowToVis
 	ZEND_ARG_TYPE_INFO(0, row, IS_LONG, 0)
 ZEND_END_ARG_INFO()
 
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_NSTableView_rowForView, 0, 1, IS_LONG, 0)
+	ZEND_ARG_OBJ_INFO(0, view, NSView, 0)
+ZEND_END_ARG_INFO()
+
 ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(arginfo_class_NSOutlineView_outlineTableColumn, 0, 0, NSTableColumn, 1)
 ZEND_END_ARG_INFO()
 
@@ -223,6 +227,7 @@ ZEND_METHOD(NSTableView, doubleAction);
 ZEND_METHOD(NSTableView, setDoubleAction);
 ZEND_METHOD(NSTableView, clickedRow);
 ZEND_METHOD(NSTableView, scrollRowToVisible);
+ZEND_METHOD(NSTableView, rowForView);
 ZEND_METHOD(NSOutlineView, outlineTableColumn);
 ZEND_METHOD(NSOutlineView, setOutlineTableColumn);
 ZEND_METHOD(NSOutlineView, expandItem);
@@ -285,6 +290,7 @@ static const zend_function_entry class_NSTableView_methods[] = {
 	ZEND_ME(NSTableView, setDoubleAction, arginfo_class_NSTableView_setDoubleAction, ZEND_ACC_PUBLIC)
 	ZEND_ME(NSTableView, clickedRow, arginfo_class_NSTableView_clickedRow, ZEND_ACC_PUBLIC)
 	ZEND_ME(NSTableView, scrollRowToVisible, arginfo_class_NSTableView_scrollRowToVisible, ZEND_ACC_PUBLIC)
+	ZEND_ME(NSTableView, rowForView, arginfo_class_NSTableView_rowForView, ZEND_ACC_PUBLIC)
 	ZEND_FE_END
 };
 

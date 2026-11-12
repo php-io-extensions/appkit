@@ -66,6 +66,20 @@ it('asks its data source for the item count and makes items of the registered cl
     $view->setDataSource(null);
 });
 
+it('reports an empty selection, deselects index paths, and has no path for an item it does not show', function (): void {
+    $view = NSCollectionView::initWithFrame(new NSRect(0.0, 0.0, 600.0, 400.0));
+    $view->setCollectionViewLayout(NSCollectionViewFlowLayout::init());
+    $view->setSelectable(true);
+    $item = NSCollectionViewItem::init();
+    $item->setView(NSView::initWithFrame(new NSRect(0.0, 0.0, 10.0, 10.0)));
+
+    $view->deselectItemsAtIndexPaths([NSIndexPath::indexPathForItemInSection(0, 0)]);
+
+    expect($view->selectionIndexPaths())->toBe([])
+        ->and($view->indexPathForItem($item))->toBeNull()
+        ->and(fn () => $view->deselectItemsAtIndexPaths(['nope']))->toThrow(TypeError::class);
+});
+
 it('gives an item the view it is set, and deletes items at index paths', function (): void {
     $count = 5;
     $view = NSCollectionView::initWithFrame(new NSRect(0.0, 0.0, 600.0, 400.0));

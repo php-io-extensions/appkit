@@ -1,5 +1,5 @@
 /* This is a generated file, edit the .stub.php file instead.
- * Stub hash: 21cea0d506064620e3395d7593abc2c06c0dbd29 */
+ * Stub hash: 762d7c015a06ac3da15bcefe26b7e3e7ccba9466 */
 
 ZEND_BEGIN_ARG_INFO_EX(arginfo_class_NSObject___construct, 0, 0, 0)
 ZEND_END_ARG_INFO()
@@ -47,6 +47,18 @@ ZEND_END_ARG_INFO()
 
 #define arginfo_class_NSNumber_integerValue arginfo_class_NSObject_hash
 
+ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(arginfo_class_NSURL_fileURLWithPath, 0, 1, NSURL, 0)
+	ZEND_ARG_TYPE_INFO(0, path, IS_STRING, 0)
+ZEND_END_ARG_INFO()
+
+#define arginfo_class_NSURL_path arginfo_class_NSString_UTF8String
+
+ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(arginfo_class_NSURL_URLWithString, 0, 1, NSURL, 1)
+	ZEND_ARG_TYPE_INFO(0, string, IS_STRING, 0)
+ZEND_END_ARG_INFO()
+
+#define arginfo_class_NSURL_absoluteString arginfo_class_NSString_UTF8String
+
 ZEND_METHOD(NSObject, __construct);
 ZEND_METHOD(NSObject, className);
 ZEND_METHOD(NSObject, isKindOfClass);
@@ -61,6 +73,10 @@ ZEND_METHOD(NSString, UTF8String);
 ZEND_METHOD(NSString, sizeWithAttributes);
 ZEND_METHOD(NSNumber, numberWithInteger);
 ZEND_METHOD(NSNumber, integerValue);
+ZEND_METHOD(NSURL, fileURLWithPath);
+ZEND_METHOD(NSURL, path);
+ZEND_METHOD(NSURL, URLWithString);
+ZEND_METHOD(NSURL, absoluteString);
 
 static const zend_function_entry class_NSObject_methods[] = {
 	ZEND_ME(NSObject, __construct, arginfo_class_NSObject___construct, ZEND_ACC_PRIVATE)
@@ -85,6 +101,14 @@ static const zend_function_entry class_NSString_methods[] = {
 static const zend_function_entry class_NSNumber_methods[] = {
 	ZEND_ME(NSNumber, numberWithInteger, arginfo_class_NSNumber_numberWithInteger, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
 	ZEND_ME(NSNumber, integerValue, arginfo_class_NSNumber_integerValue, ZEND_ACC_PUBLIC)
+	ZEND_FE_END
+};
+
+static const zend_function_entry class_NSURL_methods[] = {
+	ZEND_ME(NSURL, fileURLWithPath, arginfo_class_NSURL_fileURLWithPath, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	ZEND_ME(NSURL, path, arginfo_class_NSURL_path, ZEND_ACC_PUBLIC)
+	ZEND_ME(NSURL, URLWithString, arginfo_class_NSURL_URLWithString, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	ZEND_ME(NSURL, absoluteString, arginfo_class_NSURL_absoluteString, ZEND_ACC_PUBLIC)
 	ZEND_FE_END
 };
 
@@ -113,6 +137,16 @@ static zend_class_entry *register_class_NSNumber(zend_class_entry *class_entry_N
 	zend_class_entry ce, *class_entry;
 
 	INIT_CLASS_ENTRY(ce, "NSNumber", class_NSNumber_methods);
+	class_entry = zend_register_internal_class_with_flags(&ce, class_entry_NSObject, ZEND_ACC_NOT_SERIALIZABLE);
+
+	return class_entry;
+}
+
+static zend_class_entry *register_class_NSURL(zend_class_entry *class_entry_NSObject)
+{
+	zend_class_entry ce, *class_entry;
+
+	INIT_CLASS_ENTRY(ce, "NSURL", class_NSURL_methods);
 	class_entry = zend_register_internal_class_with_flags(&ce, class_entry_NSObject, ZEND_ACC_NOT_SERIALIZABLE);
 
 	return class_entry;

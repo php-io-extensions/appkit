@@ -104,7 +104,15 @@ class NSCollectionView extends NSView
 
     public function itemAtIndexPath(NSIndexPath $indexPath): ?NSCollectionViewItem {}
 
+    public function indexPathForItem(NSCollectionViewItem $item): ?NSIndexPath {}
+
     public function indexPathForItemAtPoint(NSPoint $point): ?NSIndexPath {}
+
+    /** The NSSet of selected NSIndexPath as an array, in no set order. */
+    public function selectionIndexPaths(): array {}
+
+    /** $indexPaths: [NSIndexPath] as an NSSet. */
+    public function deselectItemsAtIndexPaths(array $indexPaths): void {}
 
     /** $indexPaths: [NSIndexPath] as an NSSet. */
     public function insertItemsAtIndexPaths(array $indexPaths): void {}

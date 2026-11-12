@@ -108,6 +108,7 @@ METHOD(NSTableView, doubleAction, PARSE_NONE, SEL action = [SELF(NSTableView) do
 METHOD(NSTableView, setDoubleAction, PARSE_STR_OR_NULL, [SELF(NSTableView) setDoubleAction:SELECTOR_OR_NULL(v)];) /* binding:main-thread-nstableview-set-double-action */
 LONG_GET(NSTableView, NSTableView, clickedRow, clickedRow) /* binding:main-thread-nstableview-clicked-row */
 LONG_SET(NSTableView, NSTableView, scrollRowToVisible, scrollRowToVisible, NSInteger) /* binding:main-thread-nstableview-scroll-row-to-visible */
+ANY_METHOD(NSTableView, rowForView, PARSE_OBJ(appkit_ce_NSView), RETURN_LONG((zend_long) [SELF(NSTableView) rowForView:(NSView *) APPKIT_ID(v)]);)
 
 ANY_DOUBLE_GET(NSTableView, NSTableView, rowHeight, rowHeight)
 ANY_DOUBLE_SET(NSTableView, NSTableView, setRowHeight, setRowHeight)
