@@ -20,6 +20,61 @@ it('copies bytes into a CFData', function (): void {
         ->and($data->pointer())->not->toBe(0);
 });
 
+it('makes mutable data, sets its length, and gives the address of its bytes', function (): void {
+    $data = CFData::createMutable(null, 0);
+
+    expect($data)->toBeInstanceOf(CFData::class)
+        ->and($data->getLength())->toBe(0);
+
+    $data->setLength(16);
+    $address = $data->getMutableBytePtr();
+    $data->getBytes(new CFRange(0, 16), $zeros);
+
+    expect($data->getLength())->toBe(16)
+        ->and($address)->not->toBe(0)
+        ->and($zeros)->toBe(str_repeat("\0", 16))
+        ->and(CFData::createMutable(CFAllocator::getDefault(), 64)->getLength())->toBe(0);
+});
+
+it("gives the address the data's bytes are at", function (): void {
+    // CFDataCreate copies from an address: what it reads at this one is what the data holds
+    $data = CFData::create(null, 'abcdefgh', 8);
+    CFData::create(null, $data->getMutableBytePtr(), 8)->getBytes(new CFRange(0, 8), $read);
+
+    expect($read)->toBe('abcdefgh');
+});
+
+it('copies a range of the bytes into a by-reference string', function (): void {
+    $data = CFData::create(null, "\x01\x02\x03\x00\x05", 5);
+    $data->getBytes(new CFRange(1, 3), $middle);
+    $data->getBytes(new CFRange(0, 5), $all);
+    $data->getBytes(new CFRange(5, 0), $none);
+
+    $typed = new class
+    {
+        public ?string $bytes = null;
+    };
+    $data->getBytes(new CFRange(3, 2), $typed->bytes);
+
+    expect($middle)->toBe("\x02\x03\x00")
+        ->and($all)->toBe("\x01\x02\x03\x00\x05")
+        ->and($none)->toBe('')
+        ->and($typed->bytes)->toBe("\x00\x05")
+        ->and(new CFRange(2, 7))->toHaveProperties(['location' => 2, 'length' => 7]);
+});
+
+it('marshals a CFRange as an NSRange is: every property set, none negative', function (): void {
+    $data = CFData::create(null, 'abcd', 4);
+
+    expect(fn () => $data->getBytes(new CFRange(0, -1), $bytes))->toThrow(ValueError::class)
+        ->and(fn () => $data->getBytes(new CFRange(-1, 1), $bytes))->toThrow(ValueError::class)
+        ->and(fn () => $data->getBytes((new ReflectionClass(CFRange::class))->newInstanceWithoutConstructor(), $bytes))->toThrow(ValueError::class);
+});
+
+it("turns Core Foundation's own exception on a length it cannot allocate into AppKitException", function (): void {
+    expect(fn () => CFData::createMutable(null, 0)->setLength(-1))->toThrow(AppKitException::class);
+});
+
 it('names colour spaces, and answers null for a name there is none for', function (): void {
     expect(CGColorSpace::createWithName(kCGColorSpaceSRGB))->toBeInstanceOf(CGColorSpace::class)
         ->and(kCGColorSpaceSRGB)->toBe('kCGColorSpaceSRGB')

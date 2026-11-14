@@ -76,6 +76,7 @@ extern zend_class_entry *appkit_ce_CFRunLoopRunResult;
 extern zend_class_entry *appkit_ce_CFRunLoopSource;
 extern zend_class_entry *appkit_ce_CFFileDescriptor;
 extern zend_class_entry *appkit_ce_CFData;
+extern zend_class_entry *appkit_ce_CFRange;
 extern zend_class_entry *appkit_ce_CGDataProvider;
 extern zend_class_entry *appkit_ce_CGColorSpace;
 extern zend_class_entry *appkit_ce_CGColor;

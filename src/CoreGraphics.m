@@ -14,6 +14,7 @@ void appkit_register_CoreGraphics(int module_number)
 
 	appkit_ce_CFData = register_class_CFData(appkit_ce_CFType);
 	appkit_object_setup(appkit_ce_CFData);
+	appkit_ce_CFRange = register_class_CFRange();
 	appkit_ce_CGDataProvider = register_class_CGDataProvider(appkit_ce_CFType);
 	appkit_object_setup(appkit_ce_CGDataProvider);
 	appkit_ce_CGColorSpace = register_class_CGColorSpace(appkit_ce_CFType);
@@ -65,11 +66,93 @@ ZEND_METHOD(CFData, create)
 	appkit_return_created(return_value, CFDataCreate(cf_allocator, (const UInt8 *) (uintptr_t) address, (CFIndex) length));
 }
 
+ZEND_METHOD(CFData, createMutable)
+{
+	zend_object *allocator;
+	zend_long capacity;
+
+	ZEND_PARSE_PARAMETERS_START(2, 2)
+		Z_PARAM_OBJ_OF_CLASS_OR_NULL(allocator, appkit_ce_CFAllocator)
+		Z_PARAM_LONG(capacity)
+	ZEND_PARSE_PARAMETERS_END();
+
+	APPKIT_BEGIN
+	appkit_return_created(return_value, CFDataCreateMutable(allocator != NULL ? (CFAllocatorRef) APPKIT_CF(allocator) : NULL, (CFIndex) capacity));
+	APPKIT_END
+}
+
 ZEND_METHOD(CFData, getLength)
 {
 	ZEND_PARSE_PARAMETERS_NONE();
 
 	RETURN_LONG((zend_long) CFDataGetLength((CFDataRef) APPKIT_CF(Z_OBJ_P(ZEND_THIS))));
+}
+
+ZEND_METHOD(CFData, getMutableBytePtr)
+{
+	ZEND_PARSE_PARAMETERS_NONE();
+
+	APPKIT_BEGIN
+	RETVAL_LONG((zend_long) (uintptr_t) CFDataGetMutableBytePtr((CFMutableDataRef) APPKIT_CF(Z_OBJ_P(ZEND_THIS))));
+	APPKIT_END
+}
+
+ZEND_METHOD(CFData, getBytes)
+{
+	zend_object *range_obj;
+	zval *buffer;
+	NSRange range;
+
+	ZEND_PARSE_PARAMETERS_START(2, 2)
+		Z_PARAM_OBJ_OF_CLASS(range_obj, appkit_ce_CFRange)
+		Z_PARAM_ZVAL(buffer)
+	ZEND_PARSE_PARAMETERS_END();
+
+	/* A CFRange holds its two integers as an NSRange does: location, then length. */
+	if (!appkit_range_from(range_obj, 1, &range)) {
+		RETURN_THROWS();
+	}
+
+	/* The buffer Core Foundation fills is a PHP string of the range's length. */
+	zend_string *bytes = zend_string_alloc(range.length, 0);
+	@autoreleasepool {
+		@try {
+			CFDataGetBytes((CFDataRef) APPKIT_CF(Z_OBJ_P(ZEND_THIS)), CFRangeMake((CFIndex) range.location, (CFIndex) range.length), (UInt8 *) ZSTR_VAL(bytes));
+		} @catch (NSException *appkit_exception) {
+			/* APPKIT_END's translation, with the buffer given back first. */
+			zend_string_release(bytes);
+			appkit_throw_nsexception(appkit_exception);
+			RETURN_THROWS();
+		}
+	}
+	ZSTR_VAL(bytes)[range.length] = '\0';
+	ZEND_TRY_ASSIGN_REF_STR(buffer, bytes);
+}
+
+ZEND_METHOD(CFData, setLength)
+{
+	zend_long length;
+
+	ZEND_PARSE_PARAMETERS_START(1, 1)
+		Z_PARAM_LONG(length)
+	ZEND_PARSE_PARAMETERS_END();
+
+	APPKIT_BEGIN
+	CFDataSetLength((CFMutableDataRef) APPKIT_CF(Z_OBJ_P(ZEND_THIS)), (CFIndex) length);
+	APPKIT_END
+}
+
+ZEND_METHOD(CFRange, __construct)
+{
+	zend_long location, length;
+
+	ZEND_PARSE_PARAMETERS_START(2, 2)
+		Z_PARAM_LONG(location)
+		Z_PARAM_LONG(length)
+	ZEND_PARSE_PARAMETERS_END();
+
+	ZVAL_LONG(OBJ_PROP_NUM(Z_OBJ_P(ZEND_THIS), 0), location);
+	ZVAL_LONG(OBJ_PROP_NUM(Z_OBJ_P(ZEND_THIS), 1), length);
 }
 
 ZEND_METHOD(CGDataProvider, createWithCFData)

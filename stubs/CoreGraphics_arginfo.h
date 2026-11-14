@@ -1,5 +1,5 @@
 /* This is a generated file, edit the .stub.php file instead.
- * Stub hash: 576d20954163bd2129494edb53a0f4e5d09b3058 */
+ * Stub hash: 428f7729695de99bbd9789344e098142a47e014e */
 
 ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(arginfo_class_CFData_create, 0, 3, CFData, 1)
 	ZEND_ARG_OBJ_INFO(0, allocator, CFAllocator, 1)
@@ -7,7 +7,28 @@ ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(arginfo_class_CFData_create, 0, 3, CFData
 	ZEND_ARG_TYPE_INFO(0, length, IS_LONG, 0)
 ZEND_END_ARG_INFO()
 
+ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(arginfo_class_CFData_createMutable, 0, 2, CFData, 1)
+	ZEND_ARG_OBJ_INFO(0, allocator, CFAllocator, 1)
+	ZEND_ARG_TYPE_INFO(0, capacity, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
 ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_CFData_getLength, 0, 0, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+#define arginfo_class_CFData_getMutableBytePtr arginfo_class_CFData_getLength
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_CFData_getBytes, 0, 2, IS_VOID, 0)
+	ZEND_ARG_OBJ_INFO(0, range, CFRange, 0)
+	ZEND_ARG_TYPE_INFO(1, buffer, IS_STRING, 1)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_CFData_setLength, 0, 1, IS_VOID, 0)
+	ZEND_ARG_TYPE_INFO(0, length, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_INFO_EX(arginfo_class_CFRange___construct, 0, 0, 2)
+	ZEND_ARG_TYPE_INFO(0, location, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, length, IS_LONG, 0)
 ZEND_END_ARG_INFO()
 
 ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(arginfo_class_CGDataProvider_createWithCFData, 0, 1, CGDataProvider, 1)
@@ -78,7 +99,12 @@ ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_CGContext_drawImage, 0, 2,
 ZEND_END_ARG_INFO()
 
 ZEND_METHOD(CFData, create);
+ZEND_METHOD(CFData, createMutable);
 ZEND_METHOD(CFData, getLength);
+ZEND_METHOD(CFData, getMutableBytePtr);
+ZEND_METHOD(CFData, getBytes);
+ZEND_METHOD(CFData, setLength);
+ZEND_METHOD(CFRange, __construct);
 ZEND_METHOD(CGDataProvider, createWithCFData);
 ZEND_METHOD(CGDataProvider, createDirect);
 ZEND_METHOD(CGColorSpace, createWithName);
@@ -97,7 +123,16 @@ ZEND_METHOD(CGContext, drawImage);
 
 static const zend_function_entry class_CFData_methods[] = {
 	ZEND_ME(CFData, create, arginfo_class_CFData_create, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	ZEND_ME(CFData, createMutable, arginfo_class_CFData_createMutable, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
 	ZEND_ME(CFData, getLength, arginfo_class_CFData_getLength, ZEND_ACC_PUBLIC)
+	ZEND_ME(CFData, getMutableBytePtr, arginfo_class_CFData_getMutableBytePtr, ZEND_ACC_PUBLIC)
+	ZEND_ME(CFData, getBytes, arginfo_class_CFData_getBytes, ZEND_ACC_PUBLIC)
+	ZEND_ME(CFData, setLength, arginfo_class_CFData_setLength, ZEND_ACC_PUBLIC)
+	ZEND_FE_END
+};
+
+static const zend_function_entry class_CFRange_methods[] = {
+	ZEND_ME(CFRange, __construct, arginfo_class_CFRange___construct, ZEND_ACC_PUBLIC)
 	ZEND_FE_END
 };
 
@@ -192,6 +227,28 @@ static zend_class_entry *register_class_CFData(zend_class_entry *class_entry_CFT
 
 	INIT_CLASS_ENTRY(ce, "CFData", class_CFData_methods);
 	class_entry = zend_register_internal_class_with_flags(&ce, class_entry_CFType, ZEND_ACC_FINAL|ZEND_ACC_NOT_SERIALIZABLE);
+
+	return class_entry;
+}
+
+static zend_class_entry *register_class_CFRange(void)
+{
+	zend_class_entry ce, *class_entry;
+
+	INIT_CLASS_ENTRY(ce, "CFRange", class_CFRange_methods);
+	class_entry = zend_register_internal_class_with_flags(&ce, NULL, ZEND_ACC_FINAL);
+
+	zval property_location_default_value;
+	ZVAL_UNDEF(&property_location_default_value);
+	zend_string *property_location_name = zend_string_init("location", sizeof("location") - 1, 1);
+	zend_declare_typed_property(class_entry, property_location_name, &property_location_default_value, ZEND_ACC_PUBLIC, NULL, (zend_type) ZEND_TYPE_INIT_MASK(MAY_BE_LONG));
+	zend_string_release(property_location_name);
+
+	zval property_length_default_value;
+	ZVAL_UNDEF(&property_length_default_value);
+	zend_string *property_length_name = zend_string_init("length", sizeof("length") - 1, 1);
+	zend_declare_typed_property(class_entry, property_length_name, &property_length_default_value, ZEND_ACC_PUBLIC, NULL, (zend_type) ZEND_TYPE_INIT_MASK(MAY_BE_LONG));
+	zend_string_release(property_length_name);
 
 	return class_entry;
 }

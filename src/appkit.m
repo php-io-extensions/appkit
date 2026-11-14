@@ -35,6 +35,7 @@ zend_class_entry *appkit_ce_CFRunLoopRunResult;
 zend_class_entry *appkit_ce_CFRunLoopSource;
 zend_class_entry *appkit_ce_CFFileDescriptor;
 zend_class_entry *appkit_ce_CFData;
+zend_class_entry *appkit_ce_CFRange;
 zend_class_entry *appkit_ce_CGDataProvider;
 zend_class_entry *appkit_ce_CGColorSpace;
 zend_class_entry *appkit_ce_CGColor;

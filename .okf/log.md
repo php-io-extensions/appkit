@@ -1,5 +1,9 @@
 # Log
 
+## 2026-11-13
+
+* `CFData` gains `createMutable` (CFDataCreateMutable), `setLength` (CFDataSetLength), `getMutableBytePtr` (CFDataGetMutableBytePtr) and `getBytes` (CFDataGetBytes), and the value class `CFRange`. Together they are memory at an address that PHP can read back as a string: what a call that writes to an address (Metal's `getBytes:`) needs, with no other extension. `getBytes` fills a by-reference string; its `CFRange` is marshalled by `appkit_range_from`. No refusal was added (`sites` is the maintainer's). Measured, each in its own process: a range past the length aborts (Core Foundation's own assertion, exit 134); `setLength` past a fixed capacity traps (exit 133); `setLength(-1)` raises NSMallocException, translated to AppKitException. `tests/CoreGraphicsTest.php`, NTS and ZTS. [surface](api/surface.md)
+
 ## 2026-11-11
 
 * 0.11.2: `CMTime`, `AVPlayerItem`, `AVPlayer`, `AVPlayerView`, their enums and `AVPlayerItemDidPlayToEndTimeNotification` are no longer bound here; `src/AVKit.m`, the AVKit stub, `tests/VideoTest.php` and its clip are gone, and AVKit, AVFoundation and CoreMedia are no longer linked. `NSURL` stays, now in `src/NSObject.m`. `SurfaceTest` checks a bare appkit has none of the AV classes.

@@ -161,7 +161,38 @@ final class CFData extends CFType
      */
     public static function create(?CFAllocator $allocator, string|int $bytes, int $length): ?CFData {}
 
+    /**
+     * CFDataCreateMutable: a mutable data of length 0. $capacity 0 lets it grow as its length is set;
+     * above 0 is the most bytes it may hold. null when Core Foundation makes no data.
+     */
+    public static function createMutable(?CFAllocator $allocator, int $capacity): ?CFData {}
+
     public function getLength(): int {}
+
+    /**
+     * CFDataGetMutableBytePtr: the address of a mutable data's bytes, or 0 when that pointer is NULL.
+     * It holds getLength() bytes until the length is set again or the data is released.
+     */
+    public function getMutableBytePtr(): int {}
+
+    /**
+     * CFDataGetBytes: the $range of the data's bytes, copied into $buffer. Core Foundation reads the
+     * range as given: it must lie within getLength().
+     */
+    public function getBytes(CFRange $range, ?string &$buffer): void {}
+
+    /** CFDataSetLength: a mutable data's length. New bytes are zero. */
+    public function setLength(int $length): void {}
+}
+
+/** CFRange: a run of $length items from $location. */
+final class CFRange
+{
+    public int $location;
+
+    public int $length;
+
+    public function __construct(int $location, int $length) {}
 }
 
 /**
