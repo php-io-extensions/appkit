@@ -272,6 +272,51 @@ ANY_OBJ_GET(NSEvent, NSEvent, trackingArea, trackingArea)
 ANY_BOOL_GET(NSEvent, NSEvent, isDirectionInvertedFromDevice, isDirectionInvertedFromDevice)
 ANY_OBJ_GET(NSEvent, NSEvent, window, window)
 
+ZEND_METHOD(NSEvent, magnification)
+{
+	ZEND_PARSE_PARAMETERS_NONE();
+
+	APPKIT_BEGIN
+		RETURN_DOUBLE((double) [THIS_EVENT magnification]);
+	APPKIT_END
+}
+
+ZEND_METHOD(NSEvent, rotation)
+{
+	ZEND_PARSE_PARAMETERS_NONE();
+
+	APPKIT_BEGIN
+		RETURN_DOUBLE((double) [THIS_EVENT rotation]);
+	APPKIT_END
+}
+
+ZEND_METHOD(NSEvent, pressure)
+{
+	ZEND_PARSE_PARAMETERS_NONE();
+
+	APPKIT_BEGIN
+		RETURN_DOUBLE((double) [THIS_EVENT pressure]);
+	APPKIT_END
+}
+
+ZEND_METHOD(NSEvent, stage)
+{
+	ZEND_PARSE_PARAMETERS_NONE();
+
+	APPKIT_BEGIN
+		RETURN_LONG((zend_long) [THIS_EVENT stage]);
+	APPKIT_END
+}
+
+ZEND_METHOD(NSEvent, stageTransition)
+{
+	ZEND_PARSE_PARAMETERS_NONE();
+
+	APPKIT_BEGIN
+		RETURN_DOUBLE((double) [THIS_EVENT stageTransition]);
+	APPKIT_END
+}
+
 /* Monitors already removed: a second +removeMonitor: of one crashes AppKit. Weak, so a freed monitor's address can be reused. */
 static NSHashTable *appkit_removed_monitors;
 

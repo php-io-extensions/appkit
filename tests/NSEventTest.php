@@ -94,6 +94,87 @@ it('raises AppKitException asking a mouse event for characters', function (): vo
     expect(fn () => $event->characters())->toThrow(AppKitException::class, 'NSInternalInconsistencyException');
 });
 
+it('reads a mouse event\'s pressure', function (): void {
+    $event = NSEvent::mouseEventWithTypeLocationModifierFlagsTimestampWindowNumberContextEventNumberClickCountPressure(
+        NSEventType::LEFT_MOUSE_DOWN, new NSPoint(0.0, 0.0), 0, 0.0, 0, null, 0, 1, 0.75,
+    );
+
+    expect($event->pressure())->toBe(0.75)
+        ->and($event->rotation())->toBe(0.0);
+});
+
+it('raises AppKitException asking a mouse event for gesture or force-click values', function (string $method): void {
+    $event = NSEvent::mouseEventWithTypeLocationModifierFlagsTimestampWindowNumberContextEventNumberClickCountPressure(
+        NSEventType::LEFT_MOUSE_DOWN, new NSPoint(0.0, 0.0), 0, 0.0, 0, null, 0, 1, 1.0,
+    );
+
+    expect(fn () => $event->$method())->toThrow(AppKitException::class, 'NSInternalInconsistencyException');
+})->with(['magnification', 'stage', 'stageTransition']);
+
+/*
+ * A trackpad gesture as Quartz carries it: event type 29, the IOHID event kind in integer field
+ * 110 (8 zoom, 5 rotation, 32 force), then the kind's values. Zoom: double 113 magnification.
+ * Rotation: double 114 degrees. Force: double 119 pressure, integer 143 stage, double 113 stage
+ * transition. Integer 132: the IOHID phase. Fields 113 and 114 share one slot, so each event
+ * sets only the one its kind reads.
+ */
+function gestureEvent(int $kind, array $doubles = [], array $integers = []): NSEvent
+{
+    $quartz = CGEvent::create(null);
+    $quartz->setType(29);
+    $quartz->setIntegerValueField(110, $kind);
+    foreach ($doubles as $field => $value) {
+        $quartz->setDoubleValueField($field, $value);
+    }
+    foreach ($integers as $field => $value) {
+        $quartz->setIntegerValueField($field, $value);
+    }
+
+    return NSEvent::eventWithCGEvent($quartz);
+}
+
+it('reads a magnify gesture\'s magnification in each phase', function (int $iohid, NSEventPhase $phase): void {
+    $event = gestureEvent(8, [113 => 0.25], [132 => $iohid]);
+
+    expect([$event->type(), $event->magnification(), $event->phase()])->toBe([NSEventType::MAGNIFY, 0.25, $phase]);
+})->with([
+    'began' => [1, NSEventPhase::BEGAN],
+    'changed' => [2, NSEventPhase::CHANGED],
+    'ended' => [4, NSEventPhase::ENDED],
+    'cancelled' => [8, NSEventPhase::CANCELLED],
+    'may begin' => [128, NSEventPhase::MAY_BEGIN],
+]);
+
+it('reads a rotate gesture\'s degrees in both directions', function (float $degrees): void {
+    $event = gestureEvent(5, [114 => $degrees]);
+
+    expect([$event->type(), $event->rotation()])->toBe([NSEventType::ROTATE, $degrees]);
+})->with(['clockwise' => -30.0, 'counter-clockwise' => 12.5]);
+
+/* pressure and stageTransition are float in AppKit: these values are exact in 32 bits. */
+it('reads a force click\'s stage, pressure and stage transition', function (int $stage, float $pressure, float $transition): void {
+    $event = gestureEvent(32, [119 => $pressure, 113 => $transition], [143 => $stage]);
+
+    expect([$event->type(), $event->stage(), $event->pressure(), $event->stageTransition()])
+        ->toBe([NSEventType::PRESSURE, $stage, $pressure, $transition]);
+})->with([
+    'stage 0' => [0, 0.125, 0.0],
+    'stage 1' => [1, 0.5, 0.25],
+    'stage 2' => [2, 0.625, 0.375],
+]);
+
+it('raises AppKitException asking a gesture for another kind\'s value', function (int $kind, string $method): void {
+    expect(fn () => gestureEvent($kind)->$method())->toThrow(AppKitException::class, 'NSInternalInconsistencyException');
+})->with([
+    'stage of a magnify' => [8, 'stage'],
+    'stage transition of a magnify' => [8, 'stageTransition'],
+    'pressure of a magnify' => [8, 'pressure'],
+    'rotation of a magnify' => [8, 'rotation'],
+    'magnification of a rotate' => [5, 'magnification'],
+    'stage of a rotate' => [5, 'stage'],
+    'magnification of a force click' => [32, 'magnification'],
+]);
+
 it('reads a scroll wheel and an other-button event made from Quartz events', function (): void {
     $lines = NSEvent::eventWithCGEvent(CGEvent::createScrollWheelEvent2(null, CGScrollEventUnit::LINE, 2, 3, -1, 0));
     $pixels = NSEvent::eventWithCGEvent(CGEvent::createScrollWheelEvent2(null, CGScrollEventUnit::PIXEL, 2, 5, 0, 0));

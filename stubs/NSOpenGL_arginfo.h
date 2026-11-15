@@ -1,5 +1,5 @@
 /* This is a generated file, edit the .stub.php file instead.
- * Stub hash: ce7b569a7becf703d0d170bffd38eb6d86d65593 */
+ * Stub hash: 1c5b007de7e5dd622faa09adc3bb729eef2f3efa */
 
 ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_NSOpenGLPixelFormat_initWithAttributes, 0, 1, IS_STATIC, 1)
 	ZEND_ARG_TYPE_INFO(0, attribs, IS_ARRAY, 0)
@@ -8,6 +8,10 @@ ZEND_END_ARG_INFO()
 ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_NSOpenGLContext_initWithFormatShareContext, 0, 2, IS_STATIC, 1)
 	ZEND_ARG_OBJ_INFO(0, format, NSOpenGLPixelFormat, 0)
 	ZEND_ARG_OBJ_INFO(0, share, NSOpenGLContext, 1)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_NSOpenGLContext_initWithCGLContextObj, 0, 1, IS_STATIC, 1)
+	ZEND_ARG_TYPE_INFO(0, context, IS_LONG, 0)
 ZEND_END_ARG_INFO()
 
 ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_NSOpenGLContext_makeCurrentContext, 0, 0, IS_VOID, 0)
@@ -65,6 +69,7 @@ ZEND_END_ARG_INFO()
 
 ZEND_METHOD(NSOpenGLPixelFormat, initWithAttributes);
 ZEND_METHOD(NSOpenGLContext, initWithFormatShareContext);
+ZEND_METHOD(NSOpenGLContext, initWithCGLContextObj);
 ZEND_METHOD(NSOpenGLContext, makeCurrentContext);
 ZEND_METHOD(NSOpenGLContext, clearCurrentContext);
 ZEND_METHOD(NSOpenGLContext, currentContext);
@@ -89,6 +94,7 @@ static const zend_function_entry class_NSOpenGLPixelFormat_methods[] = {
 
 static const zend_function_entry class_NSOpenGLContext_methods[] = {
 	ZEND_ME(NSOpenGLContext, initWithFormatShareContext, arginfo_class_NSOpenGLContext_initWithFormatShareContext, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	ZEND_ME(NSOpenGLContext, initWithCGLContextObj, arginfo_class_NSOpenGLContext_initWithCGLContextObj, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
 	ZEND_ME(NSOpenGLContext, makeCurrentContext, arginfo_class_NSOpenGLContext_makeCurrentContext, ZEND_ACC_PUBLIC)
 	ZEND_ME(NSOpenGLContext, clearCurrentContext, arginfo_class_NSOpenGLContext_clearCurrentContext, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
 	ZEND_ME(NSOpenGLContext, currentContext, arginfo_class_NSOpenGLContext_currentContext, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)

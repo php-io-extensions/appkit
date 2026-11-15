@@ -105,6 +105,60 @@ ZEND_METHOD(CGEvent, setFlags)
 	CGEventSetFlags(THIS_CG_EVENT, (CGEventFlags) flags);
 }
 
+ZEND_METHOD(CGEvent, create)
+{
+	zend_object *source = NULL;
+
+	ZEND_PARSE_PARAMETERS_START(1, 1)
+		Z_PARAM_OBJ_OF_CLASS_OR_NULL(source, appkit_ce_CGEventSource)
+	ZEND_PARSE_PARAMETERS_END();
+
+	appkit_return_created_event(return_value, CGEventCreate(CG_EVENT_SOURCE(source)));
+}
+
+ZEND_METHOD(CGEvent, getType)
+{
+	ZEND_PARSE_PARAMETERS_NONE();
+
+	appkit_return_enum(return_value, appkit_ce_CGEventType, (zend_long) CGEventGetType(THIS_CG_EVENT), true);
+}
+
+ZEND_METHOD(CGEvent, setType)
+{
+	zend_object *type_case = NULL;
+	zend_long type_long = 0;
+
+	ZEND_PARSE_PARAMETERS_START(1, 1)
+		Z_PARAM_OBJ_OF_CLASS_OR_LONG(type_case, appkit_ce_CGEventType, type_long)
+	ZEND_PARSE_PARAMETERS_END();
+
+	CGEventSetType(THIS_CG_EVENT, (CGEventType) appkit_enum_value(type_case, type_long));
+}
+
+ZEND_METHOD(CGEvent, getDoubleValueField)
+{
+	zend_long field;
+
+	ZEND_PARSE_PARAMETERS_START(1, 1)
+		Z_PARAM_LONG(field)
+	ZEND_PARSE_PARAMETERS_END();
+
+	RETURN_DOUBLE(CGEventGetDoubleValueField(THIS_CG_EVENT, (CGEventField) field));
+}
+
+ZEND_METHOD(CGEvent, setDoubleValueField)
+{
+	zend_long field;
+	double value;
+
+	ZEND_PARSE_PARAMETERS_START(2, 2)
+		Z_PARAM_LONG(field)
+		Z_PARAM_DOUBLE(value)
+	ZEND_PARSE_PARAMETERS_END();
+
+	CGEventSetDoubleValueField(THIS_CG_EVENT, (CGEventField) field, value);
+}
+
 ZEND_METHOD(CGEvent, getIntegerValueField)
 {
 	zend_long field;

@@ -45,6 +45,9 @@ class NSOpenGLContext extends NSObject
     /** initWithFormat:shareContext:; null when AppKit makes none. */
     public static function initWithFormatShareContext(NSOpenGLPixelFormat $format, ?NSOpenGLContext $share): ?static {}
 
+    /** initWithCGLContextObj:, over the CGLContextObj address ext-opengl's CGLContextObj::pointer() gives; null when AppKit makes none. */
+    public static function initWithCGLContextObj(int $context): ?static {}
+
     public function makeCurrentContext(): void {}
 
     public static function clearCurrentContext(): void {}

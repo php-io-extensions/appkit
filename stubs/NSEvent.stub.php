@@ -188,6 +188,21 @@ class NSEvent extends NSObject
 
     public function isDirectionInvertedFromDevice(): bool {}
 
+    /** A magnify (pinch) gesture's change in scale; AppKit raises for any other event. */
+    public function magnification(): float {}
+
+    /** A rotate gesture's change in degrees, counter-clockwise positive; a mouse event answers 0. */
+    public function rotation(): float {}
+
+    /** Pressure from 0 to 1, on mouse and pressure events. */
+    public function pressure(): float {}
+
+    /** A pressure event's force-click stage: 0, 1 or 2; AppKit raises for a mouse event. */
+    public function stage(): int {}
+
+    /** A pressure event's progress toward the next or previous stage, -1 to 1; AppKit raises for a mouse event. */
+    public function stageTransition(): float {}
+
     public function window(): ?NSWindow {}
 }
 

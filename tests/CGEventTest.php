@@ -74,3 +74,27 @@ it('creates an event source for a state', function (): void {
 it('takes a key code within an unsigned short', function (): void {
     expect(fn () => CGEventSource::keyState(CGEventSourceStateID::COMBINED_SESSION_STATE, 70000))->toThrow(ValueError::class);
 });
+
+it('creates a null event and sets its type by case or by an int no case names', function (): void {
+    $event = CGEvent::create(null);
+    $types = [$event->getType()];
+    $event->setType(29);
+    $types[] = $event->getType();
+    $event->setType(CGEventType::LEFT_MOUSE_DOWN);
+    $types[] = $event->getType();
+
+    expect($types)->toBe([CGEventType::NULL, 29, CGEventType::LEFT_MOUSE_DOWN]);
+});
+
+it('keeps a gesture event\'s double fields, 113 and 114 sharing one slot as Quartz has them', function (): void {
+    $event = CGEvent::create(null);
+    $event->setType(29);
+    $event->setIntegerValueField(110, 32);
+    $event->setDoubleValueField(119, 0.625);
+    $event->setDoubleValueField(113, 0.25);
+    $before = $event->getDoubleValueField(113);
+    $event->setDoubleValueField(114, -30.5);
+
+    expect([$event->getDoubleValueField(119), $before, $event->getDoubleValueField(113), $event->getDoubleValueField(114)])
+        ->toBe([0.625, 0.25, -30.5, -30.5]);
+});

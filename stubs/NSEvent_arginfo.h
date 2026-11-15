@@ -1,5 +1,5 @@
 /* This is a generated file, edit the .stub.php file instead.
- * Stub hash: f60f71fe3d7845c9c7338eae2342370a25e358d7 */
+ * Stub hash: 386051e0ad90f7a386f526c2f54cf422fcec779f */
 
 ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(arginfo_class_NSEvent_otherEventWithTypeLocationModifierFlagsTimestampWindowNumberContextSubtypeData1Data2, 0, 9, NSEvent, 1)
 	ZEND_ARG_OBJ_INFO(0, type, NSEventType, 0)
@@ -109,6 +109,16 @@ ZEND_END_ARG_INFO()
 
 #define arginfo_class_NSEvent_isDirectionInvertedFromDevice arginfo_class_NSEvent_isARepeat
 
+#define arginfo_class_NSEvent_magnification arginfo_class_NSEvent_timestamp
+
+#define arginfo_class_NSEvent_rotation arginfo_class_NSEvent_timestamp
+
+#define arginfo_class_NSEvent_pressure arginfo_class_NSEvent_timestamp
+
+#define arginfo_class_NSEvent_stage arginfo_class_NSEvent_pressedMouseButtons
+
+#define arginfo_class_NSEvent_stageTransition arginfo_class_NSEvent_timestamp
+
 ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(arginfo_class_NSEvent_window, 0, 0, NSWindow, 1)
 ZEND_END_ARG_INFO()
 
@@ -143,6 +153,11 @@ ZEND_METHOD(NSEvent, phase);
 ZEND_METHOD(NSEvent, momentumPhase);
 ZEND_METHOD(NSEvent, trackingArea);
 ZEND_METHOD(NSEvent, isDirectionInvertedFromDevice);
+ZEND_METHOD(NSEvent, magnification);
+ZEND_METHOD(NSEvent, rotation);
+ZEND_METHOD(NSEvent, pressure);
+ZEND_METHOD(NSEvent, stage);
+ZEND_METHOD(NSEvent, stageTransition);
 ZEND_METHOD(NSEvent, window);
 
 static const zend_function_entry class_NSEvent_methods[] = {
@@ -177,6 +192,11 @@ static const zend_function_entry class_NSEvent_methods[] = {
 	ZEND_ME(NSEvent, momentumPhase, arginfo_class_NSEvent_momentumPhase, ZEND_ACC_PUBLIC)
 	ZEND_ME(NSEvent, trackingArea, arginfo_class_NSEvent_trackingArea, ZEND_ACC_PUBLIC)
 	ZEND_ME(NSEvent, isDirectionInvertedFromDevice, arginfo_class_NSEvent_isDirectionInvertedFromDevice, ZEND_ACC_PUBLIC)
+	ZEND_ME(NSEvent, magnification, arginfo_class_NSEvent_magnification, ZEND_ACC_PUBLIC)
+	ZEND_ME(NSEvent, rotation, arginfo_class_NSEvent_rotation, ZEND_ACC_PUBLIC)
+	ZEND_ME(NSEvent, pressure, arginfo_class_NSEvent_pressure, ZEND_ACC_PUBLIC)
+	ZEND_ME(NSEvent, stage, arginfo_class_NSEvent_stage, ZEND_ACC_PUBLIC)
+	ZEND_ME(NSEvent, stageTransition, arginfo_class_NSEvent_stageTransition, ZEND_ACC_PUBLIC)
 	ZEND_ME(NSEvent, window, arginfo_class_NSEvent_window, ZEND_ACC_PUBLIC)
 	ZEND_FE_END
 };

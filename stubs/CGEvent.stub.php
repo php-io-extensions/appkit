@@ -136,6 +136,19 @@ final class CGEvent extends CFType
     /** CGEventCreateKeyboardEvent; $virtualKey is a macOS virtual key code, cast to CGKeyCode (16 bits). */
     public static function createKeyboardEvent(?CGEventSource $source, int $virtualKey, bool $keyDown): ?CGEvent {}
 
+    /** CGEventCreate: a null event, its type and fields set afterwards. */
+    public static function create(?CGEventSource $source): ?CGEvent {}
+
+    /** CGEventGetType: a type no CGEventType case names (a gesture's 29, say) answers as its int. */
+    public function getType(): CGEventType|int {}
+
+    /** CGEventSetType: an int takes a type no CGEventType case names, cast to CGEventType (32 bits). */
+    public function setType(CGEventType|int $type): void {}
+
+    public function getDoubleValueField(int $field): float {}
+
+    public function setDoubleValueField(int $field, float $value): void {}
+
     /** CGEventGetFlags: the CGEventFlags mask. */
     public function getFlags(): int {}
 

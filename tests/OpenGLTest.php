@@ -28,6 +28,21 @@ it('makes a 4.1 core context from a pixel format and reads its CGL context back'
     expect(NSOpenGLContext::currentContext())->toBeNull();
 });
 
+it('wraps a CGL context made by ext-opengl, and is current when that context is', function (): void {
+    CGLChoosePixelFormat([kCGLPFAOpenGLProfile, kCGLOGLPVersion_GL4_Core, kCGLPFAAccelerated, 0], $pixelFormat, $count);
+    CGLCreateContext($pixelFormat, null, $cgl);
+    CGLDestroyPixelFormat($pixelFormat);
+
+    $context = NSOpenGLContext::initWithCGLContextObj($cgl->pointer());
+    $context->makeCurrentContext();
+
+    expect($context)->not->toBeNull()
+        ->and($context->CGLContextObj())->toBe($cgl->pointer())
+        ->and(CGLGetCurrentContext()?->pointer())->toBe($cgl->pointer())
+        ->and(glGetString(GL_VERSION))->toStartWith('4.1');
+    NSOpenGLContext::clearCurrentContext();
+});
+
 it('ends an attribute list itself, and refuses a last attribute that takes a value without one', function (): void {
     expect(NSOpenGLPixelFormat::initWithAttributes([NSOpenGLPFAAccelerated]))->toBeInstanceOf(NSOpenGLPixelFormat::class)
         ->and(NSOpenGLPixelFormat::initWithAttributes([]))->toBeInstanceOf(NSOpenGLPixelFormat::class)

@@ -139,6 +139,25 @@ ZEND_METHOD(NSOpenGLContext, initWithFormatShareContext)
 	APPKIT_END
 }
 
+ZEND_METHOD(NSOpenGLContext, initWithCGLContextObj)
+{
+	zend_long context;
+
+	ZEND_PARSE_PARAMETERS_START(1, 1)
+		Z_PARAM_LONG(context)
+	ZEND_PARSE_PARAMETERS_END();
+
+	APPKIT_BEGIN
+		NSOpenGLContext *wrapped = [[(Class) appkit_called_class(execute_data) alloc]
+			initWithCGLContextObj:(void *) (uintptr_t) context];
+		if (wrapped == nil) {
+			RETURN_NULL();
+		}
+		appkit_box_objc(return_value, wrapped);
+		[wrapped release];
+	APPKIT_END
+}
+
 ZEND_METHOD(NSOpenGLContext, makeCurrentContext)
 {
 	ZEND_PARSE_PARAMETERS_NONE();
