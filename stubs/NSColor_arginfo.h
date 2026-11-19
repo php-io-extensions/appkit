@@ -1,5 +1,5 @@
 /* This is a generated file, edit the .stub.php file instead.
- * Stub hash: dc6bb8c90eeba3a89be70ca2f6709a0ec3fce58a */
+ * Stub hash: f73644263afaa724a3ee24e2defaaaecb63dc12e */
 
 ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(arginfo_class_NSColor_colorWithRedGreenBlueAlpha, 0, 4, NSColor, 0)
 	ZEND_ARG_TYPE_INFO(0, red, IS_DOUBLE, 0)
@@ -43,6 +43,9 @@ ZEND_END_ARG_INFO()
 ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_NSColorSpace_localizedName, 0, 0, IS_STRING, 1)
 ZEND_END_ARG_INFO()
 
+ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(arginfo_class_NSColorSpace_CGColorSpace, 0, 0, CGColorSpace, 1)
+ZEND_END_ARG_INFO()
+
 ZEND_METHOD(NSColor, colorWithRedGreenBlueAlpha);
 ZEND_METHOD(NSColor, controlAccentColor);
 ZEND_METHOD(NSColor, redComponent);
@@ -56,6 +59,7 @@ ZEND_METHOD(NSColorSpace, initWithCGColorSpace);
 ZEND_METHOD(NSColorSpace, sRGBColorSpace);
 ZEND_METHOD(NSColorSpace, displayP3ColorSpace);
 ZEND_METHOD(NSColorSpace, localizedName);
+ZEND_METHOD(NSColorSpace, CGColorSpace);
 
 static const zend_function_entry class_NSColor_methods[] = {
 	ZEND_ME(NSColor, colorWithRedGreenBlueAlpha, arginfo_class_NSColor_colorWithRedGreenBlueAlpha, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
@@ -75,6 +79,7 @@ static const zend_function_entry class_NSColorSpace_methods[] = {
 	ZEND_ME(NSColorSpace, sRGBColorSpace, arginfo_class_NSColorSpace_sRGBColorSpace, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
 	ZEND_ME(NSColorSpace, displayP3ColorSpace, arginfo_class_NSColorSpace_displayP3ColorSpace, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
 	ZEND_ME(NSColorSpace, localizedName, arginfo_class_NSColorSpace_localizedName, ZEND_ACC_PUBLIC)
+	ZEND_ME(NSColorSpace, CGColorSpace, arginfo_class_NSColorSpace_CGColorSpace, ZEND_ACC_PUBLIC)
 	ZEND_FE_END
 };
 

@@ -1,5 +1,5 @@
 /* This is a generated file, edit the .stub.php file instead.
- * Stub hash: 428f7729695de99bbd9789344e098142a47e014e */
+ * Stub hash: aaead72f4d1ab9895502598b3ceb8ec95254041e */
 
 ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(arginfo_class_CFData_create, 0, 3, CFData, 1)
 	ZEND_ARG_OBJ_INFO(0, allocator, CFAllocator, 1)
@@ -44,6 +44,9 @@ ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(arginfo_class_CGColorSpace_createWithName
 	ZEND_ARG_TYPE_INFO(0, name, IS_STRING, 0)
 ZEND_END_ARG_INFO()
 
+ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(arginfo_class_CGColorSpace_copyICCData, 0, 0, CFData, 1)
+ZEND_END_ARG_INFO()
+
 ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(arginfo_class_CGImage_create, 0, 11, CGImage, 1)
 	ZEND_ARG_TYPE_INFO(0, width, IS_LONG, 0)
 	ZEND_ARG_TYPE_INFO(0, height, IS_LONG, 0)
@@ -65,6 +68,10 @@ ZEND_END_ARG_INFO()
 ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(arginfo_class_CGImage_createWithImageInRect, 0, 2, CGImage, 1)
 	ZEND_ARG_OBJ_INFO(0, image, CGImage, 0)
 	ZEND_ARG_OBJ_INFO(0, rect, NSRect, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_CGContext_setBlendMode, 0, 1, IS_VOID, 0)
+	ZEND_ARG_OBJ_INFO(0, mode, CGBlendMode, 0)
 ZEND_END_ARG_INFO()
 
 ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_CGContext_saveGState, 0, 0, IS_VOID, 0)
@@ -98,6 +105,16 @@ ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_CGContext_drawImage, 0, 2,
 	ZEND_ARG_OBJ_INFO(0, image, CGImage, 0)
 ZEND_END_ARG_INFO()
 
+ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(arginfo_class_CGBitmapContext_create, 0, 7, CGBitmapContext, 1)
+	ZEND_ARG_TYPE_INFO(0, data, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, width, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, height, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, bitsPerComponent, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, bytesPerRow, IS_LONG, 0)
+	ZEND_ARG_OBJ_INFO(0, space, CGColorSpace, 1)
+	ZEND_ARG_TYPE_INFO(0, bitmapInfo, IS_LONG, 0)
+ZEND_END_ARG_INFO()
+
 ZEND_METHOD(CFData, create);
 ZEND_METHOD(CFData, createMutable);
 ZEND_METHOD(CFData, getLength);
@@ -108,10 +125,12 @@ ZEND_METHOD(CFRange, __construct);
 ZEND_METHOD(CGDataProvider, createWithCFData);
 ZEND_METHOD(CGDataProvider, createDirect);
 ZEND_METHOD(CGColorSpace, createWithName);
+ZEND_METHOD(CGColorSpace, copyICCData);
 ZEND_METHOD(CGImage, create);
 ZEND_METHOD(CGImage, getWidth);
 ZEND_METHOD(CGImage, getHeight);
 ZEND_METHOD(CGImage, createWithImageInRect);
+ZEND_METHOD(CGContext, setBlendMode);
 ZEND_METHOD(CGContext, saveGState);
 ZEND_METHOD(CGContext, restoreGState);
 ZEND_METHOD(CGContext, clipToRect);
@@ -120,6 +139,7 @@ ZEND_METHOD(CGContext, scaleCTM);
 ZEND_METHOD(CGContext, setInterpolationQuality);
 ZEND_METHOD(CGContext, getInterpolationQuality);
 ZEND_METHOD(CGContext, drawImage);
+ZEND_METHOD(CGBitmapContext, create);
 
 static const zend_function_entry class_CFData_methods[] = {
 	ZEND_ME(CFData, create, arginfo_class_CFData_create, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
@@ -144,6 +164,7 @@ static const zend_function_entry class_CGDataProvider_methods[] = {
 
 static const zend_function_entry class_CGColorSpace_methods[] = {
 	ZEND_ME(CGColorSpace, createWithName, arginfo_class_CGColorSpace_createWithName, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
+	ZEND_ME(CGColorSpace, copyICCData, arginfo_class_CGColorSpace_copyICCData, ZEND_ACC_PUBLIC)
 	ZEND_FE_END
 };
 
@@ -156,6 +177,7 @@ static const zend_function_entry class_CGImage_methods[] = {
 };
 
 static const zend_function_entry class_CGContext_methods[] = {
+	ZEND_ME(CGContext, setBlendMode, arginfo_class_CGContext_setBlendMode, ZEND_ACC_PUBLIC)
 	ZEND_ME(CGContext, saveGState, arginfo_class_CGContext_saveGState, ZEND_ACC_PUBLIC)
 	ZEND_ME(CGContext, restoreGState, arginfo_class_CGContext_restoreGState, ZEND_ACC_PUBLIC)
 	ZEND_ME(CGContext, clipToRect, arginfo_class_CGContext_clipToRect, ZEND_ACC_PUBLIC)
@@ -164,6 +186,11 @@ static const zend_function_entry class_CGContext_methods[] = {
 	ZEND_ME(CGContext, setInterpolationQuality, arginfo_class_CGContext_setInterpolationQuality, ZEND_ACC_PUBLIC)
 	ZEND_ME(CGContext, getInterpolationQuality, arginfo_class_CGContext_getInterpolationQuality, ZEND_ACC_PUBLIC)
 	ZEND_ME(CGContext, drawImage, arginfo_class_CGContext_drawImage, ZEND_ACC_PUBLIC)
+	ZEND_FE_END
+};
+
+static const zend_function_entry class_CGBitmapContext_methods[] = {
+	ZEND_ME(CGBitmapContext, create, arginfo_class_CGBitmapContext_create, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
 	ZEND_FE_END
 };
 
@@ -217,6 +244,125 @@ static zend_class_entry *register_class_CGInterpolationQuality(void)
 	zval enum_case_MEDIUM_value;
 	ZVAL_LONG(&enum_case_MEDIUM_value, 4);
 	zend_enum_add_case_cstr(class_entry, "MEDIUM", &enum_case_MEDIUM_value);
+
+	return class_entry;
+}
+
+static zend_class_entry *register_class_CGBlendMode(void)
+{
+	zend_class_entry *class_entry = zend_register_internal_enum("CGBlendMode", IS_LONG, NULL);
+
+	zval enum_case_NORMAL_value;
+	ZVAL_LONG(&enum_case_NORMAL_value, 0);
+	zend_enum_add_case_cstr(class_entry, "NORMAL", &enum_case_NORMAL_value);
+
+	zval enum_case_MULTIPLY_value;
+	ZVAL_LONG(&enum_case_MULTIPLY_value, 1);
+	zend_enum_add_case_cstr(class_entry, "MULTIPLY", &enum_case_MULTIPLY_value);
+
+	zval enum_case_SCREEN_value;
+	ZVAL_LONG(&enum_case_SCREEN_value, 2);
+	zend_enum_add_case_cstr(class_entry, "SCREEN", &enum_case_SCREEN_value);
+
+	zval enum_case_OVERLAY_value;
+	ZVAL_LONG(&enum_case_OVERLAY_value, 3);
+	zend_enum_add_case_cstr(class_entry, "OVERLAY", &enum_case_OVERLAY_value);
+
+	zval enum_case_DARKEN_value;
+	ZVAL_LONG(&enum_case_DARKEN_value, 4);
+	zend_enum_add_case_cstr(class_entry, "DARKEN", &enum_case_DARKEN_value);
+
+	zval enum_case_LIGHTEN_value;
+	ZVAL_LONG(&enum_case_LIGHTEN_value, 5);
+	zend_enum_add_case_cstr(class_entry, "LIGHTEN", &enum_case_LIGHTEN_value);
+
+	zval enum_case_COLOR_DODGE_value;
+	ZVAL_LONG(&enum_case_COLOR_DODGE_value, 6);
+	zend_enum_add_case_cstr(class_entry, "COLOR_DODGE", &enum_case_COLOR_DODGE_value);
+
+	zval enum_case_COLOR_BURN_value;
+	ZVAL_LONG(&enum_case_COLOR_BURN_value, 7);
+	zend_enum_add_case_cstr(class_entry, "COLOR_BURN", &enum_case_COLOR_BURN_value);
+
+	zval enum_case_SOFT_LIGHT_value;
+	ZVAL_LONG(&enum_case_SOFT_LIGHT_value, 8);
+	zend_enum_add_case_cstr(class_entry, "SOFT_LIGHT", &enum_case_SOFT_LIGHT_value);
+
+	zval enum_case_HARD_LIGHT_value;
+	ZVAL_LONG(&enum_case_HARD_LIGHT_value, 9);
+	zend_enum_add_case_cstr(class_entry, "HARD_LIGHT", &enum_case_HARD_LIGHT_value);
+
+	zval enum_case_DIFFERENCE_value;
+	ZVAL_LONG(&enum_case_DIFFERENCE_value, 10);
+	zend_enum_add_case_cstr(class_entry, "DIFFERENCE", &enum_case_DIFFERENCE_value);
+
+	zval enum_case_EXCLUSION_value;
+	ZVAL_LONG(&enum_case_EXCLUSION_value, 11);
+	zend_enum_add_case_cstr(class_entry, "EXCLUSION", &enum_case_EXCLUSION_value);
+
+	zval enum_case_HUE_value;
+	ZVAL_LONG(&enum_case_HUE_value, 12);
+	zend_enum_add_case_cstr(class_entry, "HUE", &enum_case_HUE_value);
+
+	zval enum_case_SATURATION_value;
+	ZVAL_LONG(&enum_case_SATURATION_value, 13);
+	zend_enum_add_case_cstr(class_entry, "SATURATION", &enum_case_SATURATION_value);
+
+	zval enum_case_COLOR_value;
+	ZVAL_LONG(&enum_case_COLOR_value, 14);
+	zend_enum_add_case_cstr(class_entry, "COLOR", &enum_case_COLOR_value);
+
+	zval enum_case_LUMINOSITY_value;
+	ZVAL_LONG(&enum_case_LUMINOSITY_value, 15);
+	zend_enum_add_case_cstr(class_entry, "LUMINOSITY", &enum_case_LUMINOSITY_value);
+
+	zval enum_case_CLEAR_value;
+	ZVAL_LONG(&enum_case_CLEAR_value, 16);
+	zend_enum_add_case_cstr(class_entry, "CLEAR", &enum_case_CLEAR_value);
+
+	zval enum_case_COPY_value;
+	ZVAL_LONG(&enum_case_COPY_value, 17);
+	zend_enum_add_case_cstr(class_entry, "COPY", &enum_case_COPY_value);
+
+	zval enum_case_SOURCE_IN_value;
+	ZVAL_LONG(&enum_case_SOURCE_IN_value, 18);
+	zend_enum_add_case_cstr(class_entry, "SOURCE_IN", &enum_case_SOURCE_IN_value);
+
+	zval enum_case_SOURCE_OUT_value;
+	ZVAL_LONG(&enum_case_SOURCE_OUT_value, 19);
+	zend_enum_add_case_cstr(class_entry, "SOURCE_OUT", &enum_case_SOURCE_OUT_value);
+
+	zval enum_case_SOURCE_ATOP_value;
+	ZVAL_LONG(&enum_case_SOURCE_ATOP_value, 20);
+	zend_enum_add_case_cstr(class_entry, "SOURCE_ATOP", &enum_case_SOURCE_ATOP_value);
+
+	zval enum_case_DESTINATION_OVER_value;
+	ZVAL_LONG(&enum_case_DESTINATION_OVER_value, 21);
+	zend_enum_add_case_cstr(class_entry, "DESTINATION_OVER", &enum_case_DESTINATION_OVER_value);
+
+	zval enum_case_DESTINATION_IN_value;
+	ZVAL_LONG(&enum_case_DESTINATION_IN_value, 22);
+	zend_enum_add_case_cstr(class_entry, "DESTINATION_IN", &enum_case_DESTINATION_IN_value);
+
+	zval enum_case_DESTINATION_OUT_value;
+	ZVAL_LONG(&enum_case_DESTINATION_OUT_value, 23);
+	zend_enum_add_case_cstr(class_entry, "DESTINATION_OUT", &enum_case_DESTINATION_OUT_value);
+
+	zval enum_case_DESTINATION_ATOP_value;
+	ZVAL_LONG(&enum_case_DESTINATION_ATOP_value, 24);
+	zend_enum_add_case_cstr(class_entry, "DESTINATION_ATOP", &enum_case_DESTINATION_ATOP_value);
+
+	zval enum_case_XOR_value;
+	ZVAL_LONG(&enum_case_XOR_value, 25);
+	zend_enum_add_case_cstr(class_entry, "XOR", &enum_case_XOR_value);
+
+	zval enum_case_PLUS_DARKER_value;
+	ZVAL_LONG(&enum_case_PLUS_DARKER_value, 26);
+	zend_enum_add_case_cstr(class_entry, "PLUS_DARKER", &enum_case_PLUS_DARKER_value);
+
+	zval enum_case_PLUS_LIGHTER_value;
+	ZVAL_LONG(&enum_case_PLUS_LIGHTER_value, 27);
+	zend_enum_add_case_cstr(class_entry, "PLUS_LIGHTER", &enum_case_PLUS_LIGHTER_value);
 
 	return class_entry;
 }
@@ -298,7 +444,17 @@ static zend_class_entry *register_class_CGContext(zend_class_entry *class_entry_
 	zend_class_entry ce, *class_entry;
 
 	INIT_CLASS_ENTRY(ce, "CGContext", class_CGContext_methods);
-	class_entry = zend_register_internal_class_with_flags(&ce, class_entry_CFType, ZEND_ACC_FINAL|ZEND_ACC_NOT_SERIALIZABLE);
+	class_entry = zend_register_internal_class_with_flags(&ce, class_entry_CFType, ZEND_ACC_NOT_SERIALIZABLE);
+
+	return class_entry;
+}
+
+static zend_class_entry *register_class_CGBitmapContext(zend_class_entry *class_entry_CGContext)
+{
+	zend_class_entry ce, *class_entry;
+
+	INIT_CLASS_ENTRY(ce, "CGBitmapContext", class_CGBitmapContext_methods);
+	class_entry = zend_register_internal_class_with_flags(&ce, class_entry_CGContext, ZEND_ACC_FINAL|ZEND_ACC_NOT_SERIALIZABLE);
 
 	return class_entry;
 }

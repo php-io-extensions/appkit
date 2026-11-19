@@ -140,3 +140,12 @@ ZEND_METHOD(NSColorSpace, localizedName)
 		}
 	APPKIT_END
 }
+
+ZEND_METHOD(NSColorSpace, CGColorSpace)
+{
+	ZEND_PARSE_PARAMETERS_NONE();
+
+	APPKIT_BEGIN
+		appkit_box_cf(return_value, (CFTypeRef) [THIS_COLOR_SPACE CGColorSpace]);
+	APPKIT_END
+}

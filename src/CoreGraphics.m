@@ -3,6 +3,8 @@
 
 _Static_assert(kCGInterpolationDefault == 0 && kCGInterpolationNone == 1 && kCGInterpolationLow == 2 && kCGInterpolationHigh == 3
 	&& kCGInterpolationMedium == 4, "CGInterpolationQuality values moved");
+_Static_assert(kCGBlendModeNormal == 0 && kCGBlendModeLuminosity == 15 && kCGBlendModeClear == 16 && kCGBlendModeCopy == 17
+	&& kCGBlendModeXOR == 25 && kCGBlendModePlusLighter == 27, "CGBlendMode values moved");
 
 void appkit_register_CoreGraphics(int module_number)
 {
@@ -23,6 +25,9 @@ void appkit_register_CoreGraphics(int module_number)
 	appkit_object_setup(appkit_ce_CGColor);
 	appkit_ce_CGImage = register_class_CGImage(appkit_ce_CFType);
 	appkit_object_setup(appkit_ce_CGImage);
+	appkit_ce_CGBlendMode = register_class_CGBlendMode();
+	appkit_ce_CGBitmapContext = register_class_CGBitmapContext(appkit_ce_CGContext);
+	appkit_object_setup(appkit_ce_CGBitmapContext);
 }
 
 /* Box a +1 reference a Create function answered, then drop that reference: the wrapper holds its own. */
@@ -204,6 +209,15 @@ ZEND_METHOD(CGColorSpace, createWithName)
 	APPKIT_END
 }
 
+ZEND_METHOD(CGColorSpace, copyICCData)
+{
+	ZEND_PARSE_PARAMETERS_NONE();
+
+	APPKIT_BEGIN
+		appkit_return_created(return_value, CGColorSpaceCopyICCData((CGColorSpaceRef) APPKIT_CF(Z_OBJ_P(ZEND_THIS))));
+	APPKIT_END
+}
+
 ZEND_METHOD(CGImage, create)
 {
 	zend_long width, height, bits_per_component, bits_per_pixel, bytes_per_row, bitmap_info, intent;
@@ -284,6 +298,42 @@ ZEND_METHOD(CGImage, createWithImageInRect)
 }
 
 #define THIS_CONTEXT ((CGContextRef) APPKIT_CF(Z_OBJ_P(ZEND_THIS)))
+
+ZEND_METHOD(CGContext, setBlendMode)
+{
+	zend_object *mode;
+
+	ZEND_PARSE_PARAMETERS_START(1, 1)
+		Z_PARAM_OBJ_OF_CLASS(mode, appkit_ce_CGBlendMode)
+	ZEND_PARSE_PARAMETERS_END();
+
+	CGContextSetBlendMode(THIS_CONTEXT, (CGBlendMode) appkit_enum_value(mode, 0));
+}
+
+ZEND_METHOD(CGBitmapContext, create)
+{
+	zend_long data, width, height, bits_per_component, bytes_per_row, bitmap_info;
+	zend_object *space;
+
+	ZEND_PARSE_PARAMETERS_START(7, 7)
+		Z_PARAM_LONG(data)
+		Z_PARAM_LONG(width)
+		Z_PARAM_LONG(height)
+		Z_PARAM_LONG(bits_per_component)
+		Z_PARAM_LONG(bytes_per_row)
+		Z_PARAM_OBJ_OF_CLASS_OR_NULL(space, appkit_ce_CGColorSpace)
+		Z_PARAM_LONG(bitmap_info)
+	ZEND_PARSE_PARAMETERS_END();
+
+	APPKIT_BEGIN
+		CGContextRef made = CGBitmapContextCreate((void *) (uintptr_t) data, (size_t) width, (size_t) height, (size_t) bits_per_component,
+			(size_t) bytes_per_row, space != NULL ? (CGColorSpaceRef) APPKIT_CF(space) : NULL, (uint32_t) bitmap_info);
+		appkit_box_cf_as(return_value, made, appkit_ce_CGBitmapContext);
+		if (made != NULL) {
+			CFRelease(made);
+		}
+	APPKIT_END
+}
 
 ZEND_METHOD(CGContext, saveGState)
 {

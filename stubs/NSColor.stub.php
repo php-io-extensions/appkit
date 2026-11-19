@@ -40,4 +40,7 @@ class NSColorSpace extends NSObject
     public static function displayP3ColorSpace(): NSColorSpace {}
 
     public function localizedName(): ?string {}
+
+    /** CGColorSpace: the Core Graphics colour space AppKit's one is backed by; null when it has none. */
+    public function CGColorSpace(): ?CGColorSpace {}
 }

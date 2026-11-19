@@ -215,6 +215,9 @@ extern zend_class_entry *appkit_ce_NSScreen;
 extern zend_class_entry *appkit_ce_CGDisplayMode;
 extern zend_class_entry *appkit_ce_CGDisplay;
 extern zend_class_entry *appkit_ce_CGInterpolationQuality;
+extern zend_class_entry *appkit_ce_CGBlendMode;
+extern zend_class_entry *appkit_ce_CGBitmapContext;
+extern zend_class_entry *appkit_ce_IOSurface;
 extern zend_class_entry *appkit_ce_CGContext;
 extern zend_class_entry *appkit_ce_NSGraphicsContext;
 extern zend_class_entry *appkit_ce_CAFrameRateRange;
@@ -290,6 +293,7 @@ void appkit_register_NSArray(void);
 void appkit_register_NSToolbar(int module_number);
 void appkit_register_NSNotificationCenter(int module_number);
 void appkit_register_WebKit(void);
+void appkit_register_IOSurface(int module_number);
 
 /* Object model. */
 void appkit_object_setup(zend_class_entry *ce);

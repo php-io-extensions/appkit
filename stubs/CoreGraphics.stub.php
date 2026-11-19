@@ -149,6 +149,38 @@ enum CGInterpolationQuality: int
     case MEDIUM = 4;
 }
 
+enum CGBlendMode: int
+{
+    case NORMAL = 0;
+    case MULTIPLY = 1;
+    case SCREEN = 2;
+    case OVERLAY = 3;
+    case DARKEN = 4;
+    case LIGHTEN = 5;
+    case COLOR_DODGE = 6;
+    case COLOR_BURN = 7;
+    case SOFT_LIGHT = 8;
+    case HARD_LIGHT = 9;
+    case DIFFERENCE = 10;
+    case EXCLUSION = 11;
+    case HUE = 12;
+    case SATURATION = 13;
+    case COLOR = 14;
+    case LUMINOSITY = 15;
+    case CLEAR = 16;
+    case COPY = 17;
+    case SOURCE_IN = 18;
+    case SOURCE_OUT = 19;
+    case SOURCE_ATOP = 20;
+    case DESTINATION_OVER = 21;
+    case DESTINATION_IN = 22;
+    case DESTINATION_OUT = 23;
+    case DESTINATION_ATOP = 24;
+    case XOR = 25;
+    case PLUS_DARKER = 26;
+    case PLUS_LIGHTER = 27;
+}
+
 /**
  * @not-serializable
  */
@@ -219,6 +251,9 @@ final class CGColorSpace extends CFType
 {
     /** null when no colour space has that name (a kCGColorSpace* string) */
     public static function createWithName(string $name): ?CGColorSpace {}
+
+    /** CGColorSpaceCopyICCData: the space's ICC profile; null when it has none. */
+    public function copyICCData(): ?CFData {}
 }
 
 /**
@@ -255,8 +290,10 @@ final class CGImage extends CFType
  *
  * @not-serializable
  */
-final class CGContext extends CFType
+class CGContext extends CFType
 {
+    public function setBlendMode(CGBlendMode $mode): void {}
+
     public function saveGState(): void {}
 
     public function restoreGState(): void {}
@@ -273,4 +310,18 @@ final class CGContext extends CFType
 
     /** CGContextDrawImage: $image scaled into $rect, in the context's user space. */
     public function drawImage(NSRect $rect, CGImage $image): void {}
+}
+
+/**
+ * A CGContextRef made by CGBitmapContextCreate: drawing lands in memory.
+ *
+ * @not-serializable
+ */
+final class CGBitmapContext extends CGContext
+{
+    /**
+     * CGBitmapContextCreate over the memory at $data (an address; 0 lets Core Graphics allocate). The memory is
+     * trusted, as every address hand-off is, and must outlive the context. null when Core Graphics makes none.
+     */
+    public static function create(int $data, int $width, int $height, int $bitsPerComponent, int $bytesPerRow, ?CGColorSpace $space, int $bitmapInfo): ?CGBitmapContext {}
 }

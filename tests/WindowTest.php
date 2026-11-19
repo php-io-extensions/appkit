@@ -114,6 +114,20 @@ it('takes a colour space from Core Graphics and gives a window its own', functio
     $window->close();
 });
 
+it('gives the Core Graphics colour space an AppKit one is backed by', function (): void {
+    $window = NSWindow::initWithContentRectStyleMaskBackingDefer(new NSRect(0.0, 0.0, 64.0, 64.0), NSWindowStyleMask::TITLED->value, NSBackingStoreType::BUFFERED, false);
+    $window->setReleasedWhenClosed(false);
+    $window->setColorSpace(NSColorSpace::displayP3ColorSpace());
+    $p3 = $window->colorSpace()?->CGColorSpace();
+    $window->setColorSpace(null);
+    $srgb = NSColorSpace::sRGBColorSpace()->CGColorSpace();
+
+    expect($p3)->toBeInstanceOf(CGColorSpace::class)
+        ->and(NSColorSpace::initWithCGColorSpace($p3)->localizedName())->toBe(NSColorSpace::displayP3ColorSpace()->localizedName())
+        ->and(NSColorSpace::initWithCGColorSpace($srgb)->localizedName())->toBe(NSColorSpace::sRGBColorSpace()->localizedName());
+    $window->close();
+});
+
 it('switches moved events on and off', function (): void {
     $window = newWindow();
 

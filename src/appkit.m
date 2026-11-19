@@ -174,6 +174,9 @@ zend_class_entry *appkit_ce_NSScreen;
 zend_class_entry *appkit_ce_CGDisplayMode;
 zend_class_entry *appkit_ce_CGDisplay;
 zend_class_entry *appkit_ce_CGInterpolationQuality;
+zend_class_entry *appkit_ce_CGBlendMode;
+zend_class_entry *appkit_ce_CGBitmapContext;
+zend_class_entry *appkit_ce_IOSurface;
 zend_class_entry *appkit_ce_CGContext;
 zend_class_entry *appkit_ce_NSGraphicsContext;
 zend_class_entry *appkit_ce_CAFrameRateRange;
@@ -272,6 +275,7 @@ PHP_MINIT_FUNCTION(appkit)
 	appkit_register_CoreGraphics(module_number);
 	appkit_register_CGDirectDisplay(module_number);
 	appkit_register_CGEvent(module_number);
+	appkit_register_IOSurface(module_number);
 
 	return SUCCESS;
 }

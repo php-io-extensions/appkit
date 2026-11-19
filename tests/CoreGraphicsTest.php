@@ -81,6 +81,42 @@ it('names colour spaces, and answers null for a name there is none for', functio
         ->and(CGColorSpace::createWithName('no such space'))->toBeNull();
 });
 
+it('draws into memory through a bitmap context, copying under the copy blend mode', function (): void {
+    $info = kCGImageAlphaPremultipliedFirst | kCGBitmapByteOrder32Little;
+    $srgb = CGColorSpace::createWithName(kCGColorSpaceSRGB);
+    // B G R A: a premultiplied translucent pixel, then a transparent one
+    $source = "\x10\x20\x30\x80\x00\x00\x00\x00";
+    $image = CGImage::create(2, 1, 8, 32, 8, $srgb, $info, CGDataProvider::createWithCFData(CFData::create(null, $source, 8)), null, false, kCGRenderingIntentDefault);
+    $into = function (CGBlendMode $mode) use ($image, $info, $srgb): string {
+        $memory = CFData::createMutable(null, 0);
+        $memory->setLength(8);
+        $address = $memory->getMutableBytePtr();
+        CFData::create(null, str_repeat("\xff", 8), 8)->getBytes(new CFRange(0, 8), $opaque);
+        $context = CGBitmapContext::create($address, 2, 1, 8, 8, $srgb, $info);
+        // fill the memory opaque white first, through the same context
+        $white = CGImage::create(2, 1, 8, 32, 8, $srgb, $info, CGDataProvider::createWithCFData(CFData::create(null, $opaque, 8)), null, false, kCGRenderingIntentDefault);
+        $context->setBlendMode(CGBlendMode::COPY);
+        $context->drawImage(new NSRect(0.0, 0.0, 2.0, 1.0), $white);
+        $context->setBlendMode($mode);
+        $context->drawImage(new NSRect(0.0, 0.0, 2.0, 1.0), $image);
+        $memory->getBytes(new CFRange(0, 8), $bytes);
+
+        return $bytes;
+    };
+
+    expect(CGBitmapContext::create(0, 4, 4, 8, 16, $srgb, $info))->toBeInstanceOf(CGBitmapContext::class)
+        ->and(CGBitmapContext::create(0, 4, 4, 8, 16, $srgb, $info))->toBeInstanceOf(CGContext::class)
+        ->and($into(CGBlendMode::COPY))->toBe($source)
+        ->and(substr($into(CGBlendMode::NORMAL), 4))->toBe("\xff\xff\xff\xff");
+});
+
+it("gives a colour space's ICC profile", function (): void {
+    $icc = CGColorSpace::createWithName(kCGColorSpaceSRGB)->copyICCData();
+
+    expect($icc)->toBeInstanceOf(CFData::class)
+        ->and($icc->getLength())->toBeGreaterThan(128);
+});
+
 it('makes an image from bytes', function (): void {
     $image = rgbx(3, 2, str_repeat("\xff\x80\x00\xff", 6));
 

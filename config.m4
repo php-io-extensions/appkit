@@ -20,7 +20,7 @@ if test "$PHP_APPKIT" != "no"; then
     AC_DEFINE([APPKIT_PROBES], [1], [Kept refusal sites can be turned off through env APPKIT_PROBE_OFF])
   fi
 
-  APPKIT_SOURCES="src/appkit.m src/runtime.m src/NSObject.m src/NSApplication.m src/NSEvent.m src/NSDate.m src/NSTimer.m src/NSAnimationContext.m src/NSError.m src/CFType.m src/CFRunLoop.m src/CFFileDescriptor.m src/CoreGraphics.m src/NSGeometry.m src/NSView.m src/NSWindow.m src/NSMenu.m src/ObjCGlue.m src/NSLayout.m src/NSColor.m src/NSFont.m src/NSStackView.m src/NSGridView.m src/NSControls.m src/NSSplitView.m src/NSTableView.m src/NSCollectionView.m src/NSArray.m src/NSToolbar.m src/NSNotificationCenter.m src/CALayer.m src/NSOpenGL.m src/NSScreen.m src/CGDirectDisplay.m src/CGEvent.m src/GameController.m src/NSGraphicsContext.m src/CADisplayLink.m src/NSRunLoop.m src/NSProcessInfo.m src/IOPMLib.m src/NSPanel.m src/NSPasteboard.m src/UTType.m src/WebKit.m"
+  APPKIT_SOURCES="src/appkit.m src/runtime.m src/NSObject.m src/NSApplication.m src/NSEvent.m src/NSDate.m src/NSTimer.m src/NSAnimationContext.m src/NSError.m src/CFType.m src/CFRunLoop.m src/CFFileDescriptor.m src/CoreGraphics.m src/NSGeometry.m src/NSView.m src/NSWindow.m src/NSMenu.m src/ObjCGlue.m src/NSLayout.m src/NSColor.m src/NSFont.m src/NSStackView.m src/NSGridView.m src/NSControls.m src/NSSplitView.m src/NSTableView.m src/NSCollectionView.m src/NSArray.m src/NSToolbar.m src/NSNotificationCenter.m src/CALayer.m src/NSOpenGL.m src/NSScreen.m src/CGDirectDisplay.m src/CGEvent.m src/GameController.m src/NSGraphicsContext.m src/CADisplayLink.m src/NSRunLoop.m src/NSProcessInfo.m src/IOPMLib.m src/NSPanel.m src/NSPasteboard.m src/UTType.m src/WebKit.m src/IOSurface.m"
 
   dnl No C sources: every translation unit is Objective-C, compiled by the rules below.
   PHP_NEW_EXTENSION([appkit], [], [$ext_shared],, [-DZEND_ENABLE_STATIC_TSRMLS_CACHE=1])
@@ -57,7 +57,7 @@ EOF
   done
 
   dnl Shared, the frameworks go to the .so; compiled in, to PHP's own link line.
-  APPKIT_FRAMEWORKS="Foundation CoreFoundation AppKit QuartzCore CoreGraphics OpenGL IOKit GameController UniformTypeIdentifiers WebKit"
+  APPKIT_FRAMEWORKS="Foundation CoreFoundation AppKit QuartzCore CoreGraphics OpenGL IOKit GameController UniformTypeIdentifiers WebKit IOSurface"
   if test "$ext_shared" = "yes"; then
     for appkit_framework in $APPKIT_FRAMEWORKS; do
       APPKIT_SHARED_LIBADD="$APPKIT_SHARED_LIBADD -framework $appkit_framework"

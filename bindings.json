@@ -177,5 +177,5 @@
     "pixel-format-value": {"kind": "refusal", "outcome": 1, "probe": "tests/Probes/PixelFormatTest.php"},
     "calayer-contents-value": {"kind": "marshal"}
   },
-  "typemap": {"UInt8": ["string", "int"]}
+  "typemap": {"UInt8": ["string", "int"], "kern_return_t": ["int"]}
 }
